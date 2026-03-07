@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Research Calendar — 연구자를 위한 올인원 플랫폼</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f7f8fc;
+  --white: #ffffff;
+  --border: #e4e8f0;
+  --border-light: #eef1f8;
+
+  --blue: #059669;
+  --blue-dark: #047857;
+  --blue-light: #ecfdf5;
+  --blue-mid: #a7f3d0;
+  --green: #059669;
+  --green-light: #ecfdf5;
+  --amber: #d97706;
+  --amber-light: #fffbeb;
+  --red: #dc2626;
+  --red-light: #fef2f2;
+  --purple: #7c3aed;
+  --purple-light: #f5f3ff;
+  --pink: #db2777;
+
+  --text: #0f172a;
+  --text-sub: #334155;
+  --text-muted: #64748b;
+  --text-light: #94a3b8;
+
+  --shadow-xs: 0 1px 2px rgba(15,23,42,0.05);
+  --shadow-sm: 0 1px 3px rgba(15,23,42,0.08), 0 1px 2px rgba(15,23,42,0.04);
+  --shadow: 0 4px 16px rgba(15,23,42,0.08);
+  --shadow-lg: 0 20px 60px rgba(15,23,42,0.12);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Sans KR', 'Montserrat', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-size: 20.4px;
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* ── NAVBAR ── */
+.navbar {
+  position: sticky; top: 0; z-index: 200;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  height: 64px;
+  display: flex; align-items: center;
+  padding: 0 48px;
+  justify-content: space-between;
+  box-shadow: var(--shadow-xs);
+}
+
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  cursor: pointer;
+}
+
+.nav-logo-icon {
+  width: 34px; height: 34px;
+  background: var(--blue);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20.4px;
+  box-shadow: 0 2px 8px rgba(5,150,105,0.4);
+}
+
+.nav-logo-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+  color: var(--text);
+  letter-spacing: -0.5px;
+}
+
+.nav-logo-sub {
+  font-size: 13.2px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.nav-links {
+  display: flex; align-items: center; gap: 4px;
+}
+
+.nav-link {
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-size: 16.8px;
+  font-weight: 500;
+  color: var(--text-sub);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.nav-link:hover { background: var(--bg); color: var(--text); }
+.nav-link.active { color: var(--blue); background: var(--blue-light); }
+
+.nav-badge {
+  display: inline-block;
+  background: var(--red);
+  color: white;
+  font-size: 10.8px;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: 10px;
+  margin-left: 4px;
+  vertical-align: middle;
+}
+
+.nav-right { display: flex; align-items: center; gap: 10px; }
+
+.btn-login {
+  padding: 8px 18px;
+  border: 1.5px solid var(--border);
+  border-radius: 9px;
+  font-size: 16.2px;
+  font-weight: 600;
+  color: var(--text-sub);
+  background: transparent;
+  cursor: pointer;
+  font-family: 'Noto Sans KR', sans-serif;
+  transition: all 0.15s;
+}
+
+.btn-login:hover { border-color: var(--blue); color: var(--blue); }
+
+.btn-cta {
+  padding: 8px 20px;
+  background: var(--blue);
+  border: none;
+  border-radius: 9px;
+  font-size: 16.2px;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+  font-family: 'Noto Sans KR', sans-serif;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(5,150,105,0.35);
+}
+
+.btn-cta:hover { background: var(--blue-dark); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(5,150,105,0.45); }
+
+/* ── PAGES ── */
+.page { display: none; }
+.page.active { display: block; animation: fadeIn 0.2s ease; }
+
+@keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+
+/* ══════════════════════════
+   HOME PAGE
+══════════════════════════ */
+
+/* HERO */
+.hero {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 72px 48px 64px;
+  display: grid;
+  grid-template-columns: 1fr 460px;
+  gap: 60px;
+  align-items: center;
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+  overflow: visible;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(37,99,235,0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--blue-light);
+  border: 1px solid var(--blue-mid);
+  color: var(--blue);
+  font-size: 14.4px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  letter-spacing: 0.3px;
+}
+
+.hero-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 62.4px;
+  line-height: 1.12;
+  letter-spacing: -1.5px;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+
+.hero-title .accent {
+  color: var(--blue);
+  font-style: italic;
+}
+
+.hero-desc {
+  font-size: 19.2px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 36px;
+  max-width: 480px;
+}
+
+.hero-actions { display: flex; gap: 12px; align-items: center; margin-bottom: 40px; }
+
+.btn-hero-primary {
+  display: flex; align-items: center; gap: 8px;
+  padding: 13px 28px;
+  background: var(--blue);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Noto Sans KR', sans-serif;
+  transition: all 0.2s;
+  box-shadow: 0 4px 16px rgba(5,150,105,0.4);
+}
+
+.btn-hero-primary:hover { background: var(--blue-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,99,235,0.5); }
+
+.btn-hero-secondary {
+  display: flex; align-items: center; gap: 8px;
+  padding: 13px 24px;
+  background: transparent;
+  color: var(--text-sub);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Noto Sans KR', sans-serif;
+  transition: all 0.15s;
+}
+
+.btn-hero-secondary:hover { border-color: var(--blue); color: var(--blue); }
+
+.hero-stats {
+  display: flex; gap: 32px;
+}
+
+.hero-stat-item { text-align: center; }
+
+.hero-stat-value {
+  font-family: 'DM Mono', monospace;
+  font-size: 31.2px;
+  font-weight: 500;
+  color: var(--blue);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.hero-stat-label {
+  font-size: 13.8px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* HERO CARD */
+.hero-visual {
+  position: relative;
+}
+
+.hero-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  z-index: 2;
+}
+
+.hero-card-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.hero-card-title {
+  font-size: 15.6px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.live-dot {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 13.2px;
+  color: var(--green);
+  font-weight: 600;
+}
+
+.live-dot::before {
+  content: '';
+  width: 7px; height: 7px;
+  background: var(--green);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,100% { opacity:1; }
+  50% { opacity:0.4; }
+}
+
+.mini-info-item {
+  display: flex; gap: 10px; align-items: center;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--bg);
+  margin-bottom: 8px;
+  transition: all 0.15s;
+  cursor: pointer;
+}
+
+.mini-info-item:hover { background: var(--blue-light); }
+.mini-info-item:last-child { margin-bottom: 0; }
+
+.mini-badge {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 5px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.mb-conf { background: var(--blue-light); color: var(--blue); }
+.mb-scholar { background: var(--green-light); color: var(--green); }
+.mb-project { background: var(--amber-light); color: var(--amber); }
+
+.mini-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  flex: 1;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.mini-dday {
+  font-size: 13.2px;
+  font-weight: 700;
+  font-family: 'DM Mono', monospace;
+  white-space: nowrap;
+}
+
+.dday-red { color: var(--red); }
+.dday-amber { color: var(--amber); }
+.dday-green { color: var(--green); }
+
+
+
+/* SECTION LAYOUT */
+.section-wrap {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 48px 48px;
+}
+
+.section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.section-title {
+  font-size: 26.4px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.5px;
+}
+
+.section-sub {
+  font-size: 16.2px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.see-all {
+  font-size: 15.6px;
+  color: var(--blue);
+  font-weight: 600;
+  cursor: pointer;
+  display: flex; align-items: center; gap: 4px;
+}
+
+.see-all:hover { text-decoration: underline; }
+
+/* ── QUICK STATS BAND ── */
+.stats-band {
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.stats-band-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 48px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  divide-x: 1px;
+}
+
+.band-item {
+  padding: 24px 32px;
+  border-right: 1px solid var(--border);
+  display: flex; align-items: center; gap: 14px;
+  transition: background 0.15s;
+  cursor: default;
+}
+
+.band-item:last-child { border-right: none; }
+.band-item:hover { background: var(--bg); }
+
+.band-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.band-icon.blue { background: var(--blue-light); }
+.band-icon.green { background: var(--green-light); }
+.band-icon.amber { background: var(--amber-light); }
+.band-icon.red { background: var(--red-light); }
+
+.band-value {
+  font-family: 'DM Mono', monospace;
+  font-size: 33.6px;
+  font-weight: 500;
+  line-height: 1;
+  margin-bottom: 3px;
+}
+
+.band-item.blue .band-value { color: var(--blue); }
+.band-item.green .band-value { color: var(--green); }
+.band-item.amber .band-value { color: var(--amber); }
+.band-item.red .band-value { color: var(--red); }
+
+.band-label { font-size: 15px; font-weight: 500; color: var(--text-muted); }
+
+/* ── COMMUNITY ── */
+.community-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* HOT POSTS */
+.post-list { display: flex; flex-direction: column; gap: 0; }
+
+.post-item {
+  display: flex; gap: 14px; align-items: flex-start;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-light);
+  cursor: pointer;
+  transition: background 0.12s;
+  background: var(--white);
+}
+
+.post-item:first-child { border-radius: 16px 16px 0 0; }
+.post-item:last-child { border-bottom: none; border-radius: 0 0 16px 16px; }
+.post-item:hover { background: #fafbff; }
+
+.post-rank {
+  font-family: 'DM Mono', monospace;
+  font-size: 15.6px;
+  font-weight: 500;
+  color: var(--text-light);
+  width: 20px;
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+
+.post-rank.top { color: var(--blue); font-weight: 700; }
+
+.post-body { flex: 1; min-width: 0; }
+
+.post-category {
+  font-size: 12.6px;
+  font-weight: 600;
+  color: var(--blue);
+  background: var(--blue-light);
+  padding: 2px 7px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+.post-title {
+  font-size: 16.2px;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  margin-bottom: 6px;
+}
+
+.post-meta {
+  display: flex; gap: 10px;
+  font-size: 13.8px;
+  color: var(--text-light);
+}
+
+.post-meta span { display: flex; align-items: center; gap: 3px; }
+
+/* INFO CARDS */
+.info-card-list { display: flex; flex-direction: column; gap: 10px; }
+
+.info-card {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 16px 18px;
+  display: flex; gap: 14px; align-items: flex-start;
+  cursor: pointer;
+  transition: all 0.15s;
+  box-shadow: var(--shadow-xs);
+}
+
+.info-card:hover { box-shadow: var(--shadow); transform: translateY(-1px); border-color: var(--blue-mid); }
+
+.info-card-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 21.6px;
+  flex-shrink: 0;
+}
+
+.info-card-body { flex: 1; min-width: 0; }
+
+.info-card-tag {
+  font-size: 12.6px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 5px;
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+.tag-conf { background: var(--blue-light); color: var(--blue); }
+.tag-scholar { background: var(--green-light); color: var(--green); }
+.tag-project { background: var(--amber-light); color: var(--amber); }
+
+.info-card-title {
+  font-size: 16.2px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.info-card-org {
+  font-size: 14.4px;
+  color: var(--text-muted);
+}
+
+.info-card-right {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.dday-pill {
+  font-size: 13.8px;
+  font-weight: 700;
+  font-family: 'DM Mono', monospace;
+  padding: 4px 10px;
+  border-radius: 6px;
+  display: inline-block;
+  margin-bottom: 4px;
+}
+
+.pill-red { background: var(--red-light); color: var(--red); }
+.pill-amber { background: var(--amber-light); color: var(--amber); }
+.pill-green { background: var(--green-light); color: var(--green); }
+
+.info-card-date { font-size: 13.2px; color: var(--text-light); font-family: 'DM Mono', monospace; }
+
+/* ── FEATURE SECTION ── */
+.feature-section {
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+  padding: 72px 48px;
+}
+
+.feature-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.feature-eyebrow {
+  font-size: 14.4px;
+  font-weight: 700;
+  color: #93c5fd;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.feature-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 48px;
+  color: white;
+  letter-spacing: -1px;
+  line-height: 1.15;
+  margin-bottom: 16px;
+  max-width: 560px;
+}
+
+.feature-desc {
+  font-size: 18px;
+  color: #94a3b8;
+  line-height: 1.7;
+  max-width: 480px;
+  margin-bottom: 48px;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.feature-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 24px;
+  transition: all 0.2s;
+  cursor: default;
+}
+
+.feature-card:hover { background: rgba(255,255,255,0.09); border-color: rgba(255,255,255,0.2); transform: translateY(-2px); }
+
+.feature-card-icon {
+  width: 44px; height: 44px;
+  border-radius: 11px;
+  background: rgba(5,150,105,0.3);
+  border: 1px solid rgba(37,99,235,0.5);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+.feature-card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 8px;
+}
+
+.feature-card-desc {
+  font-size: 15.6px;
+  color: #94a3b8;
+  line-height: 1.6;
+}
+
+/* ── COMMUNITY PANEL ── */
+.panel-box {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow-xs);
+}
+
+.panel-box-header {
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+.panel-box-title { font-size: 17.4px; font-weight: 700; color: var(--text); }
+
+/* ── WRITE BTN ── */
+.write-box {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  padding: 16px 20px;
+  display: flex; align-items: center; gap: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+  box-shadow: var(--shadow-xs);
+  margin-bottom: 16px;
+}
+
+.write-box:hover { border-color: var(--blue); box-shadow: var(--shadow); }
+
+.write-avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  display: flex; align-items: center; justify-content: center;
+  color: white;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.write-placeholder {
+  flex: 1;
+  font-size: 16.2px;
+  color: var(--text-muted);
+}
+
+.write-actions { display: flex; gap: 8px; }
+
+.write-tag {
+  font-size: 14.4px;
+  padding: 5px 10px;
+  border-radius: 7px;
+  background: var(--bg);
+  color: var(--text-sub);
+  font-weight: 500;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.12s;
+}
+
+.write-tag:hover { background: var(--blue-light); color: var(--blue); border-color: var(--blue-mid); }
+
+/* ── FOOTER ── */
+.footer {
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  padding: 40px 48px;
+}
+
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center;
+}
+
+.footer-logo {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 21.6px;
+  color: var(--text);
+}
+
+.footer-copy {
+  font-size: 15px;
+  color: var(--text-light);
+}
+
+/* ── MODAL (로그인) ── */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(15,23,42,0.5);
+  backdrop-filter: blur(8px);
+  z-index: 500;
+  display: none; align-items: center; justify-content: center;
+}
+.modal-overlay.open { display: flex; }
+
+.auth-modal {
+  background: var(--white);
+  border-radius: 24px;
+  padding: 40px;
+  width: 420px;
+  max-width: 92vw;
+  box-shadow: var(--shadow-lg);
+  animation: popIn 0.25s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+@keyframes popIn {
+  from { transform: scale(0.92) translateY(12px); opacity:0; }
+  to { transform: scale(1) translateY(0); opacity:1; }
+}
+
+.auth-logo { text-align: center; margin-bottom: 28px; }
+.auth-logo-icon {
+  width: 52px; height: 52px;
+  background: var(--blue);
+  border-radius: 16px;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 31.2px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 16px rgba(5,150,105,0.4);
+}
+.auth-title { font-size: 26.4px; font-weight: 700; margin-bottom: 4px; }
+.auth-sub { font-size: 15.6px; color: var(--text-muted); }
+
+.auth-tabs { display: flex; background: var(--bg); border-radius: 10px; padding: 3px; margin-bottom: 24px; }
+.auth-tab {
+  flex: 1; text-align: center; padding: 8px;
+  border-radius: 8px; font-size: 16.8px; font-weight: 600;
+  cursor: pointer; color: var(--text-muted); transition: all 0.15s;
+}
+.auth-tab.active { background: white; color: var(--text); box-shadow: var(--shadow-xs); }
+
+.auth-form { display: flex; flex-direction: column; gap: 14px; }
+.auth-input {
+  width: 100%;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 11px;
+  padding: 12px 16px;
+  font-size: 16.8px;
+  color: var(--text);
+  font-family: 'Noto Sans KR', sans-serif;
+  transition: all 0.2s;
+}
+.auth-input:focus { outline: none; border-color: var(--blue); background: white; box-shadow: 0 0 0 3px rgba(5,150,105,0.1); }
+.auth-input::placeholder { color: var(--text-light); }
+
+.auth-btn {
+  width: 100%;
+  padding: 13px;
+  background: var(--blue);
+  color: white;
+  border: none;
+  border-radius: 11px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Noto Sans KR', sans-serif;
+  margin-top: 4px;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(5,150,105,0.35);
+}
+.auth-btn:hover { background: var(--blue-dark); box-shadow: 0 4px 16px rgba(5,150,105,0.45); }
+
+.auth-divider {
+  display: flex; align-items: center; gap: 12px; margin: 4px 0;
+  font-size: 14.4px; color: var(--text-light);
+}
+.auth-divider::before, .auth-divider::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+
+.social-btn {
+  width: 100%; padding: 11px;
+  background: white; border: 1.5px solid var(--border);
+  border-radius: 11px; font-size: 16.8px; font-weight: 600;
+  cursor: pointer; font-family: 'Noto Sans KR', sans-serif;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  transition: all 0.15s; color: var(--text-sub);
+}
+.social-btn:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
+
+.modal-close {
+  position: absolute; top: -12px; right: -12px;
+  width: 32px; height: 32px;
+  background: white; border: 1.5px solid var(--border);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 19.2px; color: var(--text-muted);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.15s;
+}
+.modal-close:hover { background: var(--bg); color: var(--text); }
+
+.auth-modal { position: relative; }
+
+/* tag filters */
+.tag-filters {
+  display: flex; gap: 6px; flex-wrap: wrap;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border-light);
+}
+.tf-btn {
+  padding: 5px 13px;
+  border-radius: 20px;
+  font-size: 14.4px; font-weight: 500;
+  border: 1.5px solid var(--border);
+  background: transparent; color: var(--text-sub);
+  cursor: pointer; transition: all 0.12s;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+.tf-btn:hover { border-color: var(--blue); color: var(--blue); }
+.tf-btn.on { background: var(--blue); border-color: var(--blue); color: white; }
+
+/* ── PEARL EFFECTS ── */
+@keyframes subtleGlow {
+  0%, 100% { box-shadow: 0 2px 8px rgba(5,150,105,0.25); }
+  50% { box-shadow: 0 4px 16px rgba(5,150,105,0.38); }
+}
+
+.btn-hero-primary, .btn-cta, .auth-btn {
+  background: linear-gradient(135deg, #059669 0%, #0aaf7a 100%) !important;
+  animation: subtleGlow 3s ease-in-out infinite !important;
+  border: none !important;
+}
+
+.btn-hero-primary:hover, .btn-cta:hover, .auth-btn:hover {
+  background: linear-gradient(135deg, #047857 0%, #059669 100%) !important;
+  transform: translateY(-2px) !important;
+}
+
+.nav-logo-icon, .auth-logo-icon {
+  background: linear-gradient(135deg, #047857 0%, #059669 100%) !important;
+}
+
+.hero-title .accent {
+  background: linear-gradient(135deg, #047857, #059669);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stat-card { position: relative; overflow: hidden; }
+.stat-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 60%);
+  pointer-events: none;
+}
+
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-logo" onclick="showPage('home')">
+    <div class="nav-logo-icon" style="overflow:visible;"><svg width="28" height="36" viewBox="-4 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="3" y1="16" x2="-3" y2="22" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="25" y1="16" x2="31" y2="22" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="10" y1="28" x2="7" y2="35" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="18" y1="28" x2="21" y2="35" stroke="white" stroke-width="2.5" stroke-linecap="round"/><rect x="1" y="5" width="26" height="24" rx="4" fill="white" fill-opacity="0.2" stroke="white" stroke-width="1.5"/><rect x="1" y="5" width="26" height="8" rx="4" fill="white" fill-opacity="0.3"/><rect x="1" y="9" width="26" height="4" fill="white" fill-opacity="0.3"/><rect x="7" y="2" width="3" height="6" rx="1.5" fill="white"/><rect x="18" y="2" width="3" height="6" rx="1.5" fill="white"/><circle cx="8" cy="20" r="1.5" fill="white"/><circle cx="14" cy="20" r="1.5" fill="white"/><circle cx="20" cy="20" r="1.5" fill="white"/><circle cx="8" cy="25" r="1.5" fill="white"/><circle cx="14" cy="25" r="1.5" fill="white"/></svg></div>
+    <div>
+        <div>
+        <div class="nav-logo-text" style="font-family:'Montserrat',sans-serif;font-weight:700;letter-spacing:-0.3px;">My Research Calendar</div>
+        <div style="font-size:11px;color:var(--text-muted);font-weight:400;margin-top:1px;text-align:center;">나만의 연구 캘린더</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-links">
+    <div class="nav-link active" onclick="showPage('home');setNav(this)">홈</div>
+    <div class="nav-link" onclick="showPage('community');setNav(this)">커뮤니티</div>
+    <div class="nav-link" onclick="showPage('info');setNav(this)">학술정보</div>
+    <div class="nav-link" onclick="showPage('calendar');setNav(this)">캘린더 <span class="nav-badge">NEW</span></div>
+    <div class="nav-link" onclick="showPage('news');setNav(this)">국내연구소식</div>
+  </div>
+
+  <div class="nav-right">
+    <button class="btn-login" onclick="openAuth('login')">로그인</button>
+    <button class="btn-cta" onclick="openAuth('signup')">무료로 시작하기 →</button>
+  </div>
+</nav>
+
+<!-- ═══════════ HOME ═══════════ -->
+<div class="page active" id="page-home">
+
+  <!-- HERO -->
+  <div style="background:var(--white); border-bottom:1px solid var(--border);">
+    <div class="hero">
+      <div class="hero-left">
+        <div class="hero-eyebrow">🚀 연구자를 위한 올인원 플랫폼</div>
+        <h1 class="hero-title">
+          연구에만<br>
+          <span class="accent">집중하세요.</span><br>
+          나머지는 우리가.
+        </h1>
+        <p class="hero-desc">
+          학회 마감, 장학금 공모, 국가과제까지 — 흩어진 학술 정보를 한 곳에서.<br>
+          34만 연구자가 함께 성장하는 커뮤니티와 함께.
+        </p>
+        <div class="hero-actions">
+          <button class="btn-hero-primary" onclick="openAuth('signup')">무료로 시작하기 →</button>
+          <button class="btn-hero-secondary" onclick="showPage('community');setNav(document.querySelectorAll('.nav-link')[1])">커뮤니티 둘러보기</button>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat-item">
+            <div class="hero-stat-value">34만+</div>
+            <div class="hero-stat-label">잠재 연구자</div>
+          </div>
+          <div class="hero-stat-item">
+            <div class="hero-stat-value">1,200+</div>
+            <div class="hero-stat-label">학술 정보</div>
+          </div>
+          <div class="hero-stat-item">
+            <div class="hero-stat-value">98%</div>
+            <div class="hero-stat-label">만족도</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-card">
+          <div class="hero-card-header">
+            <span class="hero-card-title">이번 주 마감 학술정보</span>
+            <span class="live-dot">실시간</span>
+          </div>
+          <div class="mini-info-item">
+            <span class="mini-badge mb-conf">학회</span>
+            <span class="mini-title">한국반도체학술대회 KSIA 2025</span>
+            <span class="mini-dday dday-red">D-7</span>
+          </div>
+          <div class="mini-info-item">
+            <span class="mini-badge mb-scholar">장학금</span>
+            <span class="mini-title">한국연구재단 박사과정생 장려금</span>
+            <span class="mini-dday dday-amber">D-31</span>
+          </div>
+          <div class="mini-info-item">
+            <span class="mini-badge mb-conf">학회</span>
+            <span class="mini-title">IEEE IEDM 2025</span>
+            <span class="mini-dday dday-amber">D-45</span>
+          </div>
+          <div class="mini-info-item">
+            <span class="mini-badge mb-project">국가과제</span>
+            <span class="mini-title">AI 반도체 공정 최적화 연구</span>
+            <span class="mini-dday dday-green">D-50</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS BAND -->
+  <div class="stats-band">
+    <div class="stats-band-inner">
+      <div class="band-item blue">
+        <div class="band-icon blue">🎓</div>
+        <div><div class="band-value">24</div><div class="band-label">등록된 학회</div></div>
+      </div>
+      <div class="band-item green">
+        <div class="band-icon green">💰</div>
+        <div><div class="band-value">11</div><div class="band-label">장학금 공모</div></div>
+      </div>
+      <div class="band-item amber">
+        <div class="band-icon amber">📋</div>
+        <div><div class="band-value">08</div><div class="band-label">국가과제</div></div>
+      </div>
+      <div class="band-item red">
+        <div class="band-icon red">⚠️</div>
+        <div><div class="band-value">03</div><div class="band-label">D-7 마감 임박</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMMUNITY + INFO -->
+  <div class="section-wrap">
+    <div class="community-grid">
+
+      <!-- HOT COMMUNITY -->
+      <div>
+        <div class="section-header">
+          <div>
+            <div class="section-title">🔥 커뮤니티 인기글</div>
+            <div class="section-sub">연구자들이 가장 많이 읽은 이야기</div>
+          </div>
+          <div class="see-all" onclick="showPage('community');setNav(document.querySelectorAll('.nav-link')[1])">전체보기 →</div>
+        </div>
+
+        <div class="write-box" onclick="openAuth('signup')">
+          <div class="write-avatar">✏️</div>
+          <div class="write-placeholder">연구 고민, 정보, 후기를 공유해보세요...</div>
+          <div class="write-actions">
+            <span class="write-tag">📝 글쓰기</span>
+          </div>
+        </div>
+
+        <div class="panel-box">
+          <div class="tag-filters">
+            <button class="tf-btn on" onclick="filterPosts(this,'all')">전체</button>
+            <button class="tf-btn" onclick="filterPosts(this,'qna')">연구 Q&A</button>
+            <button class="tf-btn" onclick="filterPosts(this,'review')">학회 후기</button>
+            <button class="tf-btn" onclick="filterPosts(this,'anon')">익명 토크</button>
+            <button class="tf-btn" onclick="filterPosts(this,'study')">스터디 모집</button>
+          </div>
+          <div class="post-list" id="post-list"></div>
+        </div>
+      </div>
+
+      <!-- INFO SIDEBAR -->
+      <div>
+        <div class="section-header">
+          <div>
+            <div class="section-title">📌 마감 임박 정보</div>
+            <div class="section-sub">놓치면 후회하는 기회들</div>
+          </div>
+          <div class="see-all" onclick="showPage('info');setNav(document.querySelectorAll('.nav-link')[2])">전체보기 →</div>
+        </div>
+        <div class="info-card-list" id="home-info-list"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FEATURE SECTION -->
+  <div class="feature-section">
+    <div class="feature-inner">
+      <div class="feature-eyebrow">WHY MYRESEARCH</div>
+      <h2 class="feature-title">연구자의 성장을<br>시스템이 돕습니다</h2>
+      <p class="feature-desc">인맥과 운에 의존하던 학술 정보 탐색을 데이터와 AI로 바꿉니다.</p>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-card-icon">🔍</div>
+          <div class="feature-card-title">학술정보 통합</div>
+          <div class="feature-card-desc">국내외 학회, 장학금, 국가과제를 한 곳에서. 전공별 맞춤 분류로 내 분야 정보만 빠르게.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🏷️</div>
+          <div class="feature-card-title">Hyper-Research</div>
+          <div class="feature-card-desc">관심 분야 해시태그 설정 하나로 내게 맞는 기회가 자동으로 큐레이션됩니다.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">📅</div>
+          <div class="feature-card-title">연구자 캘린더</div>
+          <div class="feature-card-desc">마감일을 캘린더에 등록하고 D-day 알림으로 중요한 기회를 절대 놓치지 마세요.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">💬</div>
+          <div class="feature-card-title">연구자 커뮤니티</div>
+          <div class="feature-card-desc">랩실 고민부터 논문 후기까지. 비슷한 고민을 가진 연구자들과 솔직하게 소통하세요.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🎓</div>
+          <div class="feature-card-title">연구 프로필 등록</div>
+          <div class="feature-card-desc">연구 과정의 노하우와 자신의 연구 분야를 홍보하고 후배 연구자들과 나눠보세요. 당신의 경험이 누군가의 길잡이가 됩니다.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🤖</div>
+          <div class="feature-card-title">AI 추천 (예정)</div>
+          <div class="feature-card-desc">연구 프로필 기반으로 최적의 학회, 장학금, 공동연구 파트너를 AI가 추천합니다.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">🔬 My Research Calendar</div>
+      <div class="footer-copy">© 2025 My Research Calendar. 연구자를 위한 올인원 플랫폼.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ COMMUNITY ═══════════ -->
+<div class="page" id="page-community">
+  <div class="section-wrap">
+    <div class="section-header" style="margin-bottom:20px;">
+      <div>
+        <div class="section-title">커뮤니티</div>
+        <div class="section-sub">연구자들의 솔직한 이야기 공간</div>
+      </div>
+      <button class="btn-cta" onclick="openAuth('signup')">✏️ 글쓰기</button>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 300px;gap:20px;">
+      <div>
+        <div class="write-box" onclick="openAuth('signup')" style="margin-bottom:16px;">
+          <div class="write-avatar">✏️</div>
+          <div class="write-placeholder">연구 고민, 정보, 후기를 공유해보세요...</div>
+          <div class="write-actions">
+            <span class="write-tag">📝 글쓰기</span>
+            <span class="write-tag">📸 사진</span>
+          </div>
+        </div>
+        <div class="panel-box">
+          <div class="tag-filters">
+            <button class="tf-btn on" onclick="filterPosts2(this,'all')">전체</button>
+            <button class="tf-btn" onclick="filterPosts2(this,'qna')">연구 Q&A</button>
+            <button class="tf-btn" onclick="filterPosts2(this,'review')">학회 후기</button>
+            <button class="tf-btn" onclick="filterPosts2(this,'anon')">익명 토크</button>
+            <button class="tf-btn" onclick="filterPosts2(this,'study')">스터디 모집</button>
+            <button class="tf-btn" onclick="filterPosts2(this,'info')">정보 공유</button>
+          </div>
+          <div class="post-list" id="post-list-full"></div>
+        </div>
+      </div>
+      <div>
+        <div class="panel-box" style="margin-bottom:16px;">
+          <div class="panel-box-header"><span class="panel-box-title">📈 인기 태그</span></div>
+          <div style="padding:16px 20px;display:flex;flex-wrap:wrap;gap:8px;">
+            <span class="write-tag" style="cursor:pointer;">#반도체</span>
+            <span class="write-tag" style="cursor:pointer;">#논문작성</span>
+            <span class="write-tag" style="cursor:pointer;">#지도교수</span>
+            <span class="write-tag" style="cursor:pointer;">#장학금</span>
+            <span class="write-tag" style="cursor:pointer;">#박사고민</span>
+            <span class="write-tag" style="cursor:pointer;">#졸업후진로</span>
+            <span class="write-tag" style="cursor:pointer;">#AI머신러닝</span>
+            <span class="write-tag" style="cursor:pointer;">#포닥</span>
+          </div>
+        </div>
+        <div class="panel-box">
+          <div class="panel-box-header"><span class="panel-box-title">🏆 이번 주 베스트</span></div>
+          <div class="post-list" id="best-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ INFO ═══════════ -->
+<div class="page" id="page-info">
+  <div class="section-wrap">
+    <div class="section-header">
+      <div>
+        <div class="section-title">학술정보</div>
+        <div class="section-sub">전공별 학회·장학금·국가과제 통합 목록</div>
+      </div>
+    </div>
+    <div class="panel-box">
+      <div class="tag-filters">
+        <button class="tf-btn on" onclick="filterInfo(this,'all')">전체</button>
+        <button class="tf-btn" onclick="filterInfo(this,'conf')">학회</button>
+        <button class="tf-btn" onclick="filterInfo(this,'scholar')">장학금</button>
+        <button class="tf-btn" onclick="filterInfo(this,'project')">국가과제</button>
+      </div>
+      <div style="padding:12px;" id="info-full-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ CALENDAR (redirect) ═══════════ -->
+<div class="page" id="page-calendar">
+  <div class="section-wrap" style="text-align:center;padding-top:80px;">
+    <div style="font-size: 57.6px;margin-bottom:16px;">📅</div>
+    <div style="font-size: 26.4px;font-weight:700;margin-bottom:8px;">캘린더 기능</div>
+    <div style="font-size: 16.8px;color:var(--text-muted);margin-bottom:28px;">연구자 맞춤 일정 관리 기능을 준비 중입니다</div>
+    <button class="btn-cta" onclick="window.open('myresearch_v2.html')">캘린더 데모 보기 →</button>
+  </div>
+</div>
+
+<!-- ═══════════ 국내연구소식 ═══════════ -->
+<div class="page" id="page-news">
+  <div class="section-wrap">
+    <div class="section-header">
+      <div>
+        <div class="section-title">국내연구소식</div>
+        <div class="section-sub">국내 주요 연구기관 및 대학의 최신 연구 소식</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;" id="news-grid"></div>
+  </div>
+</div>
+
+<!-- AUTH MODAL -->
+<div class="modal-overlay" id="auth-modal">
+  <div class="auth-modal">
+    <div class="modal-close" onclick="closeAuth()">×</div>
+    <div class="auth-logo">
+      <div class="auth-logo-icon" style="overflow:visible;"><svg width="28" height="36" viewBox="-4 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="3" y1="16" x2="-3" y2="22" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="25" y1="16" x2="31" y2="22" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="10" y1="28" x2="7" y2="35" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="18" y1="28" x2="21" y2="35" stroke="white" stroke-width="2.5" stroke-linecap="round"/><rect x="1" y="5" width="26" height="24" rx="4" fill="white" fill-opacity="0.2" stroke="white" stroke-width="1.5"/><rect x="1" y="5" width="26" height="8" rx="4" fill="white" fill-opacity="0.3"/><rect x="1" y="9" width="26" height="4" fill="white" fill-opacity="0.3"/><rect x="7" y="2" width="3" height="6" rx="1.5" fill="white"/><rect x="18" y="2" width="3" height="6" rx="1.5" fill="white"/><circle cx="8" cy="20" r="1.5" fill="white"/><circle cx="14" cy="20" r="1.5" fill="white"/><circle cx="20" cy="20" r="1.5" fill="white"/><circle cx="8" cy="25" r="1.5" fill="white"/><circle cx="14" cy="25" r="1.5" fill="white"/></svg></div>
+      <div class="auth-title">My Research Calendar</div>
+      <div class="auth-sub">연구자를 위한 올인원 플랫폼</div>
+    </div>
+    <div class="auth-tabs">
+      <div class="auth-tab active" id="tab-login" onclick="switchAuth('login')">로그인</div>
+      <div class="auth-tab" id="tab-signup" onclick="switchAuth('signup')">회원가입</div>
+    </div>
+    <div class="auth-form" id="login-form">
+      <input class="auth-input" type="email" placeholder="이메일">
+      <input class="auth-input" type="password" placeholder="비밀번호">
+      <button class="auth-btn">로그인</button>
+      <div class="auth-divider">또는</div>
+      <button class="social-btn">🔵 카카오로 시작하기</button>
+      <button class="social-btn">⚫ 구글로 시작하기</button>
+    </div>
+    <div class="auth-form" id="signup-form" style="display:none;">
+      <input class="auth-input" type="text" placeholder="이름">
+      <input class="auth-input" type="email" placeholder="이메일 (학교 이메일 권장)">
+      <input class="auth-input" type="password" placeholder="비밀번호">
+      <input class="auth-input" type="text" placeholder="소속 대학원 (예: 성균관대 반도체)">
+      <button class="auth-btn">무료로 시작하기</button>
+      <div class="auth-divider">또는</div>
+      <button class="social-btn">🔵 카카오로 시작하기</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── DATA ──
+const POSTS = [
+  { id:1, cat:'qna',    catLabel:'연구 Q&A',    title:'CHF₃/CF₄ 플라즈마에서 OES 피크 해석 어떻게 하시나요?', author:'익명',    likes:47, comments:12, hot:true },
+  { id:2, cat:'anon',   catLabel:'익명 토크',   title:'지도교수님이 논문 1저자를 본인으로 바꾸려 하는데... 어떻게 해야 할까요', author:'익명',  likes:183, comments:54, hot:true },
+  { id:3, cat:'review', catLabel:'학회 후기',   title:'IEEE IEDM 2024 참가 후기 — 처음 해외학회 가는 분들을 위한 가이드', author:'반도체박사3년차', likes:96, comments:28, hot:false },
+  { id:4, cat:'info',   catLabel:'정보 공유',   title:'2025년 이공계 대학원생 외부 장학금 총정리 (업데이트)', author:'정보봇',  likes:312, comments:43, hot:false },
+  { id:5, cat:'study',  catLabel:'스터디 모집', title:'[모집] 머신러닝 for 반도체 공정 스터디 — 주 1회 온라인', author:'QD재현',   likes:24,  comments:17, hot:false },
+  { id:6, cat:'qna',    catLabel:'연구 Q&A',    title:'박사 4년차인데 졸업 못 할 것 같아요. 논문 리젝만 3번째입니다', author:'익명',   likes:89,  comments:61, hot:true },
+  { id:7, cat:'review', catLabel:'학회 후기',   title:'AVS 2024 국제학술대회 — 플라즈마/박막 분야 발표 트렌드 정리', author:'플라즈마연구자', likes:55, comments:19, hot:false },
+];
+
+const INFO_DATA = [
+  { type:'conf',    title:'한국반도체학술대회 KSIA 2025', org:'KSIA',    dday:7,   date:'2025-03-28' },
+  { type:'scholar', title:'한국연구재단 박사과정생 연구장려금', org:'NRF', dday:31,  date:'2025-04-01' },
+  { type:'conf',    title:'IEEE IEDM 2025',              org:'IEEE',    dday:45,  date:'2025-04-15' },
+  { type:'project', title:'AI 반도체 공정 최적화 연구',    org:'과기부', dday:50,  date:'2025-04-20' },
+  { type:'scholar', title:'삼성 이건희 과학기술 장학금',   org:'삼성재단', dday:60, date:'2025-04-30' },
+];
+
+function ddayPillClass(d){ return d<=14?'pill-red':d<=45?'pill-amber':'pill-green'; }
+function ddayMiniClass(d){ return d<=14?'dday-red':d<=45?'dday-amber':'dday-green'; }
+function infoIcon(t){ return t==='conf'?'🎓':t==='scholar'?'💰':t==='project'?'📋':'📌'; }
+function infoIconBg(t){ return t==='conf'?'var(--blue-light)':t==='scholar'?'var(--green-light)':'var(--amber-light)'; }
+function infoTagClass(t){ return `tag-${t}`; }
+function infoTagLabel(t){ return t==='conf'?'학회':t==='scholar'?'장학금':'국가과제'; }
+
+function renderPosts(containerId, filter='all'){
+  const el = document.getElementById(containerId);
+  const items = filter==='all'?POSTS:POSTS.filter(p=>p.cat===filter);
+  el.innerHTML = items.map((p,i)=>`
+    <div class="post-item" onclick="openAuth('signup')">
+      <div class="post-rank ${i<3?'top':''}">${String(i+1).padStart(2,'0')}</div>
+      <div class="post-body">
+        <div class="post-category">${p.catLabel}</div>
+        <div class="post-title">${p.title}</div>
+        <div class="post-meta">
+          <span>👍 ${p.likes}</span>
+          <span>💬 ${p.comments}</span>
+          <span>${p.author}</span>
+          ${p.hot?'<span style="color:var(--red);font-weight:700;">🔥 HOT</span>':''}
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderInfoCards(containerId, filter='all'){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  const items = filter==='all'?INFO_DATA:INFO_DATA.filter(d=>d.type===filter);
+  el.innerHTML = items.map(item=>`
+    <div class="info-card" onclick="openAuth('signup')">
+      <div class="info-card-icon" style="background:${infoIconBg(item.type)}">${infoIcon(item.type)}</div>
+      <div class="info-card-body">
+        <div class="info-card-tag ${infoTagClass(item.type)}">${infoTagLabel(item.type)}</div>
+        <div class="info-card-title">${item.title}</div>
+        <div class="info-card-org">${item.org}</div>
+      </div>
+      <div class="info-card-right">
+        <div class="dday-pill ${ddayPillClass(item.dday)}">D-${item.dday}</div>
+        <div class="info-card-date">${item.date}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderInfoFull(filter='all'){
+  const el = document.getElementById('info-full-list');
+  const items = filter==='all'?INFO_DATA:INFO_DATA.filter(d=>d.type===filter);
+  el.innerHTML = `<div style="display:flex;flex-direction:column;gap:10px;">${items.map(item=>`
+    <div class="info-card" onclick="openAuth('signup')">
+      <div class="info-card-icon" style="background:${infoIconBg(item.type)}">${infoIcon(item.type)}</div>
+      <div class="info-card-body">
+        <div class="info-card-tag ${infoTagClass(item.type)}">${infoTagLabel(item.type)}</div>
+        <div class="info-card-title">${item.title}</div>
+        <div class="info-card-org">${item.org}</div>
+      </div>
+      <div class="info-card-right">
+        <div class="dday-pill ${ddayPillClass(item.dday)}">D-${item.dday}</div>
+        <div class="info-card-date">${item.date}</div>
+      </div>
+    </div>
+  `).join('')}</div>`;
+}
+
+function filterPosts(btn,f){
+  document.querySelectorAll('#page-home .tf-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  renderPosts('post-list',f);
+}
+
+function filterPosts2(btn,f){
+  document.querySelectorAll('#page-community .tf-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  renderPosts('post-list-full',f);
+}
+
+function filterInfo(btn,f){
+  document.querySelectorAll('#page-info .tf-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  renderInfoFull(f);
+}
+
+function showPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function setNav(el){
+  document.querySelectorAll('.nav-link').forEach(n=>n.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function openAuth(type){
+  document.getElementById('auth-modal').classList.add('open');
+  switchAuth(type);
+}
+
+function closeAuth(){ document.getElementById('auth-modal').classList.remove('open'); }
+
+function switchAuth(type){
+  document.getElementById('login-form').style.display = type==='login'?'flex':'none';
+  document.getElementById('signup-form').style.display = type==='signup'?'flex':'none';
+  document.getElementById('tab-login').classList.toggle('active', type==='login');
+  document.getElementById('tab-signup').classList.toggle('active', type==='signup');
+}
+
+document.getElementById('auth-modal').addEventListener('click',function(e){if(e.target===this)closeAuth();});
+
+// Best posts
+document.getElementById('best-list').innerHTML = POSTS.filter(p=>p.hot).map((p,i)=>`
+  <div class="post-item" onclick="openAuth('signup')">
+    <div class="post-rank top">${String(i+1).padStart(2,'0')}</div>
+    <div class="post-body">
+      <div class="post-title">${p.title}</div>
+      <div class="post-meta"><span>👍${p.likes}</span><span>💬${p.comments}</span></div>
+    </div>
+  </div>
+`).join('');
+
+// ── NEWS DATA ──
+const NEWS = [
+  { org:'KAIST', tag:'나노소재', title:'차세대 반도체 소재 개발 성공 — 실리콘 한계 극복', date:'2025-03-05', desc:'KAIST 연구팀이 기존 실리콘 대비 전자 이동도가 3배 높은 신규 2D 소재를 합성하는 데 성공했다.' },
+  { org:'POSTECH', tag:'에너지', title:'고효율 페로브스카이트 태양전지 효율 29% 달성', date:'2025-03-04', desc:'포스텍 화학과 연구팀이 안정성과 효율을 동시에 잡은 페로브스카이트 태양전지를 개발했다.' },
+  { org:'서울대', tag:'AI·머신러닝', title:'플라즈마 공정 이상 탐지 AI 모델 — 99.2% 정확도', date:'2025-03-03', desc:'서울대 반도체공학과 연구팀이 OES 데이터 기반 실시간 플라즈마 공정 이상 탐지 모델을 발표했다.' },
+  { org:'IBS', tag:'양자', title:'상온 양자 얽힘 유지 시간 세계 최장 기록 갱신', date:'2025-03-02', desc:'기초과학연구원(IBS)이 상온에서 양자 얽힘 상태를 1ms 이상 유지하는 기술을 세계 최초로 구현했다.' },
+  { org:'ETRI', tag:'통신', title:'6G 테라헤르츠 통신 핵심 소자 개발 완료', date:'2025-03-01', desc:'한국전자통신연구원이 6G 상용화를 위한 300GHz 대역 핵심 송수신 소자 개발에 성공했다.' },
+  { org:'KIST', tag:'바이오', title:'뇌-컴퓨터 인터페이스 무선 신호 전송 정확도 향상', date:'2025-02-28', desc:'한국과학기술연구원이 뇌신호를 무선으로 실시간 전송하는 초저전력 BCI 칩을 개발했다.' },
+];
+
+const TAG_COLORS = {
+  '나노소재': ['#eff4ff','#2563eb'],
+  '에너지':   ['#ecfdf5','#059669'],
+  'AI·머신러닝':['#f5f3ff','#7c3aed'],
+  '양자':     ['#fff7ed','#ea580c'],
+  '통신':     ['#fef2f2','#dc2626'],
+  '바이오':   ['#fdf4ff','#a21caf'],
+};
+
+function renderNews(){
+  const el = document.getElementById('news-grid');
+  if(!el) return;
+  el.innerHTML = NEWS.map(n => {
+    const [bg, color] = TAG_COLORS[n.tag] || ['#f1f5f9','#64748b'];
+    return `
+    <div class="info-card" style="flex-direction:column;gap:12px;align-items:flex-start;" onclick="openAuth('signup')">
+      <div style="display:flex;align-items:center;justify-content:space-between;width:100%;">
+        <span style="font-size: 13.2px;font-weight:700;padding:3px 9px;border-radius:5px;background:${bg};color:${color}">${n.tag}</span>
+        <span style="font-size: 13.2px;color:var(--text-light);font-family:'DM Mono',monospace;">${n.date}</span>
+      </div>
+      <div>
+        <div style="font-size: 16.8px;font-weight:700;color:var(--text);margin-bottom:6px;line-height:1.4">${n.title}</div>
+        <div style="font-size: 15px;color:var(--text-muted);line-height:1.6">${n.desc}</div>
+      </div>
+      <div style="font-size: 13.8px;font-weight:600;color:var(--text-light);">📍 ${n.org}</div>
+    </div>
+  `}).join('');
+}
+
+// Init
+renderPosts('post-list');
+renderPosts('post-list-full');
+renderInfoCards('home-info-list');
+renderInfoFull();
+renderNews();
+</script>
+</body>
+</html>
