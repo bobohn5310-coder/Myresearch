@@ -1,0 +1,3492 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Research Calendar — 연구자를 위한 올인원 플랫폼</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f8fafc;
+  --white: #ffffff;
+  --border: #e2e8f0;
+  --border-light: #f1f5f9;
+
+  --blue: #2563eb;
+  --blue-dark: #1d4ed8;
+  --blue-light: #eff6ff;
+  --blue-mid: #bfdbfe;
+  --green: #059669;
+  --green-light: #ecfdf5;
+  --amber: #d97706;
+  --amber-light: #fffbeb;
+  --red: #dc2626;
+  --red-light: #fef2f2;
+  --purple: #7c3aed;
+  --purple-light: #f5f3ff;
+  --pink: #db2777;
+
+  --text: #0f172a;
+  --text-sub: #334155;
+  --text-muted: #64748b;
+  --text-light: #94a3b8;
+
+  --shadow-xs: 0 1px 2px rgba(15,23,42,0.05);
+  --shadow-sm: 0 1px 3px rgba(15,23,42,0.08), 0 1px 2px rgba(15,23,42,0.04);
+  --shadow: 0 4px 16px rgba(15,23,42,0.08);
+  --shadow-lg: 0 20px 60px rgba(15,23,42,0.12);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Sans KR', 'Montserrat', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-size: 15px;
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* ── NAVBAR ── */
+.navbar {
+  position: sticky; top: 0; z-index: 200;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  height: 64px;
+  display: flex; align-items: center;
+  padding: 0 48px;
+  justify-content: space-between;
+  box-shadow: var(--shadow-xs);
+}
+
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  cursor: pointer;
+}
+
+.nav-logo-icon {
+  width: 34px; height: 34px;
+  background: #0f172a;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px;
+}
+
+.nav-logo-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  color: var(--text);
+  letter-spacing: -0.5px;
+}
+
+.nav-logo-sub {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.nav-links {
+  display: flex; align-items: center; gap: 4px;
+}
+
+.nav-link {
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-sub);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.nav-link:hover { background: #f8fafc; color: #0f172a; }
+.nav-link.active { color: #0f172a; background: #f1f5f9; font-weight:700; }
+
+.nav-badge {
+  display: inline-block;
+  background: var(--red);
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: 10px;
+  margin-left: 4px;
+  vertical-align: middle;
+}
+
+.nav-right { display: flex; align-items: center; gap: 10px; }
+
+.btn-login {
+  padding: 8px 18px;
+  border: 1.5px solid var(--border);
+  border-radius: 9px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-sub);
+  background: transparent;
+  cursor: pointer;
+  font-family: 'Noto Sans KR', sans-serif;
+  transition: all 0.15s;
+}
+
+.btn-login:hover { border-color: #0f172a; color: #0f172a; }
+
+.btn-cta {
+  padding: 8px 18px;
+  background: #0f172a;
+  color: white;
+  border: none;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Noto Sans KR', sans-serif;
+  transition: all 0.15s;
+}
+.btn-cta:hover { background: #1e293b; }
+
+.btn-cta:hover { background: var(--blue-dark); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(5,150,105,0.45); }
+
+/* ── PAGES ── */
+.page { display: none; }
+.page.active { display: block; animation: fadeIn 0.2s ease; }
+
+@keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+
+/* ══════════════════════════
+   HOME PAGE
+══════════════════════════ */
+
+/* ── HERO WRAPPER (full-bleed dark bg) ── */
+.hero-wrapper {
+  background: linear-gradient(160deg, #f0f4ff 0%, #e8f0fe 50%, #edfaf4 100%);
+  position: relative;
+  overflow: hidden;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+/* animated grid overlay */
+.hero-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(37,99,235,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37,99,235,0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+}
+
+/* radial glow */
+.hero-wrapper::after {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: 30%;
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(ellipse, rgba(37,99,235,0.08) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+/* HERO */
+.hero {
+  padding: 80px 48px 72px;
+  display: grid;
+  grid-template-columns: 1fr 460px;
+  gap: 64px;
+  align-items: center;
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(37,99,235,0.08);
+  border: 1px solid rgba(37,99,235,0.2);
+  color: #2563eb;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 20px;
+  margin-bottom: 24px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  animation: heroFadeUp 0.6s ease both;
+}
+
+.hero-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 64px;
+  line-height: 1.08;
+  letter-spacing: -2px;
+  color: #0f172a;
+  margin-bottom: 22px;
+  animation: heroFadeUp 0.6s 0.1s ease both;
+}
+
+.hero-title .accent {
+  font-style: italic;
+  background: linear-gradient(90deg, #60a5fa, #34d399);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-desc {
+  font-size: 17px;
+  color: #475569;
+  line-height: 1.8;
+  margin-bottom: 36px;
+  max-width: 460px;
+  animation: heroFadeUp 0.6s 0.2s ease both;
+}
+
+.hero-actions {
+  display: flex; gap: 12px; align-items: center; margin-bottom: 44px;
+  animation: heroFadeUp 0.6s 0.3s ease both;
+}
+
+.btn-hero-primary {
+  display: flex; align-items: center; gap: 8px;
+  padding: 14px 30px;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Noto Sans KR', sans-serif;
+  transition: all 0.2s;
+  box-shadow: 0 4px 24px rgba(37,99,235,0.45);
+}
+.btn-hero-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(37,99,235,0.6);
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+}
+
+.btn-hero-secondary {
+  display: flex; align-items: center; gap: 8px;
+  padding: 14px 24px;
+  background: rgba(15,23,42,0.05);
+  color: #334155;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Noto Sans KR', sans-serif;
+  transition: all 0.15s;
+  backdrop-filter: blur(8px);
+}
+.btn-hero-secondary:hover {
+  background: rgba(15,23,42,0.08);
+  border-color: #94a3b8;
+  color: #0f172a;
+}
+
+/* HERO STATS */
+.hero-stats {
+  display: flex; gap: 0;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(8px);
+  animation: heroFadeUp 0.6s 0.4s ease both;
+}
+
+.hero-stat-item {
+  flex: 1;
+  padding: 16px 20px;
+  text-align: center;
+  border-right: 1px solid #e2e8f0;
+  position: relative;
+}
+.hero-stat-item:last-child { border-right: none; }
+
+.hero-stat-value {
+  font-family: 'DM Mono', monospace;
+  font-size: 26px;
+  font-weight: 500;
+  background: linear-gradient(135deg, #60a5fa, #34d399);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: 5px;
+}
+
+.hero-stat-label {
+  font-size: 12px;
+  color: #94a3b8;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+
+/* ── HERO VISUAL (right side) ── */
+.hero-visual {
+  position: relative;
+  animation: heroFadeUp 0.6s 0.2s ease both;
+}
+
+/* floating glow behind card */
+.hero-visual::before {
+  content: '';
+  position: absolute;
+  inset: -24px;
+  background: radial-gradient(ellipse, rgba(37,99,235,0.25) 0%, transparent 70%);
+  pointer-events: none;
+  filter: blur(20px);
+}
+
+.hero-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 8px 40px rgba(37,99,235,0.12), 0 2px 8px rgba(15,23,42,0.06);
+  position: relative;
+  z-index: 2;
+}
+
+/* mini calendar strip */
+
+
+.hero-card-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.hero-card-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: -0.2px;
+}
+
+.live-dot {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 12px;
+  color: #059669;
+  font-weight: 600;
+}
+
+.live-dot::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: #059669;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+  box-shadow: 0 0 6px rgba(5,150,105,0.5);
+}
+
+@keyframes pulse {
+  0%,100% { opacity:1; transform:scale(1); }
+  50% { opacity:0.5; transform:scale(0.85); }
+}
+
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.mini-info-item {
+  display: flex; gap: 10px; align-items: center;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #f8fafc;
+  border: 1px solid #f1f5f9;
+  margin-bottom: 7px;
+  transition: all 0.15s;
+  cursor: pointer;
+}
+
+.mini-info-item:hover {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+}
+.mini-info-item:last-child { margin-bottom: 0; }
+
+.mini-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 5px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  letter-spacing: 0.2px;
+}
+
+.mb-conf { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
+.mb-scholar { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
+.mb-project { background: #fffbeb; color: #d97706; border: 1px solid #fde68a; }
+
+.mini-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1e293b;
+  flex: 1;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.mini-dday {
+  font-size: 12px;
+  font-weight: 700;
+  font-family: 'DM Mono', monospace;
+  white-space: nowrap;
+}
+
+.dday-red { color: #dc2626; }
+.dday-amber { color: #d97706; }
+.dday-green { color: #059669; }
+
+
+
+/* SECTION LAYOUT */
+.section-wrap {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 48px 48px;
+}
+
+.section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.section-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.5px;
+}
+
+.section-sub {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.see-all {
+  font-size: 14px;
+  color: var(--blue);
+  font-weight: 600;
+  cursor: pointer;
+  display: flex; align-items: center; gap: 4px;
+}
+
+.see-all:hover { text-decoration: underline; }
+
+/* ── QUICK STATS BAND ── */
+.stats-band {
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.stats-band-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 48px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  divide-x: 1px;
+}
+
+.band-item {
+  padding: 24px 32px;
+  border-right: 1px solid var(--border);
+  display: flex; align-items: center; gap: 14px;
+  transition: background 0.15s;
+  cursor: default;
+}
+
+.band-item:last-child { border-right: none; }
+.band-item:hover { background: var(--bg); }
+
+.band-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.band-icon.blue { background: var(--blue-light); }
+.band-icon.green { background: var(--green-light); }
+.band-icon.amber { background: var(--amber-light); }
+.band-icon.red { background: var(--red-light); }
+
+.band-value {
+  font-family: 'DM Mono', monospace;
+  font-size: 33.6px;
+  font-weight: 500;
+  line-height: 1;
+  margin-bottom: 3px;
+}
+
+.band-item.blue .band-value { color: var(--blue); }
+.band-item.green .band-value { color: var(--green); }
+.band-item.amber .band-value { color: var(--amber); }
+.band-item.red .band-value { color: var(--red); }
+
+.band-label { font-size: 15px; font-weight: 500; color: var(--text-muted); }
+
+/* ── COMMUNITY ── */
+.community-section-wrap {
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 48px 0;
+}
+
+.community-grid {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 28px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+/* HOT POSTS */
+.post-list { display: flex; flex-direction: column; gap: 0; }
+
+.post-item {
+  display: flex; gap: 14px; align-items: flex-start;
+  padding: 16px 20px;
+  border-bottom: 1px solid #f1f5f9;
+  cursor: pointer;
+  transition: background 0.13s;
+  background: #fff;
+}
+.post-item:last-child { border-bottom: none; }
+.post-item:hover { background: #f8fafc; }
+
+.post-rank {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px; font-weight: 700;
+  color: #e2e8f0;
+  width: 22px; flex-shrink: 0;
+  padding-top: 3px; text-align: center;
+}
+.post-rank.top {
+  background: #0f172a; color: #fff;
+  border-radius: 6px; font-size: 11px;
+  width: 22px; height: 22px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.post-body { flex: 1; min-width: 0; }
+
+.post-category {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--blue);
+  background: var(--blue-light);
+  padding: 2px 8px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 5px;
+  border: 1px solid var(--blue-mid);
+  letter-spacing: 0.2px;
+}
+
+.post-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+
+.post-meta {
+  display: flex; gap: 10px;
+  font-size: 12px;
+  color: var(--text-light);
+  align-items: center;
+}
+
+.post-meta span { display: flex; align-items: center; gap: 3px; }
+.post-meta .post-hot { color: var(--red); font-weight: 600; }
+
+/* WRITE BOX */
+.write-box {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 16px;
+  background: #fff;
+  border: 1.5px solid #e8edf4;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-bottom: 12px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.write-box:hover {
+  border-color: #94a3b8;
+  box-shadow: 0 2px 8px rgba(15,23,42,0.05);
+}
+.write-box-avatar {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; flex-shrink: 0;
+}
+.write-box-placeholder {
+  font-size: 13px; color: #94a3b8; flex: 1;
+}
+.write-box-btn {
+  padding: 5px 13px;
+  background: #0f172a; color: #fff;
+  border-radius: 7px;
+  font-size: 12px; font-weight: 700; flex-shrink: 0;
+}
+
+/* POST TAB ROW */
+.post-tab-row {
+  display: flex; gap: 6px; flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+/* POST LIST CARD */
+.post-list-card {
+  background: #fff;
+  border: 1.5px solid #e8edf4;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(15,23,42,0.04);
+}
+
+/* ── INFO PAGE BANNER ── */
+.info-banner-wrap {
+  margin-bottom: 28px;
+  position: relative;
+}
+.info-banner-slider {
+  position: relative;
+  width: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(15,23,42,0.12);
+  min-height: 200px;
+  background: #1e293b;
+}
+.info-banner-track {
+  display: flex;
+  transition: transform 0.45s cubic-bezier(0.4,0,0.2,1);
+}
+.info-banner-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 38px; height: 38px; border-radius: 50%; border: none; cursor: pointer;
+  background: rgba(255,255,255,0.18); backdrop-filter: blur(8px);
+  color: white; font-size: 20px;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s; z-index: 10;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.info-banner-arrow:hover { background: rgba(255,255,255,0.34); }
+.info-banner-arrow.left  { left: 14px; }
+.info-banner-arrow.right { right: 14px; }
+.info-banner-dots {
+  position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 6px; z-index: 10;
+}
+
+/* INFO CARDS */
+.info-card-list { display: flex; flex-direction: column; gap: 10px; }
+
+.info-card {
+  background: #fff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex; gap: 12px; align-items: flex-start;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.info-card:hover { background: #f8fafc; border-color: #94a3b8; }
+
+.info-card-icon {
+  width: 36px; height: 36px;
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; flex-shrink: 0;
+}
+
+.info-card-body { flex: 1; min-width: 0; }
+
+.info-card-tag {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 5px;
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+.tag-conf { background: var(--blue-light); color: var(--blue); }
+.tag-scholar { background: var(--green-light); color: var(--green); }
+.tag-project { background: var(--amber-light); color: var(--amber); }
+
+.info-card-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+.info-card-org {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.info-card-right {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.dday-pill {
+  font-size: 12px; font-weight: 700;
+  font-family: 'DM Mono', monospace;
+  padding: 3px 8px; border-radius: 5px;
+  display: inline-block; margin-bottom: 3px;
+}
+.pill-red { background: #fff1f2; color: #e11d48; }
+.pill-amber { background: #fffbeb; color: #d97706; }
+.pill-green { background: #f0fdf4; color: #16a34a; }
+
+.info-card-date { font-size: 12px; color: var(--text-light); font-family: 'DM Mono', monospace; }
+
+/* ── FEATURE SECTION ── */
+.feature-section {
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+  padding: 72px 48px;
+}
+
+.feature-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.feature-eyebrow {
+  font-size: 13px;
+  font-weight: 700;
+  color: #93c5fd;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.feature-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 48px;
+  color: white;
+  letter-spacing: -1px;
+  line-height: 1.15;
+  margin-bottom: 16px;
+  max-width: 560px;
+}
+
+.feature-desc {
+  font-size: 15px;
+  color: #94a3b8;
+  line-height: 1.7;
+  max-width: 480px;
+  margin-bottom: 48px;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.feature-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 24px;
+  transition: all 0.2s;
+  cursor: default;
+}
+
+.feature-card:hover { background: rgba(255,255,255,0.09); border-color: rgba(255,255,255,0.2); transform: translateY(-2px); }
+
+.feature-card-icon {
+  width: 44px; height: 44px;
+  border-radius: 11px;
+  background: rgba(5,150,105,0.3);
+  border: 1px solid rgba(37,99,235,0.5);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+
+.feature-card-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 8px;
+}
+
+.feature-card-desc {
+  font-size: 14px;
+  color: #94a3b8;
+  line-height: 1.6;
+}
+
+/* ── COMMUNITY PANEL ── */
+.panel-box {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow-xs);
+}
+
+.panel-box-header {
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+.panel-box-title { font-size: 17.4px; font-weight: 700; color: var(--text); }
+
+/* ── WRITE BTN ── */
+.write-box {
+  background: var(--white);
+  border: 2px solid var(--border);
+  border-radius: 20px;
+  padding: 20px 24px;
+  display: flex; flex-direction: column; gap: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 2px 12px rgba(5,150,105,0.07);
+  margin-bottom: 16px;
+}
+
+.write-box:hover { border-color: var(--blue); box-shadow: 0 4px 20px rgba(5,150,105,0.15); transform: translateY(-1px); }
+
+.write-box-top { display: flex; align-items: center; gap: 12px; }
+
+.write-avatar {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #047857, #059669);
+  display: flex; align-items: center; justify-content: center;
+  color: white;
+  font-size: 20px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(5,150,105,0.3);
+}
+
+.write-placeholder {
+  flex: 1;
+  font-size: 14px;
+  color: var(--text-muted);
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 24px;
+  padding: 10px 18px;
+  transition: all 0.15s;
+}
+
+.write-box:hover .write-placeholder { border-color: var(--blue-mid); background: var(--blue-light); }
+
+.write-actions { display: flex; gap: 8px; padding-left: 56px; }
+
+.write-tag {
+  font-size: 13px;
+  padding: 7px 14px;
+  border-radius: 20px;
+  background: var(--bg);
+  color: var(--text-sub);
+  font-weight: 600;
+  border: 1.5px solid var(--border);
+  cursor: pointer;
+  transition: all 0.12s;
+  display: flex; align-items: center; gap: 5px;
+}
+
+.write-tag:hover { background: var(--blue-light); color: var(--blue); border-color: var(--blue-mid); }
+
+/* ── FOOTER ── */
+.footer {
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  padding: 40px 48px;
+}
+
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center;
+}
+
+.footer-logo {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 21.6px;
+  color: var(--text);
+}
+
+.footer-copy {
+  font-size: 15px;
+  color: var(--text-light);
+}
+
+/* ── MODAL (로그인) ── */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(15,23,42,0.5);
+  backdrop-filter: blur(8px);
+  z-index: 500;
+  display: none; align-items: center; justify-content: center;
+}
+.modal-overlay.open { display: flex; }
+
+.auth-modal {
+  background: var(--white);
+  border-radius: 24px;
+  padding: 40px;
+  width: 460px;
+  max-width: 92vw;
+  max-height: 92vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+  animation: popIn 0.25s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+/* 회원가입 스텝 인디케이터 */
+.signup-steps {
+  display: flex; align-items: center; gap: 0;
+  margin-bottom: 28px;
+}
+.signup-step {
+  display: flex; align-items: center; gap: 8px; flex: 1;
+}
+.signup-step-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 800;
+  background: var(--bg); color: var(--text-muted);
+  border: 2px solid var(--border);
+  transition: all 0.2s; flex-shrink: 0;
+}
+.signup-step.active .signup-step-num {
+  background: var(--blue); color: white; border-color: var(--blue);
+}
+.signup-step.done .signup-step-num {
+  background: #ecfdf5; color: #059669; border-color: #10b981;
+}
+.signup-step-label {
+  font-size: 12px; font-weight: 600; color: var(--text-muted);
+  transition: color 0.2s;
+}
+.signup-step.active .signup-step-label { color: var(--blue); }
+.signup-step.done .signup-step-label { color: #059669; }
+.signup-step-line {
+  height: 2px; flex: 1; background: var(--border);
+  margin: 0 8px; border-radius: 2px; transition: background 0.2s;
+}
+.signup-step-line.done { background: #10b981; }
+
+/* 선택 버튼 그룹 (학년 선택용) */
+.auth-select-group {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+}
+.auth-select-btn {
+  padding: 10px 8px; border-radius: 10px;
+  border: 1.5px solid var(--border);
+  background: var(--bg); color: var(--text-sub);
+  font-size: 13px; font-weight: 600;
+  cursor: pointer; text-align: center;
+  transition: all 0.15s;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+.auth-select-btn:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
+.auth-select-btn.selected { background: var(--blue); color: white; border-color: var(--blue); }
+
+.auth-field-label {
+  font-size: 12px; font-weight: 700; color: var(--text-muted);
+  margin-bottom: -8px; letter-spacing: 0.3px;
+}
+.auth-step-nav {
+  display: flex; gap: 8px; margin-top: 4px;
+}
+.auth-btn-back {
+  flex: 1; padding: 13px;
+  background: var(--bg); color: var(--text-sub);
+  border: 1.5px solid var(--border); border-radius: 11px;
+  font-size: 15px; font-weight: 700; cursor: pointer;
+  font-family: 'Noto Sans KR', sans-serif;
+  transition: all 0.15s;
+}
+.auth-btn-back:hover { border-color: var(--text-sub); color: var(--text); }
+
+@keyframes popIn {
+  from { transform: scale(0.92) translateY(12px); opacity:0; }
+  to { transform: scale(1) translateY(0); opacity:1; }
+}
+
+.auth-logo { text-align: center; margin-bottom: 28px; }
+.auth-logo-icon {
+  width: 52px; height: 52px;
+  background: var(--blue);
+  border-radius: 16px;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 26px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 16px rgba(5,150,105,0.4);
+}
+.auth-title { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+.auth-sub { font-size: 14px; color: var(--text-muted); }
+
+.auth-tabs { display: flex; background: var(--bg); border-radius: 10px; padding: 3px; margin-bottom: 24px; }
+.auth-tab {
+  flex: 1; text-align: center; padding: 8px;
+  border-radius: 8px; font-size: 14px; font-weight: 600;
+  cursor: pointer; color: var(--text-muted); transition: all 0.15s;
+}
+.auth-tab.active { background: white; color: var(--text); box-shadow: var(--shadow-xs); }
+
+.auth-form { display: flex; flex-direction: column; gap: 14px; }
+.auth-input {
+  width: 100%;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 11px;
+  padding: 12px 16px;
+  font-size: 14px;
+  color: var(--text);
+  font-family: 'Noto Sans KR', sans-serif;
+  transition: all 0.2s;
+}
+.auth-input:focus { outline: none; border-color: var(--blue); background: white; box-shadow: 0 0 0 3px rgba(5,150,105,0.1); }
+.auth-input::placeholder { color: var(--text-light); }
+
+.auth-btn {
+  width: 100%;
+  padding: 13px;
+  background: var(--blue);
+  color: white;
+  border: none;
+  border-radius: 11px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Noto Sans KR', sans-serif;
+  margin-top: 4px;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(5,150,105,0.35);
+}
+.auth-btn:hover { background: var(--blue-dark); box-shadow: 0 4px 16px rgba(5,150,105,0.45); }
+
+.auth-divider {
+  display: flex; align-items: center; gap: 12px; margin: 4px 0;
+  font-size: 13px; color: var(--text-light);
+}
+.auth-divider::before, .auth-divider::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+
+.social-btn {
+  width: 100%; padding: 11px;
+  background: white; border: 1.5px solid var(--border);
+  border-radius: 11px; font-size: 14px; font-weight: 600;
+  cursor: pointer; font-family: 'Noto Sans KR', sans-serif;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  transition: all 0.15s; color: var(--text-sub);
+}
+.social-btn:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
+.social-btn.kakao {
+  background: #FEE500; border-color: #FEE500; color: #191919;
+}
+.social-btn.kakao:hover { background: #f0d900; border-color: #f0d900; color: #191919; }
+
+.modal-close {
+  position: absolute; top: -12px; right: -12px;
+  width: 32px; height: 32px;
+  background: white; border: 1.5px solid var(--border);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 16px; color: var(--text-muted);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.15s;
+}
+.modal-close:hover { background: var(--bg); color: var(--text); }
+
+.auth-modal { position: relative; }
+
+/* tag filters */
+.tag-filters {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-light);
+  background: var(--bg);
+  border-radius: 16px 16px 0 0;
+}
+.tf-btn {
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 12px; font-weight: 600;
+  border: 1.5px solid #e8edf4;
+  background: #fff; color: #64748b;
+  cursor: pointer; transition: all 0.12s;
+  font-family: 'Noto Sans KR', sans-serif;
+  letter-spacing: 0.1px;
+}
+.tf-btn:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
+.tf-btn.on { background: var(--blue); border-color: var(--blue); color: white; box-shadow: 0 2px 8px rgba(37,99,235,0.25); }
+
+/* ── PEARL EFFECTS ── */
+@keyframes subtleGlow {
+  0%, 100% { box-shadow: 0 2px 8px rgba(5,150,105,0.25); }
+  50% { box-shadow: 0 4px 16px rgba(5,150,105,0.38); }
+}
+
+.btn-hero-primary, .btn-cta, .auth-btn {
+  background: linear-gradient(135deg, #059669 0%, #0aaf7a 100%) !important;
+  animation: subtleGlow 3s ease-in-out infinite !important;
+  border: none !important;
+}
+
+.btn-hero-primary:hover, .btn-cta:hover, .auth-btn:hover {
+  background: linear-gradient(135deg, #047857 0%, #059669 100%) !important;
+  transform: translateY(-2px) !important;
+}
+
+.nav-logo-icon, .auth-logo-icon {
+  background: linear-gradient(135deg, #047857 0%, #059669 100%) !important;
+}
+
+.hero-title .accent {
+  background: linear-gradient(135deg, #047857, #059669);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stat-card { position: relative; overflow: hidden; }
+.stat-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 60%);
+  pointer-events: none;
+}
+
+
+/* ── COMMUNITY CHIPS ── */
+.comm-chip-bar {
+  background: var(--bg);
+  padding: 20px 48px 0;
+}
+.comm-chip-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.comm-chip {
+  padding: 9px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-sub);
+  border: 2px solid var(--border);
+  border-radius: 99px;
+  background: white;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.18s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+.comm-chip:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+  background: var(--blue-light);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(5,150,105,0.15);
+}
+.comm-chip.active {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: white;
+  box-shadow: 0 3px 10px rgba(5,150,105,0.3);
+}
+
+.comm-category-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 12px 4px 12px;
+  margin-bottom: 8px;
+}
+.comm-cat-title { font-size: 15px; font-weight: 700; color: var(--text); }
+
+
+/* ── INFO PAGE ── */
+.info-search-bar {
+  background: white;
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  padding: 18px 20px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-xs);
+}
+.info-search-wrap {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--bg); border: 1.5px solid var(--border);
+  border-radius: 12px; padding: 10px 16px;
+  margin-bottom: 14px;
+}
+.info-search-icon { font-size: 15px; }
+.info-search-input {
+  flex: 1; border: none; background: transparent;
+  font-size: 14px; color: var(--text); outline: none;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+.info-search-input::placeholder { color: var(--text-muted); }
+.info-filter-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.info-filter-group { display: flex; align-items: center; gap: 7px; }
+.info-filter-label { font-size: 12px; font-weight: 600; color: var(--text-muted); white-space: nowrap; }
+.info-select {
+  padding: 7px 12px; border-radius: 10px;
+  border: 1.5px solid var(--border); background: var(--bg);
+  font-size: 12px; color: var(--text); font-family: 'Noto Sans KR', sans-serif;
+  cursor: pointer; outline: none;
+}
+.info-select:focus { border-color: var(--blue); }
+
+.info-spotlight-item { display: flex; align-items: center; gap: 8px; }
+.info-spotlight-badge {
+  font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 20px; white-space: nowrap;
+}
+.info-spotlight-badge.conf { background: var(--blue-light); color: var(--blue); }
+.info-spotlight-badge.scholar { background: var(--green-light); color: var(--green); }
+.info-spotlight-badge.project { background: var(--amber-light); color: var(--amber); }
+.info-spotlight-text { font-size: 12px; color: var(--text); font-weight: 500; }
+
+.info-stat-row { display: flex; align-items: center; gap: 8px; }
+.info-stat-label { font-size: 12px; color: var(--text-muted); width: 56px; flex-shrink: 0; }
+.info-stat-bar-wrap { flex: 1; height: 8px; background: var(--border); border-radius: 99px; overflow: hidden; }
+.info-stat-bar { height: 100%; border-radius: 99px; transition: width 0.4s; }
+.info-stat-val { font-size: 12px; font-weight: 700; color: var(--text); width: 28px; text-align: right; }
+
+
+/* ── INFO HIGHLIGHT DASHBOARD ── */
+.info-highlight-dashboard {
+  background: linear-gradient(135deg, #0f172a 0%, #064e3b 100%);
+  border-radius: 20px;
+  padding: 28px;
+  margin-bottom: 24px;
+  box-shadow: 0 8px 32px rgba(5,150,105,0.2);
+}
+.info-highlight-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 20px;
+}
+.info-highlight-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px; font-weight: 700; color: #0f172a;
+}
+.info-highlight-sub {
+  font-size: 12px; color: rgba(255,255,255,0.5);
+}
+.info-highlight-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+.info-highlight-card {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 14px;
+  padding: 18px;
+  display: flex; flex-direction: column; gap: 8px;
+  transition: all 0.2s;
+}
+.info-highlight-card:hover {
+  background: rgba(255,255,255,0.11);
+  border-color: rgba(255,255,255,0.22);
+  transform: translateY(-2px);
+}
+.info-highlight-card.featured {
+  background: rgba(5,150,105,0.25);
+  border-color: rgba(5,150,105,0.5);
+}
+.info-highlight-badge {
+  display: inline-block; font-size: 12px; font-weight: 700;
+  padding: 3px 10px; border-radius: 20px; width: fit-content;
+}
+.info-highlight-badge.urgent { background: #ef4444; color: white; }
+.info-highlight-badge.soon   { background: #f59e0b; color: white; }
+.info-highlight-badge.bio    { background: #8b5cf6; color: white; }
+.info-highlight-card-title {
+  font-size: 14px; font-weight: 700; color: white; line-height: 1.3;
+}
+.info-highlight-card-org {
+  font-size: 12px; color: rgba(255,255,255,0.55);
+}
+.info-highlight-card-date {
+  font-size: 12px; font-weight: 600; color: #6ee7b7;
+  font-family: 'DM Mono', monospace;
+}
+.info-highlight-card-desc {
+  font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.5; flex: 1;
+}
+.info-highlight-btn {
+  margin-top: 4px;
+  padding: 8px 14px; border-radius: 10px;
+  background: rgba(255,255,255,0.12); color: white;
+  border: 1px solid rgba(255,255,255,0.2);
+  font-size: 12px; font-weight: 600; cursor: pointer;
+  transition: all 0.15s; text-align: center;
+}
+.info-highlight-btn:hover {
+  background: var(--blue); border-color: var(--blue);
+}
+
+
+/* ══════════════════════════
+   NEWS PAGE
+══════════════════════════ */
+
+/* 페이지 헤더 배너 */
+.news-page-header {
+  background: linear-gradient(135deg, #0f172a 0%, #1e3560 60%, #0f2a1a 100%);
+  padding: 36px 48px 32px;
+  position: relative;
+  overflow: hidden;
+}
+.news-page-header::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.news-page-header-inner {
+  max-width: 1280px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  position: relative; z-index: 1;
+}
+.news-page-header-left {}
+.news-page-header-eyebrow {
+  font-size: 11px; font-weight: 800; letter-spacing: 0.12em;
+  text-transform: uppercase; color: rgba(255,255,255,0.5);
+  margin-bottom: 8px;
+}
+.news-page-header-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 28px; font-weight: 800; color: white;
+  letter-spacing: -0.5px; line-height: 1.2;
+}
+.news-page-header-sub {
+  font-size: 14px; color: rgba(255,255,255,0.55);
+  margin-top: 6px;
+}
+.news-page-header-stats {
+  display: flex; gap: 0;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px; overflow: hidden;
+  background: rgba(255,255,255,0.05);
+}
+.news-page-header-stat {
+  padding: 12px 24px; text-align: center;
+  border-right: 1px solid rgba(255,255,255,0.08);
+}
+.news-page-header-stat:last-child { border-right: none; }
+.news-page-header-stat-val {
+  font-family: 'DM Mono', monospace;
+  font-size: 22px; font-weight: 500; color: #60a5fa;
+  line-height: 1;
+}
+.news-page-header-stat-label {
+  font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 4px;
+}
+
+/* 필터 바 */
+.news-filter-bar {
+  background: white;
+  border-bottom: 1px solid var(--border);
+  padding: 0 48px;
+  position: sticky; top: 64px; z-index: 10;
+  box-shadow: 0 1px 4px rgba(15,23,42,0.04);
+}
+.news-filter-inner {
+  max-width: 1280px; margin: 0 auto;
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 0; overflow-x: auto;
+}
+.news-filter-label {
+  font-size: 12px; font-weight: 700; color: var(--text-muted);
+  flex-shrink: 0; margin-right: 4px;
+}
+.news-tab-wrap { display: flex; gap: 6px; flex-wrap: nowrap; }
+.news-tab {
+  padding: 6px 16px; border-radius: 20px;
+  font-size: 13px; font-weight: 600;
+  border: 1.5px solid #e8edf4;
+  background: white; color: var(--text-sub);
+  cursor: pointer; transition: all 0.15s;
+  white-space: nowrap;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+.news-tab:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
+.news-tab.active { background: var(--blue); border-color: var(--blue); color: white; box-shadow: 0 2px 8px rgba(37,99,235,0.25); }
+
+/* 뉴스 컨텐츠 영역 */
+.news-content-wrap {
+  max-width: 1280px; margin: 0 auto;
+  padding: 32px 48px;
+}
+
+/* featured + 사이드 레이아웃 */
+.news-layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 24px;
+  align-items: start;
+}
+
+/* featured 카드 (첫 번째 뉴스) */
+.news-featured-card {
+  background: white;
+  border: 1.5px solid #e8edf4;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.18s;
+  box-shadow: 0 2px 8px rgba(15,23,42,0.05);
+  margin-bottom: 20px;
+}
+.news-featured-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(37,99,235,0.1);
+  border-color: #bfdbfe;
+}
+.news-featured-header {
+  background: linear-gradient(135deg, #1e293b 0%, #1e3a8a 100%);
+  padding: 28px 28px 24px;
+  position: relative; overflow: hidden;
+}
+.news-featured-header::after {
+  content: attr(data-emoji);
+  position: absolute; right: 24px; bottom: -8px;
+  font-size: 72px; opacity: 0.2; line-height: 1;
+}
+.news-featured-field {
+  display: inline-block; font-size: 11px; font-weight: 800;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 3px 10px; border-radius: 20px; margin-bottom: 12px;
+}
+.news-featured-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 22px; font-weight: 800; color: white;
+  line-height: 1.4;
+}
+.news-featured-body { padding: 20px 28px; }
+.news-featured-desc {
+  font-size: 14px; color: #475569; line-height: 1.7;
+  margin-bottom: 16px;
+}
+.news-featured-footer {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.news-featured-meta {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 12px; color: #94a3b8;
+}
+.news-featured-meta strong { color: #334155; font-weight: 700; }
+.news-featured-cta {
+  font-size: 13px; font-weight: 700; color: var(--blue);
+  background: var(--blue-light); border: 1.5px solid var(--blue-mid);
+  padding: 7px 16px; border-radius: 9px;
+  transition: all 0.15s;
+}
+.news-featured-cta:hover { background: var(--blue); color: white; }
+
+/* 일반 뉴스 카드 그리드 */
+.news-main-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.news-card {
+  background: white; border: 1.5px solid #e8edf4;
+  border-radius: 12px; padding: 16px;
+  display: flex; flex-direction: column; gap: 8px;
+  cursor: pointer; transition: all 0.18s;
+  box-shadow: 0 1px 3px rgba(15,23,42,0.04);
+}
+.news-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37,99,235,0.08);
+  border-color: #bfdbfe;
+}
+.news-card-meta {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.news-card-field {
+  display: flex; align-items: center; gap: 5px;
+}
+.news-card-dot {
+  width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+}
+.news-card-field-label {
+  font-size: 11px; font-weight: 700; padding: 2px 8px;
+  border-radius: 20px;
+}
+.news-card-date { font-size: 11px; color: #94a3b8; font-family: 'DM Mono', monospace; }
+.news-card-title {
+  font-size: 14px; font-weight: 700; color: #0f172a;
+  line-height: 1.5;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.news-card-org { font-size: 11px; color: #64748b; font-weight: 600; }
+.news-card-desc {
+  font-size: 12px; color: #64748b; line-height: 1.6; flex: 1;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.news-card-footer {
+  padding-top: 10px; border-top: 1px solid #f1f5f9;
+  font-size: 12px; font-weight: 700; color: var(--blue);
+}
+
+/* 사이드 패널 */
+.news-side-panel {
+  display: flex; flex-direction: column; gap: 16px;
+  position: sticky; top: 120px;
+}
+.news-side-box {
+  background: white; border: 1.5px solid #e8edf4;
+  border-radius: 14px; overflow: hidden;
+  box-shadow: 0 1px 4px rgba(15,23,42,0.04);
+}
+.news-side-box-header {
+  padding: 14px 18px; border-bottom: 1px solid #f1f5f9;
+  font-size: 13px; font-weight: 800; color: #0f172a;
+  display: flex; align-items: center; gap: 6px;
+}
+.news-side-item {
+  display: flex; gap: 10px; align-items: flex-start;
+  padding: 12px 16px; border-bottom: 1px solid #f8fafc;
+  cursor: pointer; transition: background 0.13s;
+}
+.news-side-item:last-child { border-bottom: none; }
+.news-side-item:hover { background: #f8fafc; }
+.news-side-num {
+  font-family: 'DM Mono', monospace; font-size: 12px;
+  font-weight: 700; color: #e2e8f0; width: 18px; flex-shrink: 0; padding-top: 2px;
+}
+.news-side-num.top1 { color: #2563eb; }
+.news-side-num.top2 { color: #3b82f6; }
+.news-side-num.top3 { color: #60a5fa; }
+.news-side-title {
+  font-size: 13px; font-weight: 600; color: #1e293b;
+  line-height: 1.5;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.news-side-date { font-size: 11px; color: #94a3b8; margin-top: 3px; font-family: 'DM Mono', monospace; }
+
+/* 빈 상태 */
+.news-empty {
+  grid-column: 1 / -1; text-align: center;
+  padding: 60px 20px; color: #94a3b8; font-size: 15px;
+}
+
+
+
+/* ══════════════════════════
+   NEWS DETAIL PAGE
+══════════════════════════ */
+.news-detail-wrap {
+  max-width: 900px; margin: 0 auto;
+  padding: 36px 48px;
+}
+.news-detail-back {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: none; border: none;
+  color: #64748b; font-size: 14px; font-weight: 600;
+  cursor: pointer; padding: 0; margin-bottom: 28px;
+  font-family: 'Noto Sans KR', sans-serif;
+  transition: color 0.13s;
+}
+.news-detail-back:hover { color: #0f172a; }
+#detail-field {
+  font-size: 12px; font-weight: 700;
+  padding: 3px 10px; border-radius: 20px;
+  background: #eff6ff; color: #2563eb;
+}
+#detail-tag {
+  font-size: 12px; font-weight: 600;
+  padding: 3px 10px; border-radius: 20px;
+  background: #f1f5f9; color: #64748b;
+}
+.news-detail-title {
+  font-size: 26px; font-weight: 800; color: #0f172a;
+  line-height: 1.4; margin: 0 0 18px;
+  letter-spacing: -0.4px;
+}
+.news-detail-meta {
+  display: flex; gap: 16px; align-items: center;
+  padding: 14px 0;
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+  margin-bottom: 28px; flex-wrap: wrap;
+}
+.news-detail-org { font-size: 13px; font-weight: 700; color: #0f172a; }
+.news-detail-date { font-size: 12px; color: #94a3b8; font-family: 'DM Mono', monospace; }
+.news-detail-body {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 32px;
+  align-items: start;
+  margin-bottom: 32px;
+}
+.news-detail-body.no-image { grid-template-columns: 1fr; }
+.news-detail-content { font-size: 15px; line-height: 1.9; color: #334155; white-space: pre-wrap; }
+.news-detail-img-wrap { position: sticky; top: 120px; }
+.news-detail-img {
+  width: 100%; border-radius: 14px; object-fit: cover;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 20px rgba(15,23,42,0.08);
+}
+.news-detail-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #0f172a; color: #fff;
+  padding: 13px 22px; border-radius: 12px;
+  font-size: 14px; font-weight: 700; text-decoration: none;
+  transition: background 0.15s;
+}
+.news-detail-link:hover { background: #1e293b; }
+
+/* 뉴스 카드 썸네일 */
+.news-card-thumb {
+  width: 100%; height: 120px; object-fit: cover;
+  border-radius: 9px 9px 0 0; display: block;
+  border-bottom: 1px solid #f1f5f9;
+}
+.news-card.has-thumb { padding-top: 0; }
+
+/* ══════════════════════════
+   RESPONSIVE — MOBILE
+══════════════════════════ */
+
+/* 햄버거 버튼 (모바일 전용) */
+.nav-hamburger {
+  display: none;
+  flex-direction: column; gap: 5px;
+  cursor: pointer; padding: 6px;
+  background: none; border: none;
+}
+.nav-hamburger span {
+  display: block; width: 22px; height: 2px;
+  background: #0f172a; border-radius: 2px;
+  transition: all 0.25s;
+}
+
+/* 모바일 드로어 오버레이 */
+.nav-drawer-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(15,23,42,0.4);
+  z-index: 190;
+  backdrop-filter: blur(2px);
+}
+.nav-drawer-overlay.open { display: block; }
+
+/* 모바일 드로어 */
+.nav-drawer {
+  display: none;
+  position: fixed; top: 0; right: 0;
+  width: 280px; height: 100vh;
+  background: #fff;
+  z-index: 195;
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+  flex-direction: column;
+  box-shadow: -8px 0 32px rgba(15,23,42,0.15);
+  overflow-y: auto;
+}
+.nav-drawer.open {
+  transform: translateX(0);
+}
+.nav-drawer-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid #f1f5f9;
+}
+.nav-drawer-close {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: #f1f5f9; border: none; cursor: pointer;
+  font-size: 18px; color: #64748b;
+  display: flex; align-items: center; justify-content: center;
+}
+.nav-drawer-links {
+  display: flex; flex-direction: column;
+  padding: 12px 12px;
+  gap: 2px;
+}
+.nav-drawer-link {
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 15px; font-weight: 600; color: #334155;
+  cursor: pointer; transition: background 0.13s;
+}
+.nav-drawer-link:hover { background: #f8fafc; }
+.nav-drawer-link.active { background: #eff6ff; color: #2563eb; }
+.nav-drawer-actions {
+  padding: 16px;
+  border-top: 1px solid #f1f5f9;
+  display: flex; flex-direction: column; gap: 8px;
+  margin-top: auto;
+}
+.nav-drawer-btn-login {
+  width: 100%; padding: 12px;
+  border: 1.5px solid #e2e8f0; border-radius: 10px;
+  background: white; color: #334155;
+  font-size: 14px; font-weight: 700; cursor: pointer;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+.nav-drawer-btn-cta {
+  width: 100%; padding: 12px;
+  background: #2563eb; color: white;
+  border: none; border-radius: 10px;
+  font-size: 14px; font-weight: 700; cursor: pointer;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+@media (max-width: 768px) {
+
+  /* ── NAVBAR ── */
+  .navbar {
+    padding: 0 20px;
+    height: 56px;
+  }
+  .nav-links { display: none; }
+  .nav-right { display: none; }
+  .nav-hamburger { display: flex; }
+  .nav-drawer { display: flex; }
+  .nav-logo-sub { display: none; }
+  .nav-logo-text { font-size: 18px; }
+
+  /* ── HERO ── */
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 36px 20px 32px;
+    gap: 32px;
+  }
+  .hero-wrapper::after { display: none; }
+  .hero-title { font-size: 36px; letter-spacing: -1px; }
+  .hero-desc { font-size: 14px; max-width: 100%; }
+  .hero-actions { flex-direction: column; align-items: stretch; }
+  .btn-hero-primary, .btn-hero-secondary {
+    justify-content: center;
+    font-size: 15px; padding: 13px 20px;
+  }
+  .hero-stats {
+    border-radius: 12px;
+  }
+  .hero-stat-value { font-size: 20px; }
+  .hero-visual { order: -1; }
+  .hero-card { padding: 18px; }
+  .mini-title { font-size: 13px; }
+
+  /* ── STATS BAND ── */
+  .stats-band-inner {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0 20px;
+    gap: 0;
+  }
+  .band-item {
+    padding: 16px 12px;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .band-value { font-size: 22px; }
+
+  /* ── SECTION WRAP ── */
+  .section-wrap { padding: 28px 20px; }
+
+  /* ── COMMUNITY + INFO ── */
+  .community-section-wrap { padding: 28px 0; }
+  .community-grid {
+    grid-template-columns: 1fr;
+    padding: 0 20px;
+    gap: 32px;
+  }
+
+  /* ── FEATURE CARDS ── */
+  .feature-section .feature-inner { padding: 36px 20px; }
+  .feature-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .feature-title { font-size: 26px; }
+
+  /* ── INFO PAGE ── */
+  .info-banner-wrap { margin-bottom: 20px; }
+  .info-banner-slider { min-height: 160px; border-radius: 14px; }
+
+  /* ── NEWS PAGE ── */
+  .news-page-header { padding: 24px 20px 20px; }
+  .news-page-header-inner { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .news-page-header-title { font-size: 22px; }
+  .news-page-header-stats { align-self: stretch; }
+  .news-page-header-stat { flex: 1; padding: 10px 16px; }
+  .news-filter-bar { padding: 0 20px; top: 56px; }
+  .news-content-wrap { padding: 20px 20px; }
+  .news-layout {
+    grid-template-columns: 1fr;
+  }
+  .news-side-panel { display: none; }
+  .news-main-grid { grid-template-columns: 1fr; }
+  .news-featured-title { font-size: 18px; }
+  .news-featured-header { padding: 20px 20px 18px; }
+  .news-featured-body { padding: 16px 20px; }
+
+  /* ── COMMUNITY PAGE ── */
+  #page-community .section-wrap { padding: 20px 16px; }
+
+  /* ── AUTH MODAL ── */
+  .auth-modal {
+    width: 95vw;
+    padding: 28px 20px;
+    border-radius: 16px;
+  }
+
+  /* ── NEWS DETAIL ── */
+  #page-news-detail .section-wrap { padding: 20px 16px; }
+
+  /* ── FOOTER ── */
+  .footer-inner {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+    padding: 24px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title { font-size: 30px; }
+  .hero-eyebrow { font-size: 11px; }
+  .stats-band-inner { grid-template-columns: repeat(2, 1fr); }
+  .band-value { font-size: 18px; }
+  .section-title { font-size: 18px; }
+  .info-card-list { gap: 8px; }
+  .news-main-grid { gap: 8px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-logo" onclick="showPage('home')">
+    <div class="nav-logo-icon" style="overflow:visible;"><svg width="28" height="36" viewBox="-4 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="3" y1="16" x2="-3" y2="22" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="25" y1="16" x2="31" y2="22" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="10" y1="28" x2="7" y2="35" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="18" y1="28" x2="21" y2="35" stroke="white" stroke-width="2.5" stroke-linecap="round"/><rect x="1" y="5" width="26" height="24" rx="4" fill="white" fill-opacity="0.2" stroke="white" stroke-width="1.5"/><rect x="1" y="5" width="26" height="8" rx="4" fill="white" fill-opacity="0.3"/><rect x="1" y="9" width="26" height="4" fill="white" fill-opacity="0.3"/><rect x="7" y="2" width="3" height="6" rx="1.5" fill="white"/><rect x="18" y="2" width="3" height="6" rx="1.5" fill="white"/><circle cx="8" cy="20" r="1.5" fill="white"/><circle cx="14" cy="20" r="1.5" fill="white"/><circle cx="20" cy="20" r="1.5" fill="white"/><circle cx="8" cy="25" r="1.5" fill="white"/><circle cx="14" cy="25" r="1.5" fill="white"/></svg></div>
+    <div>
+        <div>
+        <div class="nav-logo-text" style="font-family:'Montserrat',sans-serif;font-weight:700;letter-spacing:-0.3px;">My Research Calendar</div>
+        <div style="font-size:11px;color:var(--text-muted);font-weight:400;margin-top:1px;text-align:center;">나만의 연구 캘린더</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-links">
+    <div class="nav-link active" onclick="showPage('home');setNav(this)">홈</div>
+    <div class="nav-link" onclick="showPage('community');setNav(this)">커뮤니티</div>
+    <div class="nav-link" onclick="showPage('info');setNav(this)">학술정보</div>
+    <div class="nav-link" onclick="goToCalendar()">연구 캘린더 <span class="nav-badge">EXCLUSIVE</span></div>
+    <div class="nav-link" onclick="showPage('news');setNav(this)">국내연구소식</div>
+  </div>
+
+  <div class="nav-right">
+    <div id="nav-user-area" style="display:flex;align-items:center;gap:8px;"></div>
+    <button class="btn-login nav-login-btn" onclick="openAuth('login')">로그인</button>
+    <button class="btn-cta nav-login-btn" onclick="openAuth('signup')">무료로 시작하기 →</button>
+  </div>
+
+  <!-- 햄버거 (모바일) -->
+  <button class="nav-hamburger" onclick="openDrawer()" aria-label="메뉴 열기">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- 모바일 드로어 -->
+<div class="nav-drawer-overlay" id="nav-overlay" onclick="closeDrawer()"></div>
+<div class="nav-drawer" id="nav-drawer">
+  <div class="nav-drawer-header">
+    <div class="nav-logo-text" style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:16px;">My Research Calendar</div>
+    <button class="nav-drawer-close" onclick="closeDrawer()">✕</button>
+  </div>
+  <div class="nav-drawer-links">
+    <div class="nav-drawer-link active" onclick="showPage('home');setNavDrawer(this);closeDrawer()">🏠 홈</div>
+    <div class="nav-drawer-link" onclick="showPage('community');setNavDrawer(this);closeDrawer()">💬 커뮤니티</div>
+    <div class="nav-drawer-link" onclick="showPage('info');setNavDrawer(this);closeDrawer()">📚 학술정보</div>
+    <div class="nav-drawer-link" onclick="goToCalendar();closeDrawer()">📅 연구 캘린더 ✦</div>
+    <div class="nav-drawer-link" onclick="showPage('news');setNavDrawer(this);closeDrawer()">📰 국내연구소식</div>
+  </div>
+  <div class="nav-drawer-actions">
+    <button class="nav-drawer-btn-login" onclick="closeDrawer();openAuth('login')">로그인</button>
+    <button class="nav-drawer-btn-cta" onclick="closeDrawer();openAuth('signup')">무료로 시작하기 →</button>
+  </div>
+</div>
+
+<!-- ═══════════ HOME ═══════════ -->
+<div class="page active" id="page-home">
+
+  <!-- HERO -->
+  <div class="hero-wrapper">
+    <div class="hero">
+      <div class="hero-left">
+        <div class="hero-eyebrow">🚀 연구자를 위한 올인원 플랫폼</div>
+        <h1 class="hero-title">
+          연구에만<br>
+          <span class="accent">집중하세요.</span><br>
+          나머지는 우리가.
+        </h1>
+        <p class="hero-desc">
+          학회 마감, 장학금 공모, 국가과제까지 — 흩어진 학술 정보를 한 곳에서.<br>
+          34만 연구자가 함께 성장하는 커뮤니티와 함께.
+        </p>
+        <div class="hero-actions">
+          <button class="btn-hero-primary" onclick="openAuth('signup')">무료로 시작하기 →</button>
+          <button class="btn-hero-secondary" onclick="showPage('community');setNav(document.querySelectorAll('.nav-link')[1])">커뮤니티 둘러보기</button>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat-item">
+            <div class="hero-stat-value">34만+</div>
+            <div class="hero-stat-label">잠재 연구자</div>
+          </div>
+          <div class="hero-stat-item">
+            <div class="hero-stat-value">1,200+</div>
+            <div class="hero-stat-label">등록 학술정보</div>
+          </div>
+          <div class="hero-stat-item">
+            <div class="hero-stat-value">98%</div>
+            <div class="hero-stat-label">사용자 만족도</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-card">
+          <div class="hero-card-header">
+            <span class="hero-card-title">📌 마감 임박 학술정보</span>
+            <span class="live-dot">실시간</span>
+          </div>
+          <div class="mini-info-item">
+            <span class="mini-badge mb-conf">학회</span>
+            <span class="mini-title">한국반도체학술대회 KSIA 2025</span>
+            <span class="mini-dday dday-red">D-7</span>
+          </div>
+          <div class="mini-info-item">
+            <span class="mini-badge mb-scholar">장학금</span>
+            <span class="mini-title">한국연구재단 박사과정생 장려금</span>
+            <span class="mini-dday dday-amber">D-31</span>
+          </div>
+          <div class="mini-info-item">
+            <span class="mini-badge mb-conf">학회</span>
+            <span class="mini-title">IEEE IEDM 2025</span>
+            <span class="mini-dday dday-amber">D-45</span>
+          </div>
+          <div class="mini-info-item">
+            <span class="mini-badge mb-project">국가과제</span>
+            <span class="mini-title">AI 반도체 공정 최적화 연구</span>
+            <span class="mini-dday dday-green">D-60</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- STATS BAND -->
+  <div class="stats-band">
+    <div class="stats-band-inner">
+      <div class="band-item blue">
+        <div class="band-icon blue">🎓</div>
+        <div><div class="band-value">24</div><div class="band-label">등록된 학회</div></div>
+      </div>
+      <div class="band-item green">
+        <div class="band-icon green">💰</div>
+        <div><div class="band-value">11</div><div class="band-label">장학금 공모</div></div>
+      </div>
+      <div class="band-item amber">
+        <div class="band-icon amber">📋</div>
+        <div><div class="band-value">08</div><div class="band-label">국가과제</div></div>
+      </div>
+      <div class="band-item red">
+        <div class="band-icon red">⚠️</div>
+        <div><div class="band-value">03</div><div class="band-label">D-7 마감 임박</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMMUNITY + INFO -->
+  <div class="community-section-wrap">
+    <div class="community-grid">
+
+      <!-- HOT COMMUNITY -->
+      <div>
+        <div class="section-header">
+          <div>
+            <div class="section-title">💬 커뮤니티 인기글</div>
+            <div class="section-sub">연구자들이 가장 많이 읽은 이야기</div>
+          </div>
+          <div class="see-all" onclick="showPage('community');setNav(document.querySelectorAll('.nav-link')[1])">전체보기 →</div>
+        </div>
+
+        <!-- 글쓰기 박스 -->
+        <div class="write-box" onclick="openAuth('write')">
+          <div class="write-box-avatar">✏️</div>
+          <span class="write-box-placeholder">연구 고민, 정보, 후기를 공유해보세요...</span>
+          <span class="write-box-btn">글쓰기</span>
+        </div>
+
+        <!-- 탭 필터 -->
+        <div class="post-tab-row">
+          <button class="tf-btn on" onclick="filterPosts(this,'all')">전체</button>
+          <button class="tf-btn" onclick="filterPosts(this,'qna')">연구 Q&A</button>
+          <button class="tf-btn" onclick="filterPosts(this,'review')">학회 후기</button>
+          <button class="tf-btn" onclick="filterPosts(this,'anon')">익명 토크</button>
+          <button class="tf-btn" onclick="filterPosts(this,'study')">스터디 모집</button>
+        </div>
+
+        <div class="post-list-card">
+          <div class="post-list" id="post-list"></div>
+        </div>
+      </div>
+
+      <!-- INFO SIDEBAR -->
+      <div>
+        <div class="section-header">
+          <div>
+            <div class="section-title">📚 학술정보</div>
+            <div class="section-sub">장학금, 학회, 연구과제 정보</div>
+          </div>
+          <div class="see-all" onclick="showPage('info');setNav(document.querySelectorAll('.nav-link')[2])">전체보기 →</div>
+        </div>
+        <div class="info-card-list" id="home-info-list"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FEATURE SECTION -->
+  <div class="feature-section">
+    <div class="feature-inner">
+      <div class="feature-eyebrow">WHY MYRESEARCH</div>
+      <h2 class="feature-title">연구자의 성장을<br>시스템이 돕습니다</h2>
+      <p class="feature-desc">인맥과 운에 의존하던 학술 정보 탐색을 데이터와 AI로 바꿉니다.</p>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-card-icon">🔍</div>
+          <div class="feature-card-title">학술정보 통합</div>
+          <div class="feature-card-desc">국내외 학회, 장학금, 국가과제를 한 곳에서. 전공별 맞춤 분류로 내 분야 정보만 빠르게.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🏷️</div>
+          <div class="feature-card-title">Hyper-Research</div>
+          <div class="feature-card-desc">관심 분야 해시태그 설정 하나로 내게 맞는 기회가 자동으로 큐레이션됩니다.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">📅</div>
+          <div class="feature-card-title">연구자 캘린더</div>
+          <div class="feature-card-desc">마감일을 캘린더에 등록하고 D-day 알림으로 중요한 기회를 절대 놓치지 마세요.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">💬</div>
+          <div class="feature-card-title">연구자 커뮤니티</div>
+          <div class="feature-card-desc">랩실 고민부터 논문 후기까지. 비슷한 고민을 가진 연구자들과 솔직하게 소통하세요.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🎓</div>
+          <div class="feature-card-title">연구 프로필 등록</div>
+          <div class="feature-card-desc">연구 과정의 노하우와 자신의 연구 분야를 홍보하고 후배 연구자들과 나눠보세요. 당신의 경험이 누군가의 길잡이가 됩니다.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card-icon">🤖</div>
+          <div class="feature-card-title">AI 추천 (예정)</div>
+          <div class="feature-card-desc">연구 프로필 기반으로 최적의 학회, 장학금, 공동연구 파트너를 AI가 추천합니다.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">🔬 My Research Calendar</div>
+      <div class="footer-copy">© 2025 My Research Calendar. 연구자를 위한 올인원 플랫폼.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ COMMUNITY ═══════════ -->
+<div class="page" id="page-community">
+  <div style="padding:28px 0 0;">
+    <div class="section-wrap">
+
+      <!-- 카테고리 탭 -->
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;">
+        <button class="comm-chip active" onclick="switchCommTab(this,'all')">전체</button>
+        <button class="comm-chip" onclick="switchCommTab(this,'qna')">연구 Q&A</button>
+        <button class="comm-chip" onclick="switchCommTab(this,'review')">학회/논문 후기</button>
+        <button class="comm-chip" onclick="switchCommTab(this,'anon')">익명 토크</button>
+        <button class="comm-chip" onclick="switchCommTab(this,'study')">스터디 모집</button>
+        <button class="comm-chip" onclick="switchCommTab(this,'info')">정보 공유</button>
+        <button class="comm-chip" onclick="switchCommTab(this,'career')">취업/진로</button>
+        <button class="comm-chip" onclick="switchCommTab(this,'lab')">랩실 생활</button>
+        <button class="comm-chip" onclick="switchCommTab(this,'abroad')">해외 유학</button>
+      </div>
+
+      <!-- 글쓰기 박스 -->
+      <div onclick="openAuth('write')" style="display:flex;align-items:center;gap:12px;padding:14px 18px;background:#fff;border:1.5px solid var(--border);border-radius:12px;cursor:pointer;margin-bottom:20px;transition:border-color 0.15s;" onmouseover="this.style.borderColor='#94a3b8'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="width:34px;height:34px;border-radius:50%;background:#f1f5f9;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">✏️</div>
+        <span style="font-size:14.5px;color:var(--text-muted);flex:1;">연구 고민, 정보, 후기를 공유해보세요...</span>
+        <span style="padding:6px 14px;background:#1e293b;color:#fff;border-radius:8px;font-size:13px;font-weight:700;flex-shrink:0;">글쓰기</span>
+      </div>
+
+      <!-- 메인 레이아웃 -->
+      <div style="display:grid;grid-template-columns:1fr 256px;gap:20px;align-items:start;">
+
+        <!-- 게시글 목록 -->
+        <div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+            <span style="font-size:15px;font-weight:700;color:var(--text);" id="comm-cat-label">전체 게시글</span>
+            <span style="font-size:13px;color:var(--text-muted);">최신순</span>
+          </div>
+          <div style="background:#fff;border:1.5px solid var(--border);border-radius:14px;overflow:hidden;">
+            <div class="post-list" id="post-list-full"></div>
+          </div>
+        </div>
+
+        <!-- 사이드바 -->
+        <div style="display:flex;flex-direction:column;gap:14px;">
+
+          <!-- 🏆 베스트 -->
+          <div style="background:#fff;border:1.5px solid var(--border);border-radius:14px;overflow:hidden;">
+            <div style="padding:13px 16px;border-bottom:1px solid var(--border-light);">
+              <span style="font-size:13.5px;font-weight:800;color:var(--text);">🏆 이번 주 베스트</span>
+            </div>
+            <div class="post-list" id="best-list-comm"></div>
+          </div>
+
+          <!-- 🔥 인기 태그 -->
+          <div style="background:#fff;border:1.5px solid var(--border);border-radius:14px;overflow:hidden;">
+            <div style="padding:13px 16px;border-bottom:1px solid var(--border-light);">
+              <span style="font-size:13.5px;font-weight:800;color:var(--text);">🔥 인기 태그</span>
+            </div>
+            <div style="padding:14px 16px;display:flex;flex-wrap:wrap;gap:8px;">
+              <span class="write-tag" style="cursor:pointer;">#반도체 <span style="font-size:11px;opacity:0.6;">142</span></span>
+              <span class="write-tag" style="cursor:pointer;">#논문작성 <span style="font-size:11px;opacity:0.6;">98</span></span>
+              <span class="write-tag" style="cursor:pointer;">#지도교수 <span style="font-size:11px;opacity:0.6;">87</span></span>
+              <span class="write-tag" style="cursor:pointer;">#장학금 <span style="font-size:11px;opacity:0.6;">76</span></span>
+              <span class="write-tag" style="cursor:pointer;">#박사고민 <span style="font-size:11px;opacity:0.6;">65</span></span>
+              <span class="write-tag" style="cursor:pointer;">#졸업후진로 <span style="font-size:11px;opacity:0.6;">54</span></span>
+              <span class="write-tag" style="cursor:pointer;">#AI머신러닝 <span style="font-size:11px;opacity:0.6;">48</span></span>
+              <span class="write-tag" style="cursor:pointer;">#포닥 <span style="font-size:11px;opacity:0.6;">39</span></span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="page-info">
+  <div class="section-wrap">
+    <div class="section-header" style="margin-bottom:20px;">
+      <div>
+        <div class="section-title">학술정보</div>
+        <div class="section-sub">전공별 학회·장학금·국가과제 통합 목록</div>
+      </div>
+    </div>
+
+    <!-- ── 배너 슬라이더 ── -->
+    <div class="info-banner-wrap" id="banner-wrap">
+      <div class="info-banner-slider" id="banner-slider">
+        <!-- 슬라이드 트랙 (DB 슬라이드 or 기본 슬라이드) -->
+        <div id="banner-track" class="info-banner-track"></div>
+
+        <!-- 좌우 화살표 -->
+        <button class="info-banner-arrow left" id="banner-prev" onclick="bannerSlide(-1)">‹</button>
+        <button class="info-banner-arrow right" id="banner-next" onclick="bannerSlide(1)">›</button>
+
+        <!-- 인디케이터 -->
+        <div class="info-banner-dots" id="banner-dots"></div>
+      </div>
+    </div>
+
+    <!-- 검색 + 필터 -->
+    <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+      <input id="info-search" type="text" placeholder="🔍 학회명, 기관명 검색..." oninput="filterInfoSearch()" style="flex:1;min-width:200px;padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;font-family:'Noto Sans KR',sans-serif;outline:none;">
+      <div style="display:flex;gap:6px;flex-wrap:wrap;" id="info-type-tabs">
+        <button class="comm-chip active" onclick="switchInfoTab(this,'all')" data-type="all">전체</button>
+        <button class="comm-chip" onclick="switchInfoTab(this,'conf')" data-type="conf">🎤 학회</button>
+        <button class="comm-chip" onclick="switchInfoTab(this,'scholar')" data-type="scholar">💰 장학금</button>
+        <button class="comm-chip" onclick="switchInfoTab(this,'project')" data-type="project">🔬 연구과제</button>
+        <button class="comm-chip" onclick="switchInfoTab(this,'award')" data-type="award">🏆 시상</button>
+      </div>
+    </div>
+
+    <!-- 학술정보 카드 목록 -->
+    <div class="info-card-list" id="info-full-list"></div>
+  </div>
+</div>
+<!-- ══ PAGE: 국내연구소식 ══ -->
+<div class="page" id="page-news">
+
+  <!-- 페이지 헤더 -->
+  <div class="news-page-header">
+    <div class="news-page-header-inner">
+      <div class="news-page-header-left">
+        <div class="news-page-header-eyebrow">Research News</div>
+        <div class="news-page-header-title">국내연구소식</div>
+        <div class="news-page-header-sub">국내 주요 연구 뉴스를 한눈에</div>
+      </div>
+      <div class="news-page-header-stats">
+        <div class="news-page-header-stat">
+          <div class="news-page-header-stat-val" id="news-total-count">—</div>
+          <div class="news-page-header-stat-label">전체 소식</div>
+        </div>
+        <div class="news-page-header-stat">
+          <div class="news-page-header-stat-val">5</div>
+          <div class="news-page-header-stat-label">분야</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 필터 바 (sticky) -->
+  <div class="news-filter-bar">
+    <div class="news-filter-inner">
+      <span class="news-filter-label">분야</span>
+      <div class="news-tab-wrap" id="news-field-tabs">
+        <button class="news-tab active" onclick="filterNews(this,'field','all')">전체</button>
+        <button class="news-tab" onclick="filterNews(this,'field','eng')">⚗️ 이공계</button>
+        <button class="news-tab" onclick="filterNews(this,'field','bio')">🧬 생명/의학</button>
+        <button class="news-tab" onclick="filterNews(this,'field','cs')">🤖 AI/컴퓨터</button>
+        <button class="news-tab" onclick="filterNews(this,'field','energy')">⚡ 에너지</button>
+        <button class="news-tab" onclick="filterNews(this,'field','quantum')">🔮 양자/통신</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 뉴스 컨텐츠 -->
+  <div class="news-content-wrap">
+    <div class="news-layout">
+      <!-- 메인 뉴스 영역 -->
+      <div>
+        <!-- featured 카드 (JS로 주입) -->
+        <div id="news-featured"></div>
+        <!-- 일반 그리드 -->
+        <div class="news-main-grid" id="news-grid"></div>
+      </div>
+
+      <!-- 사이드 패널 -->
+      <div class="news-side-panel">
+        <div class="news-side-box">
+          <div class="news-side-box-header">🔥 많이 읽은 소식</div>
+          <div id="news-side-popular"></div>
+        </div>
+        <div class="news-side-box">
+          <div class="news-side-box-header">🏷️ 분야별 현황</div>
+          <div id="news-side-fields" style="padding:14px 16px;display:flex;flex-direction:column;gap:10px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ PAGE: 뉴스 상세 ══ -->
+<div class="page" id="page-news-detail">
+  <div class="news-detail-wrap">
+
+    <!-- 뒤로가기 -->
+    <button onclick="showPage('news');setNavByName('news')" class="news-detail-back">
+      ← 국내연구소식으로 돌아가기
+    </button>
+
+    <!-- 분야 + 태그 -->
+    <div style="display:flex;gap:8px;align-items:center;margin-bottom:14px;flex-wrap:wrap;">
+      <span id="detail-field"></span>
+      <span id="detail-tag"></span>
+    </div>
+
+    <!-- 제목 -->
+    <h1 id="detail-title" class="news-detail-title"></h1>
+
+    <!-- 메타 -->
+    <div class="news-detail-meta">
+      <span id="detail-org" class="news-detail-org"></span>
+      <span id="detail-date" class="news-detail-date"></span>
+    </div>
+
+    <!-- 본문 + 이미지 2컬럼 -->
+    <div class="news-detail-body" id="news-detail-body">
+      <div id="detail-content" class="news-detail-content"></div>
+      <div id="detail-img-wrap" class="news-detail-img-wrap" style="display:none;">
+        <img id="detail-img" src="" class="news-detail-img">
+      </div>
+    </div>
+
+    <!-- 원문 링크 -->
+    <a id="detail-link" href="#" target="_blank" class="news-detail-link" style="display:none;">
+      🔗 원문 기사 보러가기
+    </a>
+
+  </div>
+</div>
+
+<!-- AUTH MODAL -->
+<div class="modal-overlay" id="auth-modal" style="display:none;">
+  <div class="auth-modal">
+    <div class="modal-close" onclick="closeAuth()">×</div>
+    <div class="auth-logo">
+      <div class="auth-logo-icon" style="overflow:visible;"><svg width="28" height="36" viewBox="-4 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="3" y1="16" x2="-3" y2="22" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="25" y1="16" x2="31" y2="22" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="10" y1="28" x2="7" y2="35" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="18" y1="28" x2="21" y2="35" stroke="white" stroke-width="2.5" stroke-linecap="round"/><rect x="1" y="5" width="26" height="24" rx="4" fill="white" fill-opacity="0.2" stroke="white" stroke-width="1.5"/><rect x="1" y="5" width="26" height="8" rx="4" fill="white" fill-opacity="0.3"/><rect x="1" y="9" width="26" height="4" fill="white" fill-opacity="0.3"/><rect x="7" y="2" width="3" height="6" rx="1.5" fill="white"/><rect x="18" y="2" width="3" height="6" rx="1.5" fill="white"/><circle cx="8" cy="20" r="1.5" fill="white"/><circle cx="14" cy="20" r="1.5" fill="white"/><circle cx="20" cy="20" r="1.5" fill="white"/><circle cx="8" cy="25" r="1.5" fill="white"/><circle cx="14" cy="25" r="1.5" fill="white"/></svg></div>
+      <div class="auth-title">My Research Calendar</div>
+      <div class="auth-sub">연구자를 위한 올인원 플랫폼</div>
+    </div>
+    <div class="auth-tabs">
+      <div class="auth-tab active" id="tab-login" data-tab="login" onclick="switchAuth('login')">로그인</div>
+      <div class="auth-tab" id="tab-signup" data-tab="signup" onclick="switchAuth('signup')">회원가입</div>
+    </div>
+    <div id="auth-message" style="display:none;padding:10px 14px;border-radius:10px;font-size:14px;font-weight:600;text-align:center;margin-bottom:4px;"></div>
+    <div class="auth-form" id="login-form">
+      <input class="auth-input" id="login-email" type="email" placeholder="이메일">
+      <input class="auth-input" id="login-password" type="password" placeholder="비밀번호">
+      <button class="auth-btn" onclick="handleLogin()">로그인</button>
+      <div class="auth-divider">또는 소셜 로그인</div>
+      <button class="social-btn kakao" onclick="handleKakaoLogin()">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M9 1C4.582 1 1 3.896 1 7.444c0 2.292 1.52 4.305 3.808 5.432l-.97 3.615a.25.25 0 0 0 .384.272L8.36 14.26A9.88 9.88 0 0 0 9 14.29c4.418 0 8-2.896 8-6.445C17 3.896 13.418 1 9 1z" fill="#191919"/></svg>
+        카카오로 시작하기
+      </button>
+      <button class="social-btn" onclick="handleGoogleLogin()">
+        <svg width="17" height="17" viewBox="0 0 18 18" fill="none"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z" fill="#34A853"/><path d="M3.964 10.706A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.706V4.962H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.038l3.007-2.332z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.962L3.964 7.294C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335"/></svg>
+        구글로 시작하기
+      </button>
+    </div>
+    <div class="auth-form" id="signup-form" style="display:none;">
+      <input class="auth-input" id="signup-name" type="text" placeholder="이름">
+      <input class="auth-input" id="signup-email" type="email" placeholder="이메일 (학교 이메일 권장)">
+      <input class="auth-input" id="signup-password" type="password" placeholder="비밀번호 (6자 이상)">
+      <input class="auth-input" id="signup-school" type="text" placeholder="소속 대학원 (예: 성균관대 반도체)">
+      <button class="auth-btn" onclick="handleSignup()">무료로 시작하기</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══ NEWS DETAIL MODAL ═══ -->
+<div class="modal-overlay" id="news-modal" style="display:none;">
+  <div style="background:#fff;border-radius:20px;width:680px;max-width:95vw;max-height:90vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,0.15);">
+    <!-- 상단 이미지 또는 컬러 헤더 -->
+    <div id="news-modal-header" style="width:100%;height:220px;border-radius:20px 20px 0 0;overflow:hidden;flex-shrink:0;position:relative;">
+      <img id="news-modal-img" src="" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.65) 0%,transparent 50%);"></div>
+      <button onclick="closeNewsModal()" style="position:absolute;top:14px;right:14px;background:rgba(0,0,0,0.4);border:none;color:#fff;font-size:20px;width:34px;height:34px;border-radius:50%;cursor:pointer;backdrop-filter:blur(4px);line-height:1;">×</button>
+      <div style="position:absolute;bottom:16px;left:20px;right:20px;display:flex;gap:8px;flex-wrap:wrap;" id="news-modal-tags"></div>
+    </div>
+    <!-- 본문 스크롤 -->
+    <div style="overflow-y:auto;flex:1;padding:24px 28px 28px;">
+      <div style="font-size:12px;color:#94a3b8;margin-bottom:8px;" id="news-modal-date"></div>
+      <h2 style="font-size:19px;font-weight:800;color:#0f172a;line-height:1.45;margin-bottom:16px;" id="news-modal-title"></h2>
+      <div style="font-size:14.5px;color:#334155;line-height:1.9;white-space:pre-wrap;" id="news-modal-content"></div>
+      <!-- 원문 링크 -->
+      <div id="news-modal-link-wrap" style="margin-top:24px;padding-top:18px;border-top:1px solid #f1f5f9;">
+        <a id="news-modal-link" href="#" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:700;color:#2563eb;text-decoration:none;">
+          🔗 원문 바로가기 →
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ POST DETAIL MODAL ═══ -->
+<div class="modal-overlay" id="post-modal" style="display:none;">
+  <div style="background:#fff;border-radius:20px;width:640px;max-width:95vw;max-height:88vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,0.15);">
+    <!-- 헤더 -->
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 24px 16px;border-bottom:1px solid #f1f5f9;flex-shrink:0;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="font-size:12px;font-weight:700;padding:3px 10px;border-radius:20px;background:#f1f5f9;color:#475569;" id="post-modal-cat"></span>
+      </div>
+      <button onclick="closePostModal()" style="background:none;border:none;font-size:22px;cursor:pointer;color:#94a3b8;line-height:1;">×</button>
+    </div>
+    <!-- 본문 (스크롤) -->
+    <div style="overflow-y:auto;flex:1;padding:20px 24px;">
+      <h2 style="font-size:18px;font-weight:800;color:#0f172a;line-height:1.4;margin-bottom:12px;" id="post-modal-title"></h2>
+      <div style="font-size:13px;color:#94a3b8;margin-bottom:16px;display:flex;align-items:center;gap:12px;">
+        <span id="post-modal-author"></span>
+        <span id="post-modal-date"></span>
+      </div>
+      <div style="font-size:15px;color:#334155;line-height:1.8;white-space:pre-wrap;padding-bottom:20px;border-bottom:1px solid #f1f5f9;" id="post-modal-content"></div>
+
+      <!-- 댓글 목록 -->
+      <div style="margin-top:20px;">
+        <div style="font-size:14px;font-weight:800;color:#0f172a;margin-bottom:14px;">댓글 <span id="comment-count" style="color:#94a3b8;font-weight:600;"></span></div>
+        <div id="comment-list" style="display:flex;flex-direction:column;gap:12px;"></div>
+      </div>
+    </div>
+    <!-- 댓글 입력창 -->
+    <div style="padding:14px 24px;border-top:1px solid #f1f5f9;flex-shrink:0;" id="comment-input-area">
+      <div style="display:flex;gap:10px;align-items:flex-end;">
+        <textarea id="comment-text" placeholder="댓글을 입력하세요..." style="flex:1;padding:10px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:13.5px;font-family:'Noto Sans KR',sans-serif;resize:none;height:48px;line-height:1.5;box-sizing:border-box;" oninput="this.style.height='48px';this.style.height=this.scrollHeight+'px'"></textarea>
+        <div style="display:flex;flex-direction:column;gap:6px;flex-shrink:0;">
+          <label style="display:flex;align-items:center;gap:5px;font-size:12px;color:#64748b;cursor:pointer;">
+            <input type="checkbox" id="comment-anon" style="width:13px;height:13px;"> 익명
+          </label>
+          <button onclick="submitComment()" style="padding:8px 16px;border:none;border-radius:8px;background:#0f172a;color:white;font-size:13px;font-weight:700;cursor:pointer;font-family:'Noto Sans KR',sans-serif;">등록</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ WRITE MODAL ═══ -->
+<div class="modal-overlay" id="write-modal" style="display:none;">
+  <div style="background:#fff;border-radius:20px;width:560px;max-width:94vw;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.15);">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:22px 24px 16px;border-bottom:1px solid #f1f5f9;">
+      <span style="font-size:17px;font-weight:800;color:#0f172a;">글쓰기</span>
+      <button onclick="closeWriteModal()" style="background:none;border:none;font-size:22px;cursor:pointer;color:#94a3b8;line-height:1;">×</button>
+    </div>
+    <div style="padding:20px 24px;display:flex;flex-direction:column;gap:14px;">
+      <!-- 카테고리 -->
+      <div>
+        <label style="font-size:13px;font-weight:700;color:#475569;display:block;margin-bottom:6px;">카테고리</label>
+        <select id="write-cat" style="width:100%;padding:10px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:14px;font-family:'Noto Sans KR',sans-serif;color:#0f172a;background:#fff;">
+          <option value="qna">❓ 연구 Q&A</option>
+          <option value="review">📋 학회/논문 후기</option>
+          <option value="anon">🙈 익명 토크</option>
+          <option value="study">📚 스터디 모집</option>
+          <option value="info">💡 정보 공유</option>
+          <option value="career">💼 취업/진로</option>
+          <option value="lab">🔬 랩실 생활</option>
+          <option value="abroad">✈️ 해외 유학</option>
+        </select>
+      </div>
+      <!-- 제목 -->
+      <div>
+        <label style="font-size:13px;font-weight:700;color:#475569;display:block;margin-bottom:6px;">제목</label>
+        <input id="write-title" type="text" placeholder="제목을 입력하세요" style="width:100%;padding:10px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:14.5px;font-family:'Noto Sans KR',sans-serif;box-sizing:border-box;">
+      </div>
+      <!-- 내용 -->
+      <div>
+        <label style="font-size:13px;font-weight:700;color:#475569;display:block;margin-bottom:6px;">내용</label>
+        <textarea id="write-content" placeholder="내용을 입력하세요..." style="width:100%;padding:12px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:14px;font-family:'Noto Sans KR',sans-serif;resize:vertical;min-height:160px;box-sizing:border-box;line-height:1.7;"></textarea>
+      </div>
+      <!-- 익명 체크박스 -->
+      <div style="display:flex;align-items:center;gap:8px;">
+        <input type="checkbox" id="write-anon" style="width:16px;height:16px;cursor:pointer;">
+        <label for="write-anon" style="font-size:14px;color:#475569;cursor:pointer;">익명으로 작성</label>
+      </div>
+      <!-- 버튼 -->
+      <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:4px;">
+        <button onclick="closeWriteModal()" style="padding:10px 20px;border:1.5px solid #e2e8f0;border-radius:10px;background:#fff;font-size:14px;font-weight:600;color:#64748b;cursor:pointer;font-family:'Noto Sans KR',sans-serif;">취소</button>
+        <button onclick="submitPost()" id="write-submit-btn" style="padding:10px 24px;border:none;border-radius:10px;background:#0f172a;color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:'Noto Sans KR',sans-serif;">게시하기</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+
+// ── 전역 변수 선언 ──
+const NEWS = [];
+const INFO_DATA = [];
+const POSTS = [];
+let POST_DATA = [];
+const BANNERS = [];
+let newsFieldFilter = 'all';
+let currentUser = null;
+
+// ── SUPABASE 초기화 ──
+const sbClient = supabase.createClient(
+  'https://ryikaxrcgfrgaczmmgnh.supabase.co',
+  'sb_publishable_-WzxQGfWdMzjXDok_tBiNg_w5W11MMX'
+);
+
+
+function setNavByName(name){
+  document.querySelectorAll('.nav-link').forEach(n=>n.classList.remove('active'));
+  const map={'home':0,'community':1,'info':2,'news':4};
+  const links=document.querySelectorAll('.nav-link');
+  if(map[name]!==undefined && links[map[name]]) links[map[name]].classList.add('active');
+}
+function showPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const pg = document.getElementById('page-'+name);
+  if(pg) pg.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function setNav(el){
+  document.querySelectorAll('.nav-link').forEach(n=>n.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function goToCalendar() {
+  if (currentUser) {
+    window.location.href = 'dashboard.html';
+  } else {
+    openAuth('login');
+  }
+}
+
+function openDrawer() {
+  document.getElementById('nav-drawer').classList.add('open');
+  document.getElementById('nav-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeDrawer() {
+  document.getElementById('nav-drawer').classList.remove('open');
+  document.getElementById('nav-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function setNavDrawer(el) {
+  document.querySelectorAll('.nav-drawer-link').forEach(n=>n.classList.remove('active'));
+  el.classList.add('active');
+}
+
+
+function renderNews(){
+  const featuredEl = document.getElementById('news-featured');
+  const gridEl     = document.getElementById('news-grid');
+  const sideEl     = document.getElementById('news-side-popular');
+  const fieldsEl   = document.getElementById('news-side-fields');
+  const countEl    = document.getElementById('news-total-count');
+  if(!gridEl) return;
+
+  const FC = {
+    '이공계':   { c:'#1e40af', bg:'#eff6ff', dot:'#3b82f6' },
+    '생명/의학':{ c:'#065f46', bg:'#ecfdf5', dot:'#10b981' },
+    'AI/컴퓨터':{ c:'#5b21b6', bg:'#f5f3ff', dot:'#8b5cf6' },
+    '에너지':   { c:'#92400e', bg:'#fffbeb', dot:'#f59e0b' },
+    '양자/통신':{ c:'#1e3a5f', bg:'#f0f9ff', dot:'#0ea5e9' },
+  };
+  const FIELD_EMOJI = { '이공계':'⚗️', '생명/의학':'🧬', 'AI/컴퓨터':'🤖', '에너지':'⚡', '양자/통신':'🔮' };
+
+  const filtered = NEWS.filter(n => newsFieldFilter==='all' || n.field===newsFieldFilter);
+  if(countEl) countEl.textContent = NEWS.length + '+';
+
+  // ── Featured Card (첫 번째 뉴스)
+  if(featuredEl) {
+    if(filtered.length > 0) {
+      const f = filtered[0];
+      const fp = FC[f.field] || { c:'#374151', bg:'#f8fafc', dot:'#94a3b8' };
+      const txt = (f.content||f.desc||'');
+      const preview = txt.length > 120 ? txt.slice(0,120)+'…' : txt;
+      const emoji = FIELD_EMOJI[f.field] || '📰';
+      featuredEl.innerHTML = `
+        <div class="news-featured-card" onclick="openNews(${NEWS.indexOf(f)})">
+          <div class="news-featured-header" data-emoji="${emoji}">
+            <div class="news-featured-field">${f.field||'뉴스'}</div>
+            <div class="news-featured-title">${f.title||''}</div>
+          </div>
+          <div class="news-featured-body">
+            ${preview ? `<div class="news-featured-desc">${preview}</div>` : ''}
+            <div class="news-featured-footer">
+              <div class="news-featured-meta">
+                ${f.org ? `<strong>${f.org}</strong>` : ''}
+                <span>${f.date||''}</span>
+              </div>
+              <div class="news-featured-cta">자세히 보기 →</div>
+            </div>
+          </div>
+        </div>`;
+    } else {
+      featuredEl.innerHTML = '';
+    }
+  }
+
+  // ── 일반 카드 그리드 (나머지)
+  const rest = filtered.slice(1);
+  if(rest.length === 0 && filtered.length === 0) {
+    gridEl.innerHTML = '<div class="news-empty">해당 조건의 소식이 없습니다 🔍</div>';
+  } else {
+    gridEl.innerHTML = '';
+    rest.forEach(n => {
+      const fp = FC[n.field] || { c:'#374151', bg:'#f8fafc', dot:'#94a3b8' };
+      const card = document.createElement('div');
+      card.className = n.image_url ? 'news-card has-thumb' : 'news-card';
+      card.onclick = (()=>{ const i=NEWS.indexOf(n); return ()=>openNews(i); })();
+      card.innerHTML = `
+        ${n.image_url ? `<img class="news-card-thumb" src="${n.image_url}" alt="" loading="lazy">` : ''}
+        <div style="padding:${n.image_url ? '14px 16px 12px' : '0'};">
+          <div class="news-card-meta">
+            <div class="news-card-field">
+              <div class="news-card-dot" style="background:${fp.dot}"></div>
+              <span class="news-card-field-label" style="color:${fp.c};background:${fp.bg}">${n.field||'기타'}</span>
+            </div>
+            <span class="news-card-date">${n.date||''}</span>
+          </div>
+          <div class="news-card-title">${n.title||''}</div>
+          ${n.org ? `<div class="news-card-org">📌 ${n.org}</div>` : ''}
+          ${(n.content||n.desc) ? `<div class="news-card-desc">${(n.content||n.desc).slice(0,80)}…</div>` : ''}
+          <div class="news-card-footer">자세히 보기 →</div>
+        </div>`;
+      gridEl.appendChild(card);
+    });
+  }
+
+  // ── 사이드: 많이 읽은 소식 (최신 5개)
+  if(sideEl) {
+    const top5 = NEWS.slice(0,5);
+    sideEl.innerHTML = top5.map((n, i) => `
+      <div class="news-side-item" onclick="openNews(${NEWS.indexOf(n)})">
+        <div class="news-side-num ${i<3?'top'+(i+1):''}">${i+1}</div>
+        <div>
+          <div class="news-side-title">${n.title||''}</div>
+          <div class="news-side-date">${n.date||''}</div>
+        </div>
+      </div>`).join('');
+  }
+
+  // ── 사이드: 분야별 현황
+  if(fieldsEl) {
+    const fieldCounts = {};
+    NEWS.forEach(n => { if(n.field) fieldCounts[n.field] = (fieldCounts[n.field]||0)+1; });
+    const total = NEWS.length || 1;
+    fieldsEl.innerHTML = Object.entries(fieldCounts).map(([f, cnt]) => {
+      const fp = FC[f] || { c:'#374151', bg:'#f8fafc', dot:'#94a3b8' };
+      const pct = Math.round(cnt/total*100);
+      return `<div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
+          <span style="font-size:12.5px;font-weight:700;color:#334155;">${FIELD_EMOJI[f]||''} ${f}</span>
+          <span style="font-size:11.5px;font-family:'DM Mono',monospace;color:#64748b;">${cnt}건</span>
+        </div>
+        <div style="height:5px;background:#f1f5f9;border-radius:3px;overflow:hidden;">
+          <div style="height:100%;width:${pct}%;background:${fp.dot};border-radius:3px;transition:width 0.6s ease;"></div>
+        </div>
+      </div>`;
+    }).join('') || '<div style="font-size:13px;color:#94a3b8;text-align:center;padding:12px;">데이터 준비 중</div>';
+  }
+}
+
+
+function buildInfoCard(item, TC){
+  const c = TC[item.type]||{label:'기타',color:'#64748b',bg:'#f8fafc',border:'#e2e8f0'};
+  const dday = item.dday;
+  const ddayStr = (dday===null||dday===undefined)?'':(dday<=0?'D-day':'D-'+dday);
+  const urgent = dday!==null && dday!==undefined && dday<=7;
+  const ddColor = dday<=0?'#ef4444':dday<=7?'#f97316':dday<=14?'#f59e0b':'#94a3b8';
+  const ddBg    = dday<=3?'#fef2f2':dday<=7?'#fff7ed':dday<=14?'#fffbeb':'#f8fafc';
+  const tags = item.tags ? item.tags.split(',').filter(t=>t.trim()).map(t=>
+    `<span style="font-size:10.5px;padding:2px 8px;border-radius:20px;background:${c.bg};color:${c.color};font-weight:600;">#${t.trim()}</span>`
+  ).join('') : '';
+
+  let onclick = '';
+  if(item.url && item.url!='#') onclick = `onclick="window.open('${item.url}','_blank')"`;
+
+  return `<div ${onclick} style="
+    background:white;
+    border:1.5px solid #e2e8f0;
+    border-top:3px solid ${c.color};
+    border-radius:14px;
+    padding:18px 18px 16px;
+    cursor:${item.url&&item.url!='#'?'pointer':'default'};
+    transition:box-shadow 0.18s,transform 0.18s;
+    display:flex;flex-direction:column;gap:8px;
+  "
+  onmouseover="this.style.boxShadow='0 6px 20px rgba(0,0,0,0.09)';this.style.transform='translateY(-2px)'"
+  onmouseout="this.style.boxShadow='';this.style.transform=''">
+
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;">
+      <span style="font-size:11px;font-weight:800;letter-spacing:0.06em;color:${c.color};background:${c.bg};padding:3px 10px;border-radius:20px;">${c.label}</span>
+      ${ddayStr?`<span style="flex-shrink:0;font-size:12px;font-weight:800;color:${ddColor};background:${ddBg};padding:3px 9px;border-radius:8px;white-space:nowrap;">${ddayStr}</span>`:''}
+    </div>
+
+    <div style="font-size:14.5px;font-weight:800;color:#0f172a;line-height:1.45;">${item.title}</div>
+
+    <div style="font-size:12.5px;color:#64748b;display:flex;align-items:center;gap:4px;">
+      <span>📌</span><span>${item.org||''}</span>
+      ${item.location?`<span style="color:#cbd5e1;">·</span><span>📍${item.location}</span>`:''}
+    </div>
+
+    ${item.date?`<div style="font-size:11.5px;color:#94a3b8;font-family:'DM Mono',monospace;">${item.date}</div>`:''}
+    ${tags?`<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:2px;">${tags}</div>`:''}
+  </div>`;
+}
+
+
+function renderFeaturedBanner(){
+  const el=document.getElementById('featured-banner-grid');
+  if(!el) return;
+  const featured=NEWS.filter(n=>n.is_featured).slice(0,4);
+  const label=document.getElementById('featured-banner-label');
+  if(featured.length===0){ if(label) label.textContent='📰 국내연구소식'; el.innerHTML=''; return; }
+  if(label) label.textContent='🔥 이달의 주요 소식';
+  const FC={'이공계':'linear-gradient(135deg,#1e3a5f,#2563eb)','생명/의학':'linear-gradient(135deg,#064e3b,#059669)','AI/컴퓨터':'linear-gradient(135deg,#4c1d95,#7c3aed)','에너지':'linear-gradient(135deg,#7c2d12,#ea580c)','양자/통신':'linear-gradient(135deg,#1e3a5f,#0ea5e9)'};
+  el.innerHTML='';
+  featured.forEach((n,i)=>{
+    const bg=FC[n.field]||'linear-gradient(135deg,#1e293b,#334155)';
+    const div=document.createElement('div');
+    div.className='info-highlight-card'+(i===0?' featured':'');
+    div.style.cssText='cursor:pointer;position:relative;overflow:hidden;background:'+bg+';min-height:120px;display:flex;flex-direction:column;justify-content:flex-end;';
+    div.onclick=(()=>{const ni=NEWS.indexOf(n);return()=>openNews(ni);})();
+    const grad=document.createElement('div');
+    grad.style.cssText='position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.65) 0%,transparent 55%);';
+    div.appendChild(grad);
+    const body=document.createElement('div');
+    body.style.cssText='position:relative;padding:12px 14px;';
+    body.innerHTML='<div style="font-size:'+(i===0?'13.5':'12.5')+'px;font-weight:700;color:#fff;line-height:1.4;">'+n.title+'</div>'
+      +'<div style="font-size:11px;color:rgba(255,255,255,0.65);margin-top:3px;">'+(n.org||'')+'</div>';
+    div.appendChild(body);
+    el.appendChild(div);
+  });
+}
+
+function renderInfoFeaturedBanner() {
+  // 학술정보 is_featured 배너 (구버전 호환용 - 사용 안 함)
+}
+
+let _bannerIdx = 0;
+let _bannerTotal = 0;
+let _bannerTimer = null;
+
+function renderBanners() {
+  const wrap = document.getElementById('banner-wrap');
+  const track = document.getElementById('banner-track');
+  const dots = document.getElementById('banner-dots');
+  if(!wrap || !track) return;
+
+  const active = BANNERS.filter(b => b.is_active);
+
+  // DB 배너 없으면 기본 홍보 배너 표시
+  const slides = active.length > 0 ? active : [
+    {
+      type: 'default',
+      title: 'My Research Calendar와 함께 연구 기회를 놓치지 마세요',
+      subtitle: '학회, 장학금, 국가과제 마감일을 한눈에. 지금 무료로 시작하세요.',
+      grad: '135deg, #0f172a 0%, #1e3a8a 60%, #2563eb 100%',
+      cta: '무료 시작하기',
+      ctaAction: "openAuth('signup')",
+    },
+    {
+      type: 'ad',
+      title: '이 자리에 귀사의 광고·공지를 게재하세요',
+      subtitle: '3만+ 연구자에게 직접 노출. 학술 행사·장학금·채용 홍보에 최적화된 배너 광고.',
+      grad: '135deg, #064e3b 0%, #065f46 50%, #059669 100%',
+      cta: '광고 문의하기',
+      ctaAction: "window.location.href='mailto:contact@myresearch.kr'",
+    },
+    {
+      type: 'default',
+      title: '연구자 커뮤니티에서 동료를 만나세요',
+      subtitle: '랩실 고민부터 논문 후기까지. 비슷한 고민을 가진 연구자들과 솔직하게 소통하세요.',
+      grad: '135deg, #1e1b4b 0%, #4c1d95 60%, #7c3aed 100%',
+      cta: '커뮤니티 둘러보기',
+      ctaAction: "showPage('community');setNav(document.querySelectorAll('.nav-link')[1])",
+    },
+  ];
+
+  _bannerTotal = slides.length;
+  _bannerIdx = 0;
+
+  const TYPE = {
+    conf:    { label:'학회',     grad:'135deg,#1e3a8a 0%,#2563eb 60%,#3b82f6 100%' },
+    scholar: { label:'장학금',   grad:'135deg,#064e3b 0%,#059669 60%,#34d399 100%' },
+    project: { label:'연구과제', grad:'135deg,#78350f 0%,#d97706 60%,#fcd34d 100%' },
+    award:   { label:'시상',     grad:'135deg,#4c1d95 0%,#7c3aed 60%,#a78bfa 100%' },
+    news:    { label:'소식',     grad:'135deg,#0c4a6e 0%,#0369a1 60%,#38bdf8 100%' },
+  };
+
+  track.innerHTML = slides.map((b, i) => {
+    const T = TYPE[b.type] || { label: b.type === 'ad' ? '광고문의' : '공지', grad: b.grad || '135deg,#1e293b,#475569' };
+    const grad = b.grad || T.grad;
+    const ds = b.start_date ? b.start_date.replaceAll('-','.') : '';
+    const de = b.end_date   ? b.end_date.replaceAll('-','.')   : '';
+    const dateStr = ds && de ? ds+' – '+de : ds||de;
+    const bgStyle = b.image_url
+      ? `background:url('${b.image_url}') center/cover no-repeat;`
+      : `background:linear-gradient(${grad});`;
+    const ctaBtn = b.cta
+      ? `<button onclick="${b.ctaAction}" style="margin-top:16px;padding:9px 20px;background:rgba(255,255,255,0.18);border:1.5px solid rgba(255,255,255,0.4);border-radius:9px;color:white;font-size:13px;font-weight:700;cursor:pointer;backdrop-filter:blur(6px);font-family:'Noto Sans KR',sans-serif;transition:background 0.15s;" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.18)'">${b.cta} →</button>` : '';
+
+    return `<div style="min-width:100%;width:100%;${bgStyle}position:relative;min-height:200px;display:flex;align-items:center;flex-shrink:0;">
+      ${b.image_url ? `<div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.2) 65%,transparent 100%);"></div>` : ''}
+      <div style="position:relative;z-index:1;padding:36px 48px;max-width:72%;">
+        <div style="display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.85);border:1.5px solid rgba(255,255,255,0.4);padding:3px 12px;border-radius:20px;margin-bottom:14px;backdrop-filter:blur(4px);">${b.type==='ad'?'광고·홍보':T.label||'공지'}</div>
+        <div style="font-size:24px;font-weight:900;color:white;line-height:1.35;text-shadow:0 2px 12px rgba(0,0,0,0.3);font-family:'Montserrat',sans-serif;">${b.title}</div>
+        ${b.subtitle ? `<div style="font-size:13.5px;color:rgba(255,255,255,0.78);line-height:1.6;margin-top:8px;">${b.subtitle}</div>` : ''}
+        ${dateStr ? `<div style="font-size:12px;color:rgba(255,255,255,0.55);font-family:'DM Mono',monospace;margin-top:6px;">${dateStr}</div>` : ''}
+        ${ctaBtn}
+      </div>
+      <div style="position:absolute;top:16px;right:18px;font-size:11.5px;color:rgba(255,255,255,0.45);font-family:'DM Mono',monospace;">${i+1} / ${slides.length}</div>
+    </div>`;
+  }).join('');
+
+  dots.innerHTML = slides.map((_,i) =>
+    `<div onclick="bannerGoTo(${i})" style="width:${i===0?'22px':'8px'};height:8px;border-radius:4px;background:${i===0?'white':'rgba(255,255,255,0.4)'};cursor:pointer;transition:all 0.3s;" id="bdot-${i}"></div>`
+  ).join('');
+
+  if(_bannerTimer) clearInterval(_bannerTimer);
+  if(_bannerTotal > 1) {
+    _bannerTimer = setInterval(()=>bannerSlide(1), 5000);
+  }
+}
+
+function bannerGoTo(idx) {
+  const track = document.getElementById('banner-track');
+  if(!track) return;
+  _bannerIdx = (idx + _bannerTotal) % _bannerTotal;
+  track.style.transform = 'translateX(-' + (_bannerIdx * 100) + '%)';
+  // 인디케이터 업데이트
+  for(let i=0;i<_bannerTotal;i++){
+    const d = document.getElementById('bdot-'+i);
+    if(d){ d.style.width = i===_bannerIdx?'22px':'8px'; d.style.background = i===_bannerIdx?'white':'rgba(255,255,255,0.4)'; }
+  }
+}
+
+function bannerSlide(dir) {
+  if(_bannerTimer) clearInterval(_bannerTimer);
+  bannerGoTo(_bannerIdx + dir);
+  if(_bannerTotal > 1) _bannerTimer = setInterval(()=>bannerSlide(1), 5000);
+}
+function closePostModal() {
+  document.getElementById('post-modal').style.display = 'none';
+  _currentPostId = null;
+}
+
+async function loadComments(postId) {
+  const listEl = document.getElementById('comment-list');
+  const countEl = document.getElementById('comment-count');
+  listEl.innerHTML = '<div style="text-align:center;padding:16px;color:#cbd5e1;font-size:13px;">불러오는 중...</div>';
+
+  const { data, error } = await sbClient.from('comments').select('*').eq('post_id', postId).order('created_at', { ascending: true });
+
+  if(error || !data) {
+    listEl.innerHTML = '<div style="text-align:center;padding:16px;color:#cbd5e1;font-size:13px;">댓글을 불러올 수 없어요</div>';
+    return;
+  }
+
+  countEl.textContent = data.length > 0 ? data.length + '개' : '';
+
+  if(data.length === 0) {
+    listEl.innerHTML = '<div style="text-align:center;padding:20px;color:#cbd5e1;font-size:13.5px;">첫 번째 댓글을 남겨보세요 💬</div>';
+    return;
+  }
+
+  listEl.innerHTML = data.map(c => `
+    <div style="display:flex;gap:10px;">
+      <div style="width:32px;height:32px;border-radius:50%;background:#f1f5f9;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#475569;flex-shrink:0;">
+        ${(c.author_nickname || '익')[0].toUpperCase()}
+      </div>
+      <div style="flex:1;background:#f8fafc;border-radius:10px;padding:10px 14px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;">
+          <span style="font-size:13px;font-weight:700;color:#0f172a;">${c.author_nickname || '익명'}</span>
+          <span style="font-size:11.5px;color:#cbd5e1;">${new Date(c.created_at).toLocaleDateString('ko-KR')}</span>
+        </div>
+        <div style="font-size:13.5px;color:#334155;line-height:1.6;white-space:pre-wrap;">${c.content}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+async function submitComment() {
+  const text = document.getElementById('comment-text')?.value.trim();
+  if(!text) return;
+  if(!_currentPostId) return;
+
+  const { data: { session } } = await sbClient.auth.getSession();
+  if(!session) { alert('로그인이 필요합니다.'); return; }
+
+  const isAnon = document.getElementById('comment-anon')?.checked;
+  const nickname = isAnon ? '익명' : session.user.email.split('@')[0];
+
+  const { error } = await sbClient.from('comments').insert([{
+    post_id: _currentPostId,
+    author_id: session.user.id,
+    author_nickname: nickname,
+    content: text,
+    is_anonymous: isAnon
+  }]);
+
+  if(error) { alert('댓글 등록 실패: ' + error.message); return; }
+
+  document.getElementById('comment-text').value = '';
+  document.getElementById('comment-text').style.height = '48px';
+  await loadComments(_currentPostId);
+
+  // 댓글 수 업데이트
+  await sbClient.from('posts').update({ comments: (POSTS.find(p=>p.id===_currentPostId)?.comments||0) + 1 }).eq('id', _currentPostId);
+  fetchPostsFromDB();
+}
+
+async function fetchPostsFromDB(){
+  if(!sbClient) return;
+  const { data, error } = await sbClient.from('posts').select('*').order('created_at', { ascending: false });
+  if(error || !data) return;
+  POSTS.length = 0;
+  const catLabels = {qna:'연구 Q&A', review:'학회/논문 후기', anon:'익명 토크', study:'스터디 모집', info:'정보 공유', career:'취업/진로', lab:'랩실 생활', abroad:'해외 유학'};
+  data.forEach(p => {
+    POSTS.push({
+      id: p.id, cat: p.category,
+      catLabel: catLabels[p.category] || p.category,
+      title: p.title, author: p.author_nickname || '익명',
+      likes: p.likes || 0, comments: p.comments || 0,
+      hot: (p.likes || 0) >= 20,
+      created_at: p.created_at
+    });
+  });
+  renderPosts('post-list');
+  renderPosts('post-list-full');
+  renderPosts('best-list-comm', 'all');
+  renderPosts('best-list', 'all');
+}
+
+async function fetchNewsFromDB() {
+  if(!sbClient) return;
+  const { data, error } = await sbClient.from('news').select('*').order('date', { ascending: false });
+  if(error || !data) return;
+  // DB 데이터로 NEWS 배열 교체
+  NEWS.length = 0;
+  data.forEach(n => {
+    NEWS.push({
+      id: n.id, org: n.org, field: n.field, tag: n.tag || '',
+      title: n.title, date: n.date,
+      content: n.content || '',
+      url: n.url || '#',
+      image_url: n.image_url || '',
+      is_featured: n.is_featured || false
+    });
+  });
+  renderNews();
+  renderFeaturedBanner();
+}
+
+function switchInfoTab(el, type){
+  document.querySelectorAll('#info-type-tabs .comm-chip').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  renderInfoFull();
+}
+function filterInfoSearch(){ renderInfoFull(); }
+
+function renderInfoFull(){
+  const el=document.getElementById('info-full-list');
+  if(!el) return;
+  const q=(document.getElementById('info-search')?.value||'').toLowerCase();
+  const activeTab=document.querySelector('#info-type-tabs .comm-chip.active');
+  const typeF=activeTab?.dataset?.type||'all';
+
+  let items=INFO_DATA.filter(d=>{
+    const matchType=typeF==='all'||d.type===typeF;
+    const matchSearch=!q||d.title.toLowerCase().includes(q)||(d.org||'').toLowerCase().includes(q);
+    return matchType&&matchSearch;
+  }).sort((a,b)=>(a.dday??9999)-(b.dday??9999));
+
+  const TC={
+    conf:    {label:'학회',    color:'#2563eb',bg:'#eff6ff',border:'#bfdbfe'},
+    scholar: {label:'장학금',  color:'#059669',bg:'#ecfdf5',border:'#6ee7b7'},
+    project: {label:'연구과제',color:'#d97706',bg:'#fffbeb',border:'#fcd34d'},
+    award:   {label:'시상',    color:'#7c3aed',bg:'#f5f3ff',border:'#c4b5fd'},
+  };
+
+  if(items.length===0){
+    el.innerHTML='<div style="text-align:center;padding:48px;color:#94a3b8;">해당 조건의 정보가 없습니다 🔍</div>';
+    return;
+  }
+
+  el.innerHTML='';
+
+  if(typeF==='all'){
+    // 타입별 섹션 헤더 + 2열 그리드
+    ['conf','scholar','project','award'].forEach(type=>{
+      const group=items.filter(d=>d.type===type);
+      if(!group.length) return;
+      const c=TC[type];
+
+      const sec=document.createElement('div');
+      sec.style.cssText='margin-bottom:32px;';
+      sec.innerHTML=`<div style="
+        display:flex;align-items:center;gap:10px;
+        margin-bottom:14px;
+        padding-bottom:10px;
+        border-bottom:2px solid ${c.border};
+      ">
+        <span style="font-size:15px;font-weight:900;color:${c.color};">${c.label}</span>
+        <span style="font-size:12px;color:#94a3b8;font-weight:600;">${group.length}건</span>
+      </div>`;
+
+      const grid=document.createElement('div');
+      grid.style.cssText='display:grid;grid-template-columns:repeat(2,1fr);gap:12px;';
+      group.forEach(item=>grid.insertAdjacentHTML('beforeend', buildInfoCard(item,TC)));
+      sec.appendChild(grid);
+      el.appendChild(sec);
+    });
+  } else {
+    const wrap=document.createElement('div');
+    wrap.style.cssText='display:grid;grid-template-columns:repeat(2,1fr);gap:12px;';
+    items.forEach(item=>wrap.insertAdjacentHTML('beforeend', buildInfoCard(item,TC)));
+    el.appendChild(wrap);
+  }
+}
+
+
+function openNews(idx){
+  const n=NEWS[idx];
+  if(!n) return;
+
+  // 이미지 유무에 따라 2컬럼 / 1컬럼 전환
+  const body = document.getElementById('news-detail-body');
+  const imgWrap = document.getElementById('detail-img-wrap');
+  const imgEl = document.getElementById('detail-img');
+
+  if(n.image_url){
+    imgEl.src = n.image_url;
+    imgWrap.style.display = 'block';
+    body.classList.remove('no-image');
+  } else {
+    imgWrap.style.display = 'none';
+    body.classList.add('no-image');
+  }
+
+  const fieldEl = document.getElementById('detail-field');
+  const tagEl   = document.getElementById('detail-tag');
+  if(fieldEl){ fieldEl.textContent=n.field||''; fieldEl.style.display=n.field?'':'none'; }
+  if(tagEl)  { tagEl.textContent=n.tag||'';     tagEl.style.display=n.tag?'':'none'; }
+
+  document.getElementById('detail-title').textContent   = n.title||'';
+  document.getElementById('detail-org').textContent     = n.org||'';
+  document.getElementById('detail-date').textContent    = n.date||'';
+  document.getElementById('detail-content').textContent = n.content||'';
+
+  const linkEl = document.getElementById('detail-link');
+  if(linkEl){
+    if(n.url && n.url!='#'){ linkEl.href=n.url; linkEl.style.display='inline-flex'; }
+    else { linkEl.style.display='none'; }
+  }
+
+  showPage('news-detail');
+  window.scrollTo(0,0);
+}
+
+
+async function fetchBannersFromDB() {
+  if(!sbClient) return;
+  const { data, error } = await sbClient.from('banners').select('*').eq('is_active', true).order('created_at', { ascending: false });
+  if(error || !data) return;
+  BANNERS.length = 0;
+  data.forEach(b => BANNERS.push(b));
+  renderBanners();
+}
+
+async function fetchInfoFromDB() {
+  if(!sbClient) return;
+  const { data, error } = await sbClient.from('academic_info').select('*').order('created_at', { ascending: false });
+  if(error || !data) return;
+  // DB 데이터로 INFO_DATA 배열 교체
+  INFO_DATA.length = 0;
+  data.forEach(n => {
+    const today = new Date();
+    const refDate = n.type === 'conf' ? (n.start_date || n.date) : n.date;
+    const deadline = refDate ? new Date(refDate) : null;
+    const dday = deadline ? Math.ceil((deadline - today) / (1000*60*60*24)) : null;
+    INFO_DATA.push({
+      type: n.type, field: n.field,
+      title: n.title, org: n.org,
+      dday: dday, date: n.type === 'conf' ? (n.start_date || n.date) : n.date,
+      start_date: n.start_date, end_date: n.end_date,
+      url: n.url || '#',
+      tags: Array.isArray(n.tags) ? n.tags.join(',') : (n.tags || ''),
+      location: n.location || '',
+      is_featured: n.is_featured || false
+    });
+  });
+  renderInfoFull();
+  renderInfoCards('home-info-list');
+  renderInfoFeaturedBanner();
+}
+
+// Init
+renderPosts('post-list');
+renderPosts('post-list-full');
+renderPosts('best-list-comm', 'all');
+renderInfoCards('home-info-list');
+renderInfoFull();
+renderNews();
+
+// DB에서 실제 데이터 불러오기
+fetchNewsFromDB();
+fetchInfoFromDB();
+fetchPostsFromDB();
+fetchBannersFromDB();
+
+// Auth 상태 감지
+sbClient.auth.onAuthStateChange((event, session) => {
+  currentUser = session?.user || null;
+  updateNavForAuth();
+});
+
+// Supabase Realtime 구독
+sbClient.channel('realtime-news')
+  .on('postgres_changes', { event: '*', schema: 'public', table: 'news' }, () => { fetchNewsFromDB(); })
+  .subscribe();
+
+sbClient.channel('realtime-info')
+  .on('postgres_changes', { event: '*', schema: 'public', table: 'academic_info' }, () => { fetchInfoFromDB(); })
+  .subscribe();
+
+sbClient.channel('realtime-posts')
+  .on('postgres_changes', { event: '*', schema: 'public', table: 'posts' }, () => { fetchPostsFromDB(); })
+  .subscribe();
+
+sbClient.channel('realtime-banners')
+  .on('postgres_changes', { event: '*', schema: 'public', table: 'banners' }, () => { fetchBannersFromDB(); })
+  .subscribe();
+
+// 로그인 상태 초기화
+updateNavForAuth();
+
+function switchCommTab(el, cat) {
+  document.querySelectorAll('.comm-chip').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  const labels = {
+    all: '🏠 전체 게시글',
+    qna: '❓ 연구 Q&A',
+    review: '📋 학회/논문 후기',
+    anon: '🙈 익명 토크',
+    study: '📚 스터디 모집',
+    info: '💡 정보 공유',
+    career: '💼 취업/진로',
+    lab: '🔬 랩실 생활',
+    abroad: '✈️ 해외 유학'
+  };
+  const label = document.getElementById('comm-cat-label');
+  if (label) label.textContent = labels[cat] || '전체 게시글';
+  filterPosts2(el, cat);
+}
+
+
+// 로그인 상태 확인
+async function updateNavForAuth() {
+  const { data: { session } } = await sbClient.auth.getSession();
+  currentUser = session?.user || null;
+  const loginBtns = document.querySelectorAll('.nav-login-btn');
+  const userArea = document.getElementById('nav-user-area');
+  if(currentUser) {
+    loginBtns.forEach(b => b.style.display = 'none');
+    if(userArea) {
+      userArea.style.display = 'flex';
+      const name = currentUser.user_metadata?.name || currentUser.email.split('@')[0];
+      userArea.innerHTML = `<span style="font-size:14px;color:var(--text);font-weight:600;">👤 ${name}</span>
+        <button onclick="handleLogout()" style="font-size:13px;padding:5px 12px;border-radius:8px;border:1.5px solid var(--border);background:white;cursor:pointer;color:var(--text-muted);">로그아웃</button>`;
+    }
+  } else {
+    loginBtns.forEach(b => b.style.display = '');
+    if(userArea) userArea.innerHTML = '';
+  }
+}
+
+
+function closeAuth(){
+  const m = document.getElementById('auth-modal');
+  if(m) m.style.display='none';
+}
+
+function switchAuth(type){
+  document.querySelectorAll('.auth-tab').forEach(t=>t.classList.remove('active'));
+  const tab = document.querySelector('.auth-tab[data-tab="'+type+'"]');
+  if(tab) tab.classList.add('active');
+  document.querySelectorAll('.auth-form').forEach(p=>p.style.display='none');
+  const panel = document.getElementById(type+'-form');
+  if(panel) panel.style.display='block';
+  const msgEl = document.getElementById('auth-message');
+  if(msgEl){ msgEl.textContent=''; msgEl.style.display='none'; }
+}
+
+function showAuthMessage(msg, isError=false) {
+  const el = document.getElementById('auth-message');
+  el.textContent = msg;
+  el.style.display = 'block';
+  el.style.background = isError ? '#fef2f2' : '#ecfdf5';
+  el.style.color = isError ? '#dc2626' : '#059669';
+}
+
+// ── 커뮤니티 ──
+
+function filterPosts2(el, cat){
+  renderPosts('post-list-full', cat);
+  renderPosts('best-list-comm', cat);
+}
+
+function renderPosts(containerId, filter='all'){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  const data = POST_DATA.length > 0 ? POST_DATA : POSTS;
+  const items = filter==='all' ? data : data.filter(p=>p.category===filter);
+  if(items.length===0){
+    el.innerHTML='<div style="text-align:center;padding:32px;color:#94a3b8;font-size:14px;">게시글이 없습니다</div>';
+    return;
+  }
+  el.innerHTML = items.slice(0,10).map(p=>`
+    <div class="post-item" onclick="openPost(${p.id||0})" style="padding:14px 16px;border-bottom:1px solid #f1f5f9;cursor:pointer;">
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px;">
+        <span style="font-size:11.5px;padding:2px 8px;border-radius:20px;background:#f1f5f9;color:#64748b;font-weight:600;">${p.category||'일반'}</span>
+        ${p.is_anonymous?'<span style="font-size:11px;color:#94a3b8;">익명</span>':''}
+      </div>
+      <div style="font-size:14px;font-weight:700;color:#0f172a;margin-bottom:4px;">${p.title||''}</div>
+      <div style="display:flex;gap:12px;font-size:12px;color:#94a3b8;">
+        <span>${p.author_nickname||'익명'}</span>
+        <span>💬 ${p.comments||0}</span>
+        <span>❤️ ${p.likes||0}</span>
+        <span>${p.created_at?p.created_at.slice(0,10):''}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openAuth(type){
+  if(type==='write'){
+    if(!currentUser){ document.getElementById('auth-modal').style.display='flex'; return; }
+    document.getElementById('write-modal').style.display='flex'; return;
+  }
+  const m = document.getElementById('auth-modal');
+  if(!m) return;
+  m.style.display='flex';
+  document.querySelectorAll('.auth-tab').forEach(t=>t.classList.remove('active'));
+  const tab = document.querySelector('.auth-tab[data-tab="'+type+'"]');
+  if(tab) tab.classList.add('active');
+  document.querySelectorAll('.auth-panel').forEach(p=>p.style.display='none');
+  const panel = document.getElementById('auth-panel-'+type);
+  if(panel) panel.style.display='block';
+}
+
+function filterNewsByField(field){
+  newsFieldFilter = field;
+  document.querySelectorAll('.news-field-btn').forEach(b=>b.classList.remove('active'));
+  const btn = document.querySelector('[data-field="'+field+'"]');
+  if(btn) btn.classList.add('active');
+  renderNews();
+}
+
+function renderInfoCards(containerId, filter='all'){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  const items = filter==='all' ? INFO_DATA : INFO_DATA.filter(d=>d.type===filter);
+  el.innerHTML = items.slice(0,4).map(item=>{
+    const icons={conf:'🎤',scholar:'💰',project:'🔬',award:'🏆'};
+    const colors={conf:'#2563eb',scholar:'#059669',project:'#d97706',award:'#7c3aed'};
+    const bgs={conf:'#eff6ff',scholar:'#ecfdf5',project:'#fffbeb',award:'#f5f3ff'};
+    const t=item.type;
+    return '<div class="info-card" style="background:#fff;border:1.5px solid #e2e8f0;border-left:3px solid '+(colors[t]||'#64748b')+';border-radius:10px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start;">'
+      +'<div style="width:36px;height:36px;border-radius:8px;background:'+(bgs[t]||'#f8fafc')+';display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">'+(icons[t]||'📌')+'</div>'
+      +'<div style="flex:1;min-width:0;">'
+      +'<div style="font-size:13px;font-weight:700;color:#0f172a;margin-bottom:2px;">'+item.title+'</div>'
+      +'<div style="font-size:12px;color:#64748b;">'+item.org+'</div>'
+      +'</div>'
+      +(item.dday!==null&&item.dday!==undefined?'<div style="font-size:12px;font-weight:800;color:'+(item.dday<=7?'#ef4444':'#64748b')+';">D-'+item.dday+'</div>':'')
+      +'</div>';
+  }).join('');
+}
+
+async function handleLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value;
+  if(!email || !password) return showAuthMessage('이메일과 비밀번호를 입력해주세요.', true);
+
+  const btn = document.querySelector('#login-form .auth-btn');
+  if(btn){ btn.textContent = '로그인 중...'; btn.disabled = true; }
+
+  const { data, error } = await sbClient.auth.signInWithPassword({ email, password });
+  console.log('로그인 결과:', { data, error });
+
+  if(error) {
+    showAuthMessage('❌ ' + (error.message || '로그인 실패'), true);
+    btn.textContent = '로그인';
+    btn.disabled = false;
+  } else {
+    showAuthMessage('✅ 로그인 성공! 환영합니다.');
+    await updateNavForAuth();
+    setTimeout(() => closeAuth(), 1200);
+  }
+}
+
+// ── 회원가입 스텝 네비게이션 ──
+function signupNextStep() {
+  const name     = document.getElementById('signup-name').value.trim();
+  const email    = document.getElementById('signup-email').value.trim();
+  const password = document.getElementById('signup-password').value;
+
+  if(!name)     return showAuthMessage('이름을 입력해주세요.', true);
+  if(!email)    return showAuthMessage('이메일을 입력해주세요.', true);
+  if(!password) return showAuthMessage('비밀번호를 입력해주세요.', true);
+  if(password.length < 6) return showAuthMessage('비밀번호는 6자 이상이어야 합니다.', true);
+
+  const msgEl = document.getElementById('auth-message');
+  if(msgEl){ msgEl.textContent=''; msgEl.style.display='none'; }
+
+  document.getElementById('signup-step-1').style.display = 'none';
+  document.getElementById('signup-step-2').style.display = 'block';
+
+  const ind1 = document.getElementById('step-indicator-1');
+  ind1.classList.remove('active'); ind1.classList.add('done');
+  ind1.querySelector('.signup-step-num').textContent = '✓';
+  document.getElementById('step-line-1').classList.add('done');
+  document.getElementById('step-indicator-2').classList.add('active');
+}
+
+function signupPrevStep() {
+  document.getElementById('signup-step-2').style.display = 'none';
+  document.getElementById('signup-step-1').style.display = 'block';
+
+  const ind1 = document.getElementById('step-indicator-1');
+  ind1.classList.add('active'); ind1.classList.remove('done');
+  ind1.querySelector('.signup-step-num').textContent = '1';
+  document.getElementById('step-line-1').classList.remove('done');
+  document.getElementById('step-indicator-2').classList.remove('active');
+}
+
+function signupToStep3() {
+  const school = document.getElementById('signup-school').value.trim();
+  const major  = document.getElementById('signup-major').value.trim();
+  const grade  = document.getElementById('signup-grade').value;
+  if(!school) return showAuthMessage('소속 대학원을 입력해주세요.', true);
+  if(!major)  return showAuthMessage('전공/연구분야를 입력해주세요.', true);
+  if(!grade)  return showAuthMessage('학년을 선택해주세요.', true);
+
+  const msgEl = document.getElementById('auth-message');
+  if(msgEl){ msgEl.textContent=''; msgEl.style.display='none'; }
+
+  document.getElementById('signup-step-2').style.display = 'none';
+  document.getElementById('signup-step-3').style.display = 'block';
+
+  const ind2 = document.getElementById('step-indicator-2');
+  ind2.classList.remove('active'); ind2.classList.add('done');
+  ind2.querySelector('.signup-step-num').textContent = '✓';
+  document.getElementById('step-line-2').classList.add('done');
+  document.getElementById('step-indicator-3').classList.add('active');
+}
+
+function signupPrevStep2() {
+  document.getElementById('signup-step-3').style.display = 'none';
+  document.getElementById('signup-step-2').style.display = 'block';
+
+  const ind2 = document.getElementById('step-indicator-2');
+  ind2.classList.add('active'); ind2.classList.remove('done');
+  ind2.querySelector('.signup-step-num').textContent = '2';
+  document.getElementById('step-line-2').classList.remove('done');
+  document.getElementById('step-indicator-3').classList.remove('active');
+}
+
+function selectGrade(el, value) {
+  document.querySelectorAll('#grade-select-group .auth-select-btn').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('signup-grade').value = value;
+}
+
+// 서류 업로드
+async function handleVerifySelect(event) {
+  const file = event.target.files[0];
+  if(file) await uploadVerifyDoc(file);
+}
+function handleVerifyDrop(event) {
+  event.preventDefault();
+  const file = event.dataTransfer.files[0];
+  if(file) uploadVerifyDoc(file);
+}
+async function uploadVerifyDoc(file) {
+  if(file.size > 10 * 1024 * 1024) return showAuthMessage('10MB 이하 파일만 업로드 가능합니다.', true);
+  const area = document.getElementById('verify-upload-area');
+  const preview = document.getElementById('verify-preview-wrap');
+  preview.innerHTML = '<div style="font-size:14px;color:#64748b;">업로드 중... ⏳</div>';
+  area.style.borderColor = '#2563eb';
+
+  const ext = file.name.split('.').pop();
+  const fileName = `verify_${Date.now()}.${ext}`;
+  const { error } = await sbClient.storage.from('verify-docs').upload(fileName, file, { upsert: true });
+  if(error) {
+    preview.innerHTML = '<div style="font-size:14px;color:#dc2626;">업로드 실패. 나중에 다시 시도해주세요.</div>';
+    return;
+  }
+  const { data: urlData } = sbClient.storage.from('verify-docs').getPublicUrl(fileName);
+  document.getElementById('verify-doc-url').value = urlData.publicUrl;
+  preview.innerHTML = `<div style="font-size:13px;color:#059669;font-weight:700;">✅ 업로드 완료!</div><div style="font-size:12px;color:#64748b;margin-top:4px;">${file.name}</div>`;
+  area.style.borderColor = '#10b981';
+  area.style.background = '#f0fdf4';
+}
+
+// 탭 전환 시 스텝 초기화
+const _origSwitchAuth = typeof switchAuth === 'function' ? switchAuth : null;
+
+async function handleSignup() {
+  const name     = document.getElementById('signup-name').value.trim();
+  const email    = document.getElementById('signup-email').value.trim();
+  const password = document.getElementById('signup-password').value;
+  const school   = document.getElementById('signup-school').value.trim();
+
+  if(!name || !email || !password) return showAuthMessage('필수 항목을 모두 입력해주세요.', true);
+  if(password.length < 6) return showAuthMessage('비밀번호는 6자 이상이어야 합니다.', true);
+
+  const btn = document.querySelector('#signup-form .auth-btn');
+  btn.textContent = '가입 중...';
+  btn.disabled = true;
+
+  const { error } = await sbClient.auth.signUp({
+    email, password,
+    options: { data: { name, school } }
+  });
+
+  if(error) {
+    showAuthMessage(error.message.includes('already') ? '이미 가입된 이메일입니다.' : '오류가 발생했습니다. 다시 시도해주세요.', true);
+    btn.textContent = '무료로 시작하기';
+    btn.disabled = false;
+  } else {
+    const { error: loginError } = await sbClient.auth.signInWithPassword({ email, password });
+    if(!loginError) {
+      showAuthMessage('✅ 가입 완료! 환영합니다 🎉');
+      await updateNavForAuth();
+      setTimeout(() => closeAuth(), 1200);
+    } else {
+      showAuthMessage('✅ 가입 완료! 로그인 탭에서 로그인해주세요.');
+      switchAuth('login');
+    }
+    btn.textContent = '무료로 시작하기';
+    btn.disabled = false;
+  }
+}
+
+async function handleKakaoLogin() {
+  await sbClient.auth.signInWithOAuth({
+    provider: 'kakao',
+    options: { redirectTo: window.location.href }
+  });
+}
+
+async function handleGoogleLogin() {
+  await sbClient.auth.signInWithOAuth({
+    provider: 'google',
+    options: { redirectTo: window.location.href }
+  });
+}
+
+async function handleLogout() {
+  await sbClient.auth.signOut();
+  showAuthMessage('로그아웃 되었습니다.');
+  await updateNavForAuth();
+}
+
+</script>
+</body>
+</html>
