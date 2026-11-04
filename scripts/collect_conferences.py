@@ -351,7 +351,7 @@ def parse_metalgrass(html_text, base, field, tags):
         if end < TODAY:
             continue
         where = re.search(r"Where:(.*?)</span>", b, re.S)
-        where = clean(where.group(1), 120).strip(" :") if where else ""
+        where = re.sub(r"^Where\s*:?\s*", "", clean(where.group(1), 120).strip(" :")) if where else ""
         url = href if href.startswith("http") else base + href
         rows.append({
             "type": "conf", "field": field, "title": title, "org": title,
