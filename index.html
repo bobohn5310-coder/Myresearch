@@ -3281,7 +3281,7 @@ a { text-decoration: none; color: inherit; }
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
 <script>
 
 // ── 전역 변수 선언 ──
@@ -3375,15 +3375,15 @@ function renderNews(){
       featuredEl.innerHTML = `
         <div class="news-featured-card" onclick="openNews(${NEWS.indexOf(f)})">
           <div class="news-featured-header" data-emoji="${emoji}">
-            <div class="news-featured-field">${fp.label||f.field||'뉴스'}</div>
-            <div class="news-featured-title">${f.title||''}</div>
+            <div class="news-featured-field">${escHtml(fp.label||f.field||'뉴스')}</div>
+            <div class="news-featured-title">${escHtml(f.title)}</div>
           </div>
           <div class="news-featured-body">
-            ${preview ? `<div class="news-featured-desc">${preview}</div>` : ''}
+            ${preview ? `<div class="news-featured-desc">${escHtml(preview)}</div>` : ''}
             <div class="news-featured-footer">
               <div class="news-featured-meta">
-                ${f.org ? `<strong>${f.org}</strong>` : ''}
-                <span>${f.date||''}</span>
+                ${f.org ? `<strong>${escHtml(f.org)}</strong>` : ''}
+                <span>${escHtml(f.date)}</span>
               </div>
               <div class="news-featured-cta">자세히 보기 →</div>
             </div>
@@ -3407,18 +3407,18 @@ function renderNews(){
       card.className = n.image_url ? 'news-card has-thumb' : 'news-card';
       card.onclick = (()=>{ const i=NEWS.indexOf(n); return ()=>openNews(i); })();
       card.innerHTML = `
-        ${n.image_url ? `<img class="news-card-thumb" src="${n.image_url}" alt="" loading="lazy">` : ''}
+        ${n.image_url ? `<img class="news-card-thumb" src="${escHtml(safeUrl(n.image_url))}" alt="" loading="lazy">` : ''}
         <div style="padding:${n.image_url ? '14px 16px 12px' : '0'};">
           <div class="news-card-meta">
             <div class="news-card-field">
               <div class="news-card-dot" style="background:${fp.dot}"></div>
-              <span class="news-card-field-label" style="color:${fp.c};background:${fp.bg}">${fp.label||n.field||'기타'}</span>
+              <span class="news-card-field-label" style="color:${fp.c};background:${fp.bg}">${escHtml(fp.label||n.field||'기타')}</span>
             </div>
-            <span class="news-card-date">${n.date||''}</span>
+            <span class="news-card-date">${escHtml(n.date)}</span>
           </div>
-          <div class="news-card-title">${n.title||''}</div>
-          ${n.org ? `<div class="news-card-org">📌 ${n.org}</div>` : ''}
-          ${(n.content||n.desc) ? `<div class="news-card-desc">${(n.content||n.desc).slice(0,80)}…</div>` : ''}
+          <div class="news-card-title">${escHtml(n.title)}</div>
+          ${n.org ? `<div class="news-card-org">📌 ${escHtml(n.org)}</div>` : ''}
+          ${(n.content||n.desc) ? `<div class="news-card-desc">${escHtml((n.content||n.desc).slice(0,80))}…</div>` : ''}
           <div class="news-card-footer">자세히 보기 →</div>
         </div>`;
       gridEl.appendChild(card);
@@ -3432,8 +3432,8 @@ function renderNews(){
       <div class="news-side-item" onclick="openNews(${NEWS.indexOf(n)})">
         <div class="news-side-num ${i<3?'top'+(i+1):''}">${i+1}</div>
         <div>
-          <div class="news-side-title">${n.title||''}</div>
-          <div class="news-side-date">${n.date||''}</div>
+          <div class="news-side-title">${escHtml(n.title)}</div>
+          <div class="news-side-date">${escHtml(n.date)}</div>
         </div>
       </div>`).join('');
   }
@@ -3497,11 +3497,12 @@ function buildInfoCard(item, TC){
     ddBg    = dday<=0?'#f1f5f9':dday<=7?'#fff7ed':dday<=14?'#fffbeb':'#f8fafc';
   }
   const tags = item.tags ? item.tags.split(',').filter(t=>t.trim()).map(t=>
-    `<span style="font-size:10.5px;padding:2px 8px;border-radius:20px;background:${c.bg};color:${c.color};font-weight:600;">#${t.trim()}</span>`
+    `<span style="font-size:10.5px;padding:2px 8px;border-radius:20px;background:${c.bg};color:${c.color};font-weight:600;">#${escHtml(t.trim())}</span>`
   ).join('') : '';
 
   let onclick = '';
-  if(item.url && item.url!='#') onclick = `onclick="window.open('${item.url}','_blank')"`;
+  const itemUrl = safeUrl(item.url);
+  if(itemUrl) onclick = `data-href="${escHtml(itemUrl)}" onclick="window.open(this.dataset.href,'_blank','noopener')"`;
 
   return `<div ${onclick} style="
     background:white;
@@ -3509,7 +3510,7 @@ function buildInfoCard(item, TC){
     border-top:3px solid ${c.color};
     border-radius:14px;
     padding:18px 18px 16px;
-    cursor:${item.url&&item.url!='#'?'pointer':'default'};
+    cursor:${itemUrl?'pointer':'default'};
     transition:box-shadow 0.18s,transform 0.18s;
     display:flex;flex-direction:column;gap:8px;
   "
@@ -3521,14 +3522,14 @@ function buildInfoCard(item, TC){
       ${ddayStr?`<span style="flex-shrink:0;font-size:12px;font-weight:800;color:${ddColor};background:${ddBg};padding:3px 9px;border-radius:8px;white-space:nowrap;">${ddayStr}</span>`:''}
     </div>
 
-    <div style="font-size:14.5px;font-weight:800;color:#0f172a;line-height:1.45;">${item.title}</div>
+    <div style="font-size:14.5px;font-weight:800;color:#0f172a;line-height:1.45;">${escHtml(item.title)}</div>
 
     <div style="font-size:12.5px;color:#64748b;display:flex;align-items:center;gap:4px;">
-      <span>📌</span><span>${item.org||''}</span>
-      ${item.location?`<span style="color:#cbd5e1;">·</span><span>📍${item.location}</span>`:''}
+      <span>📌</span><span>${escHtml(item.org)}</span>
+      ${item.location?`<span style="color:#cbd5e1;">·</span><span>📍${escHtml(item.location)}</span>`:''}
     </div>
 
-    ${item.date?`<div style="font-size:11.5px;color:#94a3b8;font-family:'DM Mono',monospace;">${item.date}</div>`:''}
+    ${item.date?`<div style="font-size:11.5px;color:#94a3b8;font-family:'DM Mono',monospace;">${escHtml(item.date)}</div>`:''}
     ${tags?`<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:2px;">${tags}</div>`:''}
   </div>`;
 }
@@ -3623,7 +3624,7 @@ function renderBanners() {
     const de = b.end_date   ? b.end_date.replaceAll('-','.')   : '';
     const dateStr = ds && de ? ds+' – '+de : ds||de;
     const bgStyle = b.image_url
-      ? `background:url('${b.image_url}') center/cover no-repeat;`
+      ? `background:url('${escHtml(encodeURI(safeUrl(b.image_url)))}') center/cover no-repeat;`
       : `background:linear-gradient(${grad});`;
     const ctaBtn = b.cta
       ? `<button class="ib-cta" onclick="${b.ctaAction}" style="flex-shrink:0;padding:6px 14px;white-space:nowrap;background:rgba(255,255,255,0.18);border:1.5px solid rgba(255,255,255,0.4);border-radius:9px;color:white;font-size:13px;font-weight:700;cursor:pointer;backdrop-filter:blur(6px);font-family:'Noto Sans KR',sans-serif;transition:background 0.15s;" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.18)'">${b.cta} →</button>` : '';
@@ -3633,8 +3634,8 @@ function renderBanners() {
       <div style="position:relative;z-index:1;padding:12px 56px;width:100%;box-sizing:border-box;display:flex;align-items:center;gap:14px;min-width:0;">
         <div style="flex-shrink:0;font-size:10.5px;font-weight:800;letter-spacing:0.1em;color:rgba(255,255,255,0.85);border:1.5px solid rgba(255,255,255,0.4);padding:2px 10px;border-radius:20px;">${b.type==='ad'?'광고·홍보':T.label||'공지'}</div>
         <div style="flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
-          <span style="font-size:15px;font-weight:800;color:white;">${b.title}</span>
-          ${b.subtitle ? `<span class="ib-sub" style="font-size:12.5px;color:rgba(255,255,255,0.7);margin-left:10px;">${b.subtitle}</span>` : ''}
+          <span style="font-size:15px;font-weight:800;color:white;">${escHtml(b.title)}</span>
+          ${b.subtitle ? `<span class="ib-sub" style="font-size:12.5px;color:rgba(255,255,255,0.7);margin-left:10px;">${escHtml(b.subtitle)}</span>` : ''}
           ${dateStr ? `<span style="font-size:12px;color:rgba(255,255,255,0.55);font-family:'DM Mono',monospace;margin-left:10px;">${dateStr}</span>` : ''}
         </div>
         ${ctaBtn}
@@ -4218,6 +4219,11 @@ async function fetchInfoFromDB() {
 function escHtml(str){
   return String(str ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
+// http/https 주소만 통과시킨다 (javascript: 같은 위험한 주소 차단)
+function safeUrl(u){
+  const v = String(u ?? '').trim();
+  return /^https?:\/\//i.test(v) ? v : '';
+}
 
 // 홈 화면 수치와 마감 임박 카드를 실제 학술정보 데이터로 채움
 
@@ -4598,16 +4604,19 @@ async function uploadVerifyDoc(file) {
   preview.innerHTML = '<div style="font-size:14px;color:#64748b;">업로드 중... ⏳</div>';
   area.style.borderColor = '#2563eb';
 
-  const ext = file.name.split('.').pop();
-  const fileName = `verify_${Date.now()}.${ext}`;
-  const { error } = await sbClient.storage.from('verify-docs').upload(fileName, file, { upsert: true });
+  const { data: { user } } = await sbClient.auth.getUser();
+  if(!user) { preview.innerHTML = '<div style="font-size:14px;color:#dc2626;">로그인 후 업로드할 수 있어요.</div>'; return; }
+  const ext = (file.name.split('.').pop() || 'png').toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 5);
+  // 인증 서류는 비공개 저장소의 '내 폴더'에만 올라가고, 관리자만 열람할 수 있다
+  const fileName = `${user.id}/verify_${Date.now()}.${ext}`;
+  const { error } = await sbClient.storage.from('verify-docs').upload(fileName, file, { upsert: false });
   if(error) {
     preview.innerHTML = '<div style="font-size:14px;color:#dc2626;">업로드 실패. 나중에 다시 시도해주세요.</div>';
     return;
   }
-  const { data: urlData } = sbClient.storage.from('verify-docs').getPublicUrl(fileName);
-  document.getElementById('verify-doc-url').value = urlData.publicUrl;
-  preview.innerHTML = `<div style="font-size:13px;color:#059669;font-weight:700;">✅ 업로드 완료!</div><div style="font-size:12px;color:#64748b;margin-top:4px;">${file.name}</div>`;
+  const docUrlEl = document.getElementById('verify-doc-url');
+  if(docUrlEl) docUrlEl.value = fileName;
+  preview.innerHTML = `<div style="font-size:13px;color:#059669;font-weight:700;">✅ 업로드 완료!</div><div style="font-size:12px;color:#64748b;margin-top:4px;">${escHtml(file.name)}</div>`;
   area.style.borderColor = '#10b981';
   area.style.background = '#f0fdf4';
 }
@@ -4644,7 +4653,7 @@ async function handleSignup() {
       await updateNavForAuth();
       setTimeout(() => closeAuth(), 1200);
     } else {
-      showAuthMessage('✅ 가입 완료! 로그인 탭에서 로그인해주세요.');
+      showAuthMessage('✅ 가입 완료! 메일함에서 인증 링크를 누른 뒤 로그인해주세요.');
       switchAuth('login');
     }
     btn.textContent = '무료로 시작하기';
