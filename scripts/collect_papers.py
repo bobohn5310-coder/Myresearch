@@ -62,19 +62,19 @@ FIELD_RULES = [
                       "redshift", "big bang", "radio burst", "stellar", "planet")),
     ("quantum", "양자/물리", ("quantum", "qubit", "superconduct", "photon", "topological", "entangle",
                             "magnet", "altermagn", "magnon", "laser", "optic", "particle", "neutrino",
-                            "boson", "spin", "moiré", "moire", "kondo", "chern", "ferroelectric",
+                            "boson", "spin ", "spins ", "moiré", "moire", "kondo", "chern", "ferroelectric",
                             "antiferroelectric", "electron", "phonon", "graphene")),
     ("cs", "AI/컴퓨터", ("machine learning", "deep learning", "neural network", "artificial intelligence",
                         "language model", " ai ", "algorithm", "robot", "comput")),
     ("energy", "에너지", ("battery", "batteries", "solar", "perovskite", "photovoltaic", "hydrogen",
                          "fuel cell", "electrolyte", "lithium", "fusion", "energy")),
-    ("bio", "생명/의학", ("cell", "gene", "genom", "protein", "cancer", "tumour", "tumor", "immun", "virus",
+    ("bio", "생명/의학", ("cell", "gene ", "genes ", "genetic", "genom", "protein", "cancer", "tumour", "tumor", "immun", "virus",
                          "bacteri", "neuron", "brain", "mouse", "mice", "patient", "disease", "clinical",
                          "dna", "rna", "enzyme", "microb", "evolution", "species", "plant", "drug",
                          "vaccine", "infection", "metabol", "tissue", "mitochond", "antibod", "bird",
                          "avian", "avifauna", "animal", "milk", "infant", "birth", "cerebell", "ribosom",
-                         "fish", "insect", "biopolymer", "bird", "organ", "embryo", "zygote", "human", "neural", "song")),
-    ("earth", "지구/환경", ("climate", "ocean", "warming", "carbon", "earthquake", "glacier", "ice sheet",
+                         "fish", "insect", "drosophila", "courtship", "behavio", "biopolymer", "bird", "organ", "embryo", "zygote", "human", "neural", "song")),
+    ("earth", "지구/환경", ("climate", "ocean", "warming", "carbon dioxide", "carbon cycle", "co2 ", "earthquake", "glacier", "ice sheet",
                           "atmospher", "drought", "forest", "biodiversity", "emission", "volcan",
                           "subduction", "rift", "crust", "mantle", "glacial", "erosion", "freshwater",
                           "sediment", "earth")),
@@ -157,10 +157,11 @@ def parse_feed(raw):
 
 
 def classify(text):
-    # 단어 앞부분 일치로 찾는다 (예: 'fusion' 이 'diffusion' 에 걸리지 않게)
+    # 단어 앞부분 일치로 찾는다 (예: 'fusion' 이 'diffusion' 에 걸리지 않게).
+    # 끝에 공백이 있는 단어('ai ')는 낱말 전체가 같아야 한다.
     t = " " + re.sub(r"[^0-9a-zà-ÿ]+", " ", text.lower()) + " "
     for field, tag, words in FIELD_RULES:
-        if any(" " + w.strip() in t for w in words):
+        if any(" " + w.lstrip() in t for w in words):
             return field, tag
     return "etc", "기초과학"
 
@@ -183,7 +184,10 @@ def make_row(journal, title, link, summary, when, doi=""):
     summary = clean(strip_citation(summary), SUMMARY_LEN)
     if summary and re.sub(r"\W", "", summary.lower()).startswith(re.sub(r"\W", "", title.lower())[:40]):
         summary = ""  # 요약이 제목 반복이면 버린다
-    field, tag = classify(title + " " + summary)
+    # 제목으로 먼저 분류하고, 모르겠으면 요약까지 본다
+    field, tag = classify(title)
+    if field == "etc" and summary:
+        field, tag = classify(summary)
     key = (doi or link).lower()
     return {
         "journal": journal,
