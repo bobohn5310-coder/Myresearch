@@ -3732,6 +3732,7 @@ const fieldMeta = f => FIELD_META[f] || { label:'기타', emoji:'📌', c:'#4755
 // 지역·랭킹 같은 분류용 태그는 '세부 주제'에서 뺀다
 const NON_TOPIC_TAG = /^(해외|국내|국내개최|CCF-.*|CORE-.*)$/i;
 function infoTags(d){ return (d.tags||'').split(',').map(t=>t.trim()).filter(Boolean); }
+const PINNED_TOPICS = ['반도체','이차전지','디스플레이','로봇','의학','고분자','유기화학','그래핀','메타물질','나노','재료','화학'];
 function topicTags(d){ return infoTags(d).filter(t=>!NON_TOPIC_TAG.test(t)); }
 function rankTag(d){
   const t = infoTags(d);
@@ -3832,7 +3833,10 @@ function renderInfoChips(base, fieldF){
   if(tEl){
     const inField = base.filter(d=>fieldF==='all'||d.field===fieldF);
     const tc={}; inField.forEach(d=>topicTags(d).forEach(t=>{ tc[t]=(tc[t]||0)+1; }));
-    const top=Object.entries(tc).filter(([,n])=>n>=2).sort((a,b)=>b[1]-a[1]).slice(0,12).map(([t])=>t);
+    // 주요 관심 분야는 건수와 상관없이 항상 앞에 보여 주고, 나머지는 많은 순으로 채운다
+    const pinned=PINNED_TOPICS.filter(t=>tc[t]);
+    const rest=Object.entries(tc).filter(([t,n])=>n>=2&&!pinned.includes(t)).sort((a,b)=>b[1]-a[1]).map(([t])=>t);
+    const top=[...pinned, ...rest].slice(0, Math.max(14, pinned.length));
     if(INFO_TOPIC && !top.includes(INFO_TOPIC)) top.unshift(INFO_TOPIC);
     tEl.innerHTML = top.length ? `<span class="cf-tchips-label">세부 주제</span>` + top.map(t=>
       `<button class="cf-tchip${INFO_TOPIC===t?' on':''}" data-t="${escHtml(t)}" onclick="setInfoTopic(this.dataset.t)">#${escHtml(t)}</button>`).join('') : '';
