@@ -3009,6 +3009,8 @@ a { text-decoration: none; color: inherit; }
         <option value="bio">생명·의학</option>
         <option value="energy">에너지·이차전지</option>
         <option value="quantum">양자·통신</option>
+        <option value="nano">나노</option>
+        <option value="mat">재료</option>
       </select>
       <select class="ufb-select" id="info-region-filter" onchange="filterInfoSearch()" aria-label="개최지">
         <option value="all">국내+해외</option>
@@ -3729,6 +3731,17 @@ const FIELD_META = {
   quantum: { label:'양자·통신',     emoji:'🔮', c:'#0891b2', bg:'#ecfeff' },
 };
 const FIELD_ORDER = ['cs','eng','bio','energy','quantum'];
+// 학회정보 분야 칩에만 쓰는 태그 기반 분야 (DB field가 아니라 태그로 고른다)
+const TAG_FIELDS = {
+  nano: { label:'나노', emoji:'🔬', c:'#db2777', bg:'#fdf2f8', tag:'나노' },
+  mat:  { label:'재료', emoji:'🧪', c:'#65a30d', bg:'#f7fee7', tag:'재료' },
+};
+const INFO_FIELD_ORDER = [...FIELD_ORDER, ...Object.keys(TAG_FIELDS)];
+function inInfoField(d, f){
+  if(f==='all') return true;
+  if(TAG_FIELDS[f]) return infoTags(d).includes(TAG_FIELDS[f].tag);
+  return d.field===f || d.field==='all';
+}
 const fieldMeta = f => FIELD_META[f] || { label:'기타', emoji:'📌', c:'#475569', bg:'#f1f5f9' };
 // 지역·랭킹 같은 분류용 태그는 '세부 주제'에서 뺀다
 const NON_TOPIC_TAG = /^(해외|국내|국내개최|CCF-.*|CORE-.*)$/i;
@@ -3827,12 +3840,13 @@ function renderInfoChips(base, fieldF){
   const tEl=document.getElementById('info-topic-chips');
   if(fEl){
     const cnt={}; base.forEach(d=>{ cnt[d.field]=(cnt[d.field]||0)+1; });
+    Object.keys(TAG_FIELDS).forEach(f=>{ cnt[f]=base.filter(d=>inInfoField(d,f)).length; });
     fEl.innerHTML = `<button class="cf-fchip${fieldF==='all'?' on':''}" onclick="setInfoField('all')">전체 <span class="n">${base.length}</span></button>`
-      + FIELD_ORDER.map(f=>{ const m=FIELD_META[f];
+      + INFO_FIELD_ORDER.map(f=>{ const m=FIELD_META[f]||TAG_FIELDS[f];
         return `<button class="cf-fchip${fieldF===f?' on':''}" style="--cf-c:${m.c}" onclick="setInfoField('${f}')">${m.emoji} ${m.label} <span class="n">${cnt[f]||0}</span></button>`; }).join('');
   }
   if(tEl){
-    const inField = base.filter(d=>fieldF==='all'||d.field===fieldF);
+    const inField = base.filter(d=>inInfoField(d,fieldF));
     const tc={}; inField.forEach(d=>topicTags(d).forEach(t=>{ tc[t]=(tc[t]||0)+1; }));
     // 주요 관심 분야는 건수와 상관없이 항상 앞에 보여 주고, 나머지는 많은 순으로 채운다
     const pinned=PINNED_TOPICS.filter(t=>tc[t]);
@@ -4017,7 +4031,7 @@ function renderInfoFull(){
   renderInfoChips(base, fieldF);
 
   let items=base.filter(d=>{
-    const matchField=fieldF==='all'||d.field===fieldF||d.field==='all';
+    const matchField=inInfoField(d,fieldF);
     const matchTopic=!INFO_TOPIC||infoTags(d).includes(INFO_TOPIC);
     return matchField&&matchTopic;
   });
