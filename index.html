@@ -3094,7 +3094,8 @@ function renderNews(){
     gridEl.innerHTML = '<div class="news-empty">해당 조건의 소식이 없습니다 🔍</div>';
   } else {
     gridEl.innerHTML = '';
-    rest.forEach(n => {
+    // 자동 수집으로 소식이 많아져도 화면이 너무 길어지지 않게 최신 60건만 보여준다
+    rest.slice(0, 60).forEach(n => {
       const fp = getFC(n.field);
       const card = document.createElement('div');
       card.className = n.image_url ? 'news-card has-thumb' : 'news-card';
@@ -3105,7 +3106,7 @@ function renderNews(){
           <div class="news-card-meta">
             <div class="news-card-field">
               <div class="news-card-dot" style="background:${fp.dot}"></div>
-              <span class="news-card-field-label" style="color:${fp.c};background:${fp.bg}">${n.field||'기타'}</span>
+              <span class="news-card-field-label" style="color:${fp.c};background:${fp.bg}">${fp.label||n.field||'기타'}</span>
             </div>
             <span class="news-card-date">${n.date||''}</span>
           </div>
@@ -3754,13 +3755,14 @@ function openNews(idx){
 
   const fieldEl = document.getElementById('detail-field');
   const tagEl   = document.getElementById('detail-tag');
-  if(fieldEl){ fieldEl.textContent=n.field||''; fieldEl.style.display=n.field?'':'none'; }
+  const FIELD_LABEL={eng:'이공계',bio:'생명/의학',cs:'AI/컴퓨터',energy:'에너지',quantum:'양자/통신'};
+  if(fieldEl){ fieldEl.textContent=FIELD_LABEL[n.field]||n.field||''; fieldEl.style.display=n.field?'':'none'; }
   if(tagEl)  { tagEl.textContent=n.tag||'';     tagEl.style.display=n.tag?'':'none'; }
 
   document.getElementById('detail-title').textContent   = n.title||'';
   document.getElementById('detail-org').textContent     = n.org||'';
   document.getElementById('detail-date').textContent    = n.date||'';
-  document.getElementById('detail-content').textContent = n.content||'';
+  document.getElementById('detail-content').textContent = n.content||'자세한 내용은 아래 원문 기사에서 확인할 수 있습니다.';
 
   const linkEl = document.getElementById('detail-link');
   if(linkEl){

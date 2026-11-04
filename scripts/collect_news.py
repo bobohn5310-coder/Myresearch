@@ -34,10 +34,14 @@ SUMMARY_LEN = 160
 
 # (이름, RSS 주소, 연구 관련 단어가 있어야만 남길지)
 DIRECT_FEEDS = [
-    ("과학기술정보통신부", "https://www.korea.kr/rss/dept_msit.xml", True),
     ("헬로디디", "https://www.hellodd.com/rss/allArticle.xml", True),
-    ("사이언스타임즈", "https://www.sciencetimes.co.kr/feed/", True),
-    ("동아사이언스", "https://www.dongascience.com/rss", True),
+    ("probe1", "https://www.korea.kr/rss/pressrelease.xml", True),
+    ("probe2", "https://www.sciencetimes.co.kr/rss", True),
+    ("probe3", "https://rss.etnews.com/Section902.xml", True),
+    ("probe4", "https://www.dongascience.com/rss/news", True),
+    ("probe5", "https://www.ibric.org/bric/rss/news.do", True),
+    ("probe6", "https://www.yna.co.kr/rss/industry.xml", True),
+    ("probe7", "https://news.kaist.ac.kr/news/rss", True),
 ]
 
 # 구글 뉴스 검색 RSS: 여러 언론사의 국내 연구 성과 기사를 모은다.
@@ -58,12 +62,12 @@ RESEARCH_WORDS = ("연구", "개발", "교수", "논문", "기술", "과학", "R
 # 분야 분류: 먼저 맞는 규칙이 이긴다. (field, 태그, 단어들)
 FIELD_RULES = [
     ("quantum", "양자", ("양자", "큐비트", "퀀텀")),
-    ("quantum", "통신", ("6G", "5G", "통신", "위성", "네트워크")),
+    ("quantum", "통신", ("6G", "5G", "통신", "위성")),
     ("cs", "AI", ("인공지능", "AI", "딥러닝", "머신러닝", "LLM", "생성형", "언어모델")),
     ("cs", "컴퓨터", ("소프트웨어", "알고리즘", "로봇", "자율주행", "메타버스", "데이터", "보안", "슈퍼컴")),
     ("energy", "이차전지", ("배터리", "이차전지", "전고체", "리튬", "전해질", "양극재", "음극재")),
     ("energy", "에너지", ("수소", "태양전지", "태양광", "에너지", "원전", "원자력", "핵융합", "SMR", "탄소중립", "연료전지")),
-    ("bio", "의학", ("암", "치료", "신약", "질환", "환자", "의료", "의학", "치매", "백신", "병원", "임상")),
+    ("bio", "의학", ("암", "치료", "신약", "질환", "환자", "의료", "의학", "치매", "백신", "병원", "임상", "수술", "간호")),
     ("bio", "생명과학", ("유전자", "단백질", "세포", "바이오", "생명", "뇌", "미생물", "DNA", "RNA", "줄기세포")),
     ("eng", "반도체", ("반도체", "칩", "메모리", "트랜지스터")),
     ("eng", "디스플레이", ("디스플레이", "OLED", "LED")),
@@ -153,6 +157,7 @@ def parse_feed(raw):
 
 
 def classify(text):
+    text = re.sub(r"과학기술정보통신부|정보통신|과기정통부", " ", text)
     for field, tag, words in FIELD_RULES:
         for w in words:
             if w.isascii():
