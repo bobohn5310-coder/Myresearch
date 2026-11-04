@@ -4089,7 +4089,7 @@
   "date": null,
   "content": "2026 International Conference on Semiconductor Materials and Advanced Integrated Circuit Technology",
   "url": "http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=192763&copyownerid=182680",
-  "tags": "해외,반도체",
+  "tags": "해외,반도체,재료",
   "location": "Chongqing, China",
   "source": "wikicfp",
   "external_id": "wikicfp:192763"
@@ -4584,7 +4584,7 @@
   "date": null,
   "content": "2027 16th International Conference on Chemistry and Chemical Process (ICCCP 2027)",
   "url": "http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=199495&copyownerid=13881",
-  "tags": "해외,의학",
+  "tags": "해외,의학,화학",
   "location": "Sapporo, Japan",
   "source": "wikicfp",
   "external_id": "wikicfp:199495"
@@ -5109,7 +5109,7 @@
   "date": null,
   "content": "2027 14th International Conference on Chemical and Biological Sciences (ICCBS 2027)",
   "url": "http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=195281&copyownerid=13881",
-  "tags": "해외,생명과학",
+  "tags": "해외,생명과학,화학",
   "location": "Kyoto University (Yoshida Campus), Japan",
   "source": "wikicfp",
   "external_id": "wikicfp:195281"
@@ -5124,7 +5124,7 @@
   "date": null,
   "content": "2027 17th International Conference on Bioscience, Biochemistry and Bioinformatics (ICBBB 2027)",
   "url": "http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=194947&copyownerid=13881",
-  "tags": "해외,생명과학",
+  "tags": "해외,생명과학,화학",
   "location": "Osaka, Japan",
   "source": "wikicfp",
   "external_id": "wikicfp:194947"
@@ -5244,7 +5244,7 @@
   "date": null,
   "content": "2027 the 16th International Conference on Engineering and Innovative Materials (ICEIM 2027)",
   "url": "http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=203679&copyownerid=13881",
-  "tags": "해외,공학",
+  "tags": "해외,공학,재료",
   "location": "Sapporo, Japan",
   "source": "wikicfp",
   "external_id": "wikicfp:203679"
@@ -5349,7 +5349,7 @@
   "date": null,
   "content": "Springer--2027 12th International Conference on Civil Engineering and Materials Science (ICCEMS 2027)",
   "url": "http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=203386&copyownerid=13881",
-  "tags": "해외,공학",
+  "tags": "해외,공학,재료",
   "location": "Colombo, Sri Lanka",
   "source": "wikicfp",
   "external_id": "wikicfp:203386"
@@ -5394,7 +5394,7 @@
   "date": null,
   "content": "2027 The 11th International Conference on Materials Sciences and Nanomaterials (ICMSN 2027)",
   "url": "http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=202891&copyownerid=13881",
-  "tags": "해외,공학",
+  "tags": "해외,공학,나노,재료",
   "location": "Bristol, United Kingdom",
   "source": "wikicfp",
   "external_id": "wikicfp:202891"
@@ -5409,7 +5409,7 @@
   "date": null,
   "content": "Springer--2027 11th International Conference on Advanced Manufacturing and Materials (ICAMM 2027)",
   "url": "http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=202889&copyownerid=13881",
-  "tags": "해외,공학",
+  "tags": "해외,공학,재료",
   "location": "Bristol, United Kingdom",
   "source": "wikicfp",
   "external_id": "wikicfp:202889"
@@ -5439,7 +5439,7 @@
   "date": null,
   "content": "2027 the 10th International Conference on Nanoscience and Technology (ICNST 2027)",
   "url": "http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=203672&copyownerid=13881",
-  "tags": "해외,재료",
+  "tags": "해외,재료,나노",
   "location": "Singapore",
   "source": "wikicfp",
   "external_id": "wikicfp:203672"
@@ -5469,7 +5469,7 @@
   "date": null,
   "content": "Inscitech Meet On Green Chemistry, Sustainable Materials & Circular Economy",
   "url": "http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=203015&copyownerid=200235",
-  "tags": "해외,재료",
+  "tags": "해외,재료,화학",
   "location": "Bangkok, Thailand",
   "source": "wikicfp",
   "external_id": "wikicfp:203015"
@@ -6204,7 +6204,7 @@
   "date": null,
   "content": "2026 10th International Conference on Energy Technology and Materials Science",
   "url": "http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=203798&copyownerid=182680",
-  "tags": "해외,에너지",
+  "tags": "해외,에너지,재료",
   "location": "Xi'an, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203798"
