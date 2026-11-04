@@ -58,6 +58,17 @@ WIKICFP_CATEGORIES = [
     ("biology", "bio", "생명과학"),
     ("engineering", "eng", "공학"),
     ("materials science", "eng", "재료"),
+    ("materials", "eng", "재료"),
+    ("polymer", "eng", "고분자"),
+    ("chemistry", "eng", "화학"),
+    ("organic chemistry", "eng", "유기화학"),
+    ("chemical engineering", "eng", "화학공학"),
+    ("graphene", "eng", "그래핀"),
+    ("nanotechnology", "eng", "나노"),
+    ("nanomaterials", "eng", "나노"),
+    ("metamaterials", "eng", "메타물질"),
+    ("photonics", "eng", "광학"),
+    ("automation", "eng", "로봇"),
     ("electrical engineering", "eng", "전기전자"),
     ("mechanical engineering", "eng", "기계"),
     ("energy", "energy", "에너지"),
@@ -282,6 +293,99 @@ def collect_wikicfp(categories=WIKICFP_CATEGORIES, delay=3.0):
     return rows
 
 
+# ─────────────────────────── 소스 3: 직접 확인한 주요 학회 목록 ───────────────────────────
+CURATED_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "conferences-curated.json")
+
+
+def collect_curated(path=CURATED_PATH):
+    """공식 페이지에서 날짜를 확인해 손으로 적어 둔 학회 (data/conferences-curated.json)."""
+    try:
+        items = json.load(open(path, encoding="utf-8"))
+    except (OSError, ValueError) as e:
+        print(f"[curated] 읽기 실패: {e}", file=sys.stderr)
+        return []
+    rows = []
+    for it in items:
+        start, end = parse_one_date(it.get("start_date")), parse_one_date(it.get("end_date"))
+        if not start or not end or end < TODAY:
+            continue
+        rows.append({
+            "type": "conf", "field": it.get("field", "all"),
+            "title": clean(it["title"], 200), "org": clean(it.get("org"), 200),
+            "start_date": start.isoformat(), "end_date": end.isoformat(),
+            "date": it.get("deadline"), "content": clean(it.get("org"), 300),
+            "url": safe_url(it.get("url")), "tags": clean(it.get("tags"), 200),
+            "location": clean(it.get("location"), 120),
+            "source": "curated", "external_id": f"curated:{it['id']}",
+        })
+    print(f"[curated] {len(rows)}건")
+    return rows
+
+
+# ─────────────────────────── 소스 4: 소재·디스플레이 전문 뉴스 사이트의 행사 목록 ───────────────────────────
+# Metalgrass 계열 사이트들은 같은 형식의 /events 페이지를 갖고 있다.
+METALGRASS_SITES = [
+    ("https://www.graphene-info.com", "eng", ["그래핀", "나노", "재료"]),
+    ("https://www.oled-info.com", "eng", ["디스플레이"]),
+    ("https://www.microled-info.com", "eng", ["디스플레이"]),
+    ("https://www.perovskite-info.com", "energy", ["재료", "신재생에너지"]),
+]
+DATE_RE = re.compile(r"(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?\s+\d{1,2},?\s+(?:19|20)\d\d")
+
+
+def parse_metalgrass(html_text, base, field, tags):
+    rows = []
+    blocks = re.split(r"<h2[^>]*>", html_text)[1:]
+    for b in blocks:
+        m = re.search(r'<a[^>]+href="([^"]+)"[^>]*>(.*?)</a>', b, re.S)
+        if not m or "Event Duration" not in b and "Where" not in b:
+            continue
+        href, title = m.group(1), clean(m.group(2), 200)
+        iso = re.findall(r'<time[^>]+datetime="(\d{4}-\d{2}-\d{2})', b)
+        if not iso:
+            continue
+        try:
+            start, end = dt.date.fromisoformat(iso[0]), dt.date.fromisoformat(iso[-1])
+        except ValueError:
+            continue
+        if end < TODAY:
+            continue
+        where = re.search(r"Where:(.*?)</span>", b, re.S)
+        where = re.sub(r"^Where\s*:?\s*", "", clean(where.group(1), 120).strip(" :")) if where else ""
+        url = href if href.startswith("http") else base + href
+        rows.append({
+            "type": "conf", "field": field, "title": title, "org": title,
+            "start_date": start.isoformat(), "end_date": end.isoformat(), "date": None,
+            "content": title, "url": safe_url(url),
+            "tags": ",".join(["국내개최" if is_korea(where) else "해외"] + tags),
+            "location": where, "source": "metalgrass",
+            "external_id": "metalgrass:" + re.sub(r"[^a-z0-9]+", "-", url.lower()).strip("-")[-120:],
+        })
+    return rows
+
+
+def collect_metalgrass(pages=3, delay=2.0):
+    rows = []
+    for base, field, tags in METALGRASS_SITES:
+        n = 0
+        for page in range(pages):
+            url = f"{base}/events" + (f"?page={page}" if page else "")
+            try:
+                html_text = http_get(url).decode("utf-8", "replace")
+            except Exception as e:
+                print(f"[metalgrass] {url} 실패: {e}", file=sys.stderr)
+                break
+            found = parse_metalgrass(html_text, base, field, tags)
+            if page == 0 and not found:
+                i = html_text.find("Event Duration")
+                print(f"[metalgrass] {base} 0건, 예시:", repr(html_text[max(0, i - 600): i + 400] if i >= 0 else html_text[:500]))
+            rows += found
+            n += len(found)
+            time.sleep(delay)
+        print(f"[metalgrass] {base}: {n}건")
+    return rows
+
+
 # ─────────────────────────── Supabase ───────────────────────────
 def supabase_request(method, path, body=None, prefer=None):
     base = os.environ["SUPABASE_URL"].rstrip("/")
@@ -317,6 +421,13 @@ TOPIC_KEYWORDS = [
     ("디스플레이", r"display|oled|\bled\b|optoelectronic|photonic"),
     ("로봇", r"robot|autonomous system|mechatronic"),
     ("의학", r"medic|health|clinical|biomedical|surgery|disease"),
+    ("고분자", r"polymer|macromolecul|plastic|elastomer|rubber"),
+    ("유기화학", r"organic chem|organic synthesis|synthetic chem|catalysis|organometallic"),
+    ("화학", r"chemi"),
+    ("그래핀", r"graphene|2d material|two-dimensional material|carbon nano"),
+    ("메타물질", r"metamaterial|metasurface"),
+    ("나노", r"\bnano"),
+    ("재료", r"material"),
 ]
 
 
@@ -353,9 +464,10 @@ def main():
     ap.add_argument("--skip-wikicfp", action="store_true")
     args = ap.parse_args()
 
-    rows = collect_ccfddl(args.ccfddl_dir)
+    rows = collect_ccfddl(args.ccfddl_dir) + collect_curated()
     if not args.skip_wikicfp:
         rows += collect_wikicfp()
+        rows += collect_metalgrass()
     rows = [add_topic_tags(r) for r in dedupe(rows)]
     print(f"총 {len(rows)}건 수집")
 
