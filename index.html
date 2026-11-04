@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My Research Calendar — 연구자를 위한 올인원 플랫폼</title>
-<meta name="description" content="학회 마감, 장학금 공모, 국가과제 공고를 한곳에서. 대학원생과 연구자를 위한 마감 캘린더와 D-day 알림, 연구자 커뮤니티 마이리서치캘린더.">
+<meta name="description" content="전 세계 학회 일정과 논문 마감을 한곳에서. 대학원생과 연구자를 위한 마감 캘린더와 D-day 알림, 연구자 커뮤니티 마이리서치캘린더.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="마이리서치캘린더 My Research Calendar">
 <meta property="og:title" content="마이리서치캘린더 — 연구자를 위한 마감 캘린더">
-<meta property="og:description" content="학회·장학금·국가과제 마감을 한곳에서 D-day로 확인하세요.">
+<meta property="og:description" content="전 세계 학회 일정과 논문 마감을 한곳에서 D-day로 확인하세요.">
 <meta property="og:url" content="https://bobohn5310-coder.github.io/Myresearch/">
 <meta property="og:locale" content="ko_KR">
 <meta name="twitter:card" content="summary">
@@ -2332,6 +2332,87 @@ a { text-decoration: none; color: inherit; }
   .wm-row-rank, .wm-row-bar { display: none; }
   .wm-map { padding: 10px 4px 4px; }
 }
+
+/* ══ 홈 히어로 (밝은 하늘색 배경 + 세계지도) ══ */
+.hero-wrapper.hero-dark { background: radial-gradient(1100px 560px at 75% 35%, #dbeafe 0%, #eef4ff 45%, #f7faff 100%); border-bottom: 1px solid #e2e8f0; }
+.hero-dark::before { background-image: none; }
+.hero-dark::after { background: radial-gradient(ellipse, rgba(132,204,22,.12) 0%, transparent 65%); left: 55%; top: -10%; }
+.hero-map { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none;
+  /* 왼쪽 글자 뒤는 흐리게 */ -webkit-mask-image: linear-gradient(90deg, rgba(0,0,0,.3) 0%, rgba(0,0,0,.45) 35%, #000 60%); mask-image: linear-gradient(90deg, rgba(0,0,0,.3) 0%, rgba(0,0,0,.45) 35%, #000 60%); }
+.hero-map svg { width: 118%; max-width: 1700px; height: auto; transform: translate(4%, 4%); }
+.hero-map .hm-land { fill: #c9d8f2; stroke: #f7faff; stroke-width: .6; }
+.hero-map .hm-dot { fill: #2563eb; }
+.hero-map .hm-dot.kr { fill: #b6f01e; stroke: #4d7c0f; stroke-width: .8; }
+.hero-map .hm-ring { fill: none; stroke: #3b82f6; stroke-width: 1.2; transform-box: fill-box; transform-origin: center; animation: hmPulse 3.2s ease-out infinite; }
+.hero-map .hm-ring.kr { stroke: #84cc16; }
+@keyframes hmPulse { 0% { transform: scale(.6); opacity: .9; } 100% { transform: scale(2.6); opacity: 0; } }
+.hero-dark .hero-eyebrow { background: rgba(132,204,22,.14); border-color: rgba(101,163,13,.35); color: #3f6212; }
+.hero-dark .hero-title { color: #0f172a; }
+.hero-dark .hero-title .accent { background: linear-gradient(90deg, #65a30d, #059669 55%, #2563eb); -webkit-background-clip: text; background-clip: text; }
+.hero-dark .hero-desc { color: #475569; }
+.hero-dark .btn-hero-secondary { background: rgba(255,255,255,.7); color: #1e293b; border-color: #cbd5e1; }
+.hero-dark .btn-hero-secondary:hover { background: #fff; border-color: #94a3b8; }
+.hero-dark .hero-stats { background: rgba(255,255,255,.75); border-color: #dbe3ef; }
+.hero-dark .hero-stat-item { border-right-color: #e2e8f0; }
+.hero-dark .hero-stat-value { background: linear-gradient(135deg, #65a30d, #2563eb); -webkit-background-clip: text; background-clip: text; font-weight: 600; }
+.hero-dark .hero-stat-label { color: #64748b; }
+.hero-dark .hero-visual::before { background: radial-gradient(ellipse, rgba(37,99,235,.18) 0%, transparent 70%); }
+.hero-dark .hero-card { background: rgba(255,255,255,.82); border: 1px solid #dbe3ef; box-shadow: 0 16px 48px rgba(37,99,235,.14); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.hero-dark .live-dot { color: #4d7c0f; }
+.hero-dark .live-dot::before { background: #84cc16; box-shadow: 0 0 8px rgba(132,204,22,.8); }
+.hero-dark .mini-badge { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
+.hero-card-sub { font-size: 12px; font-weight: 700; color: #64748b; margin: 16px 0 8px; letter-spacing: .3px; }
+.hcd { border-radius: 14px; padding: 16px; background: linear-gradient(135deg, #0f1d4a, #1e3a8a); border: none; cursor: pointer; box-shadow: 0 8px 24px rgba(30,58,138,.25); }
+.hcd-name { font-size: 16px; font-weight: 800; color: #fff; line-height: 1.35; }
+.hcd-meta { font-size: 12px; color: #c7d2fe; margin-top: 4px; }
+.hcd-clock { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 14px; }
+.hcd-unit { background: rgba(10,18,48,.6); border-radius: 10px; padding: 10px 0 8px; text-align: center; }
+.hcd-unit b { display: block; font-family: 'Montserrat', sans-serif; font-size: 26px; font-weight: 800; color: #c6f432; line-height: 1; font-variant-numeric: tabular-nums; }
+.hcd-unit span { font-size: 11px; color: #a5b4fc; font-weight: 600; }
+
+/* 논문 마감 흐름 띠 */
+.cfp-ticker { background: #fff; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0; overflow: hidden; position: relative; }
+.cfp-ticker:empty { display: none; }
+.cfp-ticker::before, .cfp-ticker::after { content: ''; position: absolute; top: 0; bottom: 0; width: 60px; z-index: 2; pointer-events: none; }
+.cfp-ticker::before { left: 0; background: linear-gradient(90deg, #fff, transparent); }
+.cfp-ticker::after { right: 0; background: linear-gradient(-90deg, #fff, transparent); }
+.cfp-track { display: flex; gap: 10px; width: max-content; padding: 12px 0; animation: cfpScroll 70s linear infinite; }
+.cfp-ticker:hover .cfp-track { animation-play-state: paused; }
+@keyframes cfpScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.cfp-label { flex-shrink: 0; display: flex; align-items: center; padding: 0 6px 0 24px; font-size: 12.5px; font-weight: 800; color: #4d7c0f; white-space: nowrap; }
+.cfp-item { flex-shrink: 0; display: flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 20px; background: #f8fafc; border: 1px solid #e2e8f0; color: #1e293b; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+.cfp-item:hover { background: #eff6ff; border-color: #bfdbfe; }
+.cfp-item b { font-family: 'DM Mono', monospace; font-size: 12px; color: #d97706; }
+.cfp-item b.hot { color: #dc2626; }
+.cfp-item .f { font-size: 13px; }
+@media (prefers-reduced-motion: reduce) { .cfp-track { animation: none; } .hero-map .hm-ring { animation: none; opacity: 0; } }
+
+/* 홈: 오늘의 연구소식 */
+.hn-section { background: #fff; }
+.hn-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr; grid-template-rows: auto auto; gap: 12px; }
+.hn-card { border-radius: 16px; border: 1.5px solid var(--border); background: #fff; padding: 16px 18px; cursor: pointer; display: flex; flex-direction: column; gap: 8px; transition: box-shadow .18s, transform .18s; min-width: 0; }
+.hn-card:hover { box-shadow: 0 8px 24px rgba(15,23,42,.09); transform: translateY(-2px); }
+.hn-card.big { grid-row: span 2; border: none; color: #fff; padding: 22px; justify-content: flex-end; min-height: 260px; position: relative; overflow: hidden; }
+.hn-card.big::after { content: attr(data-emoji); position: absolute; right: -10px; top: -14px; font-size: 140px; opacity: .18; }
+.hn-chip { align-self: flex-start; font-size: 11.5px; font-weight: 700; padding: 3px 9px; border-radius: 20px; background: var(--cf-bg); color: var(--cf-c); }
+.hn-card.big .hn-chip { background: rgba(255,255,255,.18); color: #fff; }
+.hn-title { font-size: 14.5px; font-weight: 800; color: var(--text); line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.hn-card.big .hn-title { font-size: 21px; color: #fff; -webkit-line-clamp: 3; position: relative; z-index: 1; }
+.hn-meta { font-size: 12px; color: #94a3b8; }
+.hn-card.big .hn-meta { color: rgba(255,255,255,.75); position: relative; z-index: 1; }
+
+@media (max-width: 900px) {
+  .hn-grid { grid-template-columns: 1fr 1fr; }
+  .hn-card.big { grid-column: 1 / -1; grid-row: auto; min-height: 200px; }
+}
+@media (max-width: 768px) {
+  .hero-dark .hero-visual { order: 0; }
+  .hero-map { -webkit-mask-image: none; mask-image: none; opacity: .5; }
+  .hero-map svg { width: 220%; transform: translate(10%, -18%); }
+  .hcd-unit b { font-size: 22px; }
+  .hn-grid { grid-template-columns: 1fr; }
+  .hn-card.big .hn-title { font-size: 18px; }
+}
 </style>
 </head>
 <body>
@@ -2351,7 +2432,7 @@ a { text-decoration: none; color: inherit; }
   <div class="nav-links">
     <div class="nav-link active" onclick="showPage('home');setNav(this)">홈</div>
     <div class="nav-link" onclick="showPage('community');setNav(this)">커뮤니티</div>
-    <div class="nav-link" onclick="showPage('info');setNav(this)">학술정보</div>
+    <div class="nav-link" onclick="showPage('info');setNav(this)">학회정보</div>
     <div class="nav-link" onclick="goToCalendar()">연구 캘린더 <span class="nav-badge">EXCLUSIVE</span></div>
     <div class="nav-link" onclick="showPage('news');setNav(this)">국내연구소식</div>
   </div>
@@ -2378,7 +2459,7 @@ a { text-decoration: none; color: inherit; }
   <div class="nav-drawer-links">
     <div class="nav-drawer-link active" onclick="showPage('home');setNavDrawer(this);closeDrawer()">🏠 홈</div>
     <div class="nav-drawer-link" onclick="showPage('community');setNavDrawer(this);closeDrawer()">💬 커뮤니티</div>
-    <div class="nav-drawer-link" onclick="showPage('info');setNavDrawer(this);closeDrawer()">📚 학술정보</div>
+    <div class="nav-drawer-link" onclick="showPage('info');setNavDrawer(this);closeDrawer()">🎤 학회정보</div>
     <div class="nav-drawer-link" onclick="goToCalendar();closeDrawer()">📅 연구 캘린더 ✦</div>
     <div class="nav-drawer-link" onclick="showPage('news');setNavDrawer(this);closeDrawer()">📰 국내연구소식</div>
   </div>
@@ -2392,35 +2473,36 @@ a { text-decoration: none; color: inherit; }
 <div class="page active" id="page-home">
 
   <!-- HERO -->
-  <div class="hero-wrapper">
+  <div class="hero-wrapper hero-dark">
+    <div class="hero-map" id="hero-map" aria-hidden="true"></div>
     <div class="hero">
       <div class="hero-left">
-        <div class="hero-eyebrow">🚀 연구자를 위한 올인원 플랫폼</div>
+        <div class="hero-eyebrow">🌏 전 세계 학회 마감을 한 곳에서</div>
         <h1 class="hero-title">
           연구에만<br>
           <span class="accent">집중하세요.</span><br>
           나머지는 우리가.
         </h1>
         <p class="hero-desc">
-          학회 마감, 장학금 공모, 국가과제까지 — 흩어진 학술 정보를 한 곳에서.<br>
+          세계 곳곳의 학회 일정과 논문 투고 마감을 한 곳에서.<br>
           마감은 D-day로 챙기고, 고민은 연구자 커뮤니티와 함께.
         </p>
         <div class="hero-actions">
           <button class="btn-hero-primary" onclick="openAuth('signup')">무료로 시작하기 →</button>
-          <button class="btn-hero-secondary" onclick="showPage('community');setNav(document.querySelectorAll('.nav-link')[1])">커뮤니티 둘러보기</button>
+          <button class="btn-hero-secondary" onclick="openConfList()">학회 둘러보기</button>
         </div>
         <div class="hero-stats">
           <div class="hero-stat-item">
             <div class="hero-stat-value" id="hero-stat-total">—</div>
-            <div class="hero-stat-label">등록 학술정보</div>
+            <div class="hero-stat-label">예정된 학회</div>
           </div>
           <div class="hero-stat-item">
             <div class="hero-stat-value" id="hero-stat-upcoming">—</div>
-            <div class="hero-stat-label">모집·마감 예정</div>
+            <div class="hero-stat-label">개최 나라</div>
           </div>
           <div class="hero-stat-item">
             <div class="hero-stat-value" id="hero-stat-month">—</div>
-            <div class="hero-stat-label">30일 내 마감</div>
+            <div class="hero-stat-label">30일 내 논문 마감</div>
           </div>
         </div>
       </div>
@@ -2428,16 +2510,21 @@ a { text-decoration: none; color: inherit; }
       <div class="hero-visual">
         <div class="hero-card">
           <div class="hero-card-header">
-            <span class="hero-card-title">📌 마감 임박 학술정보</span>
+            <span class="hero-card-title">✍️ 다음 논문 마감까지</span>
             <span class="live-dot">실시간</span>
           </div>
-          <div id="hero-deadline-list">
-            <div class="mini-info-item"><span class="mini-title" style="color:#94a3b8;">마감 정보를 불러오는 중…</span></div>
+          <div class="hcd" id="hero-countdown">
+            <div class="hcd-name">마감 정보를 불러오는 중…</div>
           </div>
+          <div class="hero-card-sub">그다음 마감</div>
+          <div id="hero-deadline-list"></div>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- 논문 마감 흐름 띠 -->
+  <div class="cfp-ticker" id="cfp-ticker" aria-label="논문 마감이 다가오는 학회"></div>
 
   <!-- 다가오는 학회 -->
   <div class="hc-section">
@@ -2455,6 +2542,20 @@ a { text-decoration: none; color: inherit; }
     </div>
   </div>
 
+  <!-- 오늘의 연구소식 -->
+  <div class="hn-section">
+    <div class="hc-inner" style="padding-top:8px;">
+      <div class="section-header">
+        <div>
+          <div class="section-title">📰 오늘의 연구소식</div>
+          <div class="section-sub">국내 연구 뉴스를 매일 모아 드려요</div>
+        </div>
+        <div class="see-all" onclick="showPage('news');setNavByName('news')">전체보기 →</div>
+      </div>
+      <div class="hn-grid" id="home-news"></div>
+    </div>
+  </div>
+
   <!-- STATS BAND -->
   <div class="stats-band">
     <div class="stats-band-inner">
@@ -2467,26 +2568,26 @@ a { text-decoration: none; color: inherit; }
         </div>
       </div>
       <div class="band-item green">
-        <div class="band-icon green">💰</div>
+        <div class="band-icon green">🇰🇷</div>
         <div>
           <div class="band-value" id="stat-scholarships">--</div>
-          <div class="band-label">장학금 공모</div>
-          <div class="band-sublabel">현재 모집 중</div>
+          <div class="band-label">국내 학회</div>
+          <div class="band-sublabel">곧 열리는 국내 학회</div>
         </div>
       </div>
       <div class="band-item amber">
-        <div class="band-icon amber">📋</div>
+        <div class="band-icon amber">🌏</div>
         <div>
           <div class="band-value" id="stat-projects">--</div>
-          <div class="band-label">국가과제</div>
-          <div class="band-sublabel">공고 진행 중</div>
+          <div class="band-label">해외 학회</div>
+          <div class="band-sublabel">곧 열리는 해외 학회</div>
         </div>
       </div>
       <div class="band-item red">
         <div class="band-icon red">⚠️</div>
         <div>
           <div class="band-value" id="stat-deadline">--</div>
-          <div class="band-label">D-7 마감 임박</div>
+          <div class="band-label">D-7 논문 마감</div>
           <div class="band-sublabel">놓치지 마세요</div>
         </div>
       </div>
@@ -2532,10 +2633,10 @@ a { text-decoration: none; color: inherit; }
       <div>
         <div class="section-header">
           <div>
-            <div class="section-title">📚 학술정보</div>
-            <div class="section-sub">장학금, 학회, 연구과제 정보</div>
+            <div class="section-title">✍️ 논문 마감 임박</div>
+            <div class="section-sub">곧 논문 투고가 마감되는 학회</div>
           </div>
-          <div class="see-all" onclick="showPage('info');setNav(document.querySelectorAll('.nav-link')[2])">전체보기 →</div>
+          <div class="see-all" onclick="openConfList()">전체보기 →</div>
         </div>
         <div class="info-card-list" id="home-info-list"></div>
       </div>
@@ -2553,7 +2654,7 @@ a { text-decoration: none; color: inherit; }
         <div class="feature-card">
           <div class="feature-card-icon">🔍</div>
           <div class="feature-card-title">학술정보 통합</div>
-          <div class="feature-card-desc">국내외 학회, 장학금, 국가과제를 한 곳에서. 전공별 맞춤 분류로 내 분야 정보만 빠르게.</div>
+          <div class="feature-card-desc">국내외 학회 일정과 논문 마감을 한 곳에서. 분야별 분류와 세계지도로 내 분야 학회만 빠르게.</div>
         </div>
         <div class="feature-card">
           <div class="feature-card-icon">🏷️</div>
@@ -2578,7 +2679,7 @@ a { text-decoration: none; color: inherit; }
         <div class="feature-card">
           <div class="feature-card-icon">🤖</div>
           <div class="feature-card-title">AI 추천 (예정)</div>
-          <div class="feature-card-desc">연구 프로필 기반으로 최적의 학회, 장학금, 공동연구 파트너를 AI가 추천합니다.</div>
+          <div class="feature-card-desc">연구 프로필 기반으로 최적의 학회와 공동연구 파트너를 AI가 추천합니다.</div>
         </div>
       </div>
     </div>
@@ -2591,14 +2692,14 @@ a { text-decoration: none; color: inherit; }
         <!-- 브랜드 -->
         <div>
           <div class="footer-brand-logo">🔬 My Research Calendar</div>
-          <div class="footer-brand-desc">대한민국 대학원생과 연구자를 위한 올인원 학술 플랫폼. 학회, 장학금, 커뮤니티를 한 곳에서.</div>
+          <div class="footer-brand-desc">대한민국 대학원생과 연구자를 위한 올인원 학술 플랫폼. 학회 일정, 논문 마감, 커뮤니티를 한 곳에서.</div>
         </div>
         <!-- 서비스 -->
         <div>
           <div class="footer-col-title">서비스</div>
           <span class="footer-link" onclick="showPage('home')">홈</span>
           <span class="footer-link" onclick="showPage('community')">커뮤니티</span>
-          <span class="footer-link" onclick="showPage('info')">학술정보</span>
+          <span class="footer-link" onclick="showPage('info')">학회정보</span>
           <span class="footer-link" onclick="showPage('news')">국내연구소식</span>
           <span class="footer-link" onclick="goToCalendar()">연구 캘린더</span>
         </div>
@@ -2707,13 +2808,13 @@ a { text-decoration: none; color: inherit; }
     <div class="uph-inner">
       <div>
         <div class="uph-eyebrow">Academic Information</div>
-        <div class="uph-title">학술정보</div>
-        <div class="uph-sub">전공별 학회·장학금·국가과제 통합 목록</div>
+        <div class="uph-title">학회정보</div>
+        <div class="uph-sub">전 세계 학회 일정과 논문 마감을 분야별로</div>
       </div>
       <div class="uph-stats">
         <div class="uph-stat">
           <div class="uph-stat-val" id="info-total-count">—</div>
-          <div class="uph-stat-label">전체 정보</div>
+          <div class="uph-stat-label">전체 학회</div>
         </div>
         <div class="uph-stat">
           <div class="uph-stat-val" id="info-deadline-count">—</div>
@@ -2745,8 +2846,6 @@ a { text-decoration: none; color: inherit; }
       <div class="ufb-tabs" id="info-type-tabs">
         <button class="ufb-tab active" onclick="switchInfoTab(this,'all')" data-type="all">전체</button>
         <button class="ufb-tab" onclick="switchInfoTab(this,'conf')" data-type="conf">🎤 학회</button>
-        <button class="ufb-tab" onclick="switchInfoTab(this,'scholar')" data-type="scholar">💰 장학금</button>
-        <button class="ufb-tab" onclick="switchInfoTab(this,'project')" data-type="project">🔬 연구과제</button>
         <button class="ufb-tab" onclick="switchInfoTab(this,'recruit')" data-type="recruit">📢 모집</button>
       </div>
     </div>
@@ -3336,7 +3435,7 @@ function renderBanners() {
     {
       type: 'default',
       title: 'My Research Calendar와 함께 연구 기회를 놓치지 마세요',
-      subtitle: '학회, 장학금, 국가과제 마감일을 한눈에. 지금 무료로 시작하세요.',
+      subtitle: '전 세계 학회 일정과 논문 마감일을 한눈에. 지금 무료로 시작하세요.',
       grad: '135deg, #0f172a 0%, #1e3a8a 60%, #2563eb 100%',
       cta: '무료 시작하기',
       ctaAction: "openAuth('signup')",
@@ -3344,7 +3443,7 @@ function renderBanners() {
     {
       type: 'ad',
       title: '이 자리에 귀사의 광고·공지를 게재하세요',
-      subtitle: '3만+ 연구자에게 직접 노출. 학술 행사·장학금·채용 홍보에 최적화된 배너 광고.',
+      subtitle: '3만+ 연구자에게 직접 노출. 학회·학술 행사·채용 홍보에 최적화된 배너 광고.',
       grad: '135deg, #064e3b 0%, #065f46 50%, #059669 100%',
       cta: '광고 문의하기',
       ctaAction: "window.location.href='mailto:contact@myresearch.kr'",
@@ -3533,6 +3632,7 @@ async function fetchNewsFromDB() {
     });
   });
   renderNews();
+  renderHomeNews();
   renderFeaturedBanner();
 }
 
@@ -3774,6 +3874,7 @@ function wmLoadWorld(){
       return { name:f.properties.name, d:dstr };
     });
     renderInfoFull();
+    renderHeroMap();
   };
   const go=()=>fetch('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json').then(r=>r.json()).then(done).catch(()=>{ _wmLoading=false; });
   if(window.topojson) go();
@@ -4015,6 +4116,8 @@ async function fetchInfoFromDB() {
   // DB 데이터로 INFO_DATA 배열 교체
   INFO_DATA.length = 0;
   data.forEach(n => {
+    // 장학금·국가과제는 당분간 화면에서 뺀다 (DB 에는 그대로 남아 있음)
+    if(n.type === 'scholar' || n.type === 'project') return;
     const today = new Date();
     const refDate = n.type === 'conf' ? (n.start_date || n.date) : n.date;
     const deadline = refDate ? new Date(refDate) : null;
@@ -4054,37 +4157,125 @@ function escHtml(str){
 }
 
 // 홈 화면 수치와 마감 임박 카드를 실제 학술정보 데이터로 채움
+
+// ── 홈 히어로: 세계지도 배경 · 논문 마감 카운트다운 · 마감 흐름 띠 · 연구소식 ──
+function upcomingCfps(){
+  const today=new Date(); today.setHours(0,0,0,0);
+  return INFO_DATA.filter(d=>d.type==='conf' && d.cfp_date && parseYMD(d.cfp_date)>=today)
+    .sort((a,b)=>parseYMD(a.cfp_date)-parseYMD(b.cfp_date));
+}
+function renderHeroMap(){
+  const el=document.getElementById('hero-map');
+  if(!el) return;
+  wmLoadWorld();
+  const today=new Date(); today.setHours(0,0,0,0);
+  const cnt={};
+  INFO_DATA.forEach(d=>{ if(d.type!=='conf'||isConfEnded(d)) return; const c=confCountry(d); if(c&&COUNTRY[c]) cnt[c]=(cnt[c]||0)+1; });
+  const rows=Object.entries(cnt).sort((a,b)=>b[1]-a[1]);
+  const max=rows.length?rows[0][1]:1;
+  const land=(WM_PATHS||[]).map(p=>`<path class="hm-land" d="${p.d}"></path>`).join('');
+  const dots=rows.map(([c,n],i)=>{
+    const [, , lat, lon]=COUNTRY[c]; const r=2+Math.sqrt(n/max)*7; const kr=c==='KR'?' kr':'';
+    const x=wmX(lon).toFixed(1), y=wmY(lat).toFixed(1);
+    return `<circle class="hm-ring${kr}" cx="${x}" cy="${y}" r="${(r+2).toFixed(1)}" style="animation-delay:${(i*0.37%3.2).toFixed(2)}s"></circle><circle class="hm-dot${kr}" cx="${x}" cy="${y}" r="${r.toFixed(1)}"></circle>`;
+  }).join('');
+  el.innerHTML=`<svg viewBox="0 0 ${WM_W} ${WM_H}">${land}${dots}</svg>`;
+  return { countries: rows.length, total: rows.reduce((s,[,n])=>s+n,0) };
+}
+
+let _hcdTimer=null, _hcdTarget=null;
+function renderHeroCountdown(){
+  const box=document.getElementById('hero-countdown');
+  const list=document.getElementById('hero-deadline-list');
+  if(!box) return;
+  const cfps=upcomingCfps();
+  if(!cfps.length){ box.innerHTML='<div class="hcd-name">곧 새로운 논문 마감 정보가 등록됩니다</div>'; if(list) list.innerHTML=''; return; }
+  const n=cfps[0], fm=fieldMeta(n.field);
+  _hcdTarget=parseYMD(n.cfp_date); _hcdTarget.setHours(23,59,59,999); // 마감일 하루 끝까지
+  const s=confStart(n);
+  box.onclick = n.url && n.url!=='#' ? ()=>window.open(n.url,'_blank','noopener') : null;
+  box.innerHTML=`<div class="hcd-name">${escHtml(n.title)}</div>
+    <div class="hcd-meta">${fm.emoji} ${fm.label}${n.location?' · 📍 '+escHtml(n.location):''}${s?` · 학회 ${s.getMonth()+1}월 ${s.getDate()}일`:''}</div>
+    <div class="hcd-clock"><div class="hcd-unit"><b id="hcd-d">0</b><span>일</span></div><div class="hcd-unit"><b id="hcd-h">00</b><span>시간</span></div><div class="hcd-unit"><b id="hcd-m">00</b><span>분</span></div><div class="hcd-unit"><b id="hcd-s">00</b><span>초</span></div></div>`;
+  const tick=()=>{
+    const ms=Math.max(0,_hcdTarget-Date.now());
+    const t=Math.floor(ms/1000), p=v=>String(v).padStart(2,'0');
+    const set=(id,v)=>{ const e=document.getElementById(id); if(e) e.textContent=v; };
+    set('hcd-d', Math.floor(t/86400)); set('hcd-h', p(Math.floor(t%86400/3600))); set('hcd-m', p(Math.floor(t%3600/60))); set('hcd-s', p(t%60));
+  };
+  tick(); clearInterval(_hcdTimer); _hcdTimer=setInterval(tick,1000);
+  if(list){
+    const today=new Date(); today.setHours(0,0,0,0);
+    list.innerHTML=cfps.slice(1,4).map(d=>{
+      const left=Math.round((parseYMD(d.cfp_date)-today)/86400000);
+      const cls=left<=7?'dday-red':left<=30?'dday-amber':'dday-green';
+      const url=d.url&&d.url!=='#'?escHtml(d.url):'';
+      return `<div class="mini-info-item"${url?` data-url="${url}" onclick="window.open(this.dataset.url,'_blank','noopener')"`:''}>
+        <span class="mini-badge">${fieldMeta(d.field).emoji} 학회</span>
+        <span class="mini-title">${escHtml(d.title)}</span>
+        <span class="mini-dday ${cls}">${left===0?'오늘':'D-'+left}</span></div>`;
+    }).join('');
+  }
+}
+
+function renderCfpTicker(){
+  const el=document.getElementById('cfp-ticker');
+  if(!el) return;
+  const today=new Date(); today.setHours(0,0,0,0);
+  const cfps=upcomingCfps().slice(0,24);
+  if(!cfps.length){ el.innerHTML=''; return; }
+  const items=cfps.map(d=>{
+    const left=Math.round((parseYMD(d.cfp_date)-today)/86400000);
+    const url=d.url&&d.url!=='#'?escHtml(d.url):'';
+    return `<span class="cfp-item"${url?` data-url="${url}" onclick="window.open(this.dataset.url,'_blank','noopener')"`:''}><span class="f">${fieldMeta(d.field).emoji}</span>${escHtml(d.title)} <b class="${left<=7?'hot':''}">${left===0?'오늘 마감':'D-'+left}</b></span>`;
+  }).join('');
+  // 같은 목록을 두 번 이어 붙여 끊김 없이 흐르게 한다
+  const half=`<span class="cfp-label">✍️ 논문 마감 임박</span>${items}`;
+  el.innerHTML=`<div class="cfp-track">${half}${half}</div>`;
+}
+
+function renderHomeNews(){
+  const el=document.getElementById('home-news');
+  if(!el) return;
+  const list=NEWS.slice(0,5);
+  if(!list.length){ el.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:28px;color:#94a3b8;">연구소식을 불러오는 중…</div>'; return; }
+  const GRAD={cs:'linear-gradient(135deg,#4c1d95,#7c3aed)',eng:'linear-gradient(135deg,#1e3a8a,#2563eb)',bio:'linear-gradient(135deg,#064e3b,#059669)',energy:'linear-gradient(135deg,#7c2d12,#ea580c)',quantum:'linear-gradient(135deg,#164e63,#0891b2)'};
+  el.innerHTML=list.map((n,i)=>{
+    const fm=fieldMeta(n.field);
+    const big=i===0;
+    return `<div class="hn-card${big?' big':''}" style="--cf-c:${fm.c};--cf-bg:${fm.bg};${big?'background:'+(GRAD[n.field]||'linear-gradient(135deg,#1e293b,#334155)'):''}" data-emoji="${fm.emoji}" onclick="openNews(${NEWS.indexOf(n)})">
+      <span class="hn-chip">${fm.emoji} ${escHtml(n.tag||fm.label)}</span>
+      <div class="hn-title">${escHtml(n.title)}</div>
+      <div class="hn-meta">${escHtml(n.org||'')}${n.org&&n.date?' · ':''}${escHtml(n.date||'')}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderHomeHero(){
+  const m=renderHeroMap();
+  const set=(id,v)=>{ const e=document.getElementById(id); if(e) e.textContent=v; };
+  if(m){ set('hero-stat-total', m.total? m.total.toLocaleString() : '—'); set('hero-stat-upcoming', m.countries? m.countries+'개국' : '—'); }
+  const today=new Date(); today.setHours(0,0,0,0);
+  const n30=upcomingCfps().filter(d=>(parseYMD(d.cfp_date)-today)/86400000<=30).length;
+  set('hero-stat-month', n30 || '—');
+  renderHeroCountdown();
+  renderCfpTicker();
+}
+
 function updateHomeStats() {
   const upcoming = INFO_DATA.filter(d => d.dday !== null && d.dday !== undefined && d.dday >= 0);
   const pad = n => String(n).padStart(2, '0');
   const set = (id, v) => { const el = document.getElementById(id); if(el) el.textContent = v; };
 
-  set('hero-stat-total', INFO_DATA.length ? INFO_DATA.length.toLocaleString() : '—');
-  set('hero-stat-upcoming', upcoming.length ? upcoming.length.toLocaleString() : '—');
-  set('hero-stat-month', upcoming.filter(d => d.dday <= 30).length || '—');
 
   set('stat-conferences',  pad(INFO_DATA.filter(d => d.type === 'conf').length));
-  set('stat-scholarships', pad(upcoming.filter(d => d.type === 'scholar').length));
-  set('stat-projects',     pad(upcoming.filter(d => d.type === 'project').length));
-  set('stat-deadline',     pad(upcoming.filter(d => d.dday <= 7).length));
+  const soon = INFO_DATA.filter(d => d.type === 'conf' && !isConfEnded(d));
+  set('stat-scholarships', pad(soon.filter(d => isDomesticInfo(d)).length));
+  set('stat-projects',     pad(soon.filter(d => !isDomesticInfo(d)).length));
+  const t0 = new Date(); t0.setHours(0,0,0,0);
+  set('stat-deadline',     pad(upcomingCfps().filter(d => (parseYMD(d.cfp_date) - t0) / 86400000 <= 7).length));
 
-  const list = document.getElementById('hero-deadline-list');
-  if(!list) return;
-  const BADGE = { conf:['mb-conf','학회'], scholar:['mb-scholar','장학금'], project:['mb-project','연구과제'], recruit:['mb-project','모집'] };
-  const top = upcoming.slice().sort((a,b) => a.dday - b.dday).slice(0, 4);
-  if(!top.length){
-    list.innerHTML = '<div class="mini-info-item"><span class="mini-title" style="color:#94a3b8;">곧 새로운 마감 정보가 등록됩니다</span></div>';
-    return;
-  }
-  list.innerHTML = top.map(d => {
-    const [cls, label] = BADGE[d.type] || ['mb-conf','기타'];
-    const ddCls = d.dday <= 7 ? 'dday-red' : d.dday <= 30 ? 'dday-amber' : 'dday-green';
-    return `<div class="mini-info-item">
-            <span class="mini-badge ${cls}">${label}</span>
-            <span class="mini-title">${escHtml(d.title)}</span>
-            <span class="mini-dday ${ddCls}">${d.dday === 0 ? 'D-day' : 'D-' + d.dday}</span>
-          </div>`;
-  }).join('');
+  renderHomeHero();
 }
 
 // Init
@@ -4095,6 +4286,8 @@ renderInfoCards('home-info-list');
 renderInfoFull();
 renderHomeConfs();
 renderNews();
+renderHomeNews();
+renderHomeHero();
 
 // DB에서 실제 데이터 불러오기
 fetchNewsFromDB();
@@ -4259,32 +4452,25 @@ function filterNewsByField(field){
   renderNews();
 }
 
-function renderInfoCards(containerId, filter='all'){
+// 홈 사이드: 논문 투고 마감이 가까운 학회
+function renderInfoCards(containerId){
   const el = document.getElementById(containerId);
   if(!el) return;
-  const items = filter==='all' ? INFO_DATA : INFO_DATA.filter(d=>d.type===filter);
-  el.innerHTML = items.slice(0,4).map(item=>{
-    const icons={conf:'🎤',scholar:'💰',project:'🔬',recruit:'📢'};
-    const colors={conf:'#2563eb',scholar:'#059669',project:'#d97706',recruit:'#0891b2'};
-    const bgs={conf:'#eff6ff',scholar:'#ecfdf5',project:'#fffbeb',recruit:'#ecfeff'};
-    const t=item.type;
-    return '<div class="info-card" style="background:#fff;border:1.5px solid #e2e8f0;border-left:3px solid '+(colors[t]||'#64748b')+';border-radius:10px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start;">'
-      +'<div style="width:36px;height:36px;border-radius:8px;background:'+(bgs[t]||'#f8fafc')+';display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">'+(icons[t]||'📌')+'</div>'
-      +'<div style="flex:1;min-width:0;">'
-      +'<div style="font-size:13px;font-weight:700;color:#0f172a;margin-bottom:2px;">'+item.title+'</div>'
-      +'<div style="font-size:12px;color:#64748b;">'+item.org+'</div>'
-      +'</div>'
-      +(()=>{
-        if(item.dday===null||item.dday===undefined) return '';
-        if(item.type==='conf'){
-          const today=new Date(); today.setHours(0,0,0,0);
-          if(item.end_date && new Date(item.end_date)<today) return '<div style="font-size:12px;font-weight:700;color:#94a3b8;">종료</div>';
-          if(item.start_date && new Date(item.start_date)<=today) return '<div style="font-size:12px;font-weight:700;color:#059669;">진행중</div>';
-        }
-        if(item.dday<=0) return '<div style="font-size:12px;font-weight:800;color:#94a3b8;">마감</div>';
-        return '<div style="font-size:12px;font-weight:800;color:'+(item.dday<=7?'#ef4444':'#64748b')+';">D-'+item.dday+'</div>';
-      })()
-      +'</div>';
+  const today=new Date(); today.setHours(0,0,0,0);
+  const items = upcomingCfps().slice(0,5);
+  if(!items.length){ el.innerHTML='<div style="font-size:13px;color:#94a3b8;padding:16px;text-align:center;">곧 논문 마감 정보가 등록됩니다</div>'; return; }
+  el.innerHTML = items.map(d=>{
+    const fm=fieldMeta(d.field);
+    const left=Math.round((parseYMD(d.cfp_date)-today)/86400000);
+    const url=d.url&&d.url!=='#'?escHtml(d.url):'';
+    return `<div class="info-card"${url?` data-url="${url}" onclick="window.open(this.dataset.url,'_blank','noopener')"`:''} style="background:#fff;border:1.5px solid #e2e8f0;border-left:3px solid ${fm.c};border-radius:10px;padding:12px 14px;display:flex;gap:10px;align-items:center;cursor:${url?'pointer':'default'};">
+      <div style="width:36px;height:36px;border-radius:8px;background:${fm.bg};display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">${fm.emoji}</div>
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:13px;font-weight:700;color:#0f172a;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escHtml(d.title)}</div>
+        <div style="font-size:12px;color:#64748b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${escHtml(d.location||d.org||'')}</div>
+      </div>
+      <div style="font-size:12px;font-weight:800;color:${left<=7?'#ef4444':'#d97706'};white-space:nowrap;">${left===0?'오늘 마감':'D-'+left}</div>
+    </div>`;
   }).join('');
 }
 
