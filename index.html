@@ -691,8 +691,8 @@ a { text-decoration: none; color: inherit; }
   width: 100%;
   border-radius: 18px;
   overflow: hidden;
-  box-shadow: 0 4px 24px rgba(15,23,42,0.12);
-  min-height: 200px;
+  box-shadow: 0 2px 10px rgba(15,23,42,0.08);
+  min-height: 64px;
   background: #1e293b;
 }
 .info-banner-track {
@@ -701,7 +701,7 @@ a { text-decoration: none; color: inherit; }
 }
 .info-banner-arrow {
   position: absolute; top: 50%; transform: translateY(-50%);
-  width: 38px; height: 38px; border-radius: 50%; border: none; cursor: pointer;
+  width: 28px; height: 28px; border-radius: 50%; border: none; cursor: pointer;
   background: rgba(255,255,255,0.18); backdrop-filter: blur(8px);
   color: white; font-size: 20px;
   display: flex; align-items: center; justify-content: center;
@@ -711,10 +711,9 @@ a { text-decoration: none; color: inherit; }
 .info-banner-arrow:hover { background: rgba(255,255,255,0.34); }
 .info-banner-arrow.left  { left: 14px; }
 .info-banner-arrow.right { right: 14px; }
-.info-banner-dots {
-  position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%);
-  display: flex; gap: 6px; z-index: 10;
-}
+.info-banner-dots { display: none; }
+/* 검색·필터 중에는 배너를 숨겨 결과가 바로 보이게 */
+.info-banner-wrap.is-hidden { display: none; }
 
 /* INFO CARDS */
 .info-card-list { display: flex; flex-direction: column; gap: 10px; }
@@ -1536,6 +1535,20 @@ a { text-decoration: none; color: inherit; }
   background: var(--blue); border-color: var(--blue);
   color: white; box-shadow: 0 2px 8px rgba(37,99,235,0.28);
 }
+.ufb-select {
+  padding: 6px 12px; border-radius: 20px;
+  font-size: 13px; font-weight: 600;
+  border: 1.5px solid #e8edf4; background: white; color: var(--text-sub);
+  font-family: 'Noto Sans KR', sans-serif; cursor: pointer; flex-shrink: 0;
+}
+.ufb-select:focus { outline: none; border-color: var(--blue); }
+.info-result-meta { font-size: 13px; color: #64748b; margin-bottom: 16px; }
+.info-more-btn {
+  display: block; margin: 8px auto 0; padding: 10px 28px; border-radius: 20px;
+  border: 1.5px solid #e2e8f0; background: white; color: var(--text-sub);
+  font-size: 13px; font-weight: 700; cursor: pointer; font-family: 'Noto Sans KR', sans-serif;
+}
+.info-more-btn:hover { border-color: var(--blue); color: var(--blue); }
 
 /* ══════════════════════════
    UNIFIED CONTENT WRAP
@@ -2109,7 +2122,10 @@ a { text-decoration: none; color: inherit; }
 
   /* ── INFO PAGE ── */
   .info-banner-wrap { margin-bottom: 20px; }
-  .info-banner-slider { min-height: 160px; border-radius: 14px; }
+  .info-banner-slider { min-height: 56px; border-radius: 12px; }
+  .info-banner-slider .ib-sub, .info-banner-slider .ib-cta, .info-banner-slider .ib-count { display: none; }
+  .info-banner-slider > .info-banner-track > div > div:last-child { padding: 12px 44px !important; }
+  .info-grid { grid-template-columns: 1fr !important; }
 
   /* ── NEWS PAGE ── */
   .news-page-header { padding: 24px 20px 20px; }
@@ -2538,7 +2554,20 @@ a { text-decoration: none; color: inherit; }
   <!-- 통합 필터 바 (sticky) -->
   <div class="ufb">
     <div class="ufb-inner">
-      <input class="ufb-search" id="info-search" type="text" placeholder="🔍  학회명, 기관명 검색..." oninput="filterInfoSearch()">
+      <input class="ufb-search" id="info-search" type="search" placeholder="🔍  학회명·분야·도시 검색 (예: NeurIPS, Seoul)" oninput="filterInfoSearch()">
+      <select class="ufb-select" id="info-field-filter" onchange="filterInfoSearch()" aria-label="분야">
+        <option value="all">전체 분야</option>
+        <option value="cs">AI/컴퓨터</option>
+        <option value="eng">이공계</option>
+        <option value="bio">생명/의학</option>
+        <option value="energy">에너지</option>
+        <option value="quantum">양자/통신</option>
+      </select>
+      <select class="ufb-select" id="info-region-filter" onchange="filterInfoSearch()" aria-label="개최지">
+        <option value="all">국내+해외</option>
+        <option value="kr">국내 개최</option>
+        <option value="intl">해외 개최</option>
+      </select>
       <div class="ufb-sep"></div>
       <span class="ufb-label">유형</span>
       <div class="ufb-tabs" id="info-type-tabs">
@@ -2555,7 +2584,7 @@ a { text-decoration: none; color: inherit; }
   <div class="ucw">
 
     <!-- 배너 슬라이더 -->
-    <div class="info-banner-wrap" id="banner-wrap" style="margin-bottom:28px;">
+    <div class="info-banner-wrap" id="banner-wrap" style="margin-bottom:20px;">
       <div class="info-banner-slider" id="banner-slider">
         <div id="banner-track" class="info-banner-track"></div>
         <button class="info-banner-arrow left" id="banner-prev" onclick="bannerSlide(-1)">‹</button>
@@ -3161,18 +3190,20 @@ function renderBanners() {
       ? `background:url('${b.image_url}') center/cover no-repeat;`
       : `background:linear-gradient(${grad});`;
     const ctaBtn = b.cta
-      ? `<button onclick="${b.ctaAction}" style="margin-top:16px;padding:9px 20px;background:rgba(255,255,255,0.18);border:1.5px solid rgba(255,255,255,0.4);border-radius:9px;color:white;font-size:13px;font-weight:700;cursor:pointer;backdrop-filter:blur(6px);font-family:'Noto Sans KR',sans-serif;transition:background 0.15s;" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.18)'">${b.cta} →</button>` : '';
+      ? `<button class="ib-cta" onclick="${b.ctaAction}" style="flex-shrink:0;padding:6px 14px;white-space:nowrap;background:rgba(255,255,255,0.18);border:1.5px solid rgba(255,255,255,0.4);border-radius:9px;color:white;font-size:13px;font-weight:700;cursor:pointer;backdrop-filter:blur(6px);font-family:'Noto Sans KR',sans-serif;transition:background 0.15s;" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.18)'">${b.cta} →</button>` : '';
 
-    return `<div style="min-width:100%;width:100%;${bgStyle}position:relative;min-height:200px;display:flex;align-items:center;flex-shrink:0;">
-      ${b.image_url ? `<div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.2) 65%,transparent 100%);"></div>` : ''}
-      <div style="position:relative;z-index:1;padding:36px 48px;max-width:72%;">
-        <div style="display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.85);border:1.5px solid rgba(255,255,255,0.4);padding:3px 12px;border-radius:20px;margin-bottom:14px;backdrop-filter:blur(4px);">${b.type==='ad'?'광고·홍보':T.label||'공지'}</div>
-        <div style="font-size:24px;font-weight:900;color:white;line-height:1.35;text-shadow:0 2px 12px rgba(0,0,0,0.3);font-family:'Montserrat',sans-serif;">${b.title}</div>
-        ${b.subtitle ? `<div style="font-size:13.5px;color:rgba(255,255,255,0.78);line-height:1.6;margin-top:8px;">${b.subtitle}</div>` : ''}
-        ${dateStr ? `<div style="font-size:12px;color:rgba(255,255,255,0.55);font-family:'DM Mono',monospace;margin-top:6px;">${dateStr}</div>` : ''}
+    return `<div style="min-width:100%;width:100%;${bgStyle}position:relative;min-height:64px;display:flex;align-items:center;flex-shrink:0;">
+      ${b.image_url ? `<div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.35) 65%,rgba(0,0,0,0.2) 100%);"></div>` : ''}
+      <div style="position:relative;z-index:1;padding:12px 56px;width:100%;box-sizing:border-box;display:flex;align-items:center;gap:14px;min-width:0;">
+        <div style="flex-shrink:0;font-size:10.5px;font-weight:800;letter-spacing:0.1em;color:rgba(255,255,255,0.85);border:1.5px solid rgba(255,255,255,0.4);padding:2px 10px;border-radius:20px;">${b.type==='ad'?'광고·홍보':T.label||'공지'}</div>
+        <div style="flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+          <span style="font-size:15px;font-weight:800;color:white;">${b.title}</span>
+          ${b.subtitle ? `<span class="ib-sub" style="font-size:12.5px;color:rgba(255,255,255,0.7);margin-left:10px;">${b.subtitle}</span>` : ''}
+          ${dateStr ? `<span style="font-size:12px;color:rgba(255,255,255,0.55);font-family:'DM Mono',monospace;margin-left:10px;">${dateStr}</span>` : ''}
+        </div>
         ${ctaBtn}
+        <div class="ib-count" style="flex-shrink:0;font-size:11px;color:rgba(255,255,255,0.45);font-family:'DM Mono',monospace;">${i+1}/${slides.length}</div>
       </div>
-      <div style="position:absolute;top:16px;right:18px;font-size:11.5px;color:rgba(255,255,255,0.45);font-family:'DM Mono',monospace;">${i+1} / ${slides.length}</div>
     </div>`;
   }).join('');
 
@@ -3320,7 +3351,24 @@ function switchInfoTab(el, type){
   el.classList.add('active');
   renderInfoFull();
 }
-function filterInfoSearch(){ renderInfoFull(); }
+function filterInfoSearch(){ INFO_VISIBLE = INFO_PAGE_SIZE; renderInfoFull(); }
+var INFO_PAGE_SIZE = 40;
+var INFO_VISIBLE = 40;
+function showMoreInfo(){ INFO_VISIBLE += INFO_PAGE_SIZE; renderInfoFull(); }
+
+const KOREA_PLACE_RE = /korea|seoul|busan|daejeon|incheon|jeju|daegu|gwangju|suwon|pohang|ulsan|gyeongju|songdo|한국|서울|부산|대전|인천|제주|대구|광주|수원|포항|울산|경주|국내/i;
+function isDomesticInfo(d){
+  if(/국내/.test(d.tags||'')) return true;
+  if(/해외/.test(d.tags||'')) return false;
+  // 직접 등록한 학회는 장소가 비어 있거나 한글이면 국내로 본다
+  return !d.location || KOREA_PLACE_RE.test(d.location) || /[가-힣]/.test(d.location);
+}
+// 여러 단어를 넣으면 모두 포함된 항목만 찾는다 (제목·기관·태그·장소·설명 대상)
+function matchInfoQuery(d, q){
+  if(!q) return true;
+  const hay = [d.title, d.org, d.tags, d.location, d.content].join(' ').toLowerCase();
+  return q.split(/\s+/).filter(Boolean).every(w => hay.includes(w));
+}
 
 function renderInfoFull(){
   const el=document.getElementById('info-full-list');
@@ -3328,11 +3376,15 @@ function renderInfoFull(){
   const q=(document.getElementById('info-search')?.value||'').toLowerCase();
   const activeTab=document.querySelector('#info-type-tabs .ufb-tab.active');
   const typeF=activeTab?.dataset?.type||'all';
+  const fieldF=document.getElementById('info-field-filter')?.value||'all';
+  const regionF=document.getElementById('info-region-filter')?.value||'all';
+  document.getElementById('banner-wrap')?.classList.toggle('is-hidden', !!q||typeF!=='all'||fieldF!=='all'||regionF!=='all');
 
   let items=INFO_DATA.filter(d=>{
     const matchType=typeF==='all'||d.type===typeF;
-    const matchSearch=!q||d.title.toLowerCase().includes(q)||(d.org||'').toLowerCase().includes(q);
-    return matchType&&matchSearch;
+    const matchField=fieldF==='all'||d.field===fieldF||d.field==='all';
+    const matchRegion=regionF==='all'||(regionF==='kr')===isDomesticInfo(d);
+    return matchType&&matchField&&matchRegion&&matchInfoQuery(d,q);
   }).sort((a,b)=>{
     // 종료된 학회(end_date 지남)는 맨 뒤로
     const todayMs = Date.now();
@@ -3355,7 +3407,9 @@ function renderInfoFull(){
     return;
   }
 
-  el.innerHTML='';
+  const total=items.length;
+  items=items.slice(0, INFO_VISIBLE);
+  el.innerHTML=`<div class="info-result-meta">검색 결과 <b>${total.toLocaleString()}</b>건${total>items.length?` 중 ${items.length}건 표시`:''}</div>`;
 
   if(typeF==='all'){
     // 타입별 섹션 헤더 + 2열 그리드
@@ -3378,6 +3432,7 @@ function renderInfoFull(){
 
       const grid=document.createElement('div');
       grid.style.cssText='display:grid;grid-template-columns:repeat(2,1fr);gap:12px;';
+      grid.className='info-grid';
       group.forEach(item=>grid.insertAdjacentHTML('beforeend', buildInfoCard(item,TC)));
       sec.appendChild(grid);
       el.appendChild(sec);
@@ -3385,8 +3440,12 @@ function renderInfoFull(){
   } else {
     const wrap=document.createElement('div');
     wrap.style.cssText='display:grid;grid-template-columns:repeat(2,1fr);gap:12px;';
+    wrap.className='info-grid';
     items.forEach(item=>wrap.insertAdjacentHTML('beforeend', buildInfoCard(item,TC)));
     el.appendChild(wrap);
+  }
+  if(total>items.length){
+    el.insertAdjacentHTML('beforeend', `<button class="info-more-btn" onclick="showMoreInfo()">더 보기 (${(total-items.length).toLocaleString()}건 남음)</button>`);
   }
 }
 
@@ -3441,8 +3500,15 @@ async function fetchBannersFromDB() {
 
 async function fetchInfoFromDB() {
   if(!sbClient) return;
-  const { data, error } = await sbClient.from('academic_info').select('*').order('created_at', { ascending: false });
-  if(error || !data) return;
+  // Supabase 는 한 번에 최대 1000건을 돌려주므로 나눠서 모두 불러온다
+  const data = [];
+  for(let from = 0; ; from += 1000){
+    const { data: page, error } = await sbClient.from('academic_info').select('*')
+      .order('created_at', { ascending: false }).range(from, from + 999);
+    if(error || !page) { if(!data.length) return; break; }
+    data.push(...page);
+    if(page.length < 1000) break;
+  }
   // DB 데이터로 INFO_DATA 배열 교체
   INFO_DATA.length = 0;
   data.forEach(n => {
@@ -3458,6 +3524,8 @@ async function fetchInfoFromDB() {
       url: n.url || '#',
       tags: Array.isArray(n.tags) ? n.tags.join(',') : (n.tags || ''),
       location: n.location || '',
+      content: n.content || '',
+      source: n.source || '',
       is_featured: n.is_featured || false
     });
   });
