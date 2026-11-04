@@ -13,11 +13,13 @@
 - 같은 학회는 `external_id` 로 구분해 다시 수집될 때 갱신만 됩니다.
 - 자동 수집한 학회는 종료 30일 뒤 자동으로 지워집니다. 관리자 화면에서 직접 등록한 학회는 건드리지 않습니다.
 
-## 처음 한 번 설정
+## 동작 구조
 
-1. Supabase 대시보드 > SQL Editor 에서 [`supabase/academic_info_collector.sql`](../supabase/academic_info_collector.sql) 을 실행합니다.
-2. GitHub 저장소 > Settings > Secrets and variables > Actions 에 `SUPABASE_SERVICE_ROLE_KEY` 를 등록합니다. (Supabase > Project Settings > API 의 service_role 키. 이 키는 절대 HTML 에 넣지 마세요.)
-3. Actions 탭 > "학회 정보 자동 수집" > Run workflow 로 첫 수집을 실행합니다. `dry_run` 을 켜면 DB 에 쓰지 않고 결과 파일(conferences.json)만 남깁니다.
+1. 매일 03:00 (KST) GitHub Actions 가 소스를 모아 `data/conferences.json` 을 커밋합니다.
+2. 매일 03:30 (KST) Supabase 안의 예약 작업(pg_cron)이 `public.sync_conferences()` 를 실행해 그 파일을 `academic_info` 에 반영합니다.
+
+GitHub 에 Supabase 키를 등록할 필요가 없습니다. DB 쪽 설정은 [`supabase/academic_info_collector.sql`](../supabase/academic_info_collector.sql) 에 있습니다.
+지금 바로 반영하려면 Supabase SQL Editor 에서 `select public.sync_conferences();` 를 실행하세요.
 
 ## 로컬 실행
 
