@@ -310,6 +310,26 @@ def upload(rows):
     print(f"[supabase] {cutoff} 이전에 끝난 자동 수집 학회 정리 완료")
 
 
+# 학회 이름에 들어간 단어로 관심 분야 태그를 더 붙인다 (검색창에서 '반도체' 등으로 찾을 수 있게)
+TOPIC_KEYWORDS = [
+    ("반도체", r"semiconductor|vlsi|integrated circuit|circuits? and systems|chip|design automation|nanoelectronic|microelectronic|\bDAC\b|\bICCAD\b|\bDATE\b"),
+    ("이차전지", r"batter|lithium|energy storage|electrochem|supercapacitor"),
+    ("디스플레이", r"display|oled|\bled\b|optoelectronic|photonic"),
+    ("로봇", r"robot|autonomous system|mechatronic"),
+    ("의학", r"medic|health|clinical|biomedical|surgery|disease"),
+]
+
+
+def add_topic_tags(row):
+    text = f"{row['title']} {row['org']}"
+    tags = [t for t in row["tags"].split(",") if t]
+    for tag, pattern in TOPIC_KEYWORDS:
+        if tag not in tags and re.search(pattern, text, re.I):
+            tags.append(tag)
+    row["tags"] = ",".join(tags)
+    return row
+
+
 def dedupe(rows):
     seen, out = set(), []
     for r in rows:
@@ -332,7 +352,7 @@ def main():
     rows = collect_ccfddl(args.ccfddl_dir)
     if not args.skip_wikicfp:
         rows += collect_wikicfp()
-    rows = dedupe(rows)
+    rows = [add_topic_tags(r) for r in dedupe(rows)]
     print(f"총 {len(rows)}건 수집")
 
     if args.out:

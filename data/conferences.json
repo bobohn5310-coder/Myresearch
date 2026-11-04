@@ -174,7 +174,7 @@
   "date": null,
   "content": "The Conference on Robot Learning",
   "url": "https://www.corl.org/",
-  "tags": "해외,인공지능",
+  "tags": "해외,인공지능,로봇",
   "location": "Austin, Texas, USA",
   "source": "ccfddl",
   "external_id": "ccfddl:corl26"
@@ -489,7 +489,7 @@
   "date": null,
   "content": "IEEE International Conference on Robotics and Automation",
   "url": "https://2027.ieee-icra.org/",
-  "tags": "국내개최,인공지능,CCF-B,CORE-A*",
+  "tags": "국내개최,인공지능,CCF-B,CORE-A*,로봇",
   "location": "Seoul, Republic of Korea",
   "source": "ccfddl",
   "external_id": "ccfddl:icra27"
@@ -579,7 +579,7 @@
   "date": "2027-03-01",
   "content": "IEEE/RSJ International Conference on Intelligent Robots and Systems · 투고 마감 2027-03-01",
   "url": "https://2027.ieee-iros.org/",
-  "tags": "해외,인공지능,CCF-C,CORE-A",
+  "tags": "해외,인공지능,CCF-C,CORE-A,로봇",
   "location": "Florence, Italy",
   "source": "ccfddl",
   "external_id": "ccfddl:iros27"
@@ -684,7 +684,7 @@
   "date": "2026-12-04",
   "content": "Robotics Science and Systems · 투고 마감 2026-12-04",
   "url": "https://roboticsconference.org/",
-  "tags": "해외,인공지능,CORE-A*",
+  "tags": "해외,인공지능,CORE-A*,로봇",
   "location": "Athens, Greece",
   "source": "ccfddl",
   "external_id": "ccfddl:rss27"
@@ -1764,7 +1764,7 @@
   "date": null,
   "content": "Asia and South Pacific Design Automation Conference",
   "url": "https://www.aspdac.com/aspdac2027/",
-  "tags": "해외,컴퓨터구조·시스템,CCF-C,CORE-B",
+  "tags": "해외,컴퓨터구조·시스템,CCF-C,CORE-B,반도체",
   "location": "Hitotsubashi Hall, Tokyo, Japan",
   "source": "ccfddl",
   "external_id": "ccfddl:aspdac27"
@@ -1854,7 +1854,7 @@
   "date": "2026-11-18",
   "content": "Design Automation Conference · 투고 마감 2026-11-18",
   "url": "https://dac.com/2027/authors/call-for-contributions",
-  "tags": "해외,컴퓨터구조·시스템,CCF-A,CORE-A*",
+  "tags": "해외,컴퓨터구조·시스템,CCF-A,CORE-A*,반도체",
   "location": "San Jose, CA",
   "source": "ccfddl",
   "external_id": "ccfddl:dac27"
@@ -1869,7 +1869,7 @@
   "date": null,
   "content": "Design, Automation & Test in Europe",
   "url": "https://www.date-conference.com/date-2027-call-papers",
-  "tags": "해외,컴퓨터구조·시스템,CCF-B,CORE-A",
+  "tags": "해외,컴퓨터구조·시스템,CCF-B,CORE-A,반도체",
   "location": "Dresden, Germany",
   "source": "ccfddl",
   "external_id": "ccfddl:date2027"
@@ -1989,7 +1989,7 @@
   "date": null,
   "content": "IEEE/ACM International Conference on Computer-Aided Design",
   "url": "https://iccad.com/2026",
-  "tags": "해외,컴퓨터구조·시스템,CCF-B,CORE-A",
+  "tags": "해외,컴퓨터구조·시스템,CCF-B,CORE-A,반도체",
   "location": "San Jose, California, USA",
   "source": "ccfddl",
   "external_id": "ccfddl:iccad26"
@@ -2079,7 +2079,7 @@
   "date": null,
   "content": "IEEE International Symposium on Circuits and Systems",
   "url": "https://2027.ieee-iscas.org/",
-  "tags": "해외,컴퓨터구조·시스템,CCF-B,CORE-C",
+  "tags": "해외,컴퓨터구조·시스템,CCF-B,CORE-C,반도체",
   "location": "Bordeaux, France",
   "source": "ccfddl",
   "external_id": "ccfddl:iscas27"
@@ -2529,7 +2529,7 @@
   "date": null,
   "content": "IEEE International Conference on Bioinformatics and Biomedicine",
   "url": "https://ieeebibm.org/BIBM2026/",
-  "tags": "해외,융합,CCF-B",
+  "tags": "해외,융합,CCF-B,의학",
   "location": "Dallas, USA",
   "source": "ccfddl",
   "external_id": "ccfddl:bibm26"
@@ -2619,7 +2619,7 @@
   "date": null,
   "content": "International Conference on Medical Image Computing and Computer Assisted Intervention",
   "url": "https://conferences.miccai.org/2027/en/",
-  "tags": "해외,융합,CCF-B,CORE-A",
+  "tags": "해외,융합,CCF-B,CORE-A,의학",
   "location": "Auckland, New Zealand",
   "source": "ccfddl",
   "external_id": "ccfddl:miccai27"
@@ -2634,7 +2634,7 @@
   "date": null,
   "content": "International Conference on Medical Image Computing and Computer Assisted Intervention",
   "url": "https://conferences.miccai.org/2028/en/",
-  "tags": "해외,융합,CCF-B,CORE-A",
+  "tags": "해외,융합,CCF-B,CORE-A,의학",
   "location": "São Paulo, Brazil",
   "source": "ccfddl",
   "external_id": "ccfddl:miccai28"
@@ -5019,7 +5019,7 @@
   "date": null,
   "content": "2027 12th International Conference on Biomedical Signal and Image Processing (ICBIP 2027)",
   "url": "http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=203774&copyownerid=13881",
-  "tags": "국내개최,생물정보학",
+  "tags": "국내개최,생물정보학,의학",
   "location": "Jeju Island, South Korea",
   "source": "wikicfp",
   "external_id": "wikicfp:203774"
@@ -5064,7 +5064,7 @@
   "date": null,
   "content": "4th IEEE International Conference on Medical Artificial Intelligence",
   "url": "http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=201417&copyownerid=13149",
-  "tags": "해외,생물정보학",
+  "tags": "해외,생물정보학,의학",
   "location": "Zhengzhou, China",
   "source": "wikicfp",
   "external_id": "wikicfp:201417"
@@ -5139,7 +5139,7 @@
   "date": null,
   "content": "IEEE International Conference on Bioinformatics and Biomedicine",
   "url": "http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=199982&copyownerid=199152",
-  "tags": "해외,생물정보학",
+  "tags": "해외,생물정보학,의학",
   "location": "Dallas, TX, USA",
   "source": "wikicfp",
   "external_id": "wikicfp:199982"
@@ -5379,7 +5379,7 @@
   "date": null,
   "content": "ACM--2026 13th International Conference on Biomedical and Bioinformatics Engineering (ICBBE 2026)",
   "url": "http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=192955&copyownerid=13881",
-  "tags": "해외,생명과학",
+  "tags": "해외,생명과학,의학",
   "location": "Hokkaido, Japan",
   "source": "wikicfp",
   "external_id": "wikicfp:192955"
@@ -5439,7 +5439,7 @@
   "date": null,
   "content": "2027 5th International Conference on Mechatronics, Control and Robotics (ICMCR 2027)",
   "url": "http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=203832&copyownerid=13881",
-  "tags": "국내개최,공학",
+  "tags": "국내개최,공학,로봇",
   "location": "Jeju, South Korea",
   "source": "wikicfp",
   "external_id": "wikicfp:203832"
@@ -5469,7 +5469,7 @@
   "date": null,
   "content": "2027 the 11th International Conference on Mechanical Engineering and Robotics Research (ICMERR 2027)",
   "url": "http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=203681&copyownerid=13881",
-  "tags": "해외,공학",
+  "tags": "해외,공학,로봇",
   "location": "Paris, France",
   "source": "wikicfp",
   "external_id": "wikicfp:203681"
@@ -6129,7 +6129,7 @@
   "date": null,
   "content": "2027 5th International Conference on Mechatronics and Electrical Engineering (MEEE 2027)",
   "url": "http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=202894&copyownerid=13881",
-  "tags": "해외,전기전자",
+  "tags": "해외,전기전자,로봇",
   "location": "Chengdu, China",
   "source": "wikicfp",
   "external_id": "wikicfp:202894"
@@ -6234,7 +6234,7 @@
   "date": null,
   "content": "IEEE--2027 8th International Conference on Robotics Systems and Automation Engineering (RSAE 2027)",
   "url": "http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=203678&copyownerid=13881",
-  "tags": "해외,기계",
+  "tags": "해외,기계,로봇",
   "location": "Bangkok, Thailand",
   "source": "wikicfp",
   "external_id": "wikicfp:203678"
@@ -6354,7 +6354,7 @@
   "date": null,
   "content": "IEEE--2027 11th International Conference on Robotics and Automation Sciences (ICRAS 2027)",
   "url": "http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=201693&copyownerid=13881",
-  "tags": "해외,기계",
+  "tags": "해외,기계,로봇",
   "location": "Nagoya, Japan",
   "source": "wikicfp",
   "external_id": "wikicfp:201693"
@@ -6999,7 +6999,7 @@
   "date": null,
   "content": "Sustainable Photonics Conference (SPC 2027)",
   "url": "http://www.wikicfp.com/cfp/servlet/event.showcfp?eventid=203816&copyownerid=13881",
-  "tags": "해외,통신",
+  "tags": "해외,통신,디스플레이",
   "location": "Hangzhou, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203816"
