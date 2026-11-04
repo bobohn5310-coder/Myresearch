@@ -1,17 +1,16 @@
 name: 학회 정보 자동 수집
 
+# 매일 공개 소스에서 학회를 모아 data/conferences.json 으로 커밋한다.
+# Supabase 는 DB 안의 예약 작업(pg_cron)이 이 파일을 읽어 academic_info 에 반영하므로
+# GitHub 에 Supabase 키를 등록할 필요가 없다. (supabase/academic_info_collector.sql 참고)
+
 on:
   schedule:
-    - cron: "0 18 * * *"   # 매일 한국시간 새벽 3시
+    - cron: "0 18 * * *"   # 매일 한국시간 새벽 3시 (DB 반영은 3시 30분)
   workflow_dispatch:
-    inputs:
-      dry_run:
-        description: "DB에 쓰지 않고 수집 결과만 확인"
-        type: boolean
-        default: false
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: collect-conferences
@@ -27,20 +26,16 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install pyyaml==6.0.2
-      - name: 학회 수집 후 Supabase 반영
-        env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL || 'https://ryikaxrcgfrgaczmmgnh.supabase.co' }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      - name: 학회 수집
+        run: python scripts/collect_conferences.py --dry-run --out data/conferences.json
+      - name: 바뀐 내용이 있으면 커밋
         run: |
-          if [ "${{ inputs.dry_run }}" = "true" ]; then
-            python scripts/collect_conferences.py --dry-run --out conferences.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/conferences.json
+          if git diff --cached --quiet; then
+            echo "변경 없음"
           else
-            python scripts/collect_conferences.py --out conferences.json
+            git commit -m "학회 정보 자동 갱신 ($(date -u +%Y-%m-%d))"
+            git push
           fi
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: conferences
-          path: conferences.json
-          if-no-files-found: ignore
-          retention-days: 14
