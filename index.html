@@ -3009,8 +3009,7 @@ a { text-decoration: none; color: inherit; }
         <option value="bio">생명·의학</option>
         <option value="energy">에너지·이차전지</option>
         <option value="quantum">양자·통신</option>
-        <option value="nano">나노</option>
-        <option value="mat">재료</option>
+        <option value="nanomat">나노·재료</option>
       </select>
       <select class="ufb-select" id="info-region-filter" onchange="filterInfoSearch()" aria-label="개최지">
         <option value="all">국내+해외</option>
@@ -3733,13 +3732,12 @@ const FIELD_META = {
 const FIELD_ORDER = ['cs','eng','bio','energy','quantum'];
 // 학회정보 분야 칩에만 쓰는 태그 기반 분야 (DB field가 아니라 태그로 고른다)
 const TAG_FIELDS = {
-  nano: { label:'나노', emoji:'🔬', c:'#db2777', bg:'#fdf2f8', tag:'나노' },
-  mat:  { label:'재료', emoji:'🧪', c:'#65a30d', bg:'#f7fee7', tag:'재료' },
+  nanomat: { label:'나노·재료', emoji:'🔬', c:'#db2777', bg:'#fdf2f8', tags:['나노','재료'] },
 };
 const INFO_FIELD_ORDER = [...FIELD_ORDER, ...Object.keys(TAG_FIELDS)];
 function inInfoField(d, f){
   if(f==='all') return true;
-  if(TAG_FIELDS[f]) return infoTags(d).includes(TAG_FIELDS[f].tag);
+  if(TAG_FIELDS[f]){ const t=infoTags(d); return TAG_FIELDS[f].tags.some(x=>t.includes(x)); }
   return d.field===f || d.field==='all';
 }
 const fieldMeta = f => FIELD_META[f] || { label:'기타', emoji:'📌', c:'#475569', bg:'#f1f5f9' };
