@@ -6,7 +6,7 @@
 저작권을 지키기 위해 논문 본문이나 그림은 저장하지 않는다.
 제목, 저널 이름, 게재일, RSS 가 공개하는 짧은 소개 문장(최대 200자), 원문 링크만 남긴다.
 
-Science RSS 가 막히면 같은 정보를 Crossref(논문 DOI 공식 등록 기관) 공개 API 에서 가져온다.
+RSS 에 담긴 논문이 적으면 제목·날짜·링크를 Crossref(논문 DOI 공식 등록 기관) 공개 API 에서 보충한다.
 
 사용법
   python scripts/collect_papers.py --out data/papers.json
@@ -30,10 +30,19 @@ UA = "MyResearchCalendar-PaperCollector/1.0 (+https://bobohn5310-coder.github.io
 KST = dt.timezone(dt.timedelta(hours=9))
 NOW = dt.datetime.now(KST)
 KEEP_DAYS = 45          # 이보다 오래된 논문은 남기지 않는다
-MAX_PER_JOURNAL = 40
+MAX_PER_JOURNAL = 30
 SUMMARY_LEN = 200
 
-NATURE_RSS = "https://www.nature.com/nature.rss"
+NATURE_RSS = [
+    "https://www.nature.com/nature.rss",                    # 최신 게재(뉴스·칼럼 포함)
+    "https://www.nature.com/nature/current_issue/rss",      # 최신호 목차
+]
+NATURE_ISSN = "0028-0836"
+
+# 정정·철회 공지나 목차 안내는 논문이 아니므로 뺀다
+SKIP_TITLES = re.compile(r"^(author correction|publisher correction|correction|erratum|retraction|"
+                         r"editorial expression of concern|addendum|in other journals|in science journals|"
+                         r"this week in science|editors'? choice)\b", re.I)
 SCIENCE_RSS = [
     "https://www.science.org/action/showFeed?type=etoc&feed=rss&jc=science",   # 최신호 목차
     "https://www.science.org/action/showFeed?type=axatoc&feed=rss&jc=science",  # 온라인 선공개
@@ -48,8 +57,13 @@ SCIENCE_SKIP_SECTIONS = ("news", "editorial", "letter", "book", "perspective", "
 
 # 분야 분류: 영어 제목·요약에서 단어를 찾는다. 먼저 맞는 규칙이 이긴다. (field, 한글 태그, 단어들)
 FIELD_RULES = [
+    ("space", "우주", ("galaxy", "galaxies", "black hole", "cosmic", "universe", "supernova", "telescope",
+                      "exoplanet", "asteroid", "solar system", "lunar", "mars", "martian", "meteorite",
+                      "redshift", "big bang", "radio burst", "stellar", "planet")),
     ("quantum", "양자/물리", ("quantum", "qubit", "superconduct", "photon", "topological", "entangle",
-                            "magnet", "laser", "optic", "particle", "neutrino", "boson", "spin")),
+                            "magnet", "altermagn", "magnon", "laser", "optic", "particle", "neutrino",
+                            "boson", "spin", "moiré", "moire", "kondo", "chern", "ferroelectric",
+                            "antiferroelectric", "electron", "phonon", "graphene")),
     ("cs", "AI/컴퓨터", ("machine learning", "deep learning", "neural network", "artificial intelligence",
                         "language model", " ai ", "algorithm", "robot", "comput")),
     ("energy", "에너지", ("battery", "batteries", "solar", "perovskite", "photovoltaic", "hydrogen",
@@ -57,13 +71,17 @@ FIELD_RULES = [
     ("bio", "생명/의학", ("cell", "gene", "genom", "protein", "cancer", "tumour", "tumor", "immun", "virus",
                          "bacteri", "neuron", "brain", "mouse", "mice", "patient", "disease", "clinical",
                          "dna", "rna", "enzyme", "microb", "evolution", "species", "plant", "drug",
-                         "vaccine", "infection", "metabol", "tissue", "mitochond", "antibod")),
+                         "vaccine", "infection", "metabol", "tissue", "mitochond", "antibod", "bird",
+                         "avian", "avifauna", "animal", "milk", "infant", "birth", "cerebell", "ribosom",
+                         "fish", "insect", "biopolymer", "bird", "organ", "embryo", "zygote", "human", "neural", "song")),
     ("earth", "지구/환경", ("climate", "ocean", "warming", "carbon", "earthquake", "glacier", "ice sheet",
-                          "atmospher", "drought", "forest", "biodiversity", "emission", "volcan")),
-    ("space", "우주", ("galaxy", "galaxies", "star", "planet", "black hole", "cosmic", "universe",
-                      "supernova", "telescope", "exoplanet", "asteroid", "solar system", "lunar", "mars")),
+                          "atmospher", "drought", "forest", "biodiversity", "emission", "volcan",
+                          "subduction", "rift", "crust", "mantle", "glacial", "erosion", "freshwater",
+                          "sediment", "earth")),
     ("eng", "소재/화학", ("material", "catalys", "polymer", "crystal", "semiconductor", "transistor",
-                         "chemi", "molecul", "nano", "graphene", "alloy", "synthesis")),
+                         "chemi", "molecul", "nano", "alloy", "synthes", "radical", "depolymer",
+                         "silicone", "chlorin", "telomeriz", "amine", "diene", "stereo", "mxene",
+                         "bond", "metal", "oxide", "hafnia", "reaction")),
 ]
 
 
@@ -139,25 +157,30 @@ def parse_feed(raw):
 
 
 def classify(text):
-    t = " " + text.lower() + " "
+    # 단어 앞부분 일치로 찾는다 (예: 'fusion' 이 'diffusion' 에 걸리지 않게)
+    t = " " + re.sub(r"[^0-9a-zà-ÿ]+", " ", text.lower()) + " "
     for field, tag, words in FIELD_RULES:
-        if any(w in t for w in words):
+        if any(" " + w.strip() in t for w in words):
             return field, tag
     return "etc", "기초과학"
 
 
-def strip_nature_prefix(s):
-    # Nature RSS 요약은 "Nature, Published online: 03 November 2026; doi:10.1038/...<br>소개문" 꼴이다
+def strip_citation(s):
+    """RSS 요약 칸에 들어 있는 서지 정보(권·호·쪽, DOI)를 지우고 소개 문장만 남긴다."""
+    s = clean(s, 2000)
+    # Nature: "Nature, Published online: 03 November 2026; doi:10.1038/s41586-... 소개문"
     s = re.sub(r"^\s*Nature,\s*Published online:[^;]*;\s*doi:\s*\S+", "", s, flags=re.I)
-    return s
+    # Science: "Science, Volume 394, Issue 6823, Page 556-561, October 2026." / "Science, Ahead of Print."
+    s = re.sub(r"^\s*Science,\s*(Ahead of Print\.?|Volume[^.]*\.)", "", s, flags=re.I)
+    return s.strip()
 
 
 def make_row(journal, title, link, summary, when, doi=""):
     title = clean(title, 250)
     link = safe_url(link)
-    if not title or not link or not when:
+    if not title or not link or not when or SKIP_TITLES.match(title):
         return None
-    summary = clean(summary, SUMMARY_LEN)
+    summary = clean(strip_citation(summary), SUMMARY_LEN)
     if summary and re.sub(r"\W", "", summary.lower()).startswith(re.sub(r"\W", "", title.lower())[:40]):
         summary = ""  # 요약이 제목 반복이면 버린다
     field, tag = classify(title + " " + summary)
@@ -177,26 +200,61 @@ def make_row(journal, title, link, summary, when, doi=""):
 
 def collect_nature():
     rows = []
-    try:
-        items = parse_feed(http_get(NATURE_RSS))
-    except Exception as e:
-        print(f"[Nature] 실패: {e}", file=sys.stderr)
-        return rows
-    for it in items:
-        link = first(it, "link", "url", "identifier")
-        # 연구 논문은 주소가 /articles/s41586- 로 시작한다. (d41586- 는 뉴스·칼럼)
-        if "/articles/s41586-" not in link:
+    for url in NATURE_RSS:
+        try:
+            items = parse_feed(http_get(url))
+        except Exception as e:
+            print(f"[Nature RSS] 실패: {e}", file=sys.stderr)
             continue
-        doi = first(it, "doi")
-        if not doi:
-            m = re.search(r"(s41586-[\w.-]+)", link)
-            doi = "10.1038/" + m.group(1) if m else ""
-        row = make_row("Nature", first(it, "title"), link,
-                       strip_nature_prefix(first(it, "encoded", "description", "summary")),
-                       parse_date(first(it, "date", "pubDate", "published", "updated")), doi)
+        kept = 0
+        for it in items:
+            link = first(it, "link", "url", "identifier")
+            # 연구 논문은 주소가 /articles/s41586- 로 시작한다. (d41586- 는 뉴스·칼럼)
+            m = re.search(r"/articles/(s41586-[\w.-]+)", link)
+            if not m:
+                continue
+            doi = "10.1038/" + m.group(1)
+            row = make_row("Nature", first(it, "title"), "https://www.nature.com/articles/" + m.group(1),
+                           first(it, "encoded", "description", "summary"),
+                           parse_date(first(it, "date", "pubDate", "published", "updated")), doi)
+            if row:
+                rows.append(row)
+                kept += 1
+        print(f"[Nature RSS] {len(items)}건 중 연구 논문 {kept}건", file=sys.stderr)
+        time.sleep(1)
+    return rows
+
+
+def crossref_recent(issn, journal, link_of, doi_ok):
+    """RSS 로 충분히 모이지 않을 때 Crossref(논문 DOI 공식 등록 기관)에서 최근 논문 정보를 가져온다.
+    제목·날짜·링크만 쓰고, 초록은 저장하지 않는다."""
+    since = (NOW - dt.timedelta(days=KEEP_DAYS)).date().isoformat()
+    url = (f"https://api.crossref.org/journals/{issn}/works?" + urllib.parse.urlencode({
+        "filter": f"type:journal-article,from-online-pub-date:{since}",
+        "sort": "published", "order": "desc", "rows": 150,
+        "select": "DOI,title,published-online,published",
+    }))
+    try:
+        data = json.loads(http_get(url, timeout=60, accept="application/json"))
+    except Exception as e:
+        print(f"[{journal} Crossref] 실패: {e}", file=sys.stderr)
+        return []
+    rows = []
+    for w in data.get("message", {}).get("items", []):
+        doi = (w.get("DOI") or "").lower()
+        if not doi_ok(doi):
+            continue
+        parts = None
+        for k in ("published-online", "published"):
+            parts = (w.get(k) or {}).get("date-parts", [[None]])[0]
+            if parts and len(parts) == 3:
+                break
+        if not parts or len(parts) != 3:
+            continue
+        row = make_row(journal, " ".join(w.get("title") or []), link_of(doi), "", dt.date(*parts), doi)
         if row:
             rows.append(row)
-    print(f"[Nature] {len(items)}건 중 연구 논문 {len(rows)}건", file=sys.stderr)
+    print(f"[{journal} Crossref] 연구 논문 {len(rows)}건", file=sys.stderr)
     return rows
 
 
@@ -235,43 +293,6 @@ def collect_science_rss():
     return rows
 
 
-def collect_science_crossref():
-    """Science RSS 가 막혔을 때 Crossref 에서 최근 Science 논문 정보를 가져온다."""
-    since = (NOW - dt.timedelta(days=KEEP_DAYS)).date().isoformat()
-    url = (f"https://api.crossref.org/journals/{SCIENCE_ISSN}/works?" + urllib.parse.urlencode({
-        "filter": f"type:journal-article,from-pub-date:{since}",
-        "sort": "published", "order": "desc", "rows": 120,
-        "select": "DOI,title,abstract,published,published-online,published-print,page",
-    }))
-    try:
-        data = json.loads(http_get(url, timeout=60, accept="application/json"))
-    except Exception as e:
-        print(f"[Science Crossref] 실패: {e}", file=sys.stderr)
-        return []
-    rows = []
-    for w in data.get("message", {}).get("items", []):
-        title = " ".join(w.get("title") or [])
-        abstract = w.get("abstract") or ""
-        # 짧은 뉴스·사설은 보통 초록이 없다. 연구 논문만 남기려고 초록 있는 것만 쓴다.
-        if not title or not abstract:
-            continue
-        abstract = re.sub(r"<jats:title>.*?</jats:title>", " ", abstract, flags=re.S)
-        parts = None
-        for k in ("published-online", "published", "published-print"):
-            parts = (w.get(k) or {}).get("date-parts", [[None]])[0]
-            if parts and len(parts) == 3:
-                break
-        if not parts or len(parts) < 3:
-            continue
-        doi = w.get("DOI", "")
-        row = make_row("Science", title, "https://www.science.org/doi/" + doi, abstract,
-                       dt.date(*parts[:3]), doi)
-        if row:
-            rows.append(row)
-    print(f"[Science Crossref] 연구 논문 {len(rows)}건", file=sys.stderr)
-    return rows
-
-
 def finish(rows):
     cutoff = (NOW - dt.timedelta(days=KEEP_DAYS)).date().isoformat()
     future = (NOW + dt.timedelta(days=2)).date().isoformat()
@@ -290,10 +311,16 @@ def main():
     ap.add_argument("--min", type=int, default=3, help="이보다 적게 모이면 파일을 바꾸지 않고 실패")
     args = ap.parse_args()
 
-    nature = finish(collect_nature())
+    nature = collect_nature()
+    if len(nature) < 12:
+        # Nature RSS 는 최근 며칠 치만 담고 있어, 모자라면 Crossref 로 채운다 (s41586 = 연구 논문)
+        nature += crossref_recent(NATURE_ISSN, "Nature", lambda d: "https://www.nature.com/articles/" + d.split("/", 1)[1],
+                                  lambda d: d.startswith("10.1038/s41586-"))
+    nature = finish(nature)
     science = collect_science_rss()
-    if len(science) < 3:
-        science += collect_science_crossref()
+    if len(science) < 5:
+        science += crossref_recent(SCIENCE_ISSN, "Science", lambda d: "https://www.science.org/doi/" + d,
+                                   lambda d: d.startswith("10.1126/science."))
     science = finish(science)
 
     rows = sorted(nature + science, key=lambda r: r["date"], reverse=True)
