@@ -331,12 +331,16 @@ def add_topic_tags(row):
 
 
 def dedupe(rows):
+    """같은 ID, 또는 같은 이름과 시작일인 학회는 하나만 남긴다.
+    WikiCFP는 한 학회의 세부 세션을 따로 올리기도 하고, ccfddl과 겹치기도 한다 (먼저 온 ccfddl을 남김)."""
     seen, out = set(), []
     for r in rows:
-        key = r["external_id"]
-        if key in seen or not r["title"]:
+        if not r["title"]:
             continue
-        seen.add(key)
+        keys = {r["external_id"], (re.sub(r"\s+", " ", r["title"]).strip().lower(), r["start_date"])}
+        if keys & seen:
+            continue
+        seen |= keys
         out.append(r)
     return out
 
