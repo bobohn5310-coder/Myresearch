@@ -45,9 +45,17 @@ CCF_SUB_TAGS = {
 
 # WikiCFP 카테고리 → (field, 한국어 태그)
 WIKICFP_CATEGORIES = [
+    ("semiconductor", "eng", "반도체"),
+    ("vlsi", "eng", "반도체"),
+    ("battery", "energy", "이차전지"),
+    ("energy storage", "energy", "이차전지"),
+    ("display", "eng", "디스플레이"),
+    ("robotics", "eng", "로봇"),
+    ("medicine", "bio", "의학"),
+    ("medical imaging", "bio", "의학"),
+    ("healthcare", "bio", "의학"),
     ("bioinformatics", "bio", "생물정보학"),
     ("biology", "bio", "생명과학"),
-    ("medicine", "bio", "의학"),
     ("engineering", "eng", "공학"),
     ("materials science", "eng", "재료"),
     ("electrical engineering", "eng", "전기전자"),
@@ -210,43 +218,41 @@ def collect_ccfddl(repo_dir=None):
 
 
 # ─────────────────────────── 소스 2: WikiCFP RSS ───────────────────────────
-def _field_after(label, text):
-    m = re.search(label + r"\s*[:\t ]\s*(.+?)(?=(?:When|Where|Submission Deadline|Notification Due|Final Version Due|Link)\b|$)",
-                  text, re.I | re.S)
-    return m.group(1).strip() if m else ""
+WIKICFP_DESC_RE = re.compile(r"^(.*?)\s*\[([^\]]*)\]\s*\[([^\]]*)\]\s*$", re.S)
 
 
 def parse_wikicfp_item(item, field, tag):
+    """WikiCFP RSS 항목. description 형식: '정식 명칭 [장소] [Jun 1, 2027 - Jun 3, 2027]'"""
     title_raw = clean(item.findtext("title"), 300)
-    desc = clean(item.findtext("description"), 2000)
+    desc = clean(item.findtext("description"), 1000)
     link = safe_url(item.findtext("link"))
-    when = _field_after("When", desc)
-    where = clean(_field_after("Where", desc), 120)
-    deadline = parse_one_date(_field_after("Submission Deadline", desc))
-    # WikiCFP 형식: "Jun 1, 2027 - Jun 3, 2027" (N/A 이면 일정 미정)
-    parts = [p.strip() for p in when.split(" - ")] if when else []
+    m = WIKICFP_DESC_RE.match(desc)
+    if not m:
+        return None
+    fullname, where, when = m.group(1).strip(), m.group(2).strip(), m.group(3).strip()
+    if where.upper() == "N/A":
+        where = ""
+    parts = [p.strip() for p in when.split(" - ")]
     start = parse_one_date(parts[0]) if parts else None
     end = parse_one_date(parts[-1]) if parts else None
     if not start or not end or end < TODAY:
         return None
-    acronym, _, fullname = title_raw.partition(" : ")
+    acronym = title_raw.partition(" : ")[0].strip()
+    fullname = fullname or title_raw.partition(" : ")[2]
     m = re.search(r"eventid=(\d+)", link)
     ext = f"wikicfp:{m.group(1)}" if m else f"wikicfp:{acronym}:{start.isoformat()}"
-    content = clean(fullname or title_raw, 300)
-    if deadline and deadline >= TODAY:
-        content += f" · 투고 마감 {deadline.isoformat()}"
     return {
         "type": "conf",
         "field": field,
         "title": clean(acronym or title_raw, 200),
-        "org": clean(fullname or title_raw, 200),
+        "org": clean(fullname, 200),
         "start_date": start.isoformat(),
         "end_date": end.isoformat(),
-        "date": deadline.isoformat() if deadline and deadline >= TODAY else None,
-        "content": content,
+        "date": None,   # RSS에는 투고 마감이 없다
+        "content": clean(fullname, 300),
         "url": link,
         "tags": ",".join(["국내개최" if is_korea(where) else "해외", tag]),
-        "location": where,
+        "location": clean(where, 120),
         "source": "wikicfp",
         "external_id": ext,
     }
@@ -262,12 +268,16 @@ def collect_wikicfp(categories=WIKICFP_CATEGORIES, delay=3.0):
             print(f"[wikicfp] {cat} 실패: {e}", file=sys.stderr)
             continue
         n = 0
-        for item in root.iter("item"):
+        items = list(root.iter("item"))
+        for item in items:
             row = parse_wikicfp_item(item, field, tag)
             if row:
                 rows.append(row)
                 n += 1
-        print(f"[wikicfp] {cat}: {n}건")
+        print(f"[wikicfp] {cat}: {n}건 (피드 항목 {len(items)}개)")
+        if items and not n:
+            # 형식이 예상과 다를 때 원인을 찾을 수 있게 첫 항목을 남긴다
+            print("[wikicfp] 첫 항목 예시:", repr(ET.tostring(items[0], encoding="unicode")[:800]))
         time.sleep(delay)  # WikiCFP 서버 부담을 줄이려 요청 간격을 둔다
     return rows
 
@@ -300,6 +310,26 @@ def upload(rows):
     print(f"[supabase] {cutoff} 이전에 끝난 자동 수집 학회 정리 완료")
 
 
+# 학회 이름에 들어간 단어로 관심 분야 태그를 더 붙인다 (검색창에서 '반도체' 등으로 찾을 수 있게)
+TOPIC_KEYWORDS = [
+    ("반도체", r"semiconductor|vlsi|integrated circuit|circuits? and systems|chip|design automation|nanoelectronic|microelectronic|\bDAC\b|\bICCAD\b|\bDATE\b"),
+    ("이차전지", r"batter|lithium|energy storage|electrochem|supercapacitor"),
+    ("디스플레이", r"display|oled|\bled\b|optoelectronic|photonic"),
+    ("로봇", r"robot|autonomous system|mechatronic"),
+    ("의학", r"medic|health|clinical|biomedical|surgery|disease"),
+]
+
+
+def add_topic_tags(row):
+    text = f"{row['title']} {row['org']}"
+    tags = [t for t in row["tags"].split(",") if t]
+    for tag, pattern in TOPIC_KEYWORDS:
+        if tag not in tags and re.search(pattern, text, re.I):
+            tags.append(tag)
+    row["tags"] = ",".join(tags)
+    return row
+
+
 def dedupe(rows):
     seen, out = set(), []
     for r in rows:
@@ -322,7 +352,7 @@ def main():
     rows = collect_ccfddl(args.ccfddl_dir)
     if not args.skip_wikicfp:
         rows += collect_wikicfp()
-    rows = dedupe(rows)
+    rows = [add_topic_tags(r) for r in dedupe(rows)]
     print(f"총 {len(rows)}건 수집")
 
     if args.out:
