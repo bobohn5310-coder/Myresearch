@@ -2514,7 +2514,21 @@ a { text-decoration: none; color: inherit; }
 #comment-text { flex:1; padding:10px 14px; border:1.5px solid #e2e8f0; border-radius:12px; font-size:14px; font-family:'Noto Sans KR',sans-serif; resize:none; line-height:1.5; max-height:140px; outline:none; }
 #comment-text:focus { border-color:var(--blue); }
 .cm-comment-input .cm-anon { padding-bottom:10px; }
+.cm-comment-login { margin:12px 16px; padding:12px; border:1.5px dashed var(--blue-mid); border-radius:12px; background:var(--blue-light); color:var(--blue-dark); font-size:14px; font-weight:700; cursor:pointer; font-family:'Noto Sans KR',sans-serif; flex-shrink:0; }
 .cm-toast { position:fixed; left:50%; bottom:90px; transform:translateX(-50%); background:#0f172a; color:#fff; padding:11px 18px; border-radius:12px; font-size:14px; font-weight:600; z-index:900; box-shadow:0 10px 30px rgba(0,0,0,.2); }
+
+/* 심플 톤: 색은 파란색 하나만, 나머지는 회색 */
+#page-community .ufb-tab.active { background:#0f172a; border-color:#0f172a; color:#fff; box-shadow:none; }
+#page-community .ufb-tab:hover:not(.active) { border-color:#cbd5e1; color:var(--text); background:#f8fafc; }
+.cm-avatar { background:#e2e8f0; color:#475569; }
+.cm-cat-badge { background:none; padding:0; font-size:12px; color:#475569; }
+.cm-field-badge { background:none; padding:0; font-size:12px; font-weight:500; color:#94a3b8; }
+.cm-field-badge::before { content:'·'; margin-right:6px; color:#cbd5e1; }
+.cm-best-n { color:#94a3b8; }
+.cm-like.on { border-color:#0f172a; background:#0f172a; color:#fff; }
+.cm-cmt-op { background:#f1f5f9; color:#475569; }
+.cm-comment-login { background:#f8fafc; border:1.5px solid #e2e8f0; color:#334155; }
+.cm-sort button.on { color:#0f172a; }
 
 @media (max-width: 900px) {
   .cm-wrap { padding: 16px 16px 96px; }
@@ -2852,7 +2866,7 @@ a { text-decoration: none; color: inherit; }
       <div>
         <div class="uph-eyebrow">Researcher Lounge</div>
         <div class="uph-title">커뮤니티</div>
-        <div class="uph-sub">익명으로 편하게, 연구자끼리 솔직하게. 로그인 없이도 먼저 써볼 수 있어요.</div>
+        <div class="uph-sub">익명으로 편하게, 연구자끼리 솔직하게. 글은 누구나 볼 수 있고, 글쓰기·댓글은 로그인 후에 할 수 있어요.</div>
       </div>
       <div class="uph-stats">
         <div class="uph-stat"><div class="uph-stat-val" id="cm-stat-total">—</div><div class="uph-stat-label">전체 글</div></div>
@@ -2879,7 +2893,7 @@ a { text-decoration: none; color: inherit; }
         <div class="cm-composer" id="cm-composer">
           <div class="cm-composer-top">
             <div class="cm-avatar">익</div>
-            <textarea id="cm-quick-text" rows="1" placeholder="연구하면서 드는 생각, 편하게 적어보세요" oninput="cmAutoGrow(this);cmComposerOpen()" onfocus="cmComposerOpen()"></textarea>
+            <textarea id="cm-quick-text" rows="1" placeholder="연구하면서 드는 생각, 편하게 적어보세요" oninput="cmAutoGrow(this);cmComposerOpen()" onfocus="if(!cmNeedLogin('write','로그인하면 바로 글을 쓸 수 있어요')){this.blur();return;}cmComposerOpen()"></textarea>
           </div>
           <div class="cm-composer-more" id="cm-composer-more">
             <div class="cm-prompts" id="cm-prompts"></div>
@@ -2906,15 +2920,15 @@ a { text-decoration: none; color: inherit; }
 
       <aside class="cm-side">
         <div class="cm-box">
-          <div class="cm-box-h">🏆 이번 주 많이 본 글</div>
+          <div class="cm-box-h">이번 주 많이 본 글</div>
           <div id="best-list-comm"></div>
         </div>
         <div class="cm-box">
-          <div class="cm-box-h">🧪 분야별 채널</div>
+          <div class="cm-box-h">분야별 채널</div>
           <div id="cm-field-side" class="cm-field-side"></div>
         </div>
         <div class="cm-box cm-guide">
-          <div class="cm-box-h">🤝 이렇게 써요</div>
+          <div class="cm-box-h">이렇게 써요</div>
           <ul>
             <li>익명 글은 작성자가 누구인지 다른 사람에게 보이지 않아요.</li>
             <li>교수님·연구실 실명 비방, 개인정보는 올리지 말아주세요.</li>
@@ -2925,7 +2939,7 @@ a { text-decoration: none; color: inherit; }
     </div>
   </div>
 
-  <button class="cm-fab" onclick="cmOpenWrite()" aria-label="글쓰기">✏️ <span>글쓰기</span></button>
+  <button class="cm-fab" onclick="cmOpenWrite()" aria-label="글쓰기"><span>글쓰기</span></button>
 </div>
 
 <div class="page" id="page-info">
@@ -3192,8 +3206,8 @@ a { text-decoration: none; color: inherit; }
       </div>
       <div class="cm-post-content" id="post-modal-content"></div>
       <div class="cm-post-actions">
-        <button class="cm-like" id="post-like-btn" onclick="cmToggleLike()">🤍 <span id="post-like-count">0</span></button>
-        <button class="cm-act" onclick="cmSharePost()">🔗 링크 복사</button>
+        <button class="cm-like" id="post-like-btn" onclick="cmToggleLike()"><span id="post-like-count">0</span></button>
+        <button class="cm-act" onclick="cmSharePost()">링크 복사</button>
         <span class="cm-spacer"></span>
         <button class="cm-act cm-del" id="post-del-btn" style="display:none;" onclick="cmDeletePost()">삭제</button>
       </div>
@@ -3202,6 +3216,7 @@ a { text-decoration: none; color: inherit; }
         <div id="comment-list"></div>
       </div>
     </div>
+    <button class="cm-comment-login" id="comment-login-btn" onclick="cmNeedLogin('comment','로그인하면 댓글을 남길 수 있어요')">로그인하고 댓글 달기</button>
     <div class="cm-comment-input" id="comment-input-area">
       <textarea id="comment-text" rows="1" placeholder="따뜻한 한마디 남겨주세요" oninput="cmAutoGrow(this)"></textarea>
       <label class="cm-anon"><input type="checkbox" id="comment-anon" checked> <span>익명</span></label>
@@ -4657,7 +4672,7 @@ function cmAuthorLabel(p){
 function cmFieldBadge(f){
   if(!f || !FIELD_META[f]) return '';
   const m=FIELD_META[f];
-  return `<span class="cm-field-badge" style="background:${m.bg};color:${m.c};">${m.emoji} ${m.label}</span>`;
+  return `<span class="cm-field-badge">${m.label}</span>`;
 }
 function cmScore(p){ return (p.likes||0)*2 + (p.comments||0)*3; }
 
@@ -4665,23 +4680,23 @@ function cmScore(p){ return (p.likes||0)*2 + (p.comments||0)*3; }
 function cmInitUI(){
   const tabs=document.getElementById('cm-cat-tabs');
   if(tabs) tabs.innerHTML = `<button class="ufb-tab active" data-cat="all" onclick="switchCommTab(this,'all')">전체</button>`
-    + CM_CATS.map(c=>`<button class="ufb-tab" data-cat="${c.k}" onclick="switchCommTab(this,'${c.k}')">${c.emoji} ${c.label}</button>`).join('');
+    + CM_CATS.map(c=>`<button class="ufb-tab" data-cat="${c.k}" onclick="switchCommTab(this,'${c.k}')">${c.label}</button>`).join('');
   const ff=document.getElementById('cm-field-filter');
-  if(ff) ff.innerHTML = '<option value="all">전체 분야</option>' + FIELD_ORDER.map(f=>`<option value="${f}">${FIELD_META[f].emoji} ${FIELD_META[f].label}</option>`).join('');
+  if(ff) ff.innerHTML = '<option value="all">전체 분야</option>' + FIELD_ORDER.map(f=>`<option value="${f}">${FIELD_META[f].label}</option>`).join('');
   const myField = cmLS('mrc_my_field') || '';
   ['cm-quick-field','write-field'].forEach(id=>{
     const s=document.getElementById(id); if(!s) return;
-    s.innerHTML = '<option value="">분야 선택 안 함</option>' + FIELD_ORDER.map(f=>`<option value="${f}">${FIELD_META[f].emoji} ${FIELD_META[f].label}</option>`).join('');
+    s.innerHTML = '<option value="">분야 선택 안 함</option>' + FIELD_ORDER.map(f=>`<option value="${f}">${FIELD_META[f].label}</option>`).join('');
     s.value = myField;
   });
   cmRenderCatPick('cm-quick-cats', 'quickCat');
   cmRenderCatPick('write-cats', 'writeCat');
   const pr=document.getElementById('cm-prompts');
-  if(pr) pr.innerHTML = CM_PROMPTS.map((p,i)=>`<button class="cm-prompt" onclick="cmUsePrompt(${i})">💭 ${p.t}</button>`).join('');
+  if(pr) pr.innerHTML = '';
 }
 function cmRenderCatPick(id, key){
   const el=document.getElementById(id); if(!el) return;
-  el.innerHTML = CM_CATS.map(c=>`<button type="button" class="cm-cat-opt${CM[key]===c.k?' on':''}" onclick="CM.${key}='${c.k}';cmRenderCatPick('${id}','${key}')">${c.emoji} ${c.label}</button>`).join('');
+  el.innerHTML = CM_CATS.map(c=>`<button type="button" class="cm-cat-opt${CM[key]===c.k?' on':''}" onclick="CM.${key}='${c.k}';cmRenderCatPick('${id}','${key}')">${c.label}</button>`).join('');
 }
 function cmUsePrompt(i){
   const p=CM_PROMPTS[i], ta=document.getElementById('cm-quick-text');
@@ -4729,17 +4744,17 @@ function cmItemHTML(p){
   const preview = body.startsWith((p.title||'').trim()) ? body.slice((p.title||'').trim().length).trim() : body;
   return `<div class="cm-item" onclick="openPost(${Number(p.id)})">
     <div class="cm-item-top">
-      <span class="cm-cat-badge">${c.emoji} ${escHtml(c.label)}</span>
+      <span class="cm-cat-badge">${escHtml(c.label)}</span>
       ${cmFieldBadge(p.field)}
-      ${cmScore(p)>=30?'<span class="cm-hot">HOT</span>':''}
+      
     </div>
     <div class="cm-item-title">${escHtml(p.title||'')}</div>
     ${preview?`<div class="cm-item-preview">${escHtml(preview)}</div>`:''}
     <div class="cm-item-meta">
       <b>${escHtml(cmAuthorLabel(p))}</b>
       <span>${cmAgo(p.created_at)}</span>
-      <span>❤️ ${p.likes||0}</span>
-      <span>💬 ${p.comments||0}</span>
+      <span>공감 ${p.likes||0}</span>
+      <span>댓글 ${p.comments||0}</span>
     </div>
   </div>`;
 }
@@ -4751,7 +4766,7 @@ function renderPosts(containerId, filter='all'){
   if(containerId==='post-list-full'){
     const items=cmFiltered();
     el.innerHTML = items.length ? items.slice(0,60).map(cmItemHTML).join('')
-      : `<div class="cm-empty">아직 이 채널에 글이 없어요.<br>첫 글의 주인공이 되어보세요 ✨<br><button class="cm-btn" onclick="cmOpenWrite()">첫 글 쓰기</button></div>`;
+      : `<div class="cm-empty">아직 이 채널에 글이 없어요.<br>첫 글의 주인공이 되어보세요<br><button class="cm-btn" onclick="cmOpenWrite()">첫 글 쓰기</button></div>`;
     return;
   }
   if(containerId==='best-list-comm'){
@@ -4761,7 +4776,7 @@ function renderPosts(containerId, filter='all'){
     items=items.slice().sort((a,b)=>cmScore(b)-cmScore(a)).slice(0,5);
     el.innerHTML = items.length ? items.map((p,i)=>`<div class="cm-best" onclick="openPost(${Number(p.id)})">
         <span class="cm-best-n">${i+1}</span>
-        <div><div class="cm-best-t">${escHtml(p.title||'')}</div><div class="cm-best-m">❤️ ${p.likes||0} · 💬 ${p.comments||0}</div></div>
+        <div><div class="cm-best-t">${escHtml(p.title||'')}</div><div class="cm-best-m">공감 ${p.likes||0} · 댓글 ${p.comments||0}</div></div>
       </div>`).join('')
       : '<div class="cm-empty" style="padding:20px;font-size:13px;">공감과 댓글이 쌓이면<br>여기에 모여요</div>';
     return;
@@ -4770,7 +4785,7 @@ function renderPosts(containerId, filter='all'){
   let items = filter==='all' ? POSTS.slice() : POSTS.filter(p=>p.category===filter);
   if(containerId==='best-list') items.sort((a,b)=>cmScore(b)-cmScore(a));
   if(!items.length){
-    el.innerHTML='<div class="cm-empty" style="padding:28px;">아직 글이 없어요. 첫 글을 남겨보세요 ✏️</div>';
+    el.innerHTML='<div class="cm-empty" style="padding:28px;">아직 글이 없어요. 첫 글을 남겨보세요</div>';
     return;
   }
   el.innerHTML = items.slice(0,6).map(cmItemHTML).join('');
@@ -4779,8 +4794,8 @@ function renderPosts(containerId, filter='all'){
 function cmRenderFieldSide(){
   const el=document.getElementById('cm-field-side'); if(!el) return;
   const cnt={}; POSTS.forEach(p=>{ if(p.field) cnt[p.field]=(cnt[p.field]||0)+1; });
-  el.innerHTML = `<button class="cm-field-row${CM.field==='all'?' on':''}" onclick="cmSetField('all')">🌐 전체 분야<span class="n">${POSTS.length}</span></button>`
-    + FIELD_ORDER.map(f=>`<button class="cm-field-row${CM.field===f?' on':''}" onclick="cmSetField('${f}')">${FIELD_META[f].emoji} ${FIELD_META[f].label}<span class="n">${cnt[f]||0}</span></button>`).join('');
+  el.innerHTML = `<button class="cm-field-row${CM.field==='all'?' on':''}" onclick="cmSetField('all')">전체 분야<span class="n">${POSTS.length}</span></button>`
+    + FIELD_ORDER.map(f=>`<button class="cm-field-row${CM.field===f?' on':''}" onclick="cmSetField('${f}')">${FIELD_META[f].label}<span class="n">${cnt[f]||0}</span></button>`).join('');
 }
 function cmRenderStats(){
   const t=document.getElementById('cm-stat-total'), d=document.getElementById('cm-stat-today');
@@ -4802,7 +4817,7 @@ function switchCommTab(el, cat){
   CM.cat = cat;
   document.querySelectorAll('#cm-cat-tabs .ufb-tab').forEach(t=>t.classList.toggle('active', t.dataset.cat===cat));
   const label=document.getElementById('comm-cat-label');
-  if(label) label.textContent = cat==='all' ? '전체 글' : (cmCat(cat).emoji+' '+cmCat(cat).label);
+  if(label) label.textContent = cat==='all' ? '전체 글' : (cmCat(cat).label);
   if(cat!=='all' && cat!=='hot'){ CM.quickCat=cat; CM.writeCat=cat; cmRenderCatPick('cm-quick-cats','quickCat'); }
   renderPosts('post-list-full');
 }
@@ -4826,8 +4841,34 @@ function cmSetSort(s){
 }
 
 // ── 글쓰기 ──
+// 로그인 안 했으면 로그인 창을 띄우고, 로그인 후 하려던 일을 이어서 함
+function cmNeedLogin(intent, msg){
+  if(currentUser) return true;
+  try{ sessionStorage.setItem('mrc_after_login', JSON.stringify({ intent, post:_currentPostId })); }catch(e){}
+  if(intent==='comment') document.getElementById('post-modal').style.display='none';
+  openAuth('login');
+  showAuthMessage(msg);
+  return false;
+}
+function cmAfterLogin(){
+  let a=null;
+  try{ a=JSON.parse(sessionStorage.getItem('mrc_after_login')||'null'); sessionStorage.removeItem('mrc_after_login'); }catch(e){}
+  if(!a) return;
+  setTimeout(()=>{
+    if(a.intent==='write'){ showPage('community'); setNavByName('community'); cmOpenWrite(); }
+    else if(a.intent==='comment' && a.post){ openPost(a.post); setTimeout(()=>document.getElementById('comment-text')?.focus(), 100); }
+  }, 1300);
+}
+function cmPaintAuth(){
+  const inArea=document.getElementById('comment-input-area'), loginBtn=document.getElementById('comment-login-btn');
+  if(inArea) inArea.style.display=currentUser?'':'none';
+  if(loginBtn) loginBtn.style.display=currentUser?'none':'';
+  const q=document.getElementById('cm-quick-text');
+  if(q) q.placeholder=currentUser?'연구하면서 드는 생각, 편하게 적어보세요':'로그인하고 연구 이야기를 나눠보세요';
+}
 function cmOpenWrite(fromQuick){
   const m=document.getElementById('write-modal'); if(!m) return;
+  if(!cmNeedLogin('write','로그인하면 바로 글을 쓸 수 있어요')) return;
   if(fromQuick){
     const q=document.getElementById('cm-quick-text');
     const wc=document.getElementById('write-content');
@@ -4837,8 +4878,6 @@ function cmOpenWrite(fromQuick){
     document.getElementById('write-anon').checked=document.getElementById('cm-quick-anon').checked;
   }
   cmRenderCatPick('write-cats','writeCat');
-  const note=document.getElementById('write-login-note');
-  if(note){ note.style.display=currentUser?'none':'block'; note.textContent='먼저 편하게 써보세요. 올리기를 누를 때 로그인하면 쓰던 글이 그대로 올라가요.'; }
   m.style.display='flex';
   setTimeout(()=>document.getElementById('write-content')?.focus(), 50);
 }
@@ -4858,13 +4897,13 @@ function cmBuildPost(src){
 
 async function cmSubmit(src){
   const draft = cmBuildPost(src);
-  if(!draft){ cmToast('내용을 한 줄이라도 적어주세요 🙂'); return; }
+  if(!draft){ cmToast('내용을 한 줄이라도 적어주세요'); return; }
   if(draft.field) cmLS('mrc_my_field', draft.field);
   if(!currentUser){
     try{ sessionStorage.setItem('mrc_pending_post', JSON.stringify(draft)); }catch(e){}
     closeWriteModal();
     openAuth('login');
-    showAuthMessage('로그인하면 쓰던 글이 바로 올라가요 ✍️');
+    showAuthMessage('로그인하면 쓰던 글이 바로 올라가요');
     return;
   }
   await cmInsertPost(draft);
@@ -4891,7 +4930,7 @@ async function cmInsertPost(draft){
     document.getElementById('write-title').value=''; document.getElementById('write-content').value='';
     closeWriteModal();
   }
-  cmToast('글이 올라갔어요 🎉');
+  cmToast('글이 올라갔어요');
   await fetchPostsFromDB();
   return true;
 }
@@ -4913,7 +4952,7 @@ async function openPost(id){
   const p=POSTS.find(x=>Number(x.id)===Number(id)); if(!p) return;
   _currentPostId=p.id;
   const c=cmCat(p.category);
-  document.getElementById('post-modal-cat').textContent=c.emoji+' '+c.label;
+  document.getElementById('post-modal-cat').textContent=c.label;
   document.getElementById('post-modal-field').innerHTML=cmFieldBadge(p.field);
   document.getElementById('post-modal-title').textContent=p.title||'';
   document.getElementById('post-modal-author').textContent=cmAuthorLabel(p);
@@ -4934,7 +4973,7 @@ function closePostModal(){
 function cmPaintLike(p){
   const b=document.getElementById('post-like-btn'); const on=_cmLiked.has(p.id);
   b.classList.toggle('on', on);
-  b.innerHTML = `${on?'❤️':'🤍'} 공감 <span id="post-like-count">${p.likes||0}</span>`;
+  b.innerHTML = `${on?'♥':'♡'} 공감 <span id="post-like-count">${p.likes||0}</span>`;
 }
 async function cmToggleLike(){
   const p=POSTS.find(x=>x.id===_currentPostId); if(!p) return;
@@ -4976,7 +5015,7 @@ async function loadComments(postId){
   if(postId!==_currentPostId) return;
   if(error || !data){ listEl.innerHTML='<div class="cm-empty" style="padding:14px;">댓글을 불러오지 못했어요</div>'; return; }
   countEl.textContent = data.length ? data.length+'개' : '';
-  if(!data.length){ listEl.innerHTML='<div class="cm-empty" style="padding:18px;">첫 댓글로 힘이 되어주세요 💬</div>'; return; }
+  if(!data.length){ listEl.innerHTML='<div class="cm-empty" style="padding:18px;">첫 댓글로 힘이 되어주세요</div>'; return; }
   const post=POSTS.find(x=>x.id===postId);
   // 익명 댓글은 글 안에서만 '익명1, 익명2…'로 구분
   const anonNo={}; let n=0;
@@ -5016,11 +5055,13 @@ async function submitComment(){
 
 // ── 시작 ──
 cmInitUI();
+cmPaintAuth();
 sbClient.auth.onAuthStateChange(async (event, session) => {
   currentUser = session?.user || null;
   if(event==='SIGNED_IN' || event==='INITIAL_SESSION'){ await cmLoadMyLikes(); }
-  if(event==='SIGNED_IN') cmResumePending();
+  if(event==='SIGNED_IN'){ cmResumePending(); cmAfterLogin(); }
   if(event==='SIGNED_OUT') _cmLiked=new Set();
+  cmPaintAuth();
 });
 // 공유 링크(#post-123)로 들어오면 그 글을 바로 열기
 (async function(){
