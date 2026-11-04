@@ -2285,6 +2285,50 @@ a { text-decoration: none; color: inherit; }
   .cf-date-d { font-size: 22px; }
   .cf-title { font-size: 15px; }
 }
+
+/* ══ 세계지도: 나라별 학회 수 ══ */
+.wm-card { display: grid; grid-template-columns: 1fr 260px; gap: 0; background: #fff; border: 1.5px solid var(--border); border-radius: 16px; overflow: hidden; margin-bottom: 20px; }
+.wm-map { position: relative; background: linear-gradient(180deg,#f8fbff,#f1f5fb); padding: 14px 10px 8px; min-width: 0; }
+.wm-head { display: flex; align-items: baseline; gap: 10px; padding: 2px 8px 6px; flex-wrap: wrap; }
+.wm-title { font-size: 16px; font-weight: 800; color: var(--text); }
+.wm-sub { font-size: 12.5px; color: var(--text-muted); }
+.wm-svg { display: block; width: 100%; height: auto; }
+.wm-land { fill: #dfe6ef; stroke: #fff; stroke-width: .5; }
+.wm-land.has { fill: #bfd4fb; cursor: pointer; }
+.wm-land.has:hover { fill: #93b4f5; }
+.wm-land.on { fill: #2563eb; }
+.wm-bub { cursor: pointer; }
+.wm-bub circle { fill: rgba(37,99,235,.78); stroke: #fff; stroke-width: 1.5; transition: fill .15s; }
+.wm-bub:hover circle { fill: #1d4ed8; }
+.wm-bub.kr circle { fill: rgba(220,38,38,.85); }
+.wm-bub.on circle { fill: #0f172a; }
+.wm-bub text { fill: #fff; font-family: 'Montserrat', sans-serif; font-weight: 800; text-anchor: middle; dominant-baseline: central; pointer-events: none; }
+.wm-tip { position: absolute; pointer-events: none; background: #0f172a; color: #fff; font-size: 12.5px; font-weight: 700; padding: 5px 10px; border-radius: 8px; white-space: nowrap; transform: translate(-50%, -130%); opacity: 0; transition: opacity .1s; }
+.wm-side { border-left: 1px solid var(--border); padding: 14px 14px 10px; display: flex; flex-direction: column; min-width: 0; }
+.wm-side-h { font-size: 12.5px; font-weight: 800; color: #475569; margin-bottom: 8px; display: flex; justify-content: space-between; }
+.wm-rows { display: flex; flex-direction: column; gap: 2px; overflow-y: auto; max-height: 330px; }
+.wm-row { display: grid; grid-template-columns: 22px 1fr auto; align-items: center; gap: 8px; padding: 6px 6px; border-radius: 8px; cursor: pointer; border: none; background: none; font-family: 'Noto Sans KR', sans-serif; text-align: left; }
+.wm-row:hover { background: #f1f5f9; }
+.wm-row.on { background: #0f172a; }
+.wm-row.on .wm-row-name, .wm-row.on .wm-row-n { color: #fff; }
+.wm-row-rank { font-size: 11px; font-weight: 700; color: #94a3b8; font-family: 'DM Mono', monospace; text-align: center; }
+.wm-row-name { font-size: 13px; font-weight: 700; color: var(--text); min-width: 0; }
+.wm-row-bar { display: block; height: 4px; border-radius: 2px; background: #bfd4fb; margin-top: 4px; }
+.wm-row.kr .wm-row-bar { background: #fca5a5; }
+.wm-row-n { font-size: 12.5px; font-weight: 800; color: #2563eb; font-family: 'DM Mono', monospace; }
+.wm-row.kr .wm-row-n { color: #dc2626; }
+.wm-clear { margin-top: 8px; padding: 7px; border-radius: 8px; border: 1.5px solid var(--border); background: #fff; font-size: 12.5px; font-weight: 700; color: #475569; cursor: pointer; font-family: 'Noto Sans KR', sans-serif; }
+.wm-active { display: inline-flex; align-items: center; gap: 6px; padding: 4px 6px 4px 11px; border-radius: 20px; background: #0f172a; color: #fff; font-size: 12.5px; font-weight: 700; }
+.wm-active button { border: none; background: rgba(255,255,255,.2); color: #fff; width: 20px; height: 20px; border-radius: 50%; cursor: pointer; font-size: 12px; line-height: 1; }
+@media (max-width: 900px) {
+  .wm-card { grid-template-columns: 1fr; }
+  .wm-side { border-left: none; border-top: 1px solid var(--border); padding: 10px 12px; }
+  .wm-rows { flex-direction: row; overflow-x: auto; max-height: none; gap: 6px; scrollbar-width: none; }
+  .wm-rows::-webkit-scrollbar { display: none; }
+  .wm-row { flex: 0 0 auto; grid-template-columns: auto auto; border: 1px solid var(--border); padding: 5px 10px; }
+  .wm-row-rank, .wm-row-bar { display: none; }
+  .wm-map { padding: 10px 4px 4px; }
+}
 </style>
 </head>
 <body>
@@ -2711,6 +2755,19 @@ a { text-decoration: none; color: inherit; }
     <!-- 분야 칩 + 세부 주제 칩 -->
     <div class="cf-chips" id="info-field-chips"></div>
     <div class="cf-tchips" id="info-topic-chips"></div>
+
+    <!-- 세계지도: 나라별 학회 수 -->
+    <div class="wm-card" id="world-map-card">
+      <div class="wm-map">
+        <div class="wm-head"><span class="wm-title">🌏 어느 나라에서 열리나요?</span><span class="wm-sub" id="wm-sub">나라를 누르면 그 나라 학회만 보여요</span></div>
+        <div id="wm-svg-wrap"></div>
+        <div class="wm-tip" id="wm-tip"></div>
+      </div>
+      <div class="wm-side">
+        <div class="wm-side-h"><span>나라별 학회 수</span><span id="wm-side-total"></span></div>
+        <div class="wm-rows" id="wm-rows"></div>
+      </div>
+    </div>
 
     <!-- 배너 슬라이더 -->
     <div class="info-banner-wrap" id="banner-wrap" style="margin-bottom:20px;">
@@ -3620,6 +3677,159 @@ function renderInfoChips(base, fieldF){
   }
 }
 
+
+// ── 세계지도: 학회 장소 → 나라 ──
+// [한국어 이름, 지도 데이터(world-atlas)의 나라 이름(없으면 작은 나라), 위도, 경도]
+const COUNTRY = {
+  KR:['한국','South Korea',36.5,127.8], CN:['중국','China',34,104], US:['미국','United States of America',39,-98],
+  JP:['일본','Japan',37,138], IT:['이탈리아','Italy',42.5,12.5], SG:['싱가포르',null,1.35,103.8],
+  DE:['독일','Germany',51,10], TH:['태국','Thailand',15,101], CA:['캐나다','Canada',56,-106],
+  AU:['호주','Australia',-25,134], GR:['그리스','Greece',39,22], FR:['프랑스','France',46.5,2.5],
+  NL:['네덜란드','Netherlands',52.2,5.5], GB:['영국','United Kingdom',54,-2], BR:['브라질','Brazil',-10,-52],
+  IN:['인도','India',22,79], VN:['베트남','Vietnam',16,107], PL:['폴란드','Poland',52,19],
+  ES:['스페인','Spain',40,-4], MY:['말레이시아','Malaysia',4,102], IE:['아일랜드','Ireland',53.2,-8],
+  CH:['스위스','Switzerland',46.8,8.2], DK:['덴마크','Denmark',56,10], TW:['대만','Taiwan',23.7,121],
+  MX:['멕시코','Mexico',23,-102], HK:['홍콩',null,22.3,114.2], MO:['마카오',null,22.2,113.55],
+  MA:['모로코','Morocco',32,-6], CY:['키프로스','Cyprus',35,33], NZ:['뉴질랜드','New Zealand',-41,174],
+  BE:['벨기에','Belgium',50.6,4.6], SE:['스웨덴','Sweden',62,15], MT:['몰타',null,35.9,14.4],
+  LK:['스리랑카','Sri Lanka',7.8,80.7], ZA:['남아공','South Africa',-29,24], AR:['아르헨티나','Argentina',-34,-64],
+  CL:['칠레','Chile',-33,-71], KH:['캄보디아','Cambodia',12.5,105], RO:['루마니아','Romania',46,25],
+  EE:['에스토니아','Estonia',58.7,25.5], FI:['핀란드','Finland',62,26], PT:['포르투갈','Portugal',39.5,-8],
+  PA:['파나마','Panama',8.5,-80], SK:['슬로바키아','Slovakia',48.7,19.5], BB:['바베이도스',null,13.2,-59.5],
+  ID:['인도네시아','Indonesia',-2,118], CZ:['체코','Czechia',49.8,15.5], PE:['페루','Peru',-9,-75],
+  LA:['라오스','Laos',18,103], KZ:['카자흐스탄','Kazakhstan',48,67], BT:['부탄','Bhutan',27.5,90.5],
+  PK:['파키스탄','Pakistan',30,70], HR:['크로아티아','Croatia',45.1,15.2], LV:['라트비아','Latvia',56.9,24.6],
+  AT:['오스트리아','Austria',47.5,14.5], NO:['노르웨이','Norway',61,9], TR:['튀르키예','Turkey',39,35],
+  AE:['아랍에미리트','United Arab Emirates',24,54], IL:['이스라엘','Israel',31,35], PH:['필리핀','Philippines',13,122],
+  HU:['헝가리','Hungary',47,19.5], RS:['세르비아','Serbia',44,21], SI:['슬로베니아','Slovenia',46,15],
+  BG:['불가리아','Bulgaria',42.7,25.5], EG:['이집트','Egypt',26,30], SA:['사우디아라비아','Saudi Arabia',24,45],
+  QA:['카타르','Qatar',25.3,51.2], LU:['룩셈부르크','Luxembourg',49.8,6.1], IS:['아이슬란드','Iceland',65,-18],
+  RU:['러시아','Russia',60,90], UA:['우크라이나','Ukraine',49,32], LT:['리투아니아','Lithuania',55.2,23.9],
+  CO:['콜롬비아','Colombia',4,-73], NP:['네팔','Nepal',28.2,84], BD:['방글라데시','Bangladesh',24,90],
+};
+const COUNTRY_ALIAS = (()=>{
+  const a = {};
+  Object.entries(COUNTRY).forEach(([k,v])=>{ if(v[1]) a[v[1].toLowerCase()]=k; });
+  Object.assign(a, {
+    'usa':'US','us':'US','u.s.a':'US','u.s.':'US','united states':'US','united state':'US','america':'US',
+    'uk':'GB','england':'GB','scotland':'GB','wales':'GB','great britain':'GB','northern ireland':'GB',
+    'korea':'KR','republic of korea':'KR','south korea':'KR','한국':'KR',
+    'the netherlands':'NL','holland':'NL','czech republic':'CZ','perú':'PE','türkiye':'TR','uae':'AE',
+    'hong kong':'HK','hong kong sar':'HK','macau':'MO','macao':'MO','singapore':'SG','malta':'MT','barbados':'BB',
+    'shanghai':'CN','beijing':'CN','shenzhen':'CN','guangzhou':'CN','hangzhou':'CN','tokyo':'JP','kyoto':'JP','osaka':'JP',
+    'mexico city':'MX','paris':'FR','jaipur':'IN','puducherry':'IN','new delhi':'IN','dallas':'US','new york':'US',
+  });
+  'alabama alaska arizona arkansas california colorado connecticut delaware florida georgia hawaii idaho illinois indiana iowa kansas kentucky louisiana maine maryland massachusetts michigan minnesota mississippi missouri montana nebraska nevada ohio oklahoma oregon pennsylvania tennessee texas utah vermont virginia washington wisconsin wyoming'
+    .split(' ').forEach(st=>{ a[st]='US'; });
+  ['new hampshire','new jersey','new mexico','north carolina','north dakota','rhode island','south carolina','south dakota','west virginia'].forEach(st=>{ a[st]='US'; });
+  'AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY DC'
+    .split(' ').forEach(st=>{ a['#'+st]='US'; }); // 두 글자 주 약어 (대소문자 그대로 비교)
+  return a;
+})();
+const COUNTRY_ALIAS_KEYS = Object.keys(COUNTRY_ALIAS).filter(k=>k[0]!=='#' && k.length>3).sort((x,y)=>y.length-x.length);
+
+// 학회 장소 글자에서 나라 코드를 찾는다 (온라인·미정이면 null)
+function confCountry(d){
+  if(d._cc!==undefined) return d._cc;
+  let cc=null;
+  const loc=(d.location||'').trim();
+  if(isDomesticInfo(d)) cc='KR';
+  else if(loc && !/^(online|virtual|tbd|tba)\b/i.test(loc)){
+    const clean=loc.replace(/\([^)]*\)/g,' ').replace(/\b(and|\/)\s*online\b/ig,' ').replace(/\bhybrid\b/ig,' ');
+    const segs=clean.split(/,|;/).map(x=>x.trim()).filter(Boolean).reverse();
+    for(const seg of segs){
+      const low=seg.toLowerCase().replace(/\.$/,'').replace(/\s+/g,' ').trim();
+      if(COUNTRY_ALIAS[low]){ cc=COUNTRY_ALIAS[low]; break; }
+      const st=seg.match(/\b([A-Z]{2})$/); if(st && COUNTRY_ALIAS['#'+st[1]] && !COUNTRY_ALIAS[st[1].toLowerCase()]){ cc='US'; break; }
+      if(/^LV-\d{4}$/.test(seg)){ cc='LV'; break; }
+    }
+    if(!cc){
+      const low=' '+clean.toLowerCase()+' ';
+      const hit=COUNTRY_ALIAS_KEYS.find(k=>new RegExp('[^a-z]'+k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'[^a-z]').test(low));
+      if(hit) cc=COUNTRY_ALIAS[hit];
+    }
+  }
+  d._cc=cc;
+  return cc;
+}
+
+// 지도 그림 (world-atlas 를 처음 한 번만 불러와 path 문자열로 캐시)
+const WM_W=1000, WM_LAT_TOP=84, WM_LAT_BOT=-57;
+const WM_H=Math.round((WM_LAT_TOP-WM_LAT_BOT)/360*WM_W);
+const wmX=lon=>(lon+180)/360*WM_W, wmY=lat=>(WM_LAT_TOP-lat)/360*WM_W;
+let WM_PATHS=null, _wmLoading=false;
+function wmLoadWorld(){
+  if(WM_PATHS||_wmLoading) return;
+  _wmLoading=true;
+  const done=world=>{
+    const fc=topojson.feature(world, world.objects.countries);
+    WM_PATHS=fc.features.filter(f=>f.properties.name!=='Antarctica').map(f=>{
+      const polys=f.geometry.type==='Polygon'?[f.geometry.coordinates]:f.geometry.coordinates;
+      // 날짜변경선(경도 ±180)을 넘는 선은 끊어서 지도를 가로지르는 줄이 생기지 않게 한다
+      const ringPath=ring=>ring.map(([x,y],i)=>(i===0||Math.abs(x-ring[i-1][0])>180?'M':'L')+wmX(x).toFixed(1)+','+wmY(y).toFixed(1)).join('')+'Z';
+      const dstr=polys.map(poly=>poly.map(ringPath).join('')).join('');
+      return { name:f.properties.name, d:dstr };
+    });
+    renderInfoFull();
+  };
+  const go=()=>fetch('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json').then(r=>r.json()).then(done).catch(()=>{ _wmLoading=false; });
+  if(window.topojson) go();
+  else { const sc=document.createElement('script'); sc.src='https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js'; sc.onload=go; sc.onerror=()=>{ _wmLoading=false; }; document.head.appendChild(sc); }
+}
+
+var INFO_COUNTRY='';
+function setInfoCountry(cc){ INFO_COUNTRY = INFO_COUNTRY===cc ? '' : cc; filterInfoSearch(); }
+
+function renderWorldMap(confs, show){
+  const card=document.getElementById('world-map-card');
+  if(!card) return;
+  card.style.display = show ? '' : 'none';
+  if(!show) return;
+  wmLoadWorld();
+  const cnt={}; let online=0;
+  confs.forEach(d=>{ const c=confCountry(d); if(c&&COUNTRY[c]) cnt[c]=(cnt[c]||0)+1; else online++; });
+  const rows=Object.entries(cnt).sort((a,b)=>b[1]-a[1]);
+  const nCountries=rows.length, kr=cnt.KR||0, totalPlaced=rows.reduce((s,[,n])=>s+n,0);
+  const sub=document.getElementById('wm-sub');
+  if(sub) sub.innerHTML = INFO_COUNTRY
+    ? `<span class="wm-active">📍 ${COUNTRY[INFO_COUNTRY]?.[0]||''} 학회만 보는 중 <button onclick="setInfoCountry('')" aria-label="나라 선택 해제">✕</button></span>`
+    : `${nCountries}개 나라 · 국내 ${kr}개 · 해외 ${totalPlaced-kr}개${online?` · 온라인/미정 ${online}개`:''} — 나라를 누르면 그 나라 학회만 보여요`;
+  const tot=document.getElementById('wm-side-total'); if(tot) tot.textContent=`${nCountries}개국`;
+
+  const byAtlas={}; rows.forEach(([c])=>{ const an=COUNTRY[c][1]; if(an) byAtlas[an]=c; });
+  const land = (WM_PATHS||[]).map(p=>{
+    const c=byAtlas[p.name];
+    return c ? `<path class="wm-land has${INFO_COUNTRY===c?' on':''}" d="${p.d}" data-cc="${c}"></path>` : `<path class="wm-land" d="${p.d}"></path>`;
+  }).join('');
+  const max=rows.length?rows[0][1]:1;
+  // 큰 원이 작은 원을 가리지 않게 큰 것부터 그린다
+  const bubbles = rows.map(([c,n])=>{
+    const [, , lat, lon]=COUNTRY[c];
+    const r=4.5+Math.sqrt(n/max)*24;
+    return `<g class="wm-bub${c==='KR'?' kr':''}${INFO_COUNTRY===c?' on':''}" data-cc="${c}" transform="translate(${wmX(lon).toFixed(1)},${wmY(lat).toFixed(1)})">
+      <circle r="${r.toFixed(1)}"></circle>${r>=9?`<text font-size="${Math.max(9,Math.min(15,r*.62)).toFixed(1)}">${n}</text>`:''}</g>`;
+  }).join('');
+  const wrap=document.getElementById('wm-svg-wrap');
+  wrap.innerHTML=`<svg class="wm-svg" viewBox="0 0 ${WM_W} ${WM_H}" role="img" aria-label="나라별 학회 수 세계지도">${land}${bubbles}</svg>`;
+  const tip=document.getElementById('wm-tip');
+  wrap.querySelectorAll('[data-cc]').forEach(el=>{
+    const c=el.dataset.cc;
+    el.addEventListener('click',()=>setInfoCountry(c));
+    el.addEventListener('mousemove',e=>{
+      const box=wrap.parentElement.getBoundingClientRect();
+      tip.textContent=`${COUNTRY[c][0]} · 학회 ${cnt[c]}개`;
+      tip.style.left=(e.clientX-box.left)+'px'; tip.style.top=(e.clientY-box.top)+'px'; tip.style.opacity=1;
+    });
+    el.addEventListener('mouseleave',()=>{ tip.style.opacity=0; });
+  });
+  const rowsEl=document.getElementById('wm-rows');
+  rowsEl.innerHTML = rows.length ? rows.map(([c,n],i)=>`<button class="wm-row${c==='KR'?' kr':''}${INFO_COUNTRY===c?' on':''}" onclick="setInfoCountry('${c}')">
+      <span class="wm-row-rank">${i+1}</span>
+      <span class="wm-row-name">${COUNTRY[c][0]}<span class="wm-row-bar" style="width:${Math.max(4,n/max*100).toFixed(0)}%"></span></span>
+      <span class="wm-row-n">${n}</span></button>`).join('')
+    : '<div style="font-size:13px;color:#94a3b8;padding:12px 4px;">조건에 맞는 학회가 없어요</div>';
+}
+
 function renderInfoFull(){
   const el=document.getElementById('info-full-list');
   if(!el) return;
@@ -3628,7 +3838,7 @@ function renderInfoFull(){
   const typeF=activeTab?.dataset?.type||'all';
   const fieldF=document.getElementById('info-field-filter')?.value||'all';
   const regionF=document.getElementById('info-region-filter')?.value||'all';
-  document.getElementById('banner-wrap')?.classList.toggle('is-hidden', !!q||typeF!=='all'||fieldF!=='all'||regionF!=='all'||!!INFO_TOPIC);
+  document.getElementById('banner-wrap')?.classList.toggle('is-hidden', !!q||typeF!=='all'||fieldF!=='all'||regionF!=='all'||!!INFO_TOPIC||!!INFO_COUNTRY);
 
   // 분야를 빼고 걸러낸 목록 (분야 칩의 건수 계산용)
   const base=INFO_DATA.filter(d=>{
@@ -3642,7 +3852,11 @@ function renderInfoFull(){
     const matchField=fieldF==='all'||d.field===fieldF||d.field==='all';
     const matchTopic=!INFO_TOPIC||infoTags(d).includes(INFO_TOPIC);
     return matchField&&matchTopic;
-  }).sort((a,b)=>{
+  });
+  // 지도는 나라 선택 전 목록으로 센다 (학회만)
+  renderWorldMap(items.filter(d=>d.type==='conf'), typeF==='all'||typeF==='conf');
+  if(INFO_COUNTRY) items=items.filter(d=>d.type==='conf' && confCountry(d)===INFO_COUNTRY);
+  items=items.sort((a,b)=>{
     // 종료된 학회(end_date 지남)는 맨 뒤로
     const aEnded = a.type==='conf' && isConfEnded(a);
     const bEnded = b.type==='conf' && isConfEnded(b);
