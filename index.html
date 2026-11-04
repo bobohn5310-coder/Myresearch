@@ -2517,6 +2517,32 @@ a { text-decoration: none; color: inherit; }
 .cm-comment-login { margin:12px 16px; padding:12px; border:1.5px dashed var(--blue-mid); border-radius:12px; background:var(--blue-light); color:var(--blue-dark); font-size:14px; font-weight:700; cursor:pointer; font-family:'Noto Sans KR',sans-serif; flex-shrink:0; }
 .cm-toast { position:fixed; left:50%; bottom:90px; transform:translateX(-50%); background:#0f172a; color:#fff; padding:11px 18px; border-radius:12px; font-size:14px; font-weight:600; z-index:900; box-shadow:0 10px 30px rgba(0,0,0,.2); }
 
+/* 커뮤니티 배너 */
+.cm-hero { background: linear-gradient(120deg, #eff6ff 0%, #f5f3ff 55%, #ecfeff 100%); border-bottom:1px solid var(--border); padding: 44px 48px 40px; position:relative; overflow:hidden; }
+.cm-hero::before { content:''; position:absolute; width:420px; height:420px; right:-120px; top:-200px; border-radius:50%; background:radial-gradient(circle, rgba(37,99,235,.14), transparent 70%); }
+.cm-hero-inner { max-width:1280px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:40px; position:relative; }
+.cm-hero-eyebrow { display:inline-block; font-size:12px; font-weight:800; color:var(--blue); background:#fff; border:1px solid var(--blue-mid); padding:4px 11px; border-radius:20px; margin-bottom:14px; }
+.cm-hero-title { font-size:32px; font-weight:800; color:#0f172a; letter-spacing:-0.6px; line-height:1.25; margin:0 0 10px; }
+.cm-hero-sub { font-size:14.5px; color:#475569; line-height:1.7; margin:0 0 20px; }
+.cm-hero-actions { display:flex; align-items:center; gap:18px; flex-wrap:wrap; }
+.cm-hero-cta { padding:12px 26px; font-size:15px; border-radius:12px; box-shadow:0 8px 20px rgba(37,99,235,.25); }
+.cm-hero-stats { display:flex; gap:16px; font-size:13px; color:#64748b; }
+.cm-hero-stats b { font-family:'DM Mono',monospace; font-size:18px; color:var(--blue-dark); margin-right:3px; }
+.cm-hero-art { position:relative; width:420px; height:220px; flex-shrink:0; }
+.cm-bubble { position:absolute; background:#fff; border:1px solid #e2e8f0; border-radius:16px; padding:12px 16px; box-shadow:0 10px 30px rgba(15,23,42,.08); font-size:13.5px; color:#334155; line-height:1.5; display:flex; flex-direction:column; gap:4px; max-width:290px; }
+.cm-bubble-tag { font-size:11px; font-weight:700; color:var(--blue); }
+.cm-bubble.b1 { left:0; top:0; border-bottom-left-radius:4px; }
+.cm-bubble.b2 { right:0; top:78px; border-bottom-right-radius:4px; background:var(--blue-light); border-color:var(--blue-mid); }
+.cm-bubble.b3 { left:10px; top:172px; flex-direction:row; align-items:center; gap:8px; padding:8px 14px; color:#475569; font-weight:600; font-size:12.5px; }
+.cm-bubble.b3 .cm-bubble-tag { color:#94a3b8; }
+@media (max-width: 900px) {
+  .cm-hero { padding: 26px 16px 24px; }
+  .cm-hero-art { display:none; }
+  .cm-hero-title { font-size:24px; }
+  .cm-hero-sub { font-size:13.5px; }
+  .cm-hero-sub br { display:none; }
+}
+
 /* 심플 톤: 아이콘 없이, 파란색 포인트 + 분야별 은은한 글자색 */
 #page-community .ufb-tab.active { background:var(--blue-light); border-color:var(--blue-mid); color:var(--blue-dark); box-shadow:none; font-weight:700; }
 #page-community .ufb-tab:hover:not(.active) { border-color:var(--blue-mid); color:var(--blue); background:#fff; }
@@ -2863,16 +2889,21 @@ a { text-decoration: none; color: inherit; }
 <!-- ═══════════ COMMUNITY ═══════════ -->
 <div class="page" id="page-community">
 
-  <div class="uph">
-    <div class="uph-inner">
-      <div>
-        <div class="uph-eyebrow">Researcher Lounge</div>
-        <div class="uph-title">커뮤니티</div>
-        <div class="uph-sub">익명으로 편하게, 연구자끼리 솔직하게. 글은 누구나 볼 수 있고, 글쓰기·댓글은 로그인 후에 할 수 있어요.</div>
+  <div class="cm-hero">
+    <div class="cm-hero-inner">
+      <div class="cm-hero-text">
+        <div class="cm-hero-eyebrow">연구자 라운지</div>
+        <h1 class="cm-hero-title">오늘 연구, 어땠나요?</h1>
+        <p class="cm-hero-sub">랩실 고민부터 학회 후기까지, 익명으로 편하게 나눠요. <br>글은 누구나 볼 수 있고, 글쓰기와 댓글은 로그인 후에 할 수 있어요.</p>
+        <div class="cm-hero-actions">
+          <button class="cm-btn cm-hero-cta" onclick="cmOpenWrite()">글쓰기</button>
+          <div class="cm-hero-stats"><span><b id="cm-stat-total">—</b> 전체 글</span><span><b id="cm-stat-today">—</b> 오늘 새 글</span></div>
+        </div>
       </div>
-      <div class="uph-stats">
-        <div class="uph-stat"><div class="uph-stat-val" id="cm-stat-total">—</div><div class="uph-stat-label">전체 글</div></div>
-        <div class="uph-stat"><div class="uph-stat-val" id="cm-stat-today">—</div><div class="uph-stat-label">오늘 새 글</div></div>
+      <div class="cm-hero-art" aria-hidden="true">
+        <div class="cm-bubble b1"><span class="cm-bubble-tag" id="cm-hero-tag">이런 이야기 어때요?</span><span id="cm-hero-q1">랩실 생활, 진로 고민, 학회 후기 무엇이든</span></div>
+        <div class="cm-bubble b2"><span class="cm-bubble-tag">익명으로 올리면</span><span>누가 썼는지 아무도 몰라요</span></div>
+        <div class="cm-bubble b3"><span class="cm-bubble-tag">함께하는 분야</span><span>AI · 공학 · 생명 · 에너지 · 양자</span></div>
       </div>
     </div>
   </div>
@@ -4804,6 +4835,8 @@ function cmRenderStats(){
   const today=new Date(); today.setHours(0,0,0,0);
   if(t) t.textContent = POSTS.length;
   if(d) d.textContent = POSTS.filter(p=>new Date(p.created_at)>=today).length;
+  const latest=POSTS[0], q=document.getElementById('cm-hero-q1'), tg=document.getElementById('cm-hero-tag');
+  if(latest && q){ q.textContent=latest.title||''; if(tg) tg.textContent='방금 올라온 글 · '+cmAgo(latest.created_at); }
 }
 function cmRenderAll(){
   renderPosts('post-list', CM.homeFilter||'all');
