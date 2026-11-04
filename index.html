@@ -2300,8 +2300,11 @@ a { text-decoration: none; color: inherit; }
 .wm-bub { cursor: pointer; }
 .wm-bub circle { fill: rgba(37,99,235,.78); stroke: #fff; stroke-width: 1.5; transition: fill .15s; }
 .wm-bub:hover circle { fill: #1d4ed8; }
-.wm-bub.kr circle { fill: rgba(220,38,38,.85); }
-.wm-bub.on circle { fill: #0f172a; }
+.wm-bub.kr circle { fill: #c6f432; stroke: #fff; filter: drop-shadow(0 0 6px rgba(163,230,53,.9)); }
+.wm-bub.kr text { fill: #1f3a05; }
+.wm-bub.kr:hover circle { fill: #b2ea12; }
+.wm-bub.on circle { fill: #0f172a; filter: none; }
+.wm-bub.kr.on text { fill: #fff; }
 .wm-bub text { fill: #fff; font-family: 'Montserrat', sans-serif; font-weight: 800; text-anchor: middle; dominant-baseline: central; pointer-events: none; }
 .wm-tip { position: absolute; pointer-events: none; background: #0f172a; color: #fff; font-size: 12.5px; font-weight: 700; padding: 5px 10px; border-radius: 8px; white-space: nowrap; transform: translate(-50%, -130%); opacity: 0; transition: opacity .1s; }
 .wm-side { border-left: 1px solid var(--border); padding: 14px 14px 10px; display: flex; flex-direction: column; min-width: 0; }
@@ -2314,9 +2317,9 @@ a { text-decoration: none; color: inherit; }
 .wm-row-rank { font-size: 11px; font-weight: 700; color: #94a3b8; font-family: 'DM Mono', monospace; text-align: center; }
 .wm-row-name { font-size: 13px; font-weight: 700; color: var(--text); min-width: 0; }
 .wm-row-bar { display: block; height: 4px; border-radius: 2px; background: #bfd4fb; margin-top: 4px; }
-.wm-row.kr .wm-row-bar { background: #fca5a5; }
+.wm-row.kr .wm-row-bar { background: #c6f432; }
 .wm-row-n { font-size: 12.5px; font-weight: 800; color: #2563eb; font-family: 'DM Mono', monospace; }
-.wm-row.kr .wm-row-n { color: #dc2626; }
+.wm-row.kr .wm-row-n { color: #4d7c0f; }
 .wm-clear { margin-top: 8px; padding: 7px; border-radius: 8px; border: 1.5px solid var(--border); background: #fff; font-size: 12.5px; font-weight: 700; color: #475569; cursor: pointer; font-family: 'Noto Sans KR', sans-serif; }
 .wm-active { display: inline-flex; align-items: center; gap: 6px; padding: 4px 6px 4px 11px; border-radius: 20px; background: #0f172a; color: #fff; font-size: 12.5px; font-weight: 700; }
 .wm-active button { border: none; background: rgba(255,255,255,.2); color: #fff; width: 20px; height: 20px; border-radius: 50%; cursor: pointer; font-size: 12px; line-height: 1; }
