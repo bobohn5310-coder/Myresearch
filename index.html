@@ -2175,6 +2175,116 @@ a { text-decoration: none; color: inherit; }
   .info-card-list { gap: 8px; }
   .news-main-grid { gap: 8px; }
 }
+/* ══════════════════════════
+   학회 카드 · 분야 칩 · 홈 '다가오는 학회'
+══════════════════════════ */
+.cf-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.cf-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.cf-card {
+  display: flex; gap: 14px; align-items: stretch;
+  background: #fff; border: 1.5px solid var(--border); border-radius: 14px;
+  padding: 14px; cursor: pointer; min-width: 0;
+  transition: box-shadow .18s, transform .18s, border-color .18s;
+}
+.cf-card:hover { box-shadow: 0 8px 24px rgba(15,23,42,.09); transform: translateY(-2px); border-color: var(--cf-c, #94a3b8); }
+.cf-card.is-ended { opacity: .55; }
+.cf-date {
+  flex-shrink: 0; width: 62px; border-radius: 11px;
+  background: var(--cf-bg, #f1f5f9); color: var(--cf-c, #334155);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 8px 0; line-height: 1;
+}
+.cf-date-m { font-size: 11.5px; font-weight: 700; opacity: .85; }
+.cf-date-d { font-family: 'Montserrat', sans-serif; font-size: 26px; font-weight: 800; margin: 4px 0 3px; letter-spacing: -1px; }
+.cf-date-w { font-size: 11px; font-weight: 600; opacity: .7; }
+.cf-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 5px; }
+.cf-top { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+.cf-chip {
+  font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 20px;
+  background: var(--cf-bg, #f1f5f9); color: var(--cf-c, #334155); white-space: nowrap;
+}
+.cf-rank { font-size: 10.5px; font-weight: 800; padding: 2px 7px; border-radius: 6px; background: #f1f5f9; color: #64748b; white-space: nowrap; }
+.cf-rank.top { background: #fef3c7; color: #b45309; }
+.cf-where { font-size: 10.5px; font-weight: 700; padding: 2px 7px; border-radius: 6px; white-space: nowrap; }
+.cf-where.kr { background: #fee2e2; color: #b91c1c; }
+.cf-where.intl { background: #f1f5f9; color: #475569; }
+.cf-dday { margin-left: auto; font-size: 12px; font-weight: 800; padding: 3px 9px; border-radius: 8px; white-space: nowrap; }
+.cf-title { font-size: 15.5px; font-weight: 800; color: var(--text); line-height: 1.35; letter-spacing: -.2px; }
+.cf-org { font-size: 12.5px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cf-meta { font-size: 12px; color: #64748b; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.cf-meta .cf-cfp { color: #c2410c; font-weight: 700; }
+.cf-topics { font-size: 11.5px; color: #94a3b8; }
+
+.cf-month { display: flex; align-items: baseline; gap: 8px; margin: 6px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.cf-month-t { font-size: 17px; font-weight: 800; color: var(--text); }
+.cf-month-n { font-size: 12.5px; color: #94a3b8; font-weight: 600; }
+.cf-month-block { margin-bottom: 26px; }
+
+/* 분야 칩 (학술정보 페이지) */
+.cf-chips { display: flex; gap: 8px; overflow-x: auto; padding: 2px 0 4px; margin-bottom: 10px; scrollbar-width: none; }
+.cf-chips::-webkit-scrollbar { display: none; }
+.cf-fchip {
+  flex-shrink: 0; display: flex; align-items: center; gap: 6px;
+  padding: 8px 14px; border-radius: 12px; border: 1.5px solid var(--border);
+  background: #fff; font-size: 13.5px; font-weight: 700; color: var(--text-sub);
+  cursor: pointer; font-family: 'Noto Sans KR', sans-serif; transition: all .15s;
+}
+.cf-fchip .n { font-size: 11.5px; font-weight: 700; color: #94a3b8; font-family: 'DM Mono', monospace; }
+.cf-fchip:hover { border-color: var(--cf-c, #94a3b8); }
+.cf-fchip.on { background: var(--cf-c, #0f172a); border-color: var(--cf-c, #0f172a); color: #fff; }
+.cf-fchip.on .n { color: rgba(255,255,255,.75); }
+.cf-tchips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 18px; align-items: center; }
+.cf-tchips-label { font-size: 12px; font-weight: 700; color: #94a3b8; margin-right: 2px; }
+.cf-tchip {
+  padding: 4px 11px; border-radius: 20px; border: 1px solid var(--border); background: #fff;
+  font-size: 12.5px; font-weight: 600; color: #475569; cursor: pointer; font-family: 'Noto Sans KR', sans-serif;
+}
+.cf-tchip:hover { border-color: #94a3b8; }
+.cf-tchip.on { background: #0f172a; border-color: #0f172a; color: #fff; }
+#info-field-filter { display: none; }
+
+/* 홈: 다가오는 학회 */
+.hc-section { background: #fff; border-top: 1px solid var(--border); }
+.hc-inner { max-width: 1280px; margin: 0 auto; padding: 44px 48px 48px; }
+.hc-tiles { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-bottom: 20px; }
+.hc-tile {
+  border: 1.5px solid var(--border); border-radius: 14px; background: #fff; padding: 14px 12px;
+  cursor: pointer; text-align: left; font-family: 'Noto Sans KR', sans-serif; transition: all .15s;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.hc-tile:hover { border-color: var(--cf-c, #94a3b8); background: var(--cf-bg, #f8fafc); }
+.hc-tile.on { border-color: var(--cf-c, #0f172a); background: var(--cf-bg, #f8fafc); box-shadow: inset 0 0 0 1px var(--cf-c, #0f172a); }
+.hc-tile-ico { font-size: 22px; line-height: 1; }
+.hc-tile-label { font-size: 14px; font-weight: 800; color: var(--text); }
+.hc-tile-n { font-size: 12px; color: var(--text-muted); font-weight: 600; }
+.hc-tile-n b { color: var(--cf-c, var(--text)); font-family: 'DM Mono', monospace; font-size: 13px; }
+.hc-more { display: flex; justify-content: center; margin-top: 22px; }
+.hc-more button {
+  padding: 12px 28px; border-radius: 12px; border: none; background: #0f172a; color: #fff;
+  font-size: 14px; font-weight: 700; cursor: pointer; font-family: 'Noto Sans KR', sans-serif;
+}
+.hc-more button:hover { background: #1e293b; }
+
+@media (max-width: 1100px) {
+  .cf-grid.cols-3 { grid-template-columns: repeat(2, 1fr); }
+  .hc-tiles { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 768px) {
+  .cf-grid, .cf-grid.cols-3 { grid-template-columns: 1fr; }
+  .hc-inner { padding: 28px 16px 32px; }
+  .hc-tiles { display: flex; overflow-x: auto; gap: 8px; margin: 0 -16px 16px; padding: 0 16px 4px; scrollbar-width: none; }
+  .hc-tiles::-webkit-scrollbar { display: none; }
+  .hc-tile { flex: 0 0 auto; min-width: 104px; padding: 10px 12px; gap: 4px; }
+  .hc-tile-ico { font-size: 18px; }
+  .hc-tile-label { font-size: 13px; }
+  .cf-tchips { flex-wrap: nowrap; overflow-x: auto; margin: 0 -16px 14px; padding: 0 16px 2px; scrollbar-width: none; }
+  .cf-tchips::-webkit-scrollbar { display: none; }
+  .cf-tchip, .cf-tchips-label { flex-shrink: 0; white-space: nowrap; }
+  .cf-card { padding: 12px; gap: 12px; }
+  .cf-date { width: 54px; }
+  .cf-date-d { font-size: 22px; }
+  .cf-title { font-size: 15px; }
+}
 </style>
 </head>
 <body>
@@ -2282,6 +2392,21 @@ a { text-decoration: none; color: inherit; }
     </div>
   </div>
 
+  <!-- 다가오는 학회 -->
+  <div class="hc-section">
+    <div class="hc-inner">
+      <div class="section-header">
+        <div>
+          <div class="section-title">🎤 다가오는 학회</div>
+          <div class="section-sub">분야를 누르면 내 분야 학회만 모아서 보여드려요</div>
+        </div>
+        <div class="see-all" onclick="openConfList()">학회 전체보기 →</div>
+      </div>
+      <div class="hc-tiles" id="home-conf-tiles"></div>
+      <div class="cf-grid cols-3" id="home-conf-list"></div>
+      <div class="hc-more"><button id="home-conf-more" onclick="openConfList(HOME_CONF_FIELD)">학회 전체보기 →</button></div>
+    </div>
+  </div>
 
   <!-- STATS BAND -->
   <div class="stats-band">
@@ -2557,11 +2682,11 @@ a { text-decoration: none; color: inherit; }
       <input class="ufb-search" id="info-search" type="search" placeholder="🔍  학회명·분야·도시 검색 (예: NeurIPS, Seoul)" oninput="filterInfoSearch()">
       <select class="ufb-select" id="info-field-filter" onchange="filterInfoSearch()" aria-label="분야">
         <option value="all">전체 분야</option>
-        <option value="cs">AI/컴퓨터</option>
-        <option value="eng">이공계</option>
-        <option value="bio">생명/의학</option>
-        <option value="energy">에너지</option>
-        <option value="quantum">양자/통신</option>
+        <option value="cs">AI·컴퓨터</option>
+        <option value="eng">공학·반도체</option>
+        <option value="bio">생명·의학</option>
+        <option value="energy">에너지·이차전지</option>
+        <option value="quantum">양자·통신</option>
       </select>
       <select class="ufb-select" id="info-region-filter" onchange="filterInfoSearch()" aria-label="개최지">
         <option value="all">국내+해외</option>
@@ -2582,6 +2707,10 @@ a { text-decoration: none; color: inherit; }
 
   <!-- 콘텐츠 -->
   <div class="ucw">
+
+    <!-- 분야 칩 + 세부 주제 칩 -->
+    <div class="cf-chips" id="info-field-chips"></div>
+    <div class="cf-tchips" id="info-topic-chips"></div>
 
     <!-- 배너 슬라이더 -->
     <div class="info-banner-wrap" id="banner-wrap" style="margin-bottom:20px;">
@@ -3370,6 +3499,126 @@ function matchInfoQuery(d, q){
   return q.split(/\s+/).filter(Boolean).every(w => hay.includes(w));
 }
 
+// ── 분야 정보 (DB의 field 값 기준) ──
+const FIELD_META = {
+  cs:      { label:'AI·컴퓨터',     emoji:'🤖', c:'#7c3aed', bg:'#f5f3ff' },
+  eng:     { label:'공학·반도체',   emoji:'⚙️', c:'#2563eb', bg:'#eff6ff' },
+  bio:     { label:'생명·의학',     emoji:'🧬', c:'#059669', bg:'#ecfdf5' },
+  energy:  { label:'에너지·이차전지', emoji:'⚡', c:'#d97706', bg:'#fffbeb' },
+  quantum: { label:'양자·통신',     emoji:'🔮', c:'#0891b2', bg:'#ecfeff' },
+};
+const FIELD_ORDER = ['cs','eng','bio','energy','quantum'];
+const fieldMeta = f => FIELD_META[f] || { label:'기타', emoji:'📌', c:'#475569', bg:'#f1f5f9' };
+// 지역·랭킹 같은 분류용 태그는 '세부 주제'에서 뺀다
+const NON_TOPIC_TAG = /^(해외|국내|국내개최|CCF-.*|CORE-.*)$/i;
+function infoTags(d){ return (d.tags||'').split(',').map(t=>t.trim()).filter(Boolean); }
+function topicTags(d){ return infoTags(d).filter(t=>!NON_TOPIC_TAG.test(t)); }
+function rankTag(d){
+  const t = infoTags(d);
+  return t.find(x=>/^CCF-A$|^CORE-A\*?$/i.test(x)) || t.find(x=>/^(CCF|CORE)-/i.test(x)) || '';
+}
+function parseYMD(s){ if(!s) return null; const m=String(s).match(/^(\d{4})-(\d{2})-(\d{2})/); return m? new Date(+m[1],+m[2]-1,+m[3]) : null; }
+function confStart(d){ return parseYMD(d.start_date) || parseYMD(d.date); }
+function isConfEnded(d){
+  const today=new Date(); today.setHours(0,0,0,0);
+  const end = parseYMD(d.end_date) || parseYMD(d.start_date);
+  return !!end && end < today;
+}
+const WEEKDAY = ['일','월','화','수','목','금','토'];
+
+function buildConfCard(d){
+  const fm = fieldMeta(d.field);
+  const s = confStart(d), e = parseYMD(d.end_date);
+  const today=new Date(); today.setHours(0,0,0,0);
+  const ended = isConfEnded(d);
+  let dd='', ddStyle='';
+  if(ended){ dd='종료'; ddStyle='color:#94a3b8;background:#f1f5f9'; }
+  else if(s && s<=today){ dd='진행중'; ddStyle='color:#059669;background:#ecfdf5'; }
+  else if(s){
+    const n=Math.round((s-today)/86400000);
+    dd = n===0?'D-day':'D-'+n;
+    ddStyle = n<=7?'color:#dc2626;background:#fef2f2': n<=30?'color:#ea580c;background:#fff7ed':'color:#64748b;background:#f1f5f9';
+  }
+  const rank = rankTag(d);
+  const domestic = isDomesticInfo(d);
+  const period = s ? `${s.getMonth()+1}.${s.getDate()}${e && +e!==+s ? ' – '+(e.getMonth()!==s.getMonth()? (e.getMonth()+1)+'.' : '')+e.getDate() : ''}` : '';
+  // 논문 투고 마감일 (일부 학회에만 있음)
+  const cfp = parseYMD(d.cfp_date);
+  const cfpLeft = cfp ? Math.round((cfp-today)/86400000) : null;
+  const topics = topicTags(d).slice(0,3);
+  const hasUrl = d.url && d.url!=='#';
+  return `<div class="cf-card${ended?' is-ended':''}" style="--cf-c:${fm.c};--cf-bg:${fm.bg};${hasUrl?'':'cursor:default'}" ${hasUrl?`data-url="${escHtml(d.url)}" onclick="window.open(this.dataset.url,'_blank','noopener')"`:''}>
+    <div class="cf-date">${s
+      ? `<span class="cf-date-m">${s.getMonth()+1}월</span><span class="cf-date-d">${s.getDate()}</span><span class="cf-date-w">${WEEKDAY[s.getDay()]}요일</span>`
+      : `<span class="cf-date-m">일정</span><span class="cf-date-d" style="font-size:16px">미정</span>`}</div>
+    <div class="cf-body">
+      <div class="cf-top">
+        <span class="cf-chip">${fm.emoji} ${fm.label}</span>
+        <span class="cf-where ${domestic?'kr':'intl'}">${domestic?'🇰🇷 국내':'🌏 해외'}</span>
+        ${rank?`<span class="cf-rank${/^CCF-A$|^CORE-A\*?$/i.test(rank)?' top':''}">${escHtml(rank)}</span>`:''}
+        ${dd?`<span class="cf-dday" style="${ddStyle}">${dd}</span>`:''}
+      </div>
+      <div class="cf-title">${escHtml(d.title)}</div>
+      ${d.org && d.org!==d.title?`<div class="cf-org" title="${escHtml(d.org)}">${escHtml(d.org)}</div>`:''}
+      <div class="cf-meta">
+        ${d.location?`<span>📍 ${escHtml(d.location)}</span>`:''}
+        ${period?`<span>🗓 ${period}</span>`:''}
+        ${cfpLeft!==null && cfpLeft>=0 && !ended?`<span class="cf-cfp">✍️ 논문 마감 ${cfpLeft===0?'오늘':'D-'+cfpLeft}</span>`:''}
+      </div>
+      ${topics.length?`<div class="cf-topics">${topics.map(t=>'#'+escHtml(t)).join(' ')}</div>`:''}
+    </div>
+  </div>`;
+}
+
+// 학회 목록을 '2026년 11월' 처럼 달별로 묶어서 그린다
+function renderConfMonths(container, list){
+  const groups=[]; const byKey={};
+  list.forEach(d=>{
+    const s=confStart(d);
+    const key = isConfEnded(d) ? 'ended' : s ? s.getFullYear()+'-'+s.getMonth() : 'tbd';
+    if(!byKey[key]){
+      const label = key==='ended' ? '지난 학회' : key==='tbd' ? '일정 미정' : `${s.getFullYear()}년 ${s.getMonth()+1}월`;
+      byKey[key]={label, items:[]}; groups.push(byKey[key]);
+    }
+    byKey[key].items.push(d);
+  });
+  groups.forEach(g=>{
+    const blk=document.createElement('div');
+    blk.className='cf-month-block';
+    blk.innerHTML=`<div class="cf-month"><span class="cf-month-t">${g.label}</span><span class="cf-month-n">${g.items.length}개 학회</span></div>
+      <div class="cf-grid info-grid">${g.items.map(buildConfCard).join('')}</div>`;
+    container.appendChild(blk);
+  });
+}
+
+var INFO_TOPIC = '';
+function setInfoField(f){
+  const sel=document.getElementById('info-field-filter');
+  if(sel) sel.value=f;
+  INFO_TOPIC='';
+  filterInfoSearch();
+}
+function setInfoTopic(t){ INFO_TOPIC = INFO_TOPIC===t ? '' : t; filterInfoSearch(); }
+
+function renderInfoChips(base, fieldF){
+  const fEl=document.getElementById('info-field-chips');
+  const tEl=document.getElementById('info-topic-chips');
+  if(fEl){
+    const cnt={}; base.forEach(d=>{ cnt[d.field]=(cnt[d.field]||0)+1; });
+    fEl.innerHTML = `<button class="cf-fchip${fieldF==='all'?' on':''}" onclick="setInfoField('all')">전체 <span class="n">${base.length}</span></button>`
+      + FIELD_ORDER.map(f=>{ const m=FIELD_META[f];
+        return `<button class="cf-fchip${fieldF===f?' on':''}" style="--cf-c:${m.c}" onclick="setInfoField('${f}')">${m.emoji} ${m.label} <span class="n">${cnt[f]||0}</span></button>`; }).join('');
+  }
+  if(tEl){
+    const inField = base.filter(d=>fieldF==='all'||d.field===fieldF);
+    const tc={}; inField.forEach(d=>topicTags(d).forEach(t=>{ tc[t]=(tc[t]||0)+1; }));
+    const top=Object.entries(tc).filter(([,n])=>n>=2).sort((a,b)=>b[1]-a[1]).slice(0,12).map(([t])=>t);
+    if(INFO_TOPIC && !top.includes(INFO_TOPIC)) top.unshift(INFO_TOPIC);
+    tEl.innerHTML = top.length ? `<span class="cf-tchips-label">세부 주제</span>` + top.map(t=>
+      `<button class="cf-tchip${INFO_TOPIC===t?' on':''}" data-t="${escHtml(t)}" onclick="setInfoTopic(this.dataset.t)">#${escHtml(t)}</button>`).join('') : '';
+  }
+}
+
 function renderInfoFull(){
   const el=document.getElementById('info-full-list');
   if(!el) return;
@@ -3378,18 +3627,24 @@ function renderInfoFull(){
   const typeF=activeTab?.dataset?.type||'all';
   const fieldF=document.getElementById('info-field-filter')?.value||'all';
   const regionF=document.getElementById('info-region-filter')?.value||'all';
-  document.getElementById('banner-wrap')?.classList.toggle('is-hidden', !!q||typeF!=='all'||fieldF!=='all'||regionF!=='all');
+  document.getElementById('banner-wrap')?.classList.toggle('is-hidden', !!q||typeF!=='all'||fieldF!=='all'||regionF!=='all'||!!INFO_TOPIC);
 
-  let items=INFO_DATA.filter(d=>{
+  // 분야를 빼고 걸러낸 목록 (분야 칩의 건수 계산용)
+  const base=INFO_DATA.filter(d=>{
     const matchType=typeF==='all'||d.type===typeF;
-    const matchField=fieldF==='all'||d.field===fieldF||d.field==='all';
     const matchRegion=regionF==='all'||(regionF==='kr')===isDomesticInfo(d);
-    return matchType&&matchField&&matchRegion&&matchInfoQuery(d,q);
+    return matchType&&matchRegion&&matchInfoQuery(d,q);
+  });
+  renderInfoChips(base, fieldF);
+
+  let items=base.filter(d=>{
+    const matchField=fieldF==='all'||d.field===fieldF||d.field==='all';
+    const matchTopic=!INFO_TOPIC||infoTags(d).includes(INFO_TOPIC);
+    return matchField&&matchTopic;
   }).sort((a,b)=>{
     // 종료된 학회(end_date 지남)는 맨 뒤로
-    const todayMs = Date.now();
-    const aEnded = a.type==='conf' && a.end_date && new Date(a.end_date) < todayMs;
-    const bEnded = b.type==='conf' && b.end_date && new Date(b.end_date) < todayMs;
+    const aEnded = a.type==='conf' && isConfEnded(a);
+    const bEnded = b.type==='conf' && isConfEnded(b);
     if(aEnded && !bEnded) return 1;
     if(!aEnded && bEnded) return -1;
     return (a.dday??9999)-(b.dday??9999);
@@ -3411,42 +3666,71 @@ function renderInfoFull(){
   items=items.slice(0, INFO_VISIBLE);
   el.innerHTML=`<div class="info-result-meta">검색 결과 <b>${total.toLocaleString()}</b>건${total>items.length?` 중 ${items.length}건 표시`:''}</div>`;
 
+  const renderGroup=(container, type, group)=>{
+    if(type==='conf'){ renderConfMonths(container, group); return; }
+    const grid=document.createElement('div');
+    grid.style.cssText='display:grid;grid-template-columns:repeat(2,1fr);gap:12px;';
+    grid.className='info-grid';
+    group.forEach(item=>grid.insertAdjacentHTML('beforeend', buildInfoCard(item,TC)));
+    container.appendChild(grid);
+  };
+
   if(typeF==='all'){
-    // 타입별 섹션 헤더 + 2열 그리드
-    ['conf','scholar','project','award'].forEach(type=>{
+    // 타입별 섹션 헤더 (학회는 달별로 한 번 더 묶음)
+    ['conf','scholar','project','recruit'].forEach(type=>{
       const group=items.filter(d=>d.type===type);
       if(!group.length) return;
       const c=TC[type];
-
       const sec=document.createElement('div');
       sec.style.cssText='margin-bottom:32px;';
-      sec.innerHTML=`<div style="
-        display:flex;align-items:center;gap:10px;
-        margin-bottom:14px;
-        padding-bottom:10px;
-        border-bottom:2px solid ${c.border};
-      ">
-        <span style="font-size:15px;font-weight:900;color:${c.color};">${c.label}</span>
-        <span style="font-size:12px;color:#94a3b8;font-weight:600;">${group.length}건</span>
-      </div>`;
-
-      const grid=document.createElement('div');
-      grid.style.cssText='display:grid;grid-template-columns:repeat(2,1fr);gap:12px;';
-      grid.className='info-grid';
-      group.forEach(item=>grid.insertAdjacentHTML('beforeend', buildInfoCard(item,TC)));
-      sec.appendChild(grid);
+      if(type!=='conf'){
+        sec.innerHTML=`<div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid ${c.border};">
+          <span style="font-size:15px;font-weight:900;color:${c.color};">${c.label}</span>
+          <span style="font-size:12px;color:#94a3b8;font-weight:600;">${group.length}건</span>
+        </div>`;
+      }
+      renderGroup(sec, type, group);
       el.appendChild(sec);
     });
   } else {
-    const wrap=document.createElement('div');
-    wrap.style.cssText='display:grid;grid-template-columns:repeat(2,1fr);gap:12px;';
-    wrap.className='info-grid';
-    items.forEach(item=>wrap.insertAdjacentHTML('beforeend', buildInfoCard(item,TC)));
-    el.appendChild(wrap);
+    renderGroup(el, typeF, items);
   }
   if(total>items.length){
     el.insertAdjacentHTML('beforeend', `<button class="info-more-btn" onclick="showMoreInfo()">더 보기 (${(total-items.length).toLocaleString()}건 남음)</button>`);
   }
+}
+
+// ── 홈: 다가오는 학회 ──
+var HOME_CONF_FIELD = 'all';
+function renderHomeConfs(){
+  const tilesEl=document.getElementById('home-conf-tiles');
+  const listEl=document.getElementById('home-conf-list');
+  if(!tilesEl||!listEl) return;
+  const today=new Date(); today.setHours(0,0,0,0);
+  // 아직 시작하지 않은 학회만 (진행 중인 학회는 학술정보 페이지에서 볼 수 있다)
+  const upcoming=INFO_DATA.filter(d=>d.type==='conf' && confStart(d) && confStart(d)>=today)
+    .sort((a,b)=>confStart(a)-confStart(b));
+  const cnt={}; upcoming.forEach(d=>{ cnt[d.field]=(cnt[d.field]||0)+1; });
+  const tile=(f,m,n)=>`<button class="hc-tile${HOME_CONF_FIELD===f?' on':''}" style="--cf-c:${m.c};--cf-bg:${m.bg}" onclick="setHomeConfField('${f}')">
+      <span class="hc-tile-ico">${m.emoji}</span><span class="hc-tile-label">${m.label}</span><span class="hc-tile-n"><b>${n}</b>개 예정</span></button>`;
+  tilesEl.innerHTML = tile('all',{label:'전체 분야',emoji:'🎓',c:'#0f172a',bg:'#f8fafc'},upcoming.length)
+    + FIELD_ORDER.map(f=>tile(f,FIELD_META[f],cnt[f]||0)).join('');
+  const list=upcoming.filter(d=>HOME_CONF_FIELD==='all'||d.field===HOME_CONF_FIELD).slice(0,6);
+  listEl.innerHTML = list.length ? list.map(buildConfCard).join('')
+    : '<div style="grid-column:1/-1;text-align:center;padding:36px;color:#94a3b8;">이 분야의 예정된 학회를 곧 채워 넣을게요</div>';
+  const more=document.getElementById('home-conf-more');
+  if(more){
+    const n = HOME_CONF_FIELD==='all' ? upcoming.length : (cnt[HOME_CONF_FIELD]||0);
+    more.textContent = `${HOME_CONF_FIELD==='all'?'':fieldMeta(HOME_CONF_FIELD).label+' '}학회 ${n.toLocaleString()}개 모두 보기 →`;
+  }
+}
+function setHomeConfField(f){ HOME_CONF_FIELD=f; renderHomeConfs(); }
+// 학술정보 페이지를 '학회' 탭 + 분야로 바로 연다
+function openConfList(field){
+  showPage('info'); setNavByName('info');
+  const tab=document.querySelector('#info-type-tabs [data-type="conf"]');
+  if(tab){ document.querySelectorAll('#info-type-tabs .ufb-tab').forEach(t=>t.classList.remove('active')); tab.classList.add('active'); }
+  setInfoField(field||'all');
 }
 
 
@@ -3521,6 +3805,7 @@ async function fetchInfoFromDB() {
       title: n.title, org: n.org,
       dday: dday, date: n.type === 'conf' ? (n.start_date || n.date) : n.date,
       start_date: n.start_date, end_date: n.end_date,
+      cfp_date: n.type === 'conf' ? (n.date || null) : null, // 학회의 date 컬럼 = 논문 투고 마감일
       url: n.url || '#',
       tags: Array.isArray(n.tags) ? n.tags.join(',') : (n.tags || ''),
       location: n.location || '',
@@ -3530,6 +3815,7 @@ async function fetchInfoFromDB() {
     });
   });
   renderInfoFull();
+  renderHomeConfs();
   renderInfoCards('home-info-list');
   renderInfoFeaturedBanner();
 
@@ -3588,6 +3874,7 @@ renderPosts('post-list-full');
 renderPosts('best-list-comm', 'all');
 renderInfoCards('home-info-list');
 renderInfoFull();
+renderHomeConfs();
 renderNews();
 
 // DB에서 실제 데이터 불러오기
