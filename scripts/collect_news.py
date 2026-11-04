@@ -34,15 +34,11 @@ SUMMARY_LEN = 160
 
 # (이름, RSS 주소, 연구 관련 단어가 있어야만 남길지)
 DIRECT_FEEDS = [
+    # 대덕연구개발특구 중심의 과학기술 전문 매체. 출연연·대학 연구 소식이 많다.
     ("헬로디디", "https://www.hellodd.com/rss/allArticle.xml", True),
-    ("probe1", "https://www.korea.kr/rss/pressrelease.xml", True),
-    ("probe2", "https://www.sciencetimes.co.kr/rss", True),
-    ("probe3", "https://rss.etnews.com/Section902.xml", True),
-    ("probe4", "https://www.dongascience.com/rss/news", True),
-    ("probe5", "https://www.ibric.org/bric/rss/news.do", True),
-    ("probe6", "https://www.yna.co.kr/rss/industry.xml", True),
-    ("probe7", "https://news.kaist.ac.kr/news/rss", True),
 ]
+# 참고: 2026-11 확인 결과 정책브리핑(과기정통부), 사이언스타임즈, 동아사이언스, KAIST 뉴스 RSS 는
+# 주소가 없어졌고, 전자신문·연합뉴스 분야 RSS 는 연구와 무관한 기사가 너무 많아 뺐다.
 
 # 구글 뉴스 검색 RSS: 여러 언론사의 국내 연구 성과 기사를 모은다.
 GOOGLE_QUERIES = [
