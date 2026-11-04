@@ -4,6 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My Research Calendar — 연구자를 위한 올인원 플랫폼</title>
+<meta name="description" content="학회 마감, 장학금 공모, 국가과제 공고를 한곳에서. 대학원생과 연구자를 위한 마감 캘린더와 D-day 알림, 연구자 커뮤니티 마이리서치캘린더.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="마이리서치캘린더 My Research Calendar">
+<meta property="og:title" content="마이리서치캘린더 — 연구자를 위한 마감 캘린더">
+<meta property="og:description" content="학회·장학금·국가과제 마감을 한곳에서 D-day로 확인하세요.">
+<meta property="og:url" content="https://bobohn5310-coder.github.io/Myresearch/">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary">
+<link rel="canonical" href="https://bobohn5310-coder.github.io/Myresearch/">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -2237,7 +2246,7 @@ a { text-decoration: none; color: inherit; }
         </h1>
         <p class="hero-desc">
           학회 마감, 장학금 공모, 국가과제까지 — 흩어진 학술 정보를 한 곳에서.<br>
-          34만 연구자가 함께 성장하는 커뮤니티와 함께.
+          마감은 D-day로 챙기고, 고민은 연구자 커뮤니티와 함께.
         </p>
         <div class="hero-actions">
           <button class="btn-hero-primary" onclick="openAuth('signup')">무료로 시작하기 →</button>
@@ -2245,16 +2254,16 @@ a { text-decoration: none; color: inherit; }
         </div>
         <div class="hero-stats">
           <div class="hero-stat-item">
-            <div class="hero-stat-value">34만+</div>
-            <div class="hero-stat-label">잠재 연구자</div>
-          </div>
-          <div class="hero-stat-item">
-            <div class="hero-stat-value">1,200+</div>
+            <div class="hero-stat-value" id="hero-stat-total">—</div>
             <div class="hero-stat-label">등록 학술정보</div>
           </div>
           <div class="hero-stat-item">
-            <div class="hero-stat-value">98%</div>
-            <div class="hero-stat-label">사용자 만족도</div>
+            <div class="hero-stat-value" id="hero-stat-upcoming">—</div>
+            <div class="hero-stat-label">모집·마감 예정</div>
+          </div>
+          <div class="hero-stat-item">
+            <div class="hero-stat-value" id="hero-stat-month">—</div>
+            <div class="hero-stat-label">30일 내 마감</div>
           </div>
         </div>
       </div>
@@ -2265,25 +2274,8 @@ a { text-decoration: none; color: inherit; }
             <span class="hero-card-title">📌 마감 임박 학술정보</span>
             <span class="live-dot">실시간</span>
           </div>
-          <div class="mini-info-item">
-            <span class="mini-badge mb-conf">학회</span>
-            <span class="mini-title">한국반도체학술대회 KSIA 2025</span>
-            <span class="mini-dday dday-red">D-7</span>
-          </div>
-          <div class="mini-info-item">
-            <span class="mini-badge mb-scholar">장학금</span>
-            <span class="mini-title">한국연구재단 박사과정생 장려금</span>
-            <span class="mini-dday dday-amber">D-31</span>
-          </div>
-          <div class="mini-info-item">
-            <span class="mini-badge mb-conf">학회</span>
-            <span class="mini-title">IEEE IEDM 2025</span>
-            <span class="mini-dday dday-amber">D-45</span>
-          </div>
-          <div class="mini-info-item">
-            <span class="mini-badge mb-project">국가과제</span>
-            <span class="mini-title">AI 반도체 공정 최적화 연구</span>
-            <span class="mini-dday dday-green">D-60</span>
+          <div id="hero-deadline-list">
+            <div class="mini-info-item"><span class="mini-title" style="color:#94a3b8;">마감 정보를 불러오는 중…</span></div>
           </div>
         </div>
       </div>
@@ -2454,7 +2446,7 @@ a { text-decoration: none; color: inherit; }
         </div>
       </div>
       <div class="footer-bottom">
-        <div class="footer-copy">© 2025 My Research Calendar. All rights reserved.</div>
+        <div class="footer-copy">© 2026 My Research Calendar. All rights reserved.</div>
         <div class="footer-badges">
           <span class="footer-badge">🇰🇷 Made in Korea</span>
         </div>
@@ -3549,6 +3541,45 @@ async function fetchInfoFromDB() {
     const d7 = INFO_DATA.filter(d => d.dday !== null && d.dday !== undefined && d.dday >= 0 && d.dday <= 7).length;
     deadlineEl.textContent = d7 || '—';
   }
+  updateHomeStats();
+}
+
+function escHtml(str){
+  return String(str ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+// 홈 화면 수치와 마감 임박 카드를 실제 학술정보 데이터로 채움
+function updateHomeStats() {
+  const upcoming = INFO_DATA.filter(d => d.dday !== null && d.dday !== undefined && d.dday >= 0);
+  const pad = n => String(n).padStart(2, '0');
+  const set = (id, v) => { const el = document.getElementById(id); if(el) el.textContent = v; };
+
+  set('hero-stat-total', INFO_DATA.length ? INFO_DATA.length.toLocaleString() : '—');
+  set('hero-stat-upcoming', upcoming.length ? upcoming.length.toLocaleString() : '—');
+  set('hero-stat-month', upcoming.filter(d => d.dday <= 30).length || '—');
+
+  set('stat-conferences',  pad(INFO_DATA.filter(d => d.type === 'conf').length));
+  set('stat-scholarships', pad(upcoming.filter(d => d.type === 'scholar').length));
+  set('stat-projects',     pad(upcoming.filter(d => d.type === 'project').length));
+  set('stat-deadline',     pad(upcoming.filter(d => d.dday <= 7).length));
+
+  const list = document.getElementById('hero-deadline-list');
+  if(!list) return;
+  const BADGE = { conf:['mb-conf','학회'], scholar:['mb-scholar','장학금'], project:['mb-project','연구과제'], recruit:['mb-project','모집'] };
+  const top = upcoming.slice().sort((a,b) => a.dday - b.dday).slice(0, 4);
+  if(!top.length){
+    list.innerHTML = '<div class="mini-info-item"><span class="mini-title" style="color:#94a3b8;">곧 새로운 마감 정보가 등록됩니다</span></div>';
+    return;
+  }
+  list.innerHTML = top.map(d => {
+    const [cls, label] = BADGE[d.type] || ['mb-conf','기타'];
+    const ddCls = d.dday <= 7 ? 'dday-red' : d.dday <= 30 ? 'dday-amber' : 'dday-green';
+    return `<div class="mini-info-item">
+            <span class="mini-badge ${cls}">${label}</span>
+            <span class="mini-title">${escHtml(d.title)}</span>
+            <span class="mini-dday ${ddCls}">${d.dday === 0 ? 'D-day' : 'D-' + d.dday}</span>
+          </div>`;
+  }).join('');
 }
 
 // Init
@@ -3590,33 +3621,6 @@ sbClient.channel('realtime-banners')
 
 // 로그인 상태 초기화
 updateNavForAuth();
-loadStatsBand();
-
-async function loadStatsBand() {
-  try {
-    const today = new Date().toISOString().slice(0, 10);
-    const weekLater = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
-
-    const [conf, schol, proj, dead] = await Promise.all([
-      sbClient.from('academic_info').select('id', { count: 'exact', head: true }).eq('type', '학회'),
-      sbClient.from('academic_info').select('id', { count: 'exact', head: true }).eq('type', '장학금'),
-      sbClient.from('academic_info').select('id', { count: 'exact', head: true }).eq('type', '연구과제'),
-      sbClient.from('academic_info').select('id', { count: 'exact', head: true }).gte('deadline', today).lte('deadline', weekLater),
-    ]);
-
-    const fmt = n => String(n || 0).padStart(2, '0');
-    const el = id => document.getElementById(id);
-
-    if(el('stat-conferences'))  el('stat-conferences').textContent  = fmt(conf.count);
-    if(el('stat-scholarships')) el('stat-scholarships').textContent = fmt(schol.count);
-    if(el('stat-projects'))     el('stat-projects').textContent     = fmt(proj.count);
-    if(el('stat-deadline'))     el('stat-deadline').textContent     = fmt(dead.count);
-  } catch(e) {
-    // 오류 시 fallback 값 표시
-    ['stat-conferences','stat-scholarships','stat-projects','stat-deadline']
-      .forEach(id => { const el = document.getElementById(id); if(el) el.textContent = '00'; });
-  }
-}
 
 function switchCommTab(el, cat) {
   document.querySelectorAll('.comm-chip').forEach(t => t.classList.remove('active'));
