@@ -692,11 +692,17 @@ let editingInfoId = null;
 // ── 초기화 ──
 window.onload = async () => {
   const { data: { session } } = await sbClient.auth.getSession();
-  if(session?.user) {
+  if(session?.user && await isAdmin()) {
     adminUser = session.user;
     enterAdmin();
   }
 };
+
+// DB의 public.admins 에 등록된 계정만 관리자. (쓰기 권한도 DB 규칙에서 같은 기준으로 막는다)
+async function isAdmin() {
+  const { data, error } = await sbClient.rpc('is_admin');
+  return !error && data === true;
+}
 
 // ── 로그인 ──
 async function doAdminLogin() {
@@ -711,6 +717,11 @@ async function doAdminLogin() {
   const { data, error } = await sbClient.auth.signInWithPassword({ email, password });
 
   if(error) {
+    errEl.style.display = 'block';
+    btn.textContent = '로그인'; btn.disabled = false;
+  } else if(!(await isAdmin())) {
+    await sbClient.auth.signOut();
+    errEl.textContent = '관리자 권한이 없는 계정입니다.';
     errEl.style.display = 'block';
     btn.textContent = '로그인'; btn.disabled = false;
   } else {
