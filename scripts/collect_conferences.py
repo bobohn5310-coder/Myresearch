@@ -262,12 +262,16 @@ def collect_wikicfp(categories=WIKICFP_CATEGORIES, delay=3.0):
             print(f"[wikicfp] {cat} 실패: {e}", file=sys.stderr)
             continue
         n = 0
-        for item in root.iter("item"):
+        items = list(root.iter("item"))
+        for item in items:
             row = parse_wikicfp_item(item, field, tag)
             if row:
                 rows.append(row)
                 n += 1
-        print(f"[wikicfp] {cat}: {n}건")
+        print(f"[wikicfp] {cat}: {n}건 (피드 항목 {len(items)}개)")
+        if items and not n:
+            # 형식이 예상과 다를 때 원인을 찾을 수 있게 첫 항목을 남긴다
+            print("[wikicfp] 첫 항목 예시:", repr(ET.tostring(items[0], encoding="unicode")[:800]))
         time.sleep(delay)  # WikiCFP 서버 부담을 줄이려 요청 간격을 둔다
     return rows
 
