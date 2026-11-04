@@ -1,0 +1,46 @@
+name: 학회 정보 자동 수집
+
+on:
+  schedule:
+    - cron: "0 18 * * *"   # 매일 한국시간 새벽 3시
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "DB에 쓰지 않고 수집 결과만 확인"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: collect-conferences
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pyyaml==6.0.2
+      - name: 학회 수집 후 Supabase 반영
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL || 'https://ryikaxrcgfrgaczmmgnh.supabase.co' }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            python scripts/collect_conferences.py --dry-run --out conferences.json
+          else
+            python scripts/collect_conferences.py --out conferences.json
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: conferences
+          path: conferences.json
+          if-no-files-found: ignore
+          retention-days: 14
