@@ -329,7 +329,6 @@ METALGRASS_SITES = [
     ("https://www.oled-info.com", "eng", ["디스플레이"]),
     ("https://www.microled-info.com", "eng", ["디스플레이"]),
     ("https://www.perovskite-info.com", "energy", ["재료", "신재생에너지"]),
-    ("https://www.quantumdots-info.com", "eng", ["디스플레이", "나노"]),
 ]
 DATE_RE = re.compile(r"(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?\s+\d{1,2},?\s+(?:19|20)\d\d")
 
@@ -342,16 +341,17 @@ def parse_metalgrass(html_text, base, field, tags):
         if not m or "Event Duration" not in b and "Where" not in b:
             continue
         href, title = m.group(1), clean(m.group(2), 200)
-        text = clean(b, 3000)
-        dur = re.search(r"Event Duration:?\s*(.*?)(?:Where:|$)", text)
-        dates = DATE_RE.findall(dur.group(1) if dur else text)
-        if not dates:
+        iso = re.findall(r'<time[^>]+datetime="(\d{4}-\d{2}-\d{2})', b)
+        if not iso:
             continue
-        start, end = parse_one_date(dates[0]), parse_one_date(dates[-1])
-        if not start or not end or end < TODAY:
+        try:
+            start, end = dt.date.fromisoformat(iso[0]), dt.date.fromisoformat(iso[-1])
+        except ValueError:
             continue
-        where = re.search(r"Where:?(.*?)(?:<p|</div|<a |<h|Read more|$)", b, re.S)
-        where = clean(re.sub(r"^\s*</[^>]+>", "", where.group(1)), 120).lstrip(": ") if where else ""
+        if end < TODAY:
+            continue
+        where = re.search(r"Where:(.*?)</span>", b, re.S)
+        where = clean(where.group(1), 120).strip(" :") if where else ""
         url = href if href.startswith("http") else base + href
         rows.append({
             "type": "conf", "field": field, "title": title, "org": title,
