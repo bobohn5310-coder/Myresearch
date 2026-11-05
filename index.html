@@ -3352,7 +3352,7 @@ a { text-decoration: none; color: inherit; }
   <div class="news-detail-wrap">
 
     <!-- 뒤로가기 -->
-    <button onclick="showPage('news');setNavByName('news')" class="news-detail-back">
+    <button onclick="if(history.state&&history.state.from==='news'){history.back()}else{showPage('news');setNavByName('news')}" class="news-detail-back">
       ← 국내연구소식으로 돌아가기
     </button>
 
@@ -3590,11 +3590,16 @@ function setNavByName(name){
   const links=document.querySelectorAll('.nav-link');
   if(map[name]!==undefined && links[map[name]]) links[map[name]].classList.add('active');
 }
-function showPage(name){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+function showPage(name, fromHistory){
   const pg = document.getElementById('page-'+name);
-  if(pg) pg.classList.add('active');
-  window.scrollTo(0,0);
+  if(!pg) return;
+  const changed = name !== _navCur;
+  // 뒤로가기로 돌아올 때를 위해 지금 보던 위치를 기록해 두고, 새 화면을 브라우저 기록에 남긴다
+  if(!fromHistory && changed) navPush({ page: name, news: name==='news-detail' ? _newsIdx : null, from: _navCur });
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  pg.classList.add('active');
+  _navCur = name;
+  if(!fromHistory) window.scrollTo(0,0);
 }
 
 function setNav(el){
@@ -4413,9 +4418,10 @@ function openConfList(field){
 }
 
 
-function openNews(idx){
+function openNews(idx, fromHistory){
   const n=NEWS[idx];
   if(!n) return;
+  _newsIdx = idx;
 
   // 이미지 유무에 따라 2컬럼 / 1컬럼 전환
   const body = document.getElementById('news-detail-body');
@@ -4448,8 +4454,8 @@ function openNews(idx){
     else { linkEl.style.display='none'; }
   }
 
-  showPage('news-detail');
-  window.scrollTo(0,0);
+  showPage('news-detail', fromHistory);
+  if(!fromHistory) window.scrollTo(0,0);
 }
 
 
@@ -5383,13 +5389,12 @@ async function openPost(id){
   cmPaintLike(p);
   document.getElementById('comment-text').value='';
   document.getElementById('post-modal').style.display='flex';
-  try{ history.replaceState(null,'','#post-'+p.id); }catch(e){}
+  navOverlayOpened({ post: p.id }, '#post-'+p.id);
   loadComments(p.id);
 }
 function closePostModal(){
   document.getElementById('post-modal').style.display='none';
   _currentPostId=null;
-  try{ if(location.hash.startsWith('#post-')) history.replaceState(null,'',location.pathname+location.search); }catch(e){}
 }
 function cmPaintLike(p){
   const b=document.getElementById('post-like-btn'); const on=_cmLiked.has(p.id);
@@ -5691,6 +5696,100 @@ async function clvSubmitReport(){
   msg.style.color = '#15803d'; msg.textContent = '접수됐어요. 이 연구실은 바로 가려졌고, 운영자가 확인할게요.';
   setTimeout(() => { clvClose('clv-report-modal'); clvLoad(true); }, 1400);
 }
+
+// ══════════════════════════════════════════
+// ── 뒤로가기: 화면 이동과 창 열기를 브라우저 기록에 남긴다 ──
+// 홈 → 학회정보 → 뒤로 누르면 홈으로, 글·메뉴·로그인 창이 열려 있으면 뒤로 누를 때 창만 닫힌다
+// ══════════════════════════════════════════
+var _navCur = 'home', _newsIdx = null, _navSilent = false, _navClosing = false;
+try { history.scrollRestoration = 'manual'; } catch(e) {}
+
+function navUrl(page){
+  return page === 'home' || !page ? location.pathname + location.search : '#' + page;
+}
+function navPush(st){
+  try {
+    const cur = history.state || { page: _navCur };
+    if(cur.ov){
+      // 메뉴 같은 창에서 다른 화면으로 넘어가면 그 창 기록 자리에 새 화면을 넣는다
+      history.replaceState(st, '', navUrl(st.page));
+    } else {
+      history.replaceState(Object.assign({}, cur, { y: window.scrollY }), '', location.href);
+      history.pushState(st, '', navUrl(st.page));
+    }
+  } catch(e) {}
+}
+const NAV_OVERLAYS = [
+  { isOpen: () => document.getElementById('nav-drawer')?.classList.contains('open'), close: () => closeDrawer() },
+  { isOpen: () => document.getElementById('auth-modal')?.style.display === 'flex', close: () => closeAuth() },
+  { isOpen: () => document.getElementById('write-modal')?.style.display === 'flex', close: () => closeWriteModal() },
+  { isOpen: () => document.getElementById('post-modal')?.style.display === 'flex', close: () => closePostModal() },
+  { isOpen: () => document.getElementById('clv-vote-modal')?.classList.contains('open'), close: () => clvClose('clv-vote-modal') },
+  { isOpen: () => document.getElementById('clv-report-modal')?.classList.contains('open'), close: () => clvClose('clv-report-modal') },
+];
+function navAnyOverlay(){ return NAV_OVERLAYS.some(o => o.isOpen()); }
+function navOverlayOpened(extra, url){
+  try {
+    const cur = history.state || { page: _navCur };
+    if(cur.ov){
+      if(extra) history.replaceState(Object.assign({}, cur, extra), '', url || location.href);
+      return;
+    }
+    history.replaceState(Object.assign({}, cur, { y: window.scrollY }), '', location.href);
+    history.pushState(Object.assign({}, cur, { ov: 1 }, extra || {}), '', url || location.href);
+  } catch(e) {}
+}
+function navOverlayClosed(){
+  if(_navClosing) return;
+  try {
+    if(history.state && history.state.ov && !navAnyOverlay()){ _navSilent = true; history.back(); }
+  } catch(e) {}
+}
+// 기존 창 열기/닫기 함수에 기록 남기기를 덧붙인다
+(function(){
+  const wrapOpen = name => { const f = window[name]; if(typeof f !== 'function') return;
+    window[name] = function(){ const r = f.apply(this, arguments);
+      Promise.resolve(r).then(() => { if(navAnyOverlay()) navOverlayOpened(); }); return r; }; };
+  const wrapClose = name => { const f = window[name]; if(typeof f !== 'function') return;
+    window[name] = function(){ const r = f.apply(this, arguments); navOverlayClosed(); return r; }; };
+  ['openDrawer', 'openAuth', 'cmOpenWrite', 'clvShow'].forEach(wrapOpen);
+  ['closeDrawer', 'closeAuth', 'closeWriteModal', 'closePostModal', 'clvClose'].forEach(wrapClose);
+})();
+
+function navFromHash(){
+  const h = location.hash.replace('#', '');
+  if(h.startsWith('post-')) return { page: 'community' };
+  if(h === 'news-detail') return { page: 'news' };
+  return { page: ['community', 'info', 'news', 'clover'].includes(h) ? h : 'home' };
+}
+function navRender(st){
+  let page = st.page || 'home';
+  if(page === 'news-detail'){
+    if(st.news != null && NEWS[st.news]){ _newsIdx = st.news; openNews(st.news, true); }
+    else page = 'news';
+  }
+  showPage(page, true);
+  try { setNavByName(page); } catch(e) {}
+  document.querySelectorAll('.nav-drawer-link').forEach(n => n.classList.toggle('active', (n.getAttribute('onclick') || '').includes("showPage('" + page + "')")));
+  if(page === 'clover' && typeof clvLoad === 'function') clvLoad();
+  window.scrollTo(0, st.y || 0);
+}
+window.addEventListener('popstate', e => {
+  if(_navSilent){ _navSilent = false; return; }
+  const st = e.state || navFromHash();
+  // 열려 있던 창은 닫기만 한다 (닫으면서 또 뒤로 가지 않도록)
+  _navClosing = true;
+  NAV_OVERLAYS.forEach(o => { if(o.isOpen()) o.close(); });
+  _navClosing = false;
+  if(st.ov){ try { const c = Object.assign({}, st); delete c.ov; delete c.post; history.replaceState(c, '', navUrl(c.page)); } catch(e) {} }
+  navRender(st);
+});
+// 주소에 #info 처럼 화면 이름이 있으면 그 화면으로 시작
+(function(){
+  const st = navFromHash();
+  try { history.replaceState(st, '', location.hash.startsWith('#post-') ? navUrl('community') : navUrl(st.page)); } catch(e) {}
+  if(st.page !== 'home') navRender(st);
+})();
 </script>
 </body>
 </html>
