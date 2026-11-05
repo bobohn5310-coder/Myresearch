@@ -296,6 +296,18 @@ def collect_wikicfp(categories=WIKICFP_CATEGORIES, delay=3.0):
 WIKICFP_LINK_RE = re.compile(r'Link:\s*(?:</[^>]+>\s*)*<a[^>]+href="([^"]+)"', re.I)
 
 
+def previous_rows(path, source):
+    """지난번 수집 결과에서 아직 끝나지 않은 학회만 다시 쓴다 (소스 서버가 잠깐 멈췄을 때 대비)."""
+    if not path or not os.path.exists(path):
+        return []
+    try:
+        old = json.load(open(path, encoding="utf-8"))
+    except (OSError, ValueError):
+        return []
+    today = TODAY.isoformat()
+    return [r for r in old if r.get("source") == source and (r.get("end_date") or "") >= today]
+
+
 def resolve_official_links(rows, cache_path=None, delay=1.5, limit=400):
     """WikiCFP 링크 대신 학회 공식 홈페이지 주소를 쓴다.
     WikiCFP 상세 페이지의 'Link:' 항목에서 공식 주소를 읽고, 지난번 결과(data/conferences.json)에
@@ -309,21 +321,23 @@ def resolve_official_links(rows, cache_path=None, delay=1.5, limit=400):
                     cache[r.get("external_id")] = u
         except (OSError, ValueError):
             pass
-    fetched = found = 0
+    fetched = found = fails = 0
     for r in rows:
         if r.get("source") != "wikicfp" or "wikicfp.com" not in (r.get("url") or ""):
             continue
         cfp_url = r["url"]
         r["url"] = cache.get(r["external_id"], "")
-        if r["url"] or fetched >= limit:
+        if r["url"] or fetched >= limit or fails >= 5:
             continue
         fetched += 1
         try:
             page = http_get(cfp_url).decode("utf-8", "replace")
         except Exception as e:
             print(f"[wikicfp-link] {cfp_url} 실패: {e}", file=sys.stderr)
+            fails += 1  # WikiCFP가 응답하지 않으면 몇 번 뒤에 그만둔다 (다음 날 다시 시도)
             time.sleep(delay)
             continue
+        fails = 0
         m = WIKICFP_LINK_RE.search(page)
         u = safe_url(html.unescape(m.group(1))) if m else ""
         if u and "wikicfp.com" not in u:
@@ -510,7 +524,11 @@ def main():
 
     rows = collect_ccfddl(args.ccfddl_dir) + collect_curated()
     if not args.skip_wikicfp:
-        rows += collect_wikicfp()
+        wiki = collect_wikicfp()
+        if not wiki:
+            wiki = previous_rows(args.out, "wikicfp")
+            print(f"[wikicfp] 이번에는 받지 못해 지난 결과 {len(wiki)}건을 그대로 씁니다")
+        rows += wiki
         rows += collect_metalgrass()
     rows = [add_topic_tags(r) for r in dedupe(rows)]
     if not args.skip_wikicfp:
