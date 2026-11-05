@@ -2428,6 +2428,8 @@ a { text-decoration: none; color: inherit; }
 .hp-toc-label a:hover { color: #1f1f1f; text-decoration: underline; }
 .hp-item { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 6px; padding: 12px 0; border-bottom: 1px solid #ebe7df; text-decoration: none; color: inherit; }
 .hp-item:hover .hp-t { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.hp-item.has-img { grid-template-columns: 22px minmax(0, 1fr) 112px; gap: 6px 14px; }
+.hp-img { width: 112px; height: 84px; object-fit: cover; display: block; background: #ece7dd; border: 1px solid #e3ddd1; }
 .hp-n { font-family: Georgia, serif; font-size: 13px; color: #a39a8b; padding-top: 2px; }
 .hp-t { font-family: Georgia, 'Times New Roman', serif; font-size: 15.5px; line-height: 1.4; color: #1f1f1f; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .hp-s { font-size: 12.5px; color: #6b6458; line-height: 1.5; margin-top: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
@@ -2447,6 +2449,8 @@ a { text-decoration: none; color: inherit; }
   .hp-cover.type .t-meta { font-size: 8.5px; }
   .hp-t { font-size: 14.5px; }
   .hp-cover-cap span { display: none; }
+  .hp-item.has-img { grid-template-columns: 18px minmax(0, 1fr) 72px; gap: 4px 10px; }
+  .hp-img { width: 72px; height: 72px; }
 }
 
 @media (max-width: 900px) {
@@ -4445,13 +4449,14 @@ function renderHomePapers(){
       ? `<img class="hp-cover" src="${escHtml(cover)}" alt="${J.name} 이번 호 표지" loading="lazy" referrerpolicy="no-referrer" onerror="this.outerHTML=this.dataset.fb" data-fb="${escHtml(typeCover)}">`
       : typeCover;
     const items = list.slice(0, PAPER_SHOW[J.name]).map((p, i) => `
-      <a class="hp-item" href="${escHtml(safeUrl(p.url))}" target="_blank" rel="noopener noreferrer">
+      <a class="hp-item${safeUrl(p.image) ? ' has-img' : ''}" href="${escHtml(safeUrl(p.url))}" target="_blank" rel="noopener noreferrer">
         <div class="hp-n">${i + 1}</div>
         <div>
           <div class="hp-t">${escHtml(p.title)}</div>
           ${p.summary ? `<div class="hp-s">${escHtml(p.summary)}</div>` : ''}
           <div class="hp-m"><em>${escHtml(p.tag || '')}</em>${p.tag ? ' · ' : ''}${escHtml(fmtPaperDate(p.date))}</div>
         </div>
+        ${safeUrl(p.image) ? `<img class="hp-img" src="${escHtml(safeUrl(p.image))}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.remove('has-img');this.remove()">` : ''}
       </a>`).join('');
     return `<div class="hp-journal-col">
       <a class="hp-cover-wrap" href="${escHtml(home)}" target="_blank" rel="noopener noreferrer">
@@ -4467,8 +4472,8 @@ function renderHomePapers(){
   }).join('');
   // 실제 표지 그림을 보여줄 때만 출처를 밝힌다
   const note = document.getElementById('home-papers-note');
-  if(note && PAPER_JOURNALS.some(J => safeUrl((PAPER_ISSUES[J.name]||{}).cover)))
-    note.textContent = '제목·게재일·짧은 소개만 보여드려요. 논문 제목을 누르면 학술지 원문 페이지로 이동해요. 표지 © Springer Nature';
+  if(note && (PAPERS.some(p => p.image) || PAPER_JOURNALS.some(J => safeUrl((PAPER_ISSUES[J.name]||{}).cover))))
+    note.textContent = '제목·게재일·짧은 소개만 보여드려요. 논문 제목을 누르면 학술지 원문 페이지로 이동해요. 그림은 학술지가 링크 미리보기용으로 공개한 대표 그림이며 저작권은 © Springer Nature 에 있어요.';
 }
 
 function renderHomeHero(){
