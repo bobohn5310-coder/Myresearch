@@ -1,0 +1,18 @@
+name: (임시) 실제 홈페이지 사진
+on:
+  push:
+    branches: [claude/project-thread-6m3ufh]
+    paths: [.github/workflows/preview-live.yml]
+permissions:
+  contents: write
+jobs:
+  shot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm i playwright@1.48.2 && npx playwright install --with-deps chromium
+      - run: sleep 45 && mkdir -p preview-shots && node .github/preview/live.js
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add preview-shots && git commit -m "임시 실제 홈페이지 사진" && git push
