@@ -151,9 +151,51 @@ def first(d, *names):
     return ""
 
 
-def parse_feed(raw):
+CHANNEL_INFO = {}
+# 저널별 '이번 호' 정보. 표지 그림은 학술지가 공개한 주소만 적어 두고(링크), 파일을 복사하지 않는다.
+ISSUE = {
+    "Nature": {"url": "https://www.nature.com/nature/current-issue"},
+    "Science": {"url": "https://www.science.org/toc/science/current"},
+}   # 피드 주소 -> 채널 정보 (표지 그림 주소 등)
+
+
+def parse_feed(raw, url=""):
     root = ET.fromstring(raw)
+    # 채널(피드 전체) 정보: 표지로 쓸 그림 주소가 들어 있는 경우가 있다
+    info = {}
+    for ch in root.iter():
+        if local(ch.tag) in ("channel", "feed"):
+            for c in ch:
+                n = local(c.tag)
+                if n in ("item", "entry"):
+                    continue
+                if n == "image":
+                    for g in c:
+                        if local(g.tag) == "url" and g.text:
+                            info["image"] = g.text.strip()
+                elif c.text and c.text.strip():
+                    info.setdefault(n, c.text.strip())
+            break
+    for e in root.iter():
+        if local(e.tag) == "image" and e.get("{http://www.w3.org/1999/02/22-rdf-syntax-ns#}about"):
+            info.setdefault("image", e.get("{http://www.w3.org/1999/02/22-rdf-syntax-ns#}about"))
+    CHANNEL_INFO[url] = info
+    print(f"  채널 정보 {url}: {json.dumps(info, ensure_ascii=False)[:400]}", file=sys.stderr)
     return [children(e) for e in root.iter() if local(e.tag) in ("item", "entry")]
+
+
+def og_image(page_url):
+    """학술지 '이번 호' 페이지가 공유용으로 공개하는 대표 그림(표지) 주소를 읽는다. 그림 자체는 받지 않는다."""
+    try:
+        page = http_get(page_url, accept="text/html").decode("utf-8", "replace")
+    except Exception as e:
+        print(f"[표지] {page_url} 실패: {e}", file=sys.stderr)
+        return ""
+    m = (re.search(r'<meta[^>]+property=["\']og:image["\'][^>]+content=["\']([^"\']+)', page)
+         or re.search(r'<meta[^>]+content=["\']([^"\']+)["\'][^>]+property=["\']og:image', page))
+    url = safe_url(html.unescape(m.group(1))) if m else ""
+    print(f"[표지] {page_url} -> {url or '없음'}", file=sys.stderr)
+    return url
 
 
 def classify(text):
@@ -206,7 +248,7 @@ def collect_nature():
     rows = []
     for url in NATURE_RSS:
         try:
-            items = parse_feed(http_get(url))
+            items = parse_feed(http_get(url), url)
         except Exception as e:
             print(f"[Nature RSS] 실패: {e}", file=sys.stderr)
             continue
@@ -218,6 +260,13 @@ def collect_nature():
             if not m:
                 continue
             doi = "10.1038/" + m.group(1)
+            if "current_issue" in url:
+                vol, num = first(it, "volume"), first(it, "number")
+                if vol and num:
+                    ISSUE["Nature"].update(volume=vol, issue=num)
+                    d = parse_date(first(it, "coverDate", "date"))
+                    if d and d.isoformat() > ISSUE["Nature"].get("date", ""):
+                        ISSUE["Nature"]["date"] = d.isoformat()
             row = make_row("Nature", first(it, "title"), "https://www.nature.com/articles/" + m.group(1),
                            first(it, "encoded", "description", "summary"),
                            parse_date(first(it, "date", "pubDate", "published", "updated")), doi)
@@ -275,7 +324,7 @@ def collect_science_rss():
     rows = []
     for url in SCIENCE_RSS:
         try:
-            items = parse_feed(http_get(url))
+            items = parse_feed(http_get(url), url)
         except Exception as e:
             print(f"[Science RSS] 실패: {e}", file=sys.stderr)
             continue
@@ -286,6 +335,13 @@ def collect_science_rss():
             if not m or not science_is_research(it):
                 continue
             doi = m.group(1)
+            if "type=etoc" in url:
+                cm = re.search(r"Volume\s+(\d+),\s*Issue\s+(\d+)", first(it, "description", "encoded"))
+                if cm:
+                    ISSUE["Science"].update(volume=cm.group(1), issue=cm.group(2))
+                    d = parse_date(first(it, "date", "pubDate"))
+                    if d and d.isoformat() > ISSUE["Science"].get("date", ""):
+                        ISSUE["Science"]["date"] = d.isoformat()
             row = make_row("Science", first(it, "title"), "https://www.science.org/doi/" + doi,
                            first(it, "description", "encoded", "summary"),
                            parse_date(first(it, "date", "pubDate", "published", "updated", "coverDate")), doi)
@@ -327,13 +383,19 @@ def main():
                                    lambda d: d.startswith("10.1126/science."))
     science = finish(science)
 
+    # 표지: 이번 호 페이지의 공유용 그림 → 없으면 RSS 채널 그림(로고일 수 있어 표지로는 쓰지 않음)
+    for j, info in ISSUE.items():
+        info["cover"] = og_image(info["url"])
+        time.sleep(1)
+    print("이번 호 정보", json.dumps(ISSUE, ensure_ascii=False), file=sys.stderr)
+
     rows = sorted(nature + science, key=lambda r: r["date"], reverse=True)
     print(f"총 {len(rows)}건 (Nature {len(nature)}, Science {len(science)})", file=sys.stderr)
     if len(rows) < args.min:
         print("모인 논문이 너무 적어 기존 파일을 그대로 둡니다.", file=sys.stderr)
         sys.exit(1)
     with open(args.out, "w", encoding="utf-8") as f:
-        json.dump({"updated": NOW.isoformat(timespec="minutes"), "papers": rows},
+        json.dump({"updated": NOW.isoformat(timespec="minutes"), "issues": ISSUE, "papers": rows},
                   f, ensure_ascii=False, indent=1)
         f.write("\n")
 
