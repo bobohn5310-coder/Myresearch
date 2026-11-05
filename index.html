@@ -3976,7 +3976,7 @@ async function fetchNewsFromDB() {
       id: n.id, org: n.org, field: n.field, tag: n.tag || '',
       title: n.title, date: n.date,
       content: n.content || '',
-      url: n.url || '#',
+      url: infoLink(n),
       image_url: n.image_url || '',
       is_featured: n.is_featured || false
     });
@@ -4010,6 +4010,18 @@ function matchInfoQuery(d, q){
   return q.split(/\s+/).filter(Boolean).every(w => hay.includes(w));
 }
 
+// 학회 링크: WikiCFP로는 보내지 않는다. 공식 주소가 없으면 학회 이름으로 검색한 결과를 연다.
+function infoLink(n){
+  const u = n.url || '';
+  if(u && u !== '#' && !/wikicfp\.com/i.test(u)) return u;
+  if(n.type === 'conf' && n.title){
+    const y = (n.start_date || '').slice(0,4);
+    let q = n.org || n.title;
+    if(y && !q.includes(y)) q += ' ' + y;
+    return 'https://www.google.com/search?q=' + encodeURIComponent(q);
+  }
+  return '#';
+}
 // ── 분야 정보 (DB의 field 값 기준) ──
 const FIELD_META = {
   cs:      { label:'AI·컴퓨터',     emoji:'🤖', c:'#7c3aed', bg:'#f5f3ff' },
@@ -4494,7 +4506,7 @@ async function fetchInfoFromDB() {
       dday: dday, date: n.type === 'conf' ? (n.start_date || n.date) : n.date,
       start_date: n.start_date, end_date: n.end_date,
       cfp_date: n.type === 'conf' ? (n.date || null) : null, // 학회의 date 컬럼 = 논문 투고 마감일
-      url: n.url || '#',
+      url: infoLink(n),
       tags: Array.isArray(n.tags) ? n.tags.join(',') : (n.tags || ''),
       location: n.location || '',
       content: n.content || '',
