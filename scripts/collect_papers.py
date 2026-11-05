@@ -209,20 +209,6 @@ def nature_issue():
     print(f"[Nature 이번 호] {final} -> {json.dumps(info, ensure_ascii=False)}", file=sys.stderr)
 
 
-def science_cover():
-    """Science 목차 RSS 가 함께 알려주는 표지 그림 주소를 쓴다 (그림은 링크만)."""
-    for url, ch in CHANNEL_INFO.items():
-        img = safe_url(ch.get("image", ""))
-        if "type=etoc" in url and "science.org" in img:
-            ISSUE["Science"]["cover"] = img
-            try:
-                req = urllib.request.Request(img, method="HEAD", headers={"User-Agent": UA})
-                with urllib.request.urlopen(req, timeout=20) as r:
-                    print(f"[Science 표지] {img} {r.status} {r.headers.get('Content-Type')} {r.headers.get('Content-Length')}", file=sys.stderr)
-            except Exception as e:
-                print(f"[Science 표지] 확인 실패: {e}", file=sys.stderr)
-
-
 def classify(text):
     # 단어 앞부분 일치로 찾는다 (예: 'fusion' 이 'diffusion' 에 걸리지 않게).
     # 끝에 공백이 있는 단어('ai ')는 낱말 전체가 같아야 한다.
@@ -401,9 +387,9 @@ def main():
                                    lambda d: d.startswith("10.1126/science."))
     science = finish(science)
 
-    # 이번 호 정보와 표지 그림 주소 (없으면 화면에서 직접 그린 표지를 쓴다)
+    # 이번 호 정보와 표지 그림 주소. Science 는 표지 그림 자동 수집을 막고 있어 권·호만 쓴다.
+    # (표지 그림이 없으면 화면에서 직접 그린 표지를 쓴다)
     nature_issue()
-    science_cover()
     print("이번 호 정보", json.dumps(ISSUE, ensure_ascii=False), file=sys.stderr)
 
     rows = sorted(nature + science, key=lambda r: r["date"], reverse=True)

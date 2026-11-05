@@ -2446,6 +2446,7 @@ a { text-decoration: none; color: inherit; }
   .hp-cover.type.science .t-name { font-size: 16px; }
   .hp-cover.type .t-meta { font-size: 8.5px; }
   .hp-t { font-size: 14.5px; }
+  .hp-cover-cap span { display: none; }
 }
 
 @media (max-width: 900px) {
@@ -2767,13 +2768,13 @@ a { text-decoration: none; color: inherit; }
       <div class="hp-head">
         <div>
           <div class="hp-kicker">From the journals</div>
-          <div class="hp-h">Nature · Science 이번 호 논문</div>
+          <div class="hp-h">Nature · Science 새 논문</div>
           <div class="hp-h-sub">세계 최고 학술지에 새로 실린 연구를 매일 모아 드려요</div>
         </div>
         <div class="hp-updated" id="home-papers-updated"></div>
       </div>
       <div class="hp-cols" id="home-papers"><div class="hp-empty">새 논문을 불러오는 중…</div></div>
-      <div class="hp-note">제목·게재일·짧은 소개만 보여드려요. 논문 제목을 누르면 학술지 원문 페이지로 이동해요. 표지 © Springer Nature, AAAS.</div>
+      <div class="hp-note" id="home-papers-note">제목·게재일·짧은 소개만 보여드려요. 논문 제목을 누르면 학술지 원문 페이지로 이동해요.</div>
     </div>
   </div>
 
@@ -4396,7 +4397,8 @@ function renderHomeNews(){
 }
 
 // ── 홈: Nature·Science 새 논문 (data/papers.json, 매일 자동 수집) ──
-let PAPERS = [], PAPER_ISSUES = {}, PAPER_UPDATED = '', PAPER_SHOW = { Nature: 5, Science: 5 };
+const PAPER_STEP = window.matchMedia && matchMedia('(max-width: 768px)').matches ? 3 : 5;
+let PAPERS = [], PAPER_ISSUES = {}, PAPER_UPDATED = '', PAPER_SHOW = { Nature: PAPER_STEP, Science: PAPER_STEP };
 const PAPER_JOURNALS = [
   { name: 'Nature',  cls: 'nature',  home: 'https://www.nature.com/nature/current-issue' },
   { name: 'Science', cls: 'science', home: 'https://www.science.org/toc/science/current' },
@@ -4416,7 +4418,7 @@ async function loadPapers(){
   }
   renderHomePapers();
 }
-function morePapers(j){ PAPER_SHOW[j] += 5; renderHomePapers(); }
+function morePapers(j){ PAPER_SHOW[j] += PAPER_STEP; renderHomePapers(); }
 function fmtPaperDate(d){
   const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || '');
   if(!m) return '';
@@ -4454,15 +4456,19 @@ function renderHomePapers(){
     return `<div class="hp-journal-col">
       <a class="hp-cover-wrap" href="${escHtml(home)}" target="_blank" rel="noopener noreferrer">
         ${coverHtml}
-        <div class="hp-cover-cap"><b>${J.name}</b>${volLine ? volLine + '<br>' : ''}${escHtml(dateLine)}</div>
+        <div class="hp-cover-cap"><b>${J.name}</b><span>${volLine ? volLine + '<br>' : ''}${escHtml(dateLine)}</span></div>
       </a>
       <div>
-        <div class="hp-toc-label"><span>이번 호 연구 논문 ${list.length}편</span><a href="${escHtml(home)}" target="_blank" rel="noopener noreferrer">전체 목차 ↗</a></div>
+        <div class="hp-toc-label"><span>최근 연구 논문 ${list.length}편</span><a href="${escHtml(home)}" target="_blank" rel="noopener noreferrer">전체 목차 ↗</a></div>
         ${items}
         ${list.length > PAPER_SHOW[J.name] ? `<button class="hp-more" onclick="morePapers('${J.name}')">논문 더 보기 +</button>` : ''}
       </div>
     </div>`;
   }).join('');
+  // 실제 표지 그림을 보여줄 때만 출처를 밝힌다
+  const note = document.getElementById('home-papers-note');
+  if(note && PAPER_JOURNALS.some(J => safeUrl((PAPER_ISSUES[J.name]||{}).cover)))
+    note.textContent = '제목·게재일·짧은 소개만 보여드려요. 논문 제목을 누르면 학술지 원문 페이지로 이동해요. 표지 © Springer Nature';
 }
 
 function renderHomeHero(){
