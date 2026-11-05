@@ -365,9 +365,16 @@ def page_image(url):
     except Exception as e:
         print(f"[대표 그림] {url} 실패: {e}", file=sys.stderr)
         return ""
-    m = (re.search(r'<meta[^>]+property=["\']og:image["\'][^>]+content=["\']([^"\']+)', page)
-         or re.search(r'<meta[^>]+content=["\']([^"\']+)["\'][^>]+property=["\']og:image["\']', page))
+    m = (re.search(r'<meta[^>]+(?:property|name)=["\'](?:og:image|twitter:image)["\'][^>]*content=["\']([^"\']+)', page)
+         or re.search(r'<meta[^>]+content=["\']([^"\']+)["\'][^>]+(?:property|name)=["\'](?:og:image|twitter:image)["\']', page))
     img = safe_url(html.unescape(m.group(1))) if m else ""
+    if not getattr(page_image, "logged", False):
+        page_image.logged = True
+        t = re.search(r"<title>(.*?)</title>", page, re.S)
+        print(f"[대표 그림 점검] {url} 길이 {len(page)} 제목 {t.group(1).strip()[:80] if t else '-'}", file=sys.stderr)
+        for mm in re.findall(r"<meta[^>]+(?:og:image|twitter:image)[^>]*>", page)[:4]:
+            print("   ", mm[:220], file=sys.stderr)
+        print("    그림 후보:", re.findall(r"media\.springernature\.com/[^\s\"'<>]+", page)[:3], file=sys.stderr)
     # 학술지 로고 같은 기본 그림은 대표 그림이 아니므로 버린다
     if img and re.search(r"logo|default|placeholder|/static/images/", img, re.I):
         img = ""
