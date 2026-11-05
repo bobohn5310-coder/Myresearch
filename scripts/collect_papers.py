@@ -357,6 +357,34 @@ def collect_science_rss():
     return rows
 
 
+def page_image(url):
+    """논문 페이지가 링크 미리보기용으로 공개한 대표 그림(og:image) 주소를 읽는다.
+    그림 파일은 받거나 저장하지 않고 주소만 남긴다 (메신저 링크 미리보기와 같은 방식)."""
+    try:
+        page = http_get(url, accept="text/html").decode("utf-8", "replace")[:200000]
+    except Exception as e:
+        print(f"[대표 그림] {url} 실패: {e}", file=sys.stderr)
+        return ""
+    m = (re.search(r'<meta[^>]+property=["\']og:image["\'][^>]+content=["\']([^"\']+)', page)
+         or re.search(r'<meta[^>]+content=["\']([^"\']+)["\'][^>]+property=["\']og:image["\']', page))
+    img = safe_url(html.unescape(m.group(1))) if m else ""
+    # 학술지 로고 같은 기본 그림은 대표 그림이 아니므로 버린다
+    if img and re.search(r"logo|default|placeholder|/static/images/", img, re.I):
+        img = ""
+    return img
+
+
+def add_images(rows):
+    found = 0
+    for r in rows:
+        r["image"] = page_image(r["url"])
+        found += bool(r["image"])
+        time.sleep(0.5)
+    print(f"[대표 그림] {len(rows)}편 중 {found}편", file=sys.stderr)
+    if rows:
+        print("  예:", rows[0]["url"], "->", rows[0]["image"], file=sys.stderr)
+
+
 def finish(rows):
     cutoff = (NOW - dt.timedelta(days=KEEP_DAYS)).date().isoformat()
     future = (NOW + dt.timedelta(days=2)).date().isoformat()
@@ -381,6 +409,7 @@ def main():
         nature += crossref_recent(NATURE_ISSN, "Nature", lambda d: "https://www.nature.com/articles/" + d.split("/", 1)[1],
                                   lambda d: d.startswith("10.1038/s41586-"))
     nature = finish(nature)
+    add_images(nature)  # Science 는 자동 접속을 막아 Nature 만
     science = collect_science_rss()
     if len(science) < 5:
         science += crossref_recent(SCIENCE_ISSN, "Science", lambda d: "https://www.science.org/doi/" + d,
