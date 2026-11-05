@@ -183,30 +183,49 @@ def parse_feed(raw, url=""):
     return [children(e) for e in root.iter() if local(e.tag) in ("item", "entry")]
 
 
-def nature_issue():
-    """Nature '이번 호' 페이지에서 권·호와 표지 그림 주소를 읽는다. 그림 자체는 받지 않는다(링크만)."""
-    info = ISSUE["Nature"]
+def head_ok(url):
     try:
-        req = urllib.request.Request(info["url"], headers={"User-Agent": UA, "Accept": "text/html"})
-        with urllib.request.urlopen(req, timeout=30) as r:
-            final, page = r.geturl(), r.read().decode("utf-8", "replace")
+        req = urllib.request.Request(url, method="HEAD", headers={"User-Agent": UA})
+        with urllib.request.urlopen(req, timeout=20) as r:
+            return r.status == 200 and (r.headers.get("Content-Type") or "").startswith("image/")
     except Exception as e:
-        print(f"[Nature 이번 호] 실패: {e}", file=sys.stderr)
+        print(f"[표지] {url} 확인 실패: {e}", file=sys.stderr)
+        return False
+
+
+def nature_issue():
+    """Nature 최신호의 권·호를 Crossref 에서 알아내고, Springer Nature 그림 서버의 표지 주소를 찾는다.
+    (nature.com 은 자동 접속을 막는다) 그림 파일은 저장하지 않고 주소만 남긴다."""
+    info = ISSUE["Nature"]
+    today = NOW.date().isoformat()
+    url = (f"https://api.crossref.org/journals/{NATURE_ISSN}/works?" + urllib.parse.urlencode({
+        "filter": f"type:journal-article,until-print-pub-date:{today},"
+                  f"from-print-pub-date:{(NOW - dt.timedelta(days=21)).date().isoformat()}",
+        "sort": "published-print", "order": "desc", "rows": 40,
+        "select": "volume,issue,published-print",
+    }))
+    best = None
+    try:
+        for w in json.loads(http_get(url, timeout=60, accept="application/json"))["message"]["items"]:
+            v, n = w.get("volume"), w.get("issue")
+            parts = (w.get("published-print") or {}).get("date-parts", [[None]])[0]
+            if v and n and str(v).isdigit() and str(n).isdigit() and parts and len(parts) == 3:
+                key = (int(v), int(n))
+                if not best or key > best[0]:
+                    best = (key, dt.date(*parts).isoformat())
+    except Exception as e:
+        print(f"[Nature 이번 호] Crossref 실패: {e}", file=sys.stderr)
+    if not best:
         return
-    m = re.search(r"/volumes/(\d+)/issues/(\d+)", final) or re.search(r"/nature/volumes/(\d+)/issues/(\d+)", page)
-    if m:
-        info.update(volume=m.group(1), issue=m.group(2),
-                    url=f"https://www.nature.com/nature/volumes/{m.group(1)}/issues/{m.group(2)}")
-    c = re.search(r"(?:https:)?//media\.springernature\.com/[^\s\"'<>]*cover-hires/journal/41586/[^\s\"'<>]+", page)
-    if c:
-        u = c.group(0)
-        info["cover"] = safe_url(html.unescape("https:" + u if u.startswith("//") else u))
-    elif m:
-        info["cover"] = f"https://media.springernature.com/w440/springer-static/cover-hires/journal/41586/{m.group(1)}/{m.group(2)}"
-    d = re.search(r'<time[^>]+datetime="(\d{4}-\d{2}-\d{2})"', page)
-    if d:
-        info["date"] = d.group(1)
-    print(f"[Nature 이번 호] {final} -> {json.dumps(info, ensure_ascii=False)}", file=sys.stderr)
+    (v, n), d = best
+    info.update(volume=str(v), issue=str(n), date=d,
+                url=f"https://www.nature.com/nature/volumes/{v}/issues/{n}")
+    for size in ("w440", "full"):
+        c = f"https://media.springernature.com/{size}/springer-static/cover-hires/journal/41586/{v}/{n}"
+        if head_ok(c):
+            info["cover"] = c
+            break
+    print(f"[Nature 이번 호] {json.dumps(info, ensure_ascii=False)}", file=sys.stderr)
 
 
 def classify(text):
