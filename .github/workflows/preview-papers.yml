@@ -1,0 +1,27 @@
+name: (임시) 논문 칸 미리보기 사진
+on:
+  push:
+    branches: [claude/project-thread-6m3ufh]
+    paths: [.github/workflows/preview-papers.yml, .github/preview/**]
+permissions:
+  contents: write
+jobs:
+  shot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: python scripts/collect_papers.py --out data/papers.json
+      - run: npm i playwright@1.48.2 && npx playwright install --with-deps chromium
+      - run: |
+          mkdir -p preview-shots
+          (python -m http.server 8765 >/dev/null 2>&1 &) ; sleep 2
+          node .github/preview/shot.js
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add preview-shots/*.png
+          git commit -m "임시 미리보기 사진"
+          git push
