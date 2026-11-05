@@ -2623,6 +2623,156 @@ a { text-decoration: none; color: inherit; }
   #write-modal, #post-modal { align-items: flex-end; }
   .cm-sheet { width:100%; max-width:100%; max-height:92vh; border-radius:20px 20px 0 0; }
 }
+
+/* ══ 🍀 클로버 지수 ══ */
+.clv-wrap{max-width:1120px;margin:0 auto;padding:28px 20px 70px}
+.clv-hero{background:linear-gradient(135deg,#dcfce7,#f0fdf4 60%,#fff);border:1px solid #bbf7d0;border-radius:20px;padding:28px;display:flex;gap:24px;align-items:center}
+.clv-hero h1{font-size:28px;font-weight:800;letter-spacing:-.5px;line-height:1.35;color:var(--text)}
+.clv-hero h1 span{color:#15803d}
+.clv-hero p{color:var(--text-sub);margin-top:8px;line-height:1.6;font-size:14px}
+.clv-legend{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.clv-legend div{display:flex;align-items:center;gap:6px;background:#fff;border:1px solid #bbf7d0;border-radius:999px;padding:4px 12px 4px 6px;font-size:12px;font-weight:600;color:var(--text-sub)}
+.clv-mascot{flex:0 0 140px;width:140px;height:140px}
+.clv-tools{display:flex;gap:8px;margin:22px 0 14px;flex-wrap:wrap;align-items:center}
+.clv-search{flex:1;min-width:220px;border:1.5px solid var(--border);border-radius:12px;padding:11px 14px;background:#fff;font-size:14px;font-family:inherit;color:var(--text)}
+.clv-search:focus{outline:none;border-color:#16a34a}
+.clv-chip{border:1.5px solid var(--border);background:#fff;border-radius:999px;padding:9px 14px;font-weight:600;color:var(--text-sub);font-size:13px;cursor:pointer;font-family:inherit}
+.clv-chip.on{background:#16a34a;color:#fff;border-color:#16a34a}
+.clv-btn{background:#16a34a;color:#fff;border-radius:12px;padding:11px 16px;font-weight:700;border:0;cursor:pointer;font-size:14px;font-family:inherit}
+.clv-btn:hover{background:#15803d}
+.clv-btn:disabled{background:#94a3b8;cursor:default}
+.clv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.clv-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:18px;position:relative;display:flex;flex-direction:column}
+.clv-dept{font-size:12px;color:var(--text-muted);padding-right:90px}
+.clv-card h3{font-size:16px;margin:4px 0 2px;color:var(--text)}
+.clv-topic{font-size:12px;color:var(--text-muted);min-height:16px}
+.clv-badge{position:absolute;top:14px;right:14px;display:flex;align-items:center;gap:4px;background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d;font-size:11px;font-weight:700;border-radius:999px;padding:3px 8px 3px 4px}
+.clv-total{display:flex;align-items:center;gap:10px;margin:14px 0 10px;padding:10px 12px;background:#f0fdf4;border-radius:12px}
+.clv-total b{font-family:'Montserrat',sans-serif;font-size:22px;color:#15803d}
+.clv-total small{color:var(--text-muted);font-size:12px;display:block}
+.clv-row{display:flex;align-items:center;justify-content:space-between;padding:4px 0;font-size:13px;color:var(--text-sub)}
+.clv-grow{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;min-height:172px;color:var(--text-muted);background:repeating-linear-gradient(45deg,#f8fafc,#f8fafc 10px,#f1f5f9 10px,#f1f5f9 20px);border-radius:12px;margin-top:14px;padding:16px;font-size:12px}
+.clv-grow b{color:var(--text-sub);font-size:14px}
+.clv-bar{width:140px;height:6px;background:#e2e8f0;border-radius:9px;overflow:hidden}.clv-bar i{display:block;height:100%;background:#16a34a}
+.clv-foot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:10px;border-top:1px solid var(--border);font-size:12px}
+.clv-foot-wrap{margin-top:12px}
+.clv-link{color:#15803d;font-weight:700;cursor:pointer;background:none;border:0;font-family:inherit;font-size:12px;padding:0}
+.clv-report{color:var(--text-light);text-decoration:underline;cursor:pointer;background:none;border:0;font-family:inherit;font-size:11px;padding:0}
+.clv-note{margin-top:22px;font-size:12px;color:var(--text-muted);background:#fff;border:1px dashed var(--border);border-radius:12px;padding:12px 14px;line-height:1.7}
+.clv-empty{grid-column:1/-1;text-align:center;padding:50px 20px;color:var(--text-muted);background:#fff;border:1px dashed var(--border);border-radius:16px;line-height:1.7}
+.clv-modal{position:fixed;inset:0;background:rgba(15,23,42,.5);z-index:3000;display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:40px 16px}
+.clv-modal.open{display:flex}
+.clv-box{background:#fff;border-radius:20px;padding:22px;width:100%;max-width:520px;position:relative;box-shadow:0 20px 60px rgba(15,23,42,.2)}
+.clv-box h2{font-size:18px;margin-bottom:12px;color:var(--text)}
+.clv-x{position:absolute;top:14px;right:16px;border:0;background:none;font-size:22px;cursor:pointer;color:var(--text-muted)}
+.clv-info{display:flex;gap:8px;background:#f0fdf4;color:#15803d;border-radius:10px;padding:9px 12px;font-size:13px;font-weight:500;line-height:1.5}
+.clv-warn{background:#fffbeb;color:#92400e}
+.clv-q{margin-top:16px}
+.clv-q .lb{font-weight:700;font-size:14px;color:var(--text)}
+.clv-q .hn{font-size:12px;color:var(--text-muted);margin:2px 0 8px}
+.clv-opts{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.clv-opt{border:1.5px solid var(--border);border-radius:10px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;color:var(--text-muted);cursor:pointer;background:#fff;font-family:inherit}
+.clv-opt.sel{border-color:#16a34a;background:#f0fdf4;color:#15803d;font-weight:700}
+.clv-input{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:10px 12px;font-size:14px;font-family:inherit;margin-top:6px;color:var(--text);background:#fff}
+.clv-input:focus{outline:none;border-color:#16a34a}
+.clv-sugg{border:1px solid var(--border);border-radius:10px;margin-top:4px;max-height:180px;overflow-y:auto}
+.clv-sugg div{padding:9px 12px;font-size:13px;cursor:pointer;border-bottom:1px solid var(--border-light)}
+.clv-sugg div:hover{background:#f0fdf4}
+.clv-rules{margin-top:16px;font-size:12px;color:var(--text-muted);line-height:1.7;background:var(--bg);border-radius:10px;padding:10px 12px}
+.clv-box .clv-btn{width:100%;margin-top:14px;padding:13px}
+.clv-msg{font-size:13px;margin-top:10px;text-align:center;min-height:18px}
+@media(max-width:900px){.clv-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.clv-wrap{padding:18px 16px 60px}.clv-grid{grid-template-columns:1fr}.clv-hero{flex-direction:column-reverse;align-items:flex-start;padding:20px}.clv-hero h1{font-size:22px}.clv-mascot{width:90px;height:90px;flex-basis:auto}.clv-opts{grid-template-columns:repeat(2,1fr)}.clv-tools .clv-btn{width:100%}}
+
+/* ══════════════════════════
+   핸드폰 화면 다듬기
+══════════════════════════ */
+/* 닫혀 있는 메뉴의 그림자가 화면 오른쪽에 회색 띠로 비치던 문제 */
+.nav-drawer { box-shadow: none; }
+.nav-drawer.open { box-shadow: -8px 0 32px rgba(15,23,42,0.15); }
+.see-all { white-space: nowrap; flex-shrink: 0; }
+
+@media (max-width: 768px) {
+  /* 홈: 숫자 4칸 — 오른쪽이 잘리던 것 정리 */
+  .stats-band-inner { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 0 16px; }
+  .band-item { padding: 14px 10px; gap: 10px; border-right: none; }
+  .band-item:nth-child(odd) { border-right: 1px solid var(--border); }
+  .band-item:nth-child(n+3) { border-bottom: none; }
+  .band-icon { width: 34px; height: 34px; border-radius: 10px; font-size: 17px; }
+  .band-value { font-size: 20px; }
+  .band-label { font-size: 12.5px; }
+  .band-sublabel { display: none; }
+
+  /* 홈: 커뮤니티 인기글 + 논문 마감 임박 — 화면 밖으로 밀리던 것 */
+  .community-grid { grid-template-columns: minmax(0, 1fr); padding: 0 16px; }
+  .community-grid > div { min-width: 0; }
+  .post-tab-row { flex-wrap: nowrap; overflow-x: auto; margin: 0 -16px 12px; padding: 0 16px 2px; scrollbar-width: none; }
+  .post-tab-row::-webkit-scrollbar { display: none; }
+  .post-tab-row > * { flex-shrink: 0; white-space: nowrap; }
+  .section-header { gap: 12px; }
+
+  /* 홈: '왜 마이리서치' — 양옆 여백이 너무 넓고 길게 늘어지던 것 */
+  .feature-section { padding: 0; }
+  .feature-section .feature-inner { padding: 40px 16px 44px; }
+  .feature-title { font-size: 24px; letter-spacing: -.5px; }
+  .feature-desc { font-size: 14px; margin-bottom: 24px; }
+  .feature-grid { gap: 8px; }
+  .feature-card { display: grid; grid-template-columns: 40px minmax(0, 1fr); column-gap: 14px; padding: 16px; border-radius: 14px; }
+  .feature-card-icon { grid-row: span 2; width: 40px; height: 40px; font-size: 18px; border-radius: 10px; margin-bottom: 0; }
+  .feature-card-title { margin-bottom: 4px; }
+  .feature-card-desc { font-size: 13px; line-height: 1.55; }
+
+  /* 홈: 맨 아래 안내 — 가운데 정렬로 흩어지던 것 */
+  .footer { padding: 32px 16px 24px; }
+  .footer-inner { text-align: left; padding: 0; gap: 0; }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 24px 16px; padding-bottom: 24px; }
+  .footer-top > div:first-child { grid-column: 1 / -1; }
+  .footer-brand-desc { max-width: none; }
+  .footer-col-title { margin-bottom: 10px; }
+  .footer-link { margin-bottom: 8px; font-size: 13.5px; }
+  .footer-bottom { padding-top: 20px; }
+
+  /* 홈: Nature·Science — 표지를 작게 위로 올려 논문 제목 칸을 넓게 */
+  .hp-journal-col { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .hp-cover-wrap { display: flex; align-items: center; gap: 12px; }
+  .hp-cover { width: 54px; }
+  .hp-cover.type { padding: 6px 5px; }
+  .hp-cover.type .t-name { font-size: 12px; }
+  .hp-cover.type.science .t-name { font-size: 8.5px; letter-spacing: .02em; }
+  .hp-cover.type .t-meta { display: none; }
+  .hp-cover-cap { margin-top: 0; }
+  .hp-cover-cap b { font-size: 16px; font-family: Georgia, 'Times New Roman', serif; }
+  .hp-cover-cap span { display: block; font-size: 11.5px; }
+  .hp-cols { gap: 28px; }
+
+  /* 학회정보: 검색창·필터가 한 줄에 끼어 잘리던 것 → 두 줄로 */
+  #page-info .ufb { position: static; }
+  #page-info .ufb-inner { flex-wrap: wrap; overflow: visible; gap: 8px; padding: 10px 0 12px; }
+  #page-info .ufb-search { flex: 1 1 100%; max-width: none; min-width: 0; font-size: 16px; padding: 9px 14px; }
+  #page-info .ufb-sep, #page-info .ufb-label { display: none; }
+  #page-info .ufb-tab { padding: 6px 12px; }
+
+  /* 국내연구소식: 카드를 촘촘하게 (같은 화면에 더 많이) */
+  .news-main-grid { gap: 8px; }
+  .news-card { padding: 14px; gap: 6px; border-radius: 12px; }
+  .news-card-footer { display: none; }
+  .news-card-title { font-size: 14.5px; }
+  .news-card-thumb { height: 140px; }
+
+  /* 입력창 글자가 16px 보다 작으면 아이폰이 화면을 확대해 버린다 */
+  .clv-search, .ufb-search, .auth-input, .clv-input, .cm-input, #cm-quick-text, #comment-text { font-size: 16px; }
+}
+
+@media (max-width: 600px) {
+  /* 클로버 지수: 무당벌레를 제목 옆으로, 필터 한 줄로 */
+  .clv-hero { position: relative; padding: 20px 18px; }
+  .clv-hero h1 { font-size: 21px; padding-right: 64px; }
+  .clv-mascot { position: absolute; top: 16px; right: 14px; width: 56px; height: 56px; }
+  .clv-hero p { font-size: 13.5px; }
+  .clv-legend { gap: 6px; }
+  .clv-legend div { padding: 3px 10px 3px 4px; }
+  .clv-search { flex: 1 1 100%; min-width: 0; }
+}
 </style>
 </head>
 <body>
@@ -2645,6 +2795,7 @@ a { text-decoration: none; color: inherit; }
     <div class="nav-link" onclick="showPage('info');setNav(this)">학회정보</div>
     <div class="nav-link" onclick="goToCalendar()">연구 캘린더 <span class="nav-badge">EXCLUSIVE</span></div>
     <div class="nav-link" onclick="showPage('news');setNav(this)">국내연구소식</div>
+    <div class="nav-link" onclick="showPage('clover');setNav(this);clvLoad()">🍀 클로버 지수 <span class="nav-badge" style="background:#16a34a">NEW</span></div>
   </div>
 
   <div class="nav-right">
@@ -2672,6 +2823,7 @@ a { text-decoration: none; color: inherit; }
     <div class="nav-drawer-link" onclick="showPage('info');setNavDrawer(this);closeDrawer()">🎤 학회정보</div>
     <div class="nav-drawer-link" onclick="goToCalendar();closeDrawer()">📅 연구 캘린더 ✦</div>
     <div class="nav-drawer-link" onclick="showPage('news');setNavDrawer(this);closeDrawer()">📰 국내연구소식</div>
+    <div class="nav-drawer-link" onclick="showPage('clover');setNavDrawer(this);closeDrawer();clvLoad()">🍀 클로버 지수</div>
   </div>
   <div class="nav-drawer-actions">
     <button class="nav-drawer-btn-login" onclick="closeDrawer();openAuth('login')">로그인</button>
@@ -3200,7 +3352,7 @@ a { text-decoration: none; color: inherit; }
   <div class="news-detail-wrap">
 
     <!-- 뒤로가기 -->
-    <button onclick="showPage('news');setNavByName('news')" class="news-detail-back">
+    <button onclick="if(history.state&&history.state.from==='news'){history.back()}else{showPage('news');setNavByName('news')}" class="news-detail-back">
       ← 국내연구소식으로 돌아가기
     </button>
 
@@ -3232,6 +3384,70 @@ a { text-decoration: none; color: inherit; }
       🔗 원문 기사 보러가기
     </a>
 
+  </div>
+</div>
+
+
+<!-- ══ PAGE: 🍀 클로버 지수 ══ -->
+<div class="page" id="page-clover">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+    <symbol id="clv-bug" viewBox="0 0 100 100">
+      <ellipse cx="50" cy="60" rx="34" ry="32" fill="#ef4444"/>
+      <circle cx="50" cy="28" r="16" fill="#1e293b"/>
+      <circle cx="44" cy="25" r="3.5" fill="#fff"/><circle cx="56" cy="25" r="3.5" fill="#fff"/>
+      <path d="M42 14 34 4M58 14 66 4" stroke="#1e293b" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="34" cy="4" r="3" fill="#1e293b"/><circle cx="66" cy="4" r="3" fill="#1e293b"/>
+      <path d="M50 30V92" stroke="#1e293b" stroke-width="3"/>
+      <circle cx="34" cy="52" r="6" fill="#1e293b"/><circle cx="66" cy="52" r="6" fill="#1e293b"/>
+      <circle cx="30" cy="72" r="5" fill="#1e293b"/><circle cx="70" cy="72" r="5" fill="#1e293b"/>
+      <circle cx="44" cy="82" r="4" fill="#1e293b"/><circle cx="56" cy="82" r="4" fill="#1e293b"/>
+    </symbol>
+  </defs></svg>
+  <div class="clv-wrap">
+    <section class="clv-hero">
+      <div style="flex:1">
+        <h1>나에게 맞는 연구실,<br><span>클로버 지수</span>로 찾아보세요</h1>
+        <p>먼저 다녀간 연구실 선배들이 남긴 클로버를 모았어요.<br>잎이 많을수록 지내기 좋은 연구실이에요.</p>
+        <div class="clv-legend" id="clv-legend"></div>
+      </div>
+      <svg class="clv-mascot" viewBox="0 0 100 100"><use href="#clv-bug"/></svg>
+    </section>
+    <div class="clv-tools">
+      <input class="clv-search" id="clv-search" placeholder="🔍 학교, 학과, 연구 분야로 찾기" oninput="clvRender()">
+      <button class="clv-chip on" data-f="all" onclick="clvFilter(this)">전체</button>
+      <button class="clv-chip" data-f="four" onclick="clvFilter(this)">🍀 네잎 연구실</button>
+      <button class="clv-btn" onclick="clvOpenVote()">🍀 클로버 남기기</button>
+    </div>
+    <div class="clv-grid" id="clv-grid"></div>
+    <div class="clv-note">🐞 클로버 지수는 연구실 구성원들이 남긴 <b>주관적인 의견을 모은 참고 정보</b>이며, My Research Calendar의 의견이 아니에요. 응답이 5개 이상 모인 연구실만 공개되고, 문제가 있는 내용은 각 카드의 '신고·삭제 요청'으로 알려 주시면 바로 가린 뒤 검토해요.</div>
+  </div>
+</div>
+
+<!-- 🍀 클로버 남기기 창 -->
+<div class="clv-modal" id="clv-vote-modal" onclick="if(event.target===this)clvClose('clv-vote-modal')">
+  <div class="clv-box">
+    <button class="clv-x" onclick="clvClose('clv-vote-modal')">×</button>
+    <h2>🍀 클로버 남기기</h2>
+    <div id="clv-vote-body"></div>
+  </div>
+</div>
+
+<!-- 🐞 신고·삭제 요청 창 -->
+<div class="clv-modal" id="clv-report-modal" onclick="if(event.target===this)clvClose('clv-report-modal')">
+  <div class="clv-box">
+    <button class="clv-x" onclick="clvClose('clv-report-modal')">×</button>
+    <h2>신고·삭제 요청</h2>
+    <div class="clv-info clv-warn">접수되면 이 연구실은 <b>바로 가려지고</b>, 운영자가 확인한 뒤 다시 보이게 하거나 삭제해요.</div>
+    <div class="clv-q"><div class="lb" id="clv-report-lab"></div></div>
+    <div class="clv-q"><div class="lb">요청 종류</div>
+      <div class="clv-opts" style="grid-template-columns:1fr 1fr;margin-top:6px">
+        <button class="clv-opt sel" data-k="report" onclick="clvReportKind(this)">문제 신고</button>
+        <button class="clv-opt" data-k="delete" onclick="clvReportKind(this)">당사자 삭제 요청</button>
+      </div></div>
+    <div class="clv-q"><div class="lb">사유</div><textarea class="clv-input" id="clv-report-reason" rows="3" maxlength="1000" placeholder="어떤 점이 문제인지 알려 주세요"></textarea></div>
+    <div class="clv-q"><div class="lb">답변 받을 연락처 (선택)</div><input class="clv-input" id="clv-report-contact" maxlength="120" placeholder="이메일"></div>
+    <button class="clv-btn" id="clv-report-btn" onclick="clvSubmitReport()">요청 보내기</button>
+    <div class="clv-msg" id="clv-report-msg"></div>
   </div>
 </div>
 
@@ -3370,15 +3586,20 @@ const sbClient = supabase.createClient(
 
 function setNavByName(name){
   document.querySelectorAll('.nav-link').forEach(n=>n.classList.remove('active'));
-  const map={'home':0,'community':1,'info':2,'news':4};
+  const map={'home':0,'community':1,'info':2,'news':4,'clover':5};
   const links=document.querySelectorAll('.nav-link');
   if(map[name]!==undefined && links[map[name]]) links[map[name]].classList.add('active');
 }
-function showPage(name){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+function showPage(name, fromHistory){
   const pg = document.getElementById('page-'+name);
-  if(pg) pg.classList.add('active');
-  window.scrollTo(0,0);
+  if(!pg) return;
+  const changed = name !== _navCur;
+  // 뒤로가기로 돌아올 때를 위해 지금 보던 위치를 기록해 두고, 새 화면을 브라우저 기록에 남긴다
+  if(!fromHistory && changed) navPush({ page: name, news: name==='news-detail' ? _newsIdx : null, from: _navCur });
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  pg.classList.add('active');
+  _navCur = name;
+  if(!fromHistory) window.scrollTo(0,0);
 }
 
 function setNav(el){
@@ -4197,9 +4418,10 @@ function openConfList(field){
 }
 
 
-function openNews(idx){
+function openNews(idx, fromHistory){
   const n=NEWS[idx];
   if(!n) return;
+  _newsIdx = idx;
 
   // 이미지 유무에 따라 2컬럼 / 1컬럼 전환
   const body = document.getElementById('news-detail-body');
@@ -4232,8 +4454,8 @@ function openNews(idx){
     else { linkEl.style.display='none'; }
   }
 
-  showPage('news-detail');
-  window.scrollTo(0,0);
+  showPage('news-detail', fromHistory);
+  if(!fromHistory) window.scrollTo(0,0);
 }
 
 
@@ -5167,13 +5389,12 @@ async function openPost(id){
   cmPaintLike(p);
   document.getElementById('comment-text').value='';
   document.getElementById('post-modal').style.display='flex';
-  try{ history.replaceState(null,'','#post-'+p.id); }catch(e){}
+  navOverlayOpened({ post: p.id }, '#post-'+p.id);
   loadComments(p.id);
 }
 function closePostModal(){
   document.getElementById('post-modal').style.display='none';
   _currentPostId=null;
-  try{ if(location.hash.startsWith('#post-')) history.replaceState(null,'',location.pathname+location.search); }catch(e){}
 }
 function cmPaintLike(p){
   const b=document.getElementById('post-like-btn'); const on=_cmLiked.has(p.id);
@@ -5274,6 +5495,300 @@ sbClient.auth.onAuthStateChange(async (event, session) => {
   await fetchPostsFromDB();
   showPage('community'); setNavByName('community');
   openPost(Number(m[1]));
+})();
+
+// ══════════════════════════════════════════
+// ── 🍀 클로버 지수: 연구실 환경을 클로버 1~4잎으로 ──
+// 개별 응답은 서버가 숨기고, 5명 이상 모인 연구실의 평균만 받아온다 (clover_summary)
+// ══════════════════════════════════════════
+const CLV_ITEMS = [
+  { k:'pay',     label:'인건비', q:'약속한 인건비가 잘 나오나요?' },
+  { k:'guide',   label:'지도',   q:'연구 지도를 충분히 받을 수 있나요?' },
+  { k:'mood',    label:'분위기', q:'구성원끼리 서로 돕는 분위기인가요?' },
+  { k:'balance', label:'워라밸', q:'휴가와 근무 시간이 존중되나요?' },
+];
+const CLV_WORDS = ['아쉬워요','보통이에요','좋아요','최고예요'];
+const CLV_MIN = 5;
+const CLV = { labs:[], sum:{}, mine:new Set(), filter:'all', loaded:false, ready:true, vote:{}, lab:null, reportLab:null, reportKind:'report' };
+
+function clvClover(n, size){
+  size = size || 18;
+  const L = 'M0 0C-1-2-9-4-9-9C-9-12-5-13-3-12C-1.5-11.3 0-10 0-8.5 0-10 1.5-11.3 3-12 5-13 9-12 9-9 9-4 1-2 0 0Z';
+  let s = `<svg width="${size}" height="${size}" viewBox="-14 -14 28 28" aria-label="클로버 ${n}잎">`;
+  [-45,45,135,225].forEach((r,i)=>{ s += `<path d="${L}" transform="rotate(${r})" fill="${i<n?'#16a34a':'#e2e8f0'}" stroke="#fff" stroke-width=".8"/>`; });
+  return s + `<circle r="1.8" fill="${n?'#14532d':'#cbd5e1'}"/></svg>`;
+}
+function clvBug(size){ return `<svg width="${size}" height="${size}" viewBox="0 0 100 100"><use href="#clv-bug"/></svg>`; }
+
+async function clvLoad(force){
+  if(CLV.loaded && !force) return clvRender();
+  const grid = document.getElementById('clv-grid');
+  if(grid && !CLV.loaded) grid.innerHTML = '<div class="clv-empty">클로버를 불러오는 중이에요… 🍀</div>';
+  const [labs, sum] = await Promise.all([
+    sbClient.from('clover_labs').select('id,univ,dept,name,topic,created_at').order('created_at',{ascending:false}),
+    sbClient.rpc('clover_summary'),
+  ]);
+  if(labs.error){ CLV.ready = false; CLV.loaded = true; return clvRender(); }
+  CLV.ready = true;
+  CLV.labs = labs.data || [];
+  CLV.sum = {};
+  (sum.data || []).forEach(s => CLV.sum[s.lab_id] = s);
+  CLV.mine = new Set();
+  if(currentUser){
+    const { data } = await sbClient.from('clover_votes').select('lab_id').eq('user_id', currentUser.id);
+    (data || []).forEach(v => CLV.mine.add(v.lab_id));
+  }
+  CLV.loaded = true;
+  clvRender();
+}
+
+function clvFilter(el){
+  document.querySelectorAll('.clv-chip').forEach(c => c.classList.remove('on'));
+  el.classList.add('on');
+  CLV.filter = el.dataset.f;
+  clvRender();
+}
+
+function clvRender(){
+  const lg = document.getElementById('clv-legend');
+  if(lg && !lg.innerHTML) lg.innerHTML = [1,2,3,4].map(n => `<div>${clvClover(n,22)}${['한잎','두잎','세잎','네잎 🍀'][n-1]}</div>`).join('');
+  const grid = document.getElementById('clv-grid');
+  if(!grid) return;
+  if(!CLV.ready){
+    grid.innerHTML = '<div class="clv-empty">🍀 클로버 지수를 준비하고 있어요. 곧 열릴 예정이에요!</div>';
+    return;
+  }
+  const q = (document.getElementById('clv-search')?.value || '').trim().toLowerCase();
+  let list = CLV.labs.filter(l => !q || [l.univ,l.dept,l.name,l.topic].join(' ').toLowerCase().includes(q));
+  if(CLV.filter === 'four') list = list.filter(l => (CLV.sum[l.id]?.total || 0) >= 3.5);
+  list.sort((a,b) => (CLV.sum[b.id]?.cnt||0) - (CLV.sum[a.id]?.cnt||0));
+  if(!list.length){
+    grid.innerHTML = `<div class="clv-empty">${CLV.labs.length ? '찾는 연구실이 아직 없어요.' : '아직 등록된 연구실이 없어요.'}<br>내 연구실의 첫 클로버를 남겨 주세요 🍀<br><br><button class="clv-btn" onclick="clvOpenVote()">🍀 클로버 남기기</button></div>`;
+    return;
+  }
+  grid.innerHTML = list.map(l => {
+    const s = CLV.sum[l.id] || { cnt:0 };
+    const head = `<div class="clv-dept">${escHtml(l.univ)} ${escHtml(l.dept)}</div><h3>${escHtml(l.name)}</h3><div class="clv-topic">${escHtml(l.topic||'')}</div>`;
+    const mine = CLV.mine.has(l.id);
+    const foot = `<div class="clv-foot-wrap"></div><div class="clv-foot">
+        ${mine ? '<span style="color:#15803d;font-weight:600">✓ 내 클로버를 남겼어요</span>' : `<button class="clv-link" onclick="clvOpenVote(${l.id})">🍀 클로버 남기기</button>`}
+        <button class="clv-report" onclick="clvOpenReport(${l.id})">신고·삭제 요청</button></div>`;
+    if(s.total == null){
+      const pct = Math.min(100, Math.round(s.cnt / CLV_MIN * 100));
+      return `<div class="clv-card">${head}
+        <div class="clv-grow">${clvClover(Math.min(3, s.cnt), 34)}<b>클로버가 자라는 중이에요</b>
+        <div class="clv-bar"><i style="width:${pct}%"></i></div><span>${s.cnt}/${CLV_MIN}명 · ${CLV_MIN}명이 모이면 공개돼요</span></div>${foot}</div>`;
+    }
+    const tot = Number(s.total);
+    return `<div class="clv-card">${tot >= 3.5 ? `<div class="clv-badge">${clvBug(18)}네잎 연구실</div>` : ''}${head}
+      <div class="clv-total">${clvClover(Math.round(tot), 40)}<div><b>${tot.toFixed(1)}</b><span style="color:var(--text-muted);font-size:13px"> / 4</span><small>클로버 지수 · ${s.cnt}명 참여</small></div></div>
+      ${CLV_ITEMS.map(it => `<div class="clv-row"><span>${it.label}</span>${clvClover(Math.round(Number(s[it.k])), 20)}</div>`).join('')}
+      ${foot}</div>`;
+  }).join('');
+}
+
+function clvClose(id){ document.getElementById(id)?.classList.remove('open'); document.body.style.overflow=''; }
+function clvShow(id){ document.getElementById(id)?.classList.add('open'); document.body.style.overflow='hidden'; }
+
+async function clvOpenVote(labId){
+  if(!currentUser){ openAuth('login'); return; }
+  const body = document.getElementById('clv-vote-body');
+  clvShow('clv-vote-modal');
+  if(!CLV.ready){ body.innerHTML = '<div class="clv-info clv-warn">클로버 지수를 준비하고 있어요. 곧 열릴 예정이에요!</div>'; return; }
+  const { data: ok } = await sbClient.rpc('can_clover');
+  if(!ok){
+    body.innerHTML = `<div class="clv-info clv-warn">🎓 클로버는 학교 메일(ac.kr, edu)로 가입한 계정이나 연구자 인증을 받은 회원만 남길 수 있어요. 실제 연구실 구성원의 목소리만 모으기 위해서예요.</div>
+      <button class="clv-btn" onclick="clvClose('clv-vote-modal')">확인</button>`;
+    return;
+  }
+  CLV.vote = {}; CLV.lab = labId ? CLV.labs.find(l => l.id === labId) : null;
+  body.innerHTML = `
+    <div class="clv-info">✅ 인증된 계정이에요 · 한 연구실에 한 번만 남길 수 있어요</div>
+    <div class="clv-q"><div class="lb">어떤 연구실인가요?</div><div id="clv-lab-pick"></div></div>
+    ${CLV_ITEMS.map(it => `<div class="clv-q"><div class="lb">${it.label}</div><div class="hn">${it.q}</div>
+      <div class="clv-opts">${[1,2,3,4].map(n => `<button class="clv-opt" data-k="${it.k}" data-n="${n}" onclick="clvPick(this)">${clvClover(n,26)}${CLV_WORDS[n-1]}</button>`).join('')}</div></div>`).join('')}
+    <div class="clv-rules">✍️ 글은 쓰지 않고 클로버만 고르면 끝이에요. 누가 남겼는지는 공개되지 않으며, ${CLV_MIN}명 이상 모인 뒤 평균만 보여 줘요. 교수님 성함은 적지 말아 주세요.</div>
+    <button class="clv-btn" id="clv-vote-btn" onclick="clvSubmitVote()">클로버 남기기</button>
+    <div class="clv-msg" id="clv-vote-msg"></div>`;
+  clvRenderLabPick();
+}
+
+function clvRenderLabPick(){
+  const el = document.getElementById('clv-lab-pick');
+  if(!el) return;
+  if(CLV.lab){
+    el.innerHTML = `<div class="clv-input" style="display:flex;justify-content:space-between;align-items:center"><span>${escHtml(CLV.lab.univ)} ${escHtml(CLV.lab.dept)} · <b>${escHtml(CLV.lab.name)}</b></span>
+      <button class="clv-report" onclick="CLV.lab=null;clvRenderLabPick()">바꾸기</button></div>`;
+    return;
+  }
+  el.innerHTML = `<input class="clv-input" id="clv-lab-q" placeholder="학교나 연구실 이름으로 찾기" oninput="clvLabSugg()"><div id="clv-lab-sugg"></div>
+    <div id="clv-new-lab" style="display:none">
+      <div class="hn" style="margin-top:10px;font-size:12px;color:var(--text-muted)">목록에 없으면 새로 등록해 주세요</div>
+      <input class="clv-input" id="clv-new-univ" maxlength="40" placeholder="학교 (예: 한국대학교)">
+      <input class="clv-input" id="clv-new-dept" maxlength="40" placeholder="학과 (예: 신소재공학과)">
+      <input class="clv-input" id="clv-new-name" maxlength="40" placeholder="연구실 이름 (예: 나노소재 연구실)">
+      <input class="clv-input" id="clv-new-topic" maxlength="60" placeholder="연구 분야 (선택, 예: 2차원 소재 · 배터리)">
+    </div>`;
+  clvLabSugg();
+}
+
+function clvLabSugg(){
+  const q = (document.getElementById('clv-lab-q')?.value || '').trim().toLowerCase();
+  const box = document.getElementById('clv-lab-sugg');
+  const hits = q ? CLV.labs.filter(l => [l.univ,l.dept,l.name].join(' ').toLowerCase().includes(q)).slice(0,6) : [];
+  box.innerHTML = hits.length ? `<div class="clv-sugg">${hits.map(l => `<div onclick="clvChooseLab(${l.id})">${escHtml(l.univ)} ${escHtml(l.dept)} · <b>${escHtml(l.name)}</b></div>`).join('')}</div>` : '';
+  document.getElementById('clv-new-lab').style.display = (q && !hits.length) || !CLV.labs.length ? '' : 'none';
+}
+function clvChooseLab(id){ CLV.lab = CLV.labs.find(l => l.id === id); clvRenderLabPick(); }
+
+function clvPick(el){
+  document.querySelectorAll(`.clv-opt[data-k="${el.dataset.k}"]`).forEach(b => b.classList.remove('sel'));
+  el.classList.add('sel');
+  CLV.vote[el.dataset.k] = Number(el.dataset.n);
+}
+
+async function clvSubmitVote(){
+  const msg = document.getElementById('clv-vote-msg');
+  const say = (t, bad) => { msg.textContent = t; msg.style.color = bad ? '#dc2626' : '#15803d'; };
+  if(CLV_ITEMS.some(it => !CLV.vote[it.k])) return say('네 가지 항목의 클로버를 모두 골라 주세요.', true);
+  const btn = document.getElementById('clv-vote-btn');
+  btn.disabled = true;
+  let lab = CLV.lab;
+  if(!lab){
+    const v = id => (document.getElementById(id)?.value || '').trim();
+    const nl = { univ:v('clv-new-univ'), dept:v('clv-new-dept'), name:v('clv-new-name'), topic:v('clv-new-topic') || null };
+    if(nl.univ.length < 2 || nl.dept.length < 2 || nl.name.length < 2){ btn.disabled = false; return say('연구실을 고르거나 학교·학과·연구실 이름을 적어 주세요.', true); }
+    const { data, error } = await sbClient.from('clover_labs').insert(nl).select('id,univ,dept,name,topic,created_at').single();
+    if(error){ btn.disabled = false; return say(error.code === '23505' ? '이미 등록된 연구실이에요. 위 검색창에서 찾아 골라 주세요.' : '연구실을 등록하지 못했어요. 잠시 뒤 다시 시도해 주세요.', true); }
+    lab = data; CLV.labs.unshift(data);
+  }
+  const { error } = await sbClient.from('clover_votes').insert({ lab_id: lab.id, ...CLV.vote });
+  if(error){ btn.disabled = false; return say(error.code === '23505' ? '이 연구실에는 이미 클로버를 남기셨어요.' : '저장하지 못했어요. 잠시 뒤 다시 시도해 주세요.', true); }
+  say('🍀 클로버를 남겼어요. 고마워요!');
+  setTimeout(() => { clvClose('clv-vote-modal'); clvLoad(true); }, 1000);
+}
+
+function clvOpenReport(id){
+  CLV.reportLab = CLV.labs.find(l => l.id === id);
+  if(!CLV.reportLab) return;
+  document.getElementById('clv-report-lab').textContent = `${CLV.reportLab.univ} ${CLV.reportLab.dept} · ${CLV.reportLab.name}`;
+  document.getElementById('clv-report-reason').value = '';
+  document.getElementById('clv-report-contact').value = currentUser?.email || '';
+  document.getElementById('clv-report-msg').textContent = '';
+  document.getElementById('clv-report-btn').disabled = false;
+  clvReportKind(document.querySelector('#clv-report-modal .clv-opt[data-k="report"]'));
+  clvShow('clv-report-modal');
+}
+function clvReportKind(el){
+  document.querySelectorAll('#clv-report-modal .clv-opt').forEach(b => b.classList.remove('sel'));
+  el.classList.add('sel'); CLV.reportKind = el.dataset.k;
+}
+async function clvSubmitReport(){
+  const msg = document.getElementById('clv-report-msg');
+  const btn = document.getElementById('clv-report-btn');
+  btn.disabled = true;
+  const { error } = await sbClient.rpc('clover_report', {
+    p_lab: CLV.reportLab.id, p_kind: CLV.reportKind,
+    p_reason: document.getElementById('clv-report-reason').value.trim(),
+    p_contact: document.getElementById('clv-report-contact').value.trim(),
+  });
+  if(error){ btn.disabled = false; msg.style.color = '#dc2626'; msg.textContent = '접수하지 못했어요. 잠시 뒤 다시 시도해 주세요.'; return; }
+  msg.style.color = '#15803d'; msg.textContent = '접수됐어요. 이 연구실은 바로 가려졌고, 운영자가 확인할게요.';
+  setTimeout(() => { clvClose('clv-report-modal'); clvLoad(true); }, 1400);
+}
+
+// ══════════════════════════════════════════
+// ── 뒤로가기: 화면 이동과 창 열기를 브라우저 기록에 남긴다 ──
+// 홈 → 학회정보 → 뒤로 누르면 홈으로, 글·메뉴·로그인 창이 열려 있으면 뒤로 누를 때 창만 닫힌다
+// ══════════════════════════════════════════
+var _navCur = 'home', _newsIdx = null, _navSilent = false, _navClosing = false;
+try { history.scrollRestoration = 'manual'; } catch(e) {}
+
+function navUrl(page){
+  return page === 'home' || !page ? location.pathname + location.search : '#' + page;
+}
+function navPush(st){
+  try {
+    const cur = history.state || { page: _navCur };
+    if(cur.ov){
+      // 메뉴 같은 창에서 다른 화면으로 넘어가면 그 창 기록 자리에 새 화면을 넣는다
+      history.replaceState(st, '', navUrl(st.page));
+    } else {
+      history.replaceState(Object.assign({}, cur, { y: window.scrollY }), '', location.href);
+      history.pushState(st, '', navUrl(st.page));
+    }
+  } catch(e) {}
+}
+const NAV_OVERLAYS = [
+  { isOpen: () => document.getElementById('nav-drawer')?.classList.contains('open'), close: () => closeDrawer() },
+  { isOpen: () => document.getElementById('auth-modal')?.style.display === 'flex', close: () => closeAuth() },
+  { isOpen: () => document.getElementById('write-modal')?.style.display === 'flex', close: () => closeWriteModal() },
+  { isOpen: () => document.getElementById('post-modal')?.style.display === 'flex', close: () => closePostModal() },
+  { isOpen: () => document.getElementById('clv-vote-modal')?.classList.contains('open'), close: () => clvClose('clv-vote-modal') },
+  { isOpen: () => document.getElementById('clv-report-modal')?.classList.contains('open'), close: () => clvClose('clv-report-modal') },
+];
+function navAnyOverlay(){ return NAV_OVERLAYS.some(o => o.isOpen()); }
+function navOverlayOpened(extra, url){
+  try {
+    const cur = history.state || { page: _navCur };
+    if(cur.ov){
+      if(extra) history.replaceState(Object.assign({}, cur, extra), '', url || location.href);
+      return;
+    }
+    history.replaceState(Object.assign({}, cur, { y: window.scrollY }), '', location.href);
+    history.pushState(Object.assign({}, cur, { ov: 1 }, extra || {}), '', url || location.href);
+  } catch(e) {}
+}
+function navOverlayClosed(){
+  if(_navClosing) return;
+  try {
+    if(history.state && history.state.ov && !navAnyOverlay()){ _navSilent = true; history.back(); }
+  } catch(e) {}
+}
+// 기존 창 열기/닫기 함수에 기록 남기기를 덧붙인다
+(function(){
+  const wrapOpen = name => { const f = window[name]; if(typeof f !== 'function') return;
+    window[name] = function(){ const r = f.apply(this, arguments);
+      Promise.resolve(r).then(() => { if(navAnyOverlay()) navOverlayOpened(); }); return r; }; };
+  const wrapClose = name => { const f = window[name]; if(typeof f !== 'function') return;
+    window[name] = function(){ const r = f.apply(this, arguments); navOverlayClosed(); return r; }; };
+  ['openDrawer', 'openAuth', 'cmOpenWrite', 'clvShow'].forEach(wrapOpen);
+  ['closeDrawer', 'closeAuth', 'closeWriteModal', 'closePostModal', 'clvClose'].forEach(wrapClose);
+})();
+
+function navFromHash(){
+  const h = location.hash.replace('#', '');
+  if(h.startsWith('post-')) return { page: 'community' };
+  if(h === 'news-detail') return { page: 'news' };
+  return { page: ['community', 'info', 'news', 'clover'].includes(h) ? h : 'home' };
+}
+function navRender(st){
+  let page = st.page || 'home';
+  if(page === 'news-detail'){
+    if(st.news != null && NEWS[st.news]){ _newsIdx = st.news; openNews(st.news, true); }
+    else page = 'news';
+  }
+  showPage(page, true);
+  try { setNavByName(page); } catch(e) {}
+  document.querySelectorAll('.nav-drawer-link').forEach(n => n.classList.toggle('active', (n.getAttribute('onclick') || '').includes("showPage('" + page + "')")));
+  if(page === 'clover' && typeof clvLoad === 'function') clvLoad();
+  window.scrollTo(0, st.y || 0);
+}
+window.addEventListener('popstate', e => {
+  if(_navSilent){ _navSilent = false; return; }
+  const st = e.state || navFromHash();
+  // 열려 있던 창은 닫기만 한다 (닫으면서 또 뒤로 가지 않도록)
+  _navClosing = true;
+  NAV_OVERLAYS.forEach(o => { if(o.isOpen()) o.close(); });
+  _navClosing = false;
+  if(st.ov){ try { const c = Object.assign({}, st); delete c.ov; delete c.post; history.replaceState(c, '', navUrl(c.page)); } catch(e) {} }
+  navRender(st);
+});
+// 주소에 #info 처럼 화면 이름이 있으면 그 화면으로 시작
+(function(){
+  const st = navFromHash();
+  try { history.replaceState(st, '', location.hash.startsWith('#post-') ? navUrl('community') : navUrl(st.page)); } catch(e) {}
+  if(st.page !== 'home') navRender(st);
 })();
 </script>
 </body>
