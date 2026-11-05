@@ -1,0 +1,57 @@
+name: Nature·Science 최신 논문 자동 수집
+
+# 매일 Nature, Science 공식 RSS 에서 새 연구 논문을 모아 data/papers.json 으로 커밋한다.
+# 웹사이트가 이 파일을 직접 읽으므로 Supabase 나 GitHub 비밀값 설정이 필요 없다.
+
+on:
+  schedule:
+    - cron: "30 18 * * *"   # 매일 한국시간 새벽 3시 30분
+  workflow_dispatch:
+  push:
+    paths:
+      - scripts/collect_papers.py
+      - .github/workflows/collect-papers.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: collect-papers
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: 논문 수집
+        run: python scripts/collect_papers.py --out data/papers.json
+      - name: 결과 미리보기
+        run: |
+          python - <<'PY'
+          import json, collections
+          d = json.load(open("data/papers.json", encoding="utf-8"))
+          rows = d["papers"]
+          print("총", len(rows), "건, 갱신", d["updated"])
+          print("저널별", dict(collections.Counter(r["journal"] for r in rows)))
+          print("분야별", dict(collections.Counter(r["tag"] for r in rows)))
+          for r in rows[:40]:
+              print(r["date"], r["journal"], r["tag"], "|", r["title"], "|", r["summary"][:90])
+          PY
+      - name: 바뀐 내용이 있으면 커밋 (main 에서만)
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/papers.json
+          if git diff --cached --quiet; then
+            echo "변경 없음"
+          else
+            git commit -m "Nature·Science 최신 논문 자동 갱신 ($(date -u +%Y-%m-%d))"
+            git pull --rebase origin main
+            git push
+          fi
