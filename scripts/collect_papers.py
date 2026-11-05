@@ -35,7 +35,6 @@ SUMMARY_LEN = 200
 
 NATURE_RSS = [
     "https://www.nature.com/nature.rss",                    # 최신 게재(뉴스·칼럼 포함)
-    "https://www.nature.com/nature/current_issue/rss",      # 최신호 목차
 ]
 NATURE_ISSN = "0028-0836"
 
@@ -184,18 +183,44 @@ def parse_feed(raw, url=""):
     return [children(e) for e in root.iter() if local(e.tag) in ("item", "entry")]
 
 
-def og_image(page_url):
-    """학술지 '이번 호' 페이지가 공유용으로 공개하는 대표 그림(표지) 주소를 읽는다. 그림 자체는 받지 않는다."""
+def nature_issue():
+    """Nature '이번 호' 페이지에서 권·호와 표지 그림 주소를 읽는다. 그림 자체는 받지 않는다(링크만)."""
+    info = ISSUE["Nature"]
     try:
-        page = http_get(page_url, accept="text/html").decode("utf-8", "replace")
+        req = urllib.request.Request(info["url"], headers={"User-Agent": UA, "Accept": "text/html"})
+        with urllib.request.urlopen(req, timeout=30) as r:
+            final, page = r.geturl(), r.read().decode("utf-8", "replace")
     except Exception as e:
-        print(f"[표지] {page_url} 실패: {e}", file=sys.stderr)
-        return ""
-    m = (re.search(r'<meta[^>]+property=["\']og:image["\'][^>]+content=["\']([^"\']+)', page)
-         or re.search(r'<meta[^>]+content=["\']([^"\']+)["\'][^>]+property=["\']og:image', page))
-    url = safe_url(html.unescape(m.group(1))) if m else ""
-    print(f"[표지] {page_url} -> {url or '없음'}", file=sys.stderr)
-    return url
+        print(f"[Nature 이번 호] 실패: {e}", file=sys.stderr)
+        return
+    m = re.search(r"/volumes/(\d+)/issues/(\d+)", final) or re.search(r"/nature/volumes/(\d+)/issues/(\d+)", page)
+    if m:
+        info.update(volume=m.group(1), issue=m.group(2),
+                    url=f"https://www.nature.com/nature/volumes/{m.group(1)}/issues/{m.group(2)}")
+    c = re.search(r"(?:https:)?//media\.springernature\.com/[^\s\"'<>]*cover-hires/journal/41586/[^\s\"'<>]+", page)
+    if c:
+        u = c.group(0)
+        info["cover"] = safe_url(html.unescape("https:" + u if u.startswith("//") else u))
+    elif m:
+        info["cover"] = f"https://media.springernature.com/w440/springer-static/cover-hires/journal/41586/{m.group(1)}/{m.group(2)}"
+    d = re.search(r'<time[^>]+datetime="(\d{4}-\d{2}-\d{2})"', page)
+    if d:
+        info["date"] = d.group(1)
+    print(f"[Nature 이번 호] {final} -> {json.dumps(info, ensure_ascii=False)}", file=sys.stderr)
+
+
+def science_cover():
+    """Science 목차 RSS 가 함께 알려주는 표지 그림 주소를 쓴다 (그림은 링크만)."""
+    for url, ch in CHANNEL_INFO.items():
+        img = safe_url(ch.get("image", ""))
+        if "type=etoc" in url and "science.org" in img:
+            ISSUE["Science"]["cover"] = img
+            try:
+                req = urllib.request.Request(img, method="HEAD", headers={"User-Agent": UA})
+                with urllib.request.urlopen(req, timeout=20) as r:
+                    print(f"[Science 표지] {img} {r.status} {r.headers.get('Content-Type')} {r.headers.get('Content-Length')}", file=sys.stderr)
+            except Exception as e:
+                print(f"[Science 표지] 확인 실패: {e}", file=sys.stderr)
 
 
 def classify(text):
@@ -260,13 +285,6 @@ def collect_nature():
             if not m:
                 continue
             doi = "10.1038/" + m.group(1)
-            if "current_issue" in url:
-                vol, num = first(it, "volume"), first(it, "number")
-                if vol and num:
-                    ISSUE["Nature"].update(volume=vol, issue=num)
-                    d = parse_date(first(it, "coverDate", "date"))
-                    if d and d.isoformat() > ISSUE["Nature"].get("date", ""):
-                        ISSUE["Nature"]["date"] = d.isoformat()
             row = make_row("Nature", first(it, "title"), "https://www.nature.com/articles/" + m.group(1),
                            first(it, "encoded", "description", "summary"),
                            parse_date(first(it, "date", "pubDate", "published", "updated")), doi)
@@ -383,10 +401,9 @@ def main():
                                    lambda d: d.startswith("10.1126/science."))
     science = finish(science)
 
-    # 표지: 이번 호 페이지의 공유용 그림 → 없으면 RSS 채널 그림(로고일 수 있어 표지로는 쓰지 않음)
-    for j, info in ISSUE.items():
-        info["cover"] = og_image(info["url"])
-        time.sleep(1)
+    # 이번 호 정보와 표지 그림 주소 (없으면 화면에서 직접 그린 표지를 쓴다)
+    nature_issue()
+    science_cover()
     print("이번 호 정보", json.dumps(ISSUE, ensure_ascii=False), file=sys.stderr)
 
     rows = sorted(nature + science, key=lambda r: r["date"], reverse=True)

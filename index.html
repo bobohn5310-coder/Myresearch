@@ -2401,30 +2401,52 @@ a { text-decoration: none; color: inherit; }
 .hn-meta { font-size: 12px; color: #94a3b8; }
 .hn-card.big .hn-meta { color: rgba(255,255,255,.75); position: relative; z-index: 1; }
 
-/* 홈: Nature·Science 새 논문 */
-.hp-section { background: #f8fafc; }
-.hp-tabs { display: flex; gap: 6px; margin: -4px 0 14px; flex-wrap: wrap; }
-.hp-tab { border: 1.5px solid var(--border); background: #fff; color: #475569; font-size: 13px; font-weight: 700; padding: 6px 14px; border-radius: 20px; cursor: pointer; font-family: inherit; }
-.hp-tab:hover { border-color: #94a3b8; }
-.hp-tab.active { background: #0f172a; border-color: #0f172a; color: #fff; }
-.hp-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
-.hp-card { display: flex; flex-direction: column; gap: 8px; border-radius: 16px; border: 1.5px solid var(--border); background: #fff; padding: 16px 18px; text-decoration: none; color: inherit; transition: box-shadow .18s, transform .18s; min-width: 0; }
-.hp-card:hover { box-shadow: 0 8px 24px rgba(15,23,42,.09); transform: translateY(-2px); }
-.hp-top { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-.hp-journal { font-family: Georgia, 'Times New Roman', serif; font-size: 13px; font-weight: 700; font-style: italic; padding: 2px 10px; border-radius: 6px; color: #fff; }
-.hp-journal.nature { background: #c2410c; }
-.hp-journal.science { background: #9f1239; }
-.hp-field { font-size: 11.5px; font-weight: 700; padding: 3px 9px; border-radius: 20px; background: #f1f5f9; color: #475569; }
-.hp-date { margin-left: auto; font-size: 11.5px; color: #94a3b8; font-family: 'DM Mono', monospace; }
-.hp-title { font-size: 14.5px; font-weight: 700; color: var(--text); line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-.hp-sum { font-size: 12.5px; color: #64748b; line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.hp-link { margin-top: auto; font-size: 12px; font-weight: 700; color: var(--blue); }
-.hp-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 14px; flex-wrap: wrap; }
-.hp-note { font-size: 11.5px; color: #94a3b8; }
-.hp-more { border: 1.5px solid var(--border); background: #fff; color: #334155; font-size: 13px; font-weight: 700; padding: 8px 18px; border-radius: 10px; cursor: pointer; font-family: inherit; }
-.hp-more:hover { border-color: var(--blue); color: var(--blue); }
-@media (max-width: 900px) { .hp-grid { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 768px) { .hp-grid { grid-template-columns: 1fr; } }
+/* 홈: Nature·Science 새 논문 (학술지 목차 느낌) */
+.hp-section { background: #fbfaf7; border-top: 1px solid #ebe7df; border-bottom: 1px solid #ebe7df; }
+.hp-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; padding-bottom: 14px; border-bottom: 2px solid #1f1f1f; margin-bottom: 26px; flex-wrap: wrap; }
+.hp-kicker { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #8a8173; font-weight: 700; margin-bottom: 6px; }
+.hp-h { font-family: Georgia, 'Times New Roman', 'Noto Serif KR', serif; font-size: 28px; font-weight: 700; color: #1f1f1f; letter-spacing: -.01em; }
+.hp-h-sub { font-size: 13px; color: #6b6458; margin-top: 4px; }
+.hp-updated { font-size: 12px; color: #8a8173; }
+.hp-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.hp-journal-col { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 22px; align-items: start; }
+.hp-cover-wrap { display: block; text-decoration: none; color: inherit; }
+.hp-cover { width: 150px; aspect-ratio: 3 / 4; object-fit: cover; display: block; background: #e7e2d8; box-shadow: 0 1px 2px rgba(0,0,0,.12), 0 10px 22px -8px rgba(0,0,0,.35); transition: transform .2s; }
+.hp-cover-wrap:hover .hp-cover { transform: translateY(-3px) rotate(-.6deg); }
+.hp-cover.type { display: flex; flex-direction: column; justify-content: space-between; padding: 14px 12px; color: #fff; box-sizing: border-box; }
+.hp-cover.type.nature { background: #b5361f; }
+.hp-cover.type.science { background: #7a1328; }
+.hp-cover.type .t-name { font-family: Georgia, 'Times New Roman', serif; font-size: 30px; font-weight: 700; line-height: 1; }
+.hp-cover.type.nature .t-name { text-transform: lowercase; letter-spacing: -.02em; }
+.hp-cover.type.science .t-name { font-size: 26px; letter-spacing: .04em; text-transform: uppercase; }
+.hp-cover.type .t-meta { font-size: 10.5px; letter-spacing: .08em; opacity: .85; text-transform: uppercase; }
+.hp-cover-cap { margin-top: 10px; font-size: 11.5px; color: #6b6458; line-height: 1.5; }
+.hp-cover-cap b { color: #1f1f1f; font-weight: 700; display: block; font-size: 12.5px; }
+.hp-toc-label { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; border-bottom: 1px solid #d9d3c7; padding-bottom: 8px; margin-bottom: 2px; }
+.hp-toc-label span { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #8a8173; font-weight: 700; }
+.hp-toc-label a { font-size: 12px; color: #6b6458; text-decoration: none; }
+.hp-toc-label a:hover { color: #1f1f1f; text-decoration: underline; }
+.hp-item { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 6px; padding: 12px 0; border-bottom: 1px solid #ebe7df; text-decoration: none; color: inherit; }
+.hp-item:hover .hp-t { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.hp-n { font-family: Georgia, serif; font-size: 13px; color: #a39a8b; padding-top: 2px; }
+.hp-t { font-family: Georgia, 'Times New Roman', serif; font-size: 15.5px; line-height: 1.4; color: #1f1f1f; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.hp-s { font-size: 12.5px; color: #6b6458; line-height: 1.5; margin-top: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.hp-m { font-size: 11.5px; color: #8a8173; margin-top: 5px; }
+.hp-m em { font-style: normal; color: #5b5346; font-weight: 600; }
+.hp-more { margin-top: 12px; background: none; border: none; padding: 0; font-size: 12.5px; font-weight: 700; color: #5b5346; cursor: pointer; font-family: inherit; }
+.hp-more:hover { color: #1f1f1f; text-decoration: underline; }
+.hp-note { margin-top: 26px; font-size: 11.5px; color: #8a8173; }
+.hp-empty { padding: 30px 0; color: #8a8173; font-size: 13px; }
+@media (max-width: 1100px) { .hp-cols { grid-template-columns: 1fr; gap: 36px; } }
+@media (max-width: 768px) {
+  .hp-h { font-size: 23px; }
+  .hp-journal-col { grid-template-columns: 96px minmax(0, 1fr); gap: 14px; }
+  .hp-cover { width: 96px; }
+  .hp-cover.type .t-name { font-size: 20px; }
+  .hp-cover.type.science .t-name { font-size: 16px; }
+  .hp-cover.type .t-meta { font-size: 8.5px; }
+  .hp-t { font-size: 14.5px; }
+}
 
 @media (max-width: 900px) {
   .hn-grid { grid-template-columns: 1fr 1fr; }
@@ -2740,24 +2762,18 @@ a { text-decoration: none; color: inherit; }
   </div>
 
   <!-- Nature·Science 새 논문 -->
-  <div class="hn-section hp-section">
-    <div class="hc-inner" style="padding-top:8px;">
-      <div class="section-header">
+  <div class="hp-section">
+    <div class="hc-inner" style="padding-top:36px;padding-bottom:40px;">
+      <div class="hp-head">
         <div>
-          <div class="section-title">🔬 Nature·Science 새 논문</div>
-          <div class="section-sub">세계 최고 학술지에 새로 실린 연구를 매일 모아 드려요</div>
+          <div class="hp-kicker">From the journals</div>
+          <div class="hp-h">Nature · Science 이번 호 논문</div>
+          <div class="hp-h-sub">세계 최고 학술지에 새로 실린 연구를 매일 모아 드려요</div>
         </div>
+        <div class="hp-updated" id="home-papers-updated"></div>
       </div>
-      <div class="hp-tabs" id="home-papers-tabs">
-        <button class="hp-tab active" data-j="all" onclick="setPaperJournal('all')">전체</button>
-        <button class="hp-tab" data-j="Nature" onclick="setPaperJournal('Nature')">Nature</button>
-        <button class="hp-tab" data-j="Science" onclick="setPaperJournal('Science')">Science</button>
-      </div>
-      <div class="hp-grid" id="home-papers"><div style="grid-column:1/-1;text-align:center;padding:28px;color:#94a3b8;">새 논문을 불러오는 중…</div></div>
-      <div class="hp-foot">
-        <div class="hp-note" id="home-papers-note">제목·게재일·짧은 소개만 보여드려요. 카드를 누르면 학술지 원문 페이지로 이동해요.</div>
-        <button class="hp-more" id="home-papers-more" onclick="morePapers()" style="display:none;">더보기</button>
-      </div>
+      <div class="hp-cols" id="home-papers"><div class="hp-empty">새 논문을 불러오는 중…</div></div>
+      <div class="hp-note">제목·게재일·짧은 소개만 보여드려요. 논문 제목을 누르면 학술지 원문 페이지로 이동해요. 표지 © Springer Nature, AAAS.</div>
     </div>
   </div>
 
@@ -4380,8 +4396,11 @@ function renderHomeNews(){
 }
 
 // ── 홈: Nature·Science 새 논문 (data/papers.json, 매일 자동 수집) ──
-let PAPERS = [], PAPER_JOURNAL = 'all', PAPER_SHOW = 6;
-const PAPER_FIELD_EMOJI = { bio:'🧬', cs:'🤖', energy:'⚡', quantum:'🔮', eng:'⚗️', earth:'🌏', space:'🔭', etc:'🔬' };
+let PAPERS = [], PAPER_ISSUES = {}, PAPER_UPDATED = '', PAPER_SHOW = { Nature: 5, Science: 5 };
+const PAPER_JOURNALS = [
+  { name: 'Nature',  cls: 'nature',  home: 'https://www.nature.com/nature/current-issue' },
+  { name: 'Science', cls: 'science', home: 'https://www.science.org/toc/science/current' },
+];
 async function loadPapers(){
   const urls = ['data/papers.json', 'https://raw.githubusercontent.com/bobohn5310-coder/Myresearch/main/data/papers.json'];
   for (const u of urls) {
@@ -4389,48 +4408,61 @@ async function loadPapers(){
       const r = await fetch(u, { cache: 'no-cache' });
       if (!r.ok) continue;
       const d = await r.json();
-      if (Array.isArray(d.papers) && d.papers.length) { PAPERS = d.papers; break; }
+      if (Array.isArray(d.papers) && d.papers.length) {
+        PAPERS = d.papers; PAPER_ISSUES = d.issues || {}; PAPER_UPDATED = d.updated || '';
+        break;
+      }
     } catch (e) { /* 다음 주소로 */ }
   }
   renderHomePapers();
 }
-function setPaperJournal(j){
-  PAPER_JOURNAL = j; PAPER_SHOW = 6;
-  document.querySelectorAll('#home-papers-tabs .hp-tab').forEach(b => b.classList.toggle('active', b.dataset.j === j));
-  renderHomePapers();
+function morePapers(j){ PAPER_SHOW[j] += 5; renderHomePapers(); }
+function fmtPaperDate(d){
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || '');
+  if(!m) return '';
+  const mon = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+m[2]-1];
+  return `${+m[3]} ${mon} ${m[1]}`;
 }
-function morePapers(){ PAPER_SHOW += 9; renderHomePapers(); }
 function renderHomePapers(){
   const el = document.getElementById('home-papers');
-  const more = document.getElementById('home-papers-more');
   if(!el) return;
-  let list = PAPERS.filter(p => PAPER_JOURNAL === 'all' || p.journal === PAPER_JOURNAL);
-  if(PAPER_JOURNAL === 'all'){
-    // 전체 보기에서는 두 저널을 번갈아 보여 한쪽만 몰리지 않게 한다
-    const a = PAPERS.filter(p => p.journal === 'Nature'), b = PAPERS.filter(p => p.journal !== 'Nature');
-    list = [];
-    for(let i = 0; i < Math.max(a.length, b.length); i++){ if(a[i]) list.push(a[i]); if(b[i]) list.push(b[i]); }
-  }
-  if(!list.length){
-    el.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:28px;color:#94a3b8;">아직 모인 논문이 없어요. 잠시 뒤에 다시 확인해 주세요.</div>';
-    if(more) more.style.display = 'none';
-    return;
-  }
-  el.innerHTML = list.slice(0, PAPER_SHOW).map(p => {
-    const url = safeUrl(p.url);
-    const jc = p.journal === 'Science' ? 'science' : 'nature';
-    return `<a class="hp-card" href="${escHtml(url)}" target="_blank" rel="noopener noreferrer">
-      <div class="hp-top">
-        <span class="hp-journal ${jc}">${escHtml(p.journal)}</span>
-        <span class="hp-field">${PAPER_FIELD_EMOJI[p.field]||'🔬'} ${escHtml(p.tag||'')}</span>
-        <span class="hp-date">${escHtml(p.date||'')}</span>
+  const up = document.getElementById('home-papers-updated');
+  if(up) up.textContent = PAPER_UPDATED ? '매일 새벽 갱신 · ' + PAPER_UPDATED.slice(0,10).replace(/-/g,'.') : '';
+  if(!PAPERS.length){ el.innerHTML = '<div class="hp-empty">아직 모인 논문이 없어요. 잠시 뒤에 다시 확인해 주세요.</div>'; return; }
+  el.innerHTML = PAPER_JOURNALS.map(J => {
+    const list = PAPERS.filter(p => p.journal === J.name);
+    if(!list.length) return '';
+    const iss = PAPER_ISSUES[J.name] || {};
+    const home = safeUrl(iss.url) || J.home;
+    const volLine = iss.volume ? `Vol. ${escHtml(iss.volume)}${iss.issue ? ' · No. ' + escHtml(iss.issue) : ''}` : '';
+    const dateLine = fmtPaperDate(iss.date || list[0].date);
+    const cover = safeUrl(iss.cover);
+    // 표지 그림이 없거나 못 불러오면 직접 그린 표지로 바꾼다
+    const typeCover = `<div class="hp-cover type ${J.cls}"><div class="t-name">${J.name}</div><div class="t-meta">${volLine || 'Latest issue'}<br>${escHtml(dateLine)}</div></div>`;
+    const coverHtml = cover
+      ? `<img class="hp-cover" src="${escHtml(cover)}" alt="${J.name} 이번 호 표지" loading="lazy" referrerpolicy="no-referrer" onerror="this.outerHTML=this.dataset.fb" data-fb="${escHtml(typeCover)}">`
+      : typeCover;
+    const items = list.slice(0, PAPER_SHOW[J.name]).map((p, i) => `
+      <a class="hp-item" href="${escHtml(safeUrl(p.url))}" target="_blank" rel="noopener noreferrer">
+        <div class="hp-n">${i + 1}</div>
+        <div>
+          <div class="hp-t">${escHtml(p.title)}</div>
+          ${p.summary ? `<div class="hp-s">${escHtml(p.summary)}</div>` : ''}
+          <div class="hp-m"><em>${escHtml(p.tag || '')}</em>${p.tag ? ' · ' : ''}${escHtml(fmtPaperDate(p.date))}</div>
+        </div>
+      </a>`).join('');
+    return `<div class="hp-journal-col">
+      <a class="hp-cover-wrap" href="${escHtml(home)}" target="_blank" rel="noopener noreferrer">
+        ${coverHtml}
+        <div class="hp-cover-cap"><b>${J.name}</b>${volLine ? volLine + '<br>' : ''}${escHtml(dateLine)}</div>
+      </a>
+      <div>
+        <div class="hp-toc-label"><span>이번 호 연구 논문 ${list.length}편</span><a href="${escHtml(home)}" target="_blank" rel="noopener noreferrer">전체 목차 ↗</a></div>
+        ${items}
+        ${list.length > PAPER_SHOW[J.name] ? `<button class="hp-more" onclick="morePapers('${J.name}')">논문 더 보기 +</button>` : ''}
       </div>
-      <div class="hp-title">${escHtml(p.title)}</div>
-      ${p.summary ? `<div class="hp-sum">${escHtml(p.summary)}</div>` : ''}
-      <div class="hp-link">원문 보기 ↗</div>
-    </a>`;
+    </div>`;
   }).join('');
-  if(more) more.style.display = list.length > PAPER_SHOW ? '' : 'none';
 }
 
 function renderHomeHero(){
