@@ -3755,7 +3755,7 @@ async function fetchNewsFromDB() {
       id: n.id, org: n.org, field: n.field, tag: n.tag || '',
       title: n.title, date: n.date,
       content: n.content || '',
-      url: n.url || '#',
+      url: (n.url && !/wikicfp\.com/i.test(n.url)) ? n.url : '#', // WikiCFP로는 보내지 않는다
       image_url: n.image_url || '',
       is_featured: n.is_featured || false
     });
@@ -4272,7 +4272,7 @@ async function fetchInfoFromDB() {
       dday: dday, date: n.type === 'conf' ? (n.start_date || n.date) : n.date,
       start_date: n.start_date, end_date: n.end_date,
       cfp_date: n.type === 'conf' ? (n.date || null) : null, // 학회의 date 컬럼 = 논문 투고 마감일
-      url: n.url || '#',
+      url: (n.url && !/wikicfp\.com/i.test(n.url)) ? n.url : '#', // WikiCFP로는 보내지 않는다
       tags: Array.isArray(n.tags) ? n.tags.join(',') : (n.tags || ''),
       location: n.location || '',
       content: n.content || '',

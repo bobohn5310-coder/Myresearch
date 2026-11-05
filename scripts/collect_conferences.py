@@ -293,6 +293,50 @@ def collect_wikicfp(categories=WIKICFP_CATEGORIES, delay=3.0):
     return rows
 
 
+WIKICFP_LINK_RE = re.compile(r'Link:\s*(?:</[^>]+>\s*)*<a[^>]+href="([^"]+)"', re.I)
+
+
+def resolve_official_links(rows, cache_path=None, delay=1.5, limit=400):
+    """WikiCFP 링크 대신 학회 공식 홈페이지 주소를 쓴다.
+    WikiCFP 상세 페이지의 'Link:' 항목에서 공식 주소를 읽고, 지난번 결과(data/conferences.json)에
+    이미 공식 주소가 있으면 다시 받지 않는다. 공식 주소를 못 찾으면 링크를 비워 둔다."""
+    cache = {}
+    if cache_path and os.path.exists(cache_path):
+        try:
+            for r in json.load(open(cache_path, encoding="utf-8")):
+                u = r.get("url") or ""
+                if r.get("source") == "wikicfp" and u and "wikicfp.com" not in u:
+                    cache[r.get("external_id")] = u
+        except (OSError, ValueError):
+            pass
+    fetched = found = 0
+    for r in rows:
+        if r.get("source") != "wikicfp" or "wikicfp.com" not in (r.get("url") or ""):
+            continue
+        cfp_url = r["url"]
+        r["url"] = cache.get(r["external_id"], "")
+        if r["url"] or fetched >= limit:
+            continue
+        fetched += 1
+        try:
+            page = http_get(cfp_url).decode("utf-8", "replace")
+        except Exception as e:
+            print(f"[wikicfp-link] {cfp_url} 실패: {e}", file=sys.stderr)
+            time.sleep(delay)
+            continue
+        m = WIKICFP_LINK_RE.search(page)
+        u = safe_url(html.unescape(m.group(1))) if m else ""
+        if u and "wikicfp.com" not in u:
+            r["url"] = u
+            found += 1
+        elif found == 0 and fetched <= 2:
+            i = page.find("Link:")
+            print("[wikicfp-link] 공식 주소 없음, 예시:", repr(page[max(0, i - 200): i + 300] if i >= 0 else page[:300]))
+        time.sleep(delay)
+    print(f"[wikicfp-link] 캐시 {len(cache)}건, 새로 조회 {fetched}건, 공식 주소 찾음 {found}건")
+    return rows
+
+
 # ─────────────────────────── 소스 3: 직접 확인한 주요 학회 목록 ───────────────────────────
 CURATED_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", "conferences-curated.json")
 
@@ -469,6 +513,8 @@ def main():
         rows += collect_wikicfp()
         rows += collect_metalgrass()
     rows = [add_topic_tags(r) for r in dedupe(rows)]
+    if not args.skip_wikicfp:
+        rows = resolve_official_links(rows, cache_path=args.out)
     print(f"총 {len(rows)}건 수집")
 
     if args.out:
