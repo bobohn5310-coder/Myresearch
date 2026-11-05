@@ -381,10 +381,35 @@ def page_image(url):
     return img
 
 
+def nature_figure(doi):
+    """Nature 논문 페이지는 자동 접속을 막지만, 미리보기 그림(첫 번째 그림)은 정해진 주소 규칙으로
+    Springer Nature 그림 서버에 있다. 예) 10.1038/s41586-026-11200-4 →
+    https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41586-026-11200-4/MediaObjects/41586_2026_11200_Fig1_HTML.png
+    그 주소가 실제로 있는지만 확인하고(그림은 저장하지 않음) 주소를 남긴다."""
+    m = re.match(r"10\.1038/s41586-0?(\d{2,4})-(\d+)-\w$", doi or "")
+    if not m:
+        return ""
+    year = m.group(1) if len(m.group(1)) == 4 else "20" + m.group(1)[-2:]
+    art = urllib.parse.quote(doi, safe="")
+    for ext in ("png", "jpg"):
+        url = (f"https://media.springernature.com/lw685/springer-static/image/art%3A{art}/MediaObjects/"
+               f"41586_{year}_{m.group(2)}_Fig1_HTML.{ext}")
+        try:
+            req = urllib.request.Request(url, method="HEAD", headers={"User-Agent": UA})
+            with urllib.request.urlopen(req, timeout=20) as r:
+                if r.status == 200 and (r.headers.get("Content-Type") or "").startswith("image/"):
+                    return url
+        except Exception as e:
+            if not getattr(nature_figure, "logged", False):
+                nature_figure.logged = True
+                print(f"[대표 그림] {url} 확인 실패: {e}", file=sys.stderr)
+    return ""
+
+
 def add_images(rows):
     found = 0
     for r in rows:
-        r["image"] = page_image(r["url"])
+        r["image"] = nature_figure(r.get("doi")) or page_image(r["url"])
         found += bool(r["image"])
         time.sleep(0.5)
     print(f"[대표 그림] {len(rows)}편 중 {found}편", file=sys.stderr)
