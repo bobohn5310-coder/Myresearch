@@ -1,0 +1,9 @@
+.git
+.github
+.gitignore
+scripts
+supabase
+docs
+wrangler.jsonc
+.assetsignore
+.wrangler

@@ -34,7 +34,7 @@ import xml.etree.ElementTree as ET
 
 import yaml
 
-UA = "MyResearchCalendar-ConferenceCollector/1.0 (+https://bobohn5310-coder.github.io/Myresearch/)"
+UA = "MyResearchCalendar-ConferenceCollector/1.0 (+https://myresearchcal.com/)"
 TODAY = dt.date.today()
 
 # ccfddl 분류(sub) → 우리 서비스 분야(field) 와 태그
@@ -196,16 +196,20 @@ def collect_ccfddl(repo_dir=None):
                 if not start or end < TODAY:
                     continue
                 place = clean(ed.get("place"), 120)
-                deadlines = sorted(d for d in (parse_one_date(t.get("deadline"))
-                                               for t in (ed.get("timeline") or []) if isinstance(t, dict)) if d)
-                next_dl = next((d for d in deadlines if d >= TODAY), None)
+                timeline = sorted(((parse_one_date(t.get("deadline")), parse_one_date(t.get("abstract_deadline")))
+                                   for t in (ed.get("timeline") or []) if isinstance(t, dict)),
+                                  key=lambda x: x[0] or dt.date.max)
+                past = [(d, a) for d, a in timeline if d and d < TODAY]
+                # 아직 남은 마감이 없으면 가장 최근에 지난 마감을 보여 준다 (화면에 '마감됨'으로 표시)
+                next_dl, next_abs = next(((d, a) for d, a in timeline if d and d >= TODAY),
+                                         past[-1] if past else (None, None))
                 tags = ["해외" if not is_korea(place) else "국내개최", CCF_SUB_TAGS.get(sub, "컴퓨터")]
                 if rank.get("ccf") and rank["ccf"] != "N":
                     tags.append(f"CCF-{rank['ccf']}")
                 if rank.get("core") and rank["core"] != "N":
                     tags.append(f"CORE-{rank['core']}")
                 content = clean(conf.get("description"), 300)
-                if next_dl:
+                if next_dl and next_dl >= TODAY:
                     content += f" · 투고 마감 {next_dl.isoformat()}"
                 rows.append({
                     "type": "conf",
@@ -215,6 +219,8 @@ def collect_ccfddl(repo_dir=None):
                     "start_date": start.isoformat(),
                     "end_date": end.isoformat(),
                     "date": next_dl.isoformat() if next_dl else None,
+                    "abstract_deadline": next_abs.isoformat() if next_abs else None,
+                    "registration_deadline": None,
                     "content": content,
                     "url": safe_url(ed.get("link")),
                     "tags": ",".join(tags),
@@ -271,12 +277,18 @@ def parse_wikicfp_item(item, field, tag):
 
 def collect_wikicfp(categories=WIKICFP_CATEGORIES, delay=3.0):
     rows = []
+    fails = 0
     for cat, field, tag in categories:
+        if fails >= 3 and not rows:
+            # 처음부터 연달아 응답이 없으면 서버가 멈춘 것으로 보고 나머지는 건너뛴다
+            print("[wikicfp] 서버가 응답하지 않아 오늘은 건너뜁니다", file=sys.stderr)
+            break
         url = "http://www.wikicfp.com/cfp/rss?cat=" + urllib.parse.quote(cat)
         try:
-            root = ET.fromstring(http_get(url))
+            root = ET.fromstring(http_get(url, timeout=15))
         except Exception as e:  # 네트워크·파싱 오류는 그 카테고리만 건너뛴다
             print(f"[wikicfp] {cat} 실패: {e}", file=sys.stderr)
+            fails += 1
             continue
         n = 0
         items = list(root.iter("item"))
@@ -308,46 +320,72 @@ def previous_rows(path, source):
     return [r for r in old if r.get("source") == source and (r.get("end_date") or "") >= today]
 
 
+WIKICFP_DEADLINE_FIELDS = {
+    "abstract_deadline": r"Abstract (?:Registration )?Due|Abstract Deadline|Abstract Submission",
+    "date": r"Submission Deadline|Paper Submission",
+    "registration_deadline": r"Registration Due|Registration Deadline",
+}
+WIKICFP_KEEP = ("url", "date", "abstract_deadline", "registration_deadline")
+
+
+def wikicfp_deadline(page, label_re):
+    m = re.search(r"<th[^>]*>\s*(?:" + label_re + r")\s*</th>\s*<td[^>]*>(.*?)</td>", page, re.S | re.I)
+    return parse_one_date(clean(m.group(1), 60)) if m else None
+
+
 def resolve_official_links(rows, cache_path=None, delay=1.5, limit=400):
-    """WikiCFP 링크 대신 학회 공식 홈페이지 주소를 쓴다.
-    WikiCFP 상세 페이지의 'Link:' 항목에서 공식 주소를 읽고, 지난번 결과(data/conferences.json)에
-    이미 공식 주소가 있으면 다시 받지 않는다. 공식 주소를 못 찾으면 링크를 비워 둔다."""
+    """WikiCFP 상세 페이지에서 학회 공식 홈페이지 주소와 마감일(초록·논문·등록)을 읽는다.
+    WikiCFP 링크는 쓰지 않는다. 지난번 결과(data/conferences.json)에서 이미 읽은 학회는 다시 받지 않는다."""
     cache = {}
     if cache_path and os.path.exists(cache_path):
         try:
             for r in json.load(open(cache_path, encoding="utf-8")):
-                u = r.get("url") or ""
-                if r.get("source") == "wikicfp" and u and "wikicfp.com" not in u:
-                    cache[r.get("external_id")] = u
+                if r.get("source") == "wikicfp" and r.get("wikicfp_checked"):
+                    cache[r.get("external_id")] = r
         except (OSError, ValueError):
             pass
-    fetched = found = fails = 0
+    fetched = found = dl_found = fails = 0
     for r in rows:
-        if r.get("source") != "wikicfp" or "wikicfp.com" not in (r.get("url") or ""):
+        if r.get("source") != "wikicfp":
             continue
-        cfp_url = r["url"]
-        r["url"] = cache.get(r["external_id"], "")
-        if r["url"] or fetched >= limit or fails >= 5:
+        cfp_url = r.get("url") or ""
+        old = cache.get(r["external_id"])
+        if old:
+            for k in WIKICFP_KEEP:
+                r[k] = old.get(k)
+            r["wikicfp_checked"] = True
+            continue
+        if "wikicfp.com" in cfp_url:
+            r["url"] = ""
+        if "wikicfp.com" not in cfp_url or fetched >= limit or fails >= 3:
             continue
         fetched += 1
         try:
-            page = http_get(cfp_url).decode("utf-8", "replace")
+            page = http_get(cfp_url, timeout=15).decode("utf-8", "replace")
         except Exception as e:
             print(f"[wikicfp-link] {cfp_url} 실패: {e}", file=sys.stderr)
             fails += 1  # WikiCFP가 응답하지 않으면 몇 번 뒤에 그만둔다 (다음 날 다시 시도)
             time.sleep(delay)
             continue
         fails = 0
+        r["wikicfp_checked"] = True
         m = WIKICFP_LINK_RE.search(page)
         u = safe_url(html.unescape(m.group(1))) if m else ""
         if u and "wikicfp.com" not in u:
             r["url"] = u
             found += 1
-        elif found == 0 and fetched <= 2:
-            i = page.find("Link:")
-            print("[wikicfp-link] 공식 주소 없음, 예시:", repr(page[max(0, i - 200): i + 300] if i >= 0 else page[:300]))
+        any_dl = False
+        for k, label in WIKICFP_DEADLINE_FIELDS.items():
+            d = wikicfp_deadline(page, label)
+            if d:
+                r[k] = d.isoformat()
+                any_dl = True
+        dl_found += any_dl
+        if fetched <= 2 and not (u and any_dl):
+            i = page.find("Submission Deadline")
+            print("[wikicfp-link] 예시:", repr(page[max(0, i - 600): i + 300] if i >= 0 else page[:600]))
         time.sleep(delay)
-    print(f"[wikicfp-link] 캐시 {len(cache)}건, 새로 조회 {fetched}건, 공식 주소 찾음 {found}건")
+    print(f"[wikicfp-link] 캐시 {len(cache)}건, 새로 조회 {fetched}건, 공식 주소 {found}건, 마감일 {dl_found}건")
     return rows
 
 
@@ -371,7 +409,9 @@ def collect_curated(path=CURATED_PATH):
             "type": "conf", "field": it.get("field", "all"),
             "title": clean(it["title"], 200), "org": clean(it.get("org"), 200),
             "start_date": start.isoformat(), "end_date": end.isoformat(),
-            "date": it.get("deadline"), "content": clean(it.get("org"), 300),
+            "date": it.get("deadline"), "abstract_deadline": it.get("abstract_deadline"),
+            "registration_deadline": it.get("registration_deadline"),
+            "content": clean(it.get("org"), 300),
             "url": safe_url(it.get("url")), "tags": clean(it.get("tags"), 200),
             "location": clean(it.get("location"), 120),
             "source": "curated", "external_id": f"curated:{it['id']}",

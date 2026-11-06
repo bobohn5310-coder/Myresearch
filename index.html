@@ -3,16 +3,58 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Research Calendar — 연구자를 위한 올인원 플랫폼</title>
-<meta name="description" content="전 세계 학회 일정과 논문 마감을 한곳에서. 대학원생과 연구자를 위한 마감 캘린더와 D-day 알림, 연구자 커뮤니티 마이리서치캘린더.">
+<title>마이리서치캘린더 | 대학원생을 위한 학회 일정·논문 마감 캘린더</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="description" content="전 세계 학회 일정과 논문 마감(deadline)을 한곳에서. 대학원생과 연구자를 위한 학회 캘린더, D-day 알림, 연구실 클로버 지수, 연구자 커뮤니티 마이리서치캘린더.">
+<meta name="keywords" content="마이리서치캘린더, My Research Calendar, 학회 일정, 학회 마감, 논문 마감, 논문 데드라인, conference deadline, 국제학회, 국내학회, 대학원생, 연구실 평가, 연구실 분위기, 클로버 지수, 연구자 커뮤니티, 연구 캘린더">
+<meta name="robots" content="index, follow">
+<meta name="author" content="마이리서치캘린더">
+<meta name="theme-color" content="#2563eb">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="마이리서치캘린더 My Research Calendar">
-<meta property="og:title" content="마이리서치캘린더 — 연구자를 위한 마감 캘린더">
-<meta property="og:description" content="전 세계 학회 일정과 논문 마감을 한곳에서 D-day로 확인하세요.">
-<meta property="og:url" content="https://bobohn5310-coder.github.io/Myresearch/">
+<meta property="og:title" content="마이리서치캘린더 — 대학원생을 위한 학회·논문 마감 캘린더">
+<meta property="og:description" content="전 세계 학회 일정과 논문 마감을 한곳에서 D-day로 확인하고, 연구실 클로버 지수로 연구실 분위기를 미리 알아보세요.">
+<meta property="og:url" content="https://myresearchcal.com/">
+<meta property="og:image" content="https://myresearchcal.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="마이리서치캘린더 — 전 세계 학회 일정과 논문 마감을 한곳에서">
 <meta property="og:locale" content="ko_KR">
-<meta name="twitter:card" content="summary">
-<link rel="canonical" href="https://bobohn5310-coder.github.io/Myresearch/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="마이리서치캘린더 — 대학원생을 위한 학회·논문 마감 캘린더">
+<meta name="twitter:description" content="전 세계 학회 일정과 논문 마감을 한곳에서 D-day로 확인하세요.">
+<meta name="twitter:image" content="https://myresearchcal.com/assets/og-image.png">
+<link rel="canonical" href="https://myresearchcal.com/">
+<!-- 검색엔진 소유 확인 코드: 구글·네이버에서 받은 코드를 아래 content 값에 넣으면 됩니다 -->
+<!-- <meta name="google-site-verification" content=""> -->
+<meta name="naver-site-verification" content="f8a6a7f0dac09f331818ebf8366983cf29b39d7a">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://myresearchcal.com/#website",
+      "url": "https://myresearchcal.com/",
+      "name": "마이리서치캘린더",
+      "alternateName": ["My Research Calendar", "마리캘"],
+      "description": "대학원생과 연구자를 위한 학회 일정·논문 마감 캘린더",
+      "inLanguage": "ko-KR",
+      "publisher": { "@id": "https://myresearchcal.com/#organization" }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://myresearchcal.com/#organization",
+      "name": "마이리서치캘린더",
+      "alternateName": "My Research Calendar",
+      "url": "https://myresearchcal.com/",
+      "logo": "https://myresearchcal.com/assets/logo.png"
+    }
+  ]
+}
+</script>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -78,11 +120,10 @@ a { text-decoration: none; color: inherit; }
 }
 
 .nav-logo-icon {
-  width: 34px; height: 34px;
-  background: #0f172a;
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 15px;
+  width: 44px; height: 44px;
+  display: block;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
 .nav-logo-text {
@@ -1114,13 +1155,10 @@ a { text-decoration: none; color: inherit; }
 
 .auth-logo { text-align: center; margin-bottom: 28px; }
 .auth-logo-icon {
-  width: 52px; height: 52px;
-  background: var(--blue);
-  border-radius: 16px;
-  display: inline-flex; align-items: center; justify-content: center;
-  font-size: 26px;
-  margin-bottom: 12px;
-  box-shadow: 0 4px 16px rgba(5,150,105,0.4);
+  width: 72px; height: 72px;
+  display: inline-block;
+  object-fit: contain;
+  margin-bottom: 8px;
 }
 .auth-title { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
 .auth-sub { font-size: 14px; color: var(--text-muted); }
@@ -1227,9 +1265,6 @@ a { text-decoration: none; color: inherit; }
   transform: translateY(-2px) !important;
 }
 
-.nav-logo-icon, .auth-logo-icon {
-  background: linear-gradient(135deg, #047857 0%, #059669 100%) !important;
-}
 
 .hero-title .accent {
   background: linear-gradient(135deg, #047857, #059669);
@@ -2213,6 +2248,13 @@ a { text-decoration: none; color: inherit; }
 .cf-org { font-size: 12.5px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .cf-meta { font-size: 12px; color: #64748b; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
 .cf-meta .cf-cfp { color: #c2410c; font-weight: 700; }
+.cf-dl { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+.cf-dl-i { font-size:12px; padding:3px 8px; border-radius:6px; background:#f1f5f9; color:#334155; white-space:nowrap; }
+.cf-dl-i b { font-weight:700; margin-left:2px; }
+.cf-dl-i.soon { background:#fff7ed; color:#c2410c; }
+.cf-dl-i.hot { background:#fef2f2; color:#dc2626; }
+.cf-dl-i.past { background:#f8fafc; color:#94a3b8; text-decoration:line-through; }
+.cf-dl.none { font-size:12px; color:#94a3b8; margin-top:8px; }
 .cf-topics { font-size: 11.5px; color: #94a3b8; }
 
 .cf-month { display: flex; align-items: baseline; gap: 8px; margin: 6px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
@@ -2850,7 +2892,7 @@ a { text-decoration: none; color: inherit; }
 <!-- NAVBAR -->
 <nav class="navbar">
   <div class="nav-logo" onclick="showPage('home')">
-    <div class="nav-logo-icon" style="overflow:visible;"><svg width="28" height="36" viewBox="-4 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="3" y1="16" x2="-3" y2="22" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="25" y1="16" x2="31" y2="22" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="10" y1="28" x2="7" y2="35" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="18" y1="28" x2="21" y2="35" stroke="white" stroke-width="2.5" stroke-linecap="round"/><rect x="1" y="5" width="26" height="24" rx="4" fill="white" fill-opacity="0.2" stroke="white" stroke-width="1.5"/><rect x="1" y="5" width="26" height="8" rx="4" fill="white" fill-opacity="0.3"/><rect x="1" y="9" width="26" height="4" fill="white" fill-opacity="0.3"/><rect x="7" y="2" width="3" height="6" rx="1.5" fill="white"/><rect x="18" y="2" width="3" height="6" rx="1.5" fill="white"/><circle cx="8" cy="20" r="1.5" fill="white"/><circle cx="14" cy="20" r="1.5" fill="white"/><circle cx="20" cy="20" r="1.5" fill="white"/><circle cx="8" cy="25" r="1.5" fill="white"/><circle cx="14" cy="25" r="1.5" fill="white"/></svg></div>
+    <img class="nav-logo-icon" src="assets/logo.png" alt="My Research Calendar 로고" width="44" height="44">
     <div>
         <div>
         <div class="nav-logo-text" style="font-family:'Montserrat',sans-serif;font-weight:700;letter-spacing:-0.3px;">My Research Calendar</div>
@@ -2897,8 +2939,9 @@ a { text-decoration: none; color: inherit; }
     <div class="nav-drawer-link" id="nav-drawer-verify" style="display:none;" onclick="closeDrawer();openVerify()">🪪 학교 인증</div>
   </div>
   <div class="nav-drawer-actions">
-    <button class="nav-drawer-btn-login" onclick="closeDrawer();openAuth('login')">로그인</button>
-    <button class="nav-drawer-btn-cta" onclick="closeDrawer();openAuth('signup')">무료로 시작하기 →</button>
+    <div id="nav-drawer-user" style="display:none;align-items:center;justify-content:space-between;gap:8px;font-size:14px;font-weight:600;color:var(--text);"></div>
+    <button class="nav-drawer-btn-login nav-drawer-auth-btn" onclick="closeDrawer();openAuth('login')">로그인</button>
+    <button class="nav-drawer-btn-cta nav-drawer-auth-btn" onclick="closeDrawer();openAuth('signup')">무료로 시작하기 →</button>
   </div>
 </div>
 
@@ -3012,7 +3055,7 @@ a { text-decoration: none; color: inherit; }
           <button class="hcl-btn" onclick="clvOpenVote()">내 연구실 클로버 남기기</button>
           <button class="hcl-link" onclick="goClover()">연구실 둘러보기 →</button>
         </div>
-        <p class="hcl-safe">누가 남겼는지는 보이지 않아요. 5명이 모인 연구실만 평균으로 공개돼요.</p>
+        <p class="hcl-safe">누가 남겼는지는 보이지 않아요. n명이 모인 연구실만 평균으로 공개돼요.</p>
       </div>
       <div class="hcl-board" id="home-clover-board"></div>
     </div>
@@ -3442,7 +3485,7 @@ a { text-decoration: none; color: inherit; }
       <button class="clv-btn" onclick="clvOpenVote()">🍀 클로버 남기기</button>
     </div>
     <div class="clv-grid" id="clv-grid"></div>
-    <div class="clv-note">🐞 클로버 지수는 연구실 구성원들이 남긴 <b>주관적인 의견을 모은 참고 정보</b>이며, My Research Calendar의 의견이 아니에요. 응답이 5개 이상 모인 연구실만 공개되고, 문제가 있는 내용은 각 카드의 '신고·삭제 요청'으로 알려 주시면 바로 가린 뒤 검토해요.</div>
+    <div class="clv-note">🐞 클로버 지수는 연구실 구성원들이 남긴 <b>주관적인 의견을 모은 참고 정보</b>이며, My Research Calendar의 의견이 아니에요. 응답이 n명 이상 모인 연구실만 공개되고, 문제가 있는 내용은 각 카드의 '신고·삭제 요청'으로 알려 주시면 바로 가린 뒤 검토해요.</div>
   </div>
 </div>
 
@@ -3479,7 +3522,7 @@ a { text-decoration: none; color: inherit; }
   <div class="auth-modal">
     <div class="modal-close" onclick="closeAuth()">×</div>
     <div class="auth-logo">
-      <div class="auth-logo-icon" style="overflow:visible;"><svg width="28" height="36" viewBox="-4 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="3" y1="16" x2="-3" y2="22" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="25" y1="16" x2="31" y2="22" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="10" y1="28" x2="7" y2="35" stroke="white" stroke-width="2.5" stroke-linecap="round"/><line x1="18" y1="28" x2="21" y2="35" stroke="white" stroke-width="2.5" stroke-linecap="round"/><rect x="1" y="5" width="26" height="24" rx="4" fill="white" fill-opacity="0.2" stroke="white" stroke-width="1.5"/><rect x="1" y="5" width="26" height="8" rx="4" fill="white" fill-opacity="0.3"/><rect x="1" y="9" width="26" height="4" fill="white" fill-opacity="0.3"/><rect x="7" y="2" width="3" height="6" rx="1.5" fill="white"/><rect x="18" y="2" width="3" height="6" rx="1.5" fill="white"/><circle cx="8" cy="20" r="1.5" fill="white"/><circle cx="14" cy="20" r="1.5" fill="white"/><circle cx="20" cy="20" r="1.5" fill="white"/><circle cx="8" cy="25" r="1.5" fill="white"/><circle cx="14" cy="25" r="1.5" fill="white"/></svg></div>
+      <img class="auth-logo-icon" src="assets/logo.png" alt="My Research Calendar 로고" width="72" height="72">
       <div class="auth-title">My Research Calendar</div>
       <div class="auth-sub">연구자를 위한 올인원 플랫폼</div>
     </div>
@@ -4153,11 +4196,26 @@ function buildConfCard(d){
       <div class="cf-meta">
         ${d.location?`<span>📍 ${escHtml(d.location)}</span>`:''}
         ${period?`<span>🗓 ${period}</span>`:''}
-        ${cfpLeft!==null && cfpLeft>=0 && !ended?`<span class="cf-cfp">✍️ 논문 마감 ${cfpLeft===0?'오늘':'D-'+cfpLeft}</span>`:''}
       </div>
+      ${ended?'':confDeadlines(d, today)}
       ${topics.length?`<div class="cf-topics">${topics.map(t=>'#'+escHtml(t)).join(' ')}</div>`:''}
     </div>
   </div>`;
+}
+
+// 학회에 가려면 챙겨야 하는 마감일: 초록 → 논문 → 등록
+function confDeadlines(d, today){
+  const items=[['📝','초록',d.abstract_date],['✍️','논문',d.cfp_date],['🎫','등록',d.reg_date]]
+    .map(([ic,label,v])=>{ const t=parseYMD(v); return t?{ic,label,t,left:Math.round((t-today)/86400000)}:null; })
+    .filter(Boolean);
+  if(!items.length) return `<div class="cf-dl none">⏳ 마감일 정보 없음 · 학회 홈페이지에서 확인</div>`;
+  return `<div class="cf-dl">${items.map(x=>{
+    const past=x.left<0;
+    const cls=past?'past':x.left<=7?'hot':x.left<=30?'soon':'';
+    const when=`${x.t.getMonth()+1}.${x.t.getDate()}`;
+    const tail=past?'마감됨':x.left===0?'오늘':'D-'+x.left;
+    return `<span class="cf-dl-i ${cls}">${x.ic} ${x.label} 마감 ${when} <b>${tail}</b></span>`;
+  }).join('')}</div>`;
 }
 
 // 학회 목록을 '2026년 11월' 처럼 달별로 묶어서 그린다
@@ -4562,6 +4620,8 @@ async function fetchInfoFromDB() {
       dday: dday, date: n.type === 'conf' ? (n.start_date || n.date) : n.date,
       start_date: n.start_date, end_date: n.end_date,
       cfp_date: n.type === 'conf' ? (n.date || null) : null, // 학회의 date 컬럼 = 논문 투고 마감일
+      abstract_date: n.abstract_deadline || null,            // 초록 마감일
+      reg_date: n.registration_deadline || null,             // (사전)등록 마감일
       url: infoLink(n),
       tags: Array.isArray(n.tags) ? n.tags.join(',') : (n.tags || ''),
       location: n.location || '',
@@ -4809,9 +4869,10 @@ fetchPostsFromDB();
 fetchBannersFromDB();
 
 // Auth 상태 감지
+// 주의: 이 콜백 안에서 Supabase 호출을 바로 기다리면 로그인이 멈출 수 있어 setTimeout 으로 미룬다
 sbClient.auth.onAuthStateChange((event, session) => {
   currentUser = session?.user || null;
-  updateNavForAuth();
+  setTimeout(() => updateNavForAuth(session), 0);
 });
 
 // Supabase Realtime 구독
@@ -4837,8 +4898,8 @@ updateNavForAuth();
 
 
 // 로그인 상태 확인
-async function updateNavForAuth() {
-  const { data: { session } } = await sbClient.auth.getSession();
+async function updateNavForAuth(knownSession) {
+  const session = knownSession !== undefined ? knownSession : (await sbClient.auth.getSession()).data.session;
   currentUser = session?.user || null;
   const loginBtns = document.querySelectorAll('.nav-login-btn');
   const userArea = document.getElementById('nav-user-area');
@@ -4861,6 +4922,20 @@ async function updateNavForAuth() {
     if(userArea) userArea.innerHTML = '';
     const dv = document.getElementById('nav-drawer-verify');
     if(dv) dv.style.display = 'none';
+  }
+  // 모바일 메뉴(드로어)도 로그인 상태에 맞게 바꾼다
+  const drawerUser = document.getElementById('nav-drawer-user');
+  document.querySelectorAll('.nav-drawer-auth-btn').forEach(b => b.style.display = currentUser ? 'none' : '');
+  if(drawerUser) {
+    if(currentUser) {
+      const name = currentUser.user_metadata?.name || currentUser.email.split('@')[0];
+      drawerUser.style.display = 'flex';
+      drawerUser.innerHTML = `<span>👤 ${name}님</span>
+        <button onclick="closeDrawer();handleLogout()" style="font-size:13px;padding:6px 12px;border-radius:8px;border:1.5px solid var(--border);background:white;cursor:pointer;color:var(--text-muted);">로그아웃</button>`;
+    } else {
+      drawerUser.style.display = 'none';
+      drawerUser.innerHTML = '';
+    }
   }
 }
 
@@ -4961,7 +5036,8 @@ async function handleLogin() {
     btn.disabled = false;
   } else {
     showAuthMessage('✅ 로그인 성공! 환영합니다.');
-    await updateNavForAuth();
+    await updateNavForAuth(data.session);
+    if(btn){ btn.textContent = '로그인'; btn.disabled = false; }
     setTimeout(() => closeAuth(), 1200);
   }
 }
@@ -5556,12 +5632,16 @@ async function submitComment(){
 // ── 시작 ──
 cmInitUI();
 cmPaintAuth();
-sbClient.auth.onAuthStateChange(async (event, session) => {
+sbClient.auth.onAuthStateChange((event, session) => {
   currentUser = session?.user || null;
-  if(event==='SIGNED_IN' || event==='INITIAL_SESSION'){ await cmLoadMyLikes(); }
-  if(event==='SIGNED_IN'){ cmResumePending(); cmAfterLogin(); }
-  if(event==='SIGNED_OUT') _cmLiked=new Set();
   cmPaintAuth();
+  // Supabase 호출은 콜백이 끝난 뒤에 실행 (콜백 안에서 기다리면 로그인이 멈춤)
+  setTimeout(async () => {
+    if(event==='SIGNED_IN' || event==='INITIAL_SESSION'){ await cmLoadMyLikes(); }
+    if(event==='SIGNED_IN'){ cmResumePending(); cmAfterLogin(); }
+    if(event==='SIGNED_OUT') _cmLiked=new Set();
+    cmPaintAuth();
+  }, 0);
 });
 // 공유 링크(#post-123)로 들어오면 그 글을 바로 열기
 (async function(){
@@ -5573,7 +5653,8 @@ sbClient.auth.onAuthStateChange(async (event, session) => {
 
 // ══════════════════════════════════════════
 // ── 🍀 클로버 지수: 연구실 환경을 클로버 1~4잎으로 ──
-// 개별 응답은 서버가 숨기고, 5명 이상 모인 연구실의 평균만 받아온다 (clover_summary)
+// 개별 응답은 서버가 숨기고, 6명 이상 모인 연구실의 평균만 받아온다 (clover_summary)
+// 화면에는 공개 기준 숫자를 드러내지 않고 'n명'으로만 안내한다 (CLV_MIN_LABEL)
 // ══════════════════════════════════════════
 const CLV_ITEMS = [
   { k:'pay',     label:'인건비', q:'약속한 인건비가 잘 나오나요?' },
@@ -5582,7 +5663,8 @@ const CLV_ITEMS = [
   { k:'balance', label:'워라밸', q:'휴가와 근무 시간이 존중되나요?' },
 ];
 const CLV_WORDS = ['아쉬워요','보통이에요','좋아요','최고예요'];
-const CLV_MIN = 5;
+const CLV_MIN = 6;            // 실제 공개 기준 (supabase clover_summary 와 같아야 함)
+const CLV_MIN_LABEL = 'n명';  // 이용자에게 보이는 표현
 const CLV = { labs:[], sum:{}, mine:new Set(), filter:'all', loaded:false, ready:true, vote:{}, lab:null, reportLab:null, reportKind:'report' };
 
 function clvClover(n, size){
@@ -5650,10 +5732,9 @@ function clvRender(){
         ${mine ? '<span style="color:#15803d;font-weight:600">✓ 내 클로버를 남겼어요</span>' : `<button class="clv-link" onclick="clvOpenVote(${l.id})">🍀 클로버 남기기</button>`}
         <button class="clv-report" onclick="clvOpenReport(${l.id})">신고·삭제 요청</button></div>`;
     if(s.total == null){
-      const pct = Math.min(100, Math.round(s.cnt / CLV_MIN * 100));
       return `<div class="clv-card">${head}
         <div class="clv-grow">${clvClover(Math.min(3, s.cnt), 34)}<b>클로버가 자라는 중이에요</b>
-        <div class="clv-bar"><i style="width:${pct}%"></i></div><span>${s.cnt}/${CLV_MIN}명 · ${CLV_MIN}명이 모이면 공개돼요</span></div>${foot}</div>`;
+        <span>${s.cnt}명 참여 · ${CLV_MIN_LABEL}이 모이면 공개돼요</span></div>${foot}</div>`;
     }
     const tot = Number(s.total);
     return `<div class="clv-card">${tot >= 3.5 ? `<div class="clv-badge">${clvBug(18)}네잎 연구실</div>` : ''}${head}
@@ -5686,7 +5767,7 @@ function renderHomeClover(){
         <span class="hcl-sample-tag">이렇게 보여요 · 예시</span>
         <div class="clv-dept">○○대학교 ○○공학과</div>
         <h3>○○ 연구실</h3>
-        <div class="clv-total">${clvClover(3,40)}<div><b>3.0</b><span style="color:var(--text-muted);font-size:13px"> / 4</span><small>클로버 지수 · 5명 참여</small></div></div>
+        <div class="clv-total">${clvClover(3,40)}<div><b>3.0</b><span style="color:var(--text-muted);font-size:13px"> / 4</span><small>클로버 지수 · 6명 참여</small></div></div>
         ${ex.map(([l,n]) => `<div class="clv-row"><span>${l}</span>${clvClover(n,20)}</div>`).join('')}
       </div>
       ${legend}`;
@@ -5701,7 +5782,7 @@ function renderHomeClover(){
       const s = CLV.sum[l.id] || { cnt:0 };
       const right = s.total != null
         ? `<span class="hcl-score">${clvClover(Math.round(Number(s.total)),30)}<b>${Number(s.total).toFixed(1)}</b></span>`
-        : `<span class="hcl-grow">${clvClover(Math.min(3, s.cnt),24)}<small>${s.cnt}/${CLV_MIN}명</small></span>`;
+        : `<span class="hcl-grow">${clvClover(Math.min(3, s.cnt),24)}<small>${s.cnt}명 참여</small></span>`;
       return `<button class="hcl-lab" onclick="goClover()"><span><small>${escHtml(l.univ)} ${escHtml(l.dept)}</small><b>${escHtml(l.name)}</b></span>${right}</button>`;
     }).join('')}</div>
     ${legend}`;
@@ -5727,7 +5808,7 @@ async function clvOpenVote(labId){
     <div class="clv-q"><div class="lb">어떤 연구실인가요?</div><div id="clv-lab-pick"></div></div>
     ${CLV_ITEMS.map(it => `<div class="clv-q"><div class="lb">${it.label}</div><div class="hn">${it.q}</div>
       <div class="clv-opts">${[1,2,3,4].map(n => `<button class="clv-opt" data-k="${it.k}" data-n="${n}" onclick="clvPick(this)">${clvClover(n,26)}${CLV_WORDS[n-1]}</button>`).join('')}</div></div>`).join('')}
-    <div class="clv-rules">✍️ 글은 쓰지 않고 클로버만 고르면 끝이에요. 누가 남겼는지는 공개되지 않으며, ${CLV_MIN}명 이상 모인 뒤 평균만 보여 줘요. 교수님 성함은 적지 말아 주세요.</div>
+    <div class="clv-rules">✍️ 글은 쓰지 않고 클로버만 고르면 끝이에요. 누가 남겼는지는 공개되지 않으며, ${CLV_MIN_LABEL} 이상 모인 뒤 평균만 보여 줘요. 교수님 성함은 적지 말아 주세요.</div>
     <button class="clv-btn" id="clv-vote-btn" onclick="clvSubmitVote()">클로버 남기기</button>
     <div class="clv-msg" id="clv-vote-msg"></div>`;
   clvRenderLabPick();
