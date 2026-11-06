@@ -13,7 +13,6 @@
 
 ## 함께 들어 있는 파일
 - `_headers`: `data/*` 는 항상 최신본을 확인(no-cache), `assets/*` 는 하루 캐시, 기본 보안 헤더.
-- `_redirects`: `/index.html` → `/`.
 
 ## 도메인 연결 후 할 일
 1. `index.html` 의 `og:url`, `canonical` 주소를 새 도메인으로 바꾸기.
