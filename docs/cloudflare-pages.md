@@ -19,3 +19,10 @@
 2. Supabase → Authentication → URL Configuration
    - Site URL: `https://새도메인`
    - Redirect URLs: `https://새도메인/**`, `https://*.pages.dev/**`
+
+## Workers 로 배포하는 경우
+Cloudflare 대시보드에서 Pages 만들기 메뉴가 보이지 않으면 Workers 로 배포합니다.
+`wrangler.jsonc` 가 저장소 루트를 정적 파일로 올리고, `.assetsignore` 가 코드·SQL·문서를 제외합니다.
+`_headers` 는 Workers 정적 자산에서도 그대로 적용됩니다.
+- Build command: (비워 둠)
+- Deploy command: `npx wrangler deploy`

@@ -1,0 +1,8 @@
+// Cloudflare Workers 정적 사이트 배포 설정 (빌드 과정 없음)
+{
+  "name": "myresearchcal",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "."
+  }
+}
