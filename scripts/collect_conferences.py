@@ -34,7 +34,7 @@ import xml.etree.ElementTree as ET
 
 import yaml
 
-UA = "MyResearchCalendar-ConferenceCollector/1.0 (+https://bobohn5310-coder.github.io/Myresearch/)"
+UA = "MyResearchCalendar-ConferenceCollector/1.0 (+https://myresearchcal.com/)"
 TODAY = dt.date.today()
 
 # ccfddl 분류(sub) → 우리 서비스 분야(field) 와 태그

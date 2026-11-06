@@ -15,7 +15,7 @@
 - `_headers`: `data/*` 는 항상 최신본을 확인(no-cache), `assets/*` 는 하루 캐시, 기본 보안 헤더.
 
 ## 도메인 연결 후 할 일
-1. `index.html` 의 `og:url`, `canonical` 주소를 새 도메인으로 바꾸기.
+1. (완료) 도메인은 `myresearchcal.com`. `og:url`, `canonical`, 수집기 User-Agent 반영.
 2. Supabase → Authentication → URL Configuration
    - Site URL: `https://새도메인`
    - Redirect URLs: `https://새도메인/**`, `https://*.pages.dev/**`
