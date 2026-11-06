@@ -5731,15 +5731,28 @@ async function clvLoad(force){
   if(CLV.loaded && !force) return clvRender();
   const grid = document.getElementById('clv-grid');
   if(grid && !CLV.loaded) grid.innerHTML = '<div class="clv-empty">클로버를 불러오는 중이에요… 🍀</div>';
-  const [labs, sum] = await Promise.all([
-    sbClient.from('clover_labs').select('id,univ,dept,name,topic,created_at').order('created_at',{ascending:false}),
-    sbClient.rpc('clover_summary'),
-  ]);
-  if(labs.error){ CLV.ready = false; CLV.loaded = true; return clvRender(); }
+  // clover_board: 자라는 중(n명 미만)인 연구실은 서버가 이름·분야를 비워서 보내 준다
+  let rows = null;
+  const board = await sbClient.rpc('clover_board');
+  if(!board.error) rows = board.data || [];
+  else {
+    // (예전 데이터베이스 설정용) 이름은 화면에서라도 가린다
+    const [labs, sum] = await Promise.all([
+      sbClient.from('clover_labs').select('id,univ,dept,name,topic,created_at').order('created_at',{ascending:false}),
+      sbClient.rpc('clover_summary'),
+    ]);
+    if(labs.error){ CLV.ready = false; CLV.loaded = true; return clvRender(); }
+    const sm = {}; (sum.data || []).forEach(x => sm[x.lab_id] = x);
+    rows = (labs.data || []).map(l => {
+      const x = sm[l.id] || { cnt:0 };
+      const open = x.total != null;
+      return { ...x, ...l, name: open ? l.name : null, topic: open ? l.topic : null };
+    });
+  }
   CLV.ready = true;
-  CLV.labs = labs.data || [];
+  CLV.labs = rows.map(x => ({ id:x.id, univ:x.univ, dept:x.dept, name:x.name, topic:x.topic, created_at:x.created_at }));
   CLV.sum = {};
-  (sum.data || []).forEach(s => CLV.sum[s.lab_id] = s);
+  rows.forEach(x => CLV.sum[x.id] = { cnt:x.cnt||0, pay:x.pay, guide:x.guide, mood:x.mood, balance:x.balance, total:x.total });
   CLV.mine = new Set();
   if(currentUser){
     const { data } = await sbClient.from('clover_votes').select('lab_id').eq('user_id', currentUser.id);
@@ -5767,7 +5780,7 @@ function clvRender(){
     return;
   }
   const q = (document.getElementById('clv-search')?.value || '').trim().toLowerCase();
-  let list = CLV.labs.filter(l => !q || [l.univ,l.dept,l.name,l.topic].join(' ').toLowerCase().includes(q));
+  let list = CLV.labs.filter(l => !q || [l.univ,l.dept,l.name,l.topic].filter(Boolean).join(' ').toLowerCase().includes(q));
   if(CLV.filter === 'four') list = list.filter(l => (CLV.sum[l.id]?.total || 0) >= 3.5);
   list.sort((a,b) => (CLV.sum[b.id]?.cnt||0) - (CLV.sum[a.id]?.cnt||0));
   if(!list.length){
@@ -5776,7 +5789,10 @@ function clvRender(){
   }
   grid.innerHTML = list.map(l => {
     const s = CLV.sum[l.id] || { cnt:0 };
-    const head = `<div class="clv-dept">${escHtml(l.univ)} ${escHtml(l.dept)}</div><h3>${escHtml(l.name)}</h3><div class="clv-topic">${escHtml(l.topic||'')}</div>`;
+    // 자라는 중인 연구실은 학교·학과만, n명이 모이면 연구실 이름과 분야까지 보여 준다
+    const head = l.name
+      ? `<div class="clv-dept">${escHtml(l.univ)} ${escHtml(l.dept)}</div><h3>${escHtml(l.name)}</h3><div class="clv-topic">${escHtml(l.topic||'')}</div>`
+      : `<div class="clv-dept">${escHtml(l.univ)}</div><h3>${escHtml(l.dept)}</h3><div class="clv-topic">🔒 연구실 이름은 ${CLV_MIN_LABEL}이 모이면 공개돼요</div>`;
     const mine = CLV.mine.has(l.id);
     const foot = `<div class="clv-foot-wrap"></div><div class="clv-foot">
         ${mine ? '<span style="color:#15803d;font-weight:600">✓ 내 클로버를 남겼어요</span>' : `<button class="clv-link" onclick="clvOpenVote(${l.id})">🍀 클로버 남기기</button>`}
@@ -5833,7 +5849,7 @@ function renderHomeClover(){
       const right = s.total != null
         ? `<span class="hcl-score">${clvClover(Math.round(Number(s.total)),30)}<b>${Number(s.total).toFixed(1)}</b></span>`
         : `<span class="hcl-grow">${clvClover(Math.min(3, s.cnt),24)}<small>${s.cnt}명 참여</small></span>`;
-      return `<button class="hcl-lab" onclick="goClover()"><span><small>${escHtml(l.univ)} ${escHtml(l.dept)}</small><b>${escHtml(l.name)}</b></span>${right}</button>`;
+      return `<button class="hcl-lab" onclick="goClover()"><span>${l.name ? `<small>${escHtml(l.univ)} ${escHtml(l.dept)}</small><b>${escHtml(l.name)}</b>` : `<small>${escHtml(l.univ)}</small><b>${escHtml(l.dept)}</b>`}</span>${right}</button>`;
     }).join('')}</div>
     ${legend}`;
 }
@@ -5865,32 +5881,19 @@ async function clvOpenVote(labId){
 }
 
 function clvRenderLabPick(){
+  // 자라는 중인 연구실 이름은 공개되지 않으므로 목록에서 고르지 않고 직접 적는다.
+  // 같은 학교·학과·연구실 이름이 이미 있으면 서버가 같은 연구실로 묶어 준다.
   const el = document.getElementById('clv-lab-pick');
   if(!el) return;
-  if(CLV.lab){
-    el.innerHTML = `<div class="clv-input" style="display:flex;justify-content:space-between;align-items:center"><span>${escHtml(CLV.lab.univ)} ${escHtml(CLV.lab.dept)} · <b>${escHtml(CLV.lab.name)}</b></span>
-      <button class="clv-report" onclick="CLV.lab=null;clvRenderLabPick()">바꾸기</button></div>`;
-    return;
-  }
-  el.innerHTML = `<input class="clv-input" id="clv-lab-q" placeholder="학교나 연구실 이름으로 찾기" oninput="clvLabSugg()"><div id="clv-lab-sugg"></div>
-    <div id="clv-new-lab" style="display:none">
-      <div class="hn" style="margin-top:10px;font-size:12px;color:var(--text-muted)">목록에 없으면 새로 등록해 주세요</div>
-      <input class="clv-input" id="clv-new-univ" maxlength="40" placeholder="학교 (예: 한국대학교)">
-      <input class="clv-input" id="clv-new-dept" maxlength="40" placeholder="학과 (예: 신소재공학과)">
-      <input class="clv-input" id="clv-new-name" maxlength="40" placeholder="연구실 이름 (예: 나노소재 연구실)">
-      <input class="clv-input" id="clv-new-topic" maxlength="60" placeholder="연구 분야 (선택, 예: 2차원 소재 · 배터리)">
-    </div>`;
-  clvLabSugg();
+  const l = CLV.lab || {};
+  const val = x => x ? ` value="${escHtml(x)}"` : '';
+  el.innerHTML = `
+      <input class="clv-input" id="clv-new-univ" maxlength="40" placeholder="학교 (예: 한국대학교)"${val(l.univ)}>
+      <input class="clv-input" id="clv-new-dept" maxlength="40" placeholder="학과 (예: 신소재공학과)"${val(l.dept)}>
+      <input class="clv-input" id="clv-new-name" maxlength="40" placeholder="연구실 이름 (예: 나노소재 연구실)"${val(l.name)}>
+      <input class="clv-input" id="clv-new-topic" maxlength="60" placeholder="연구 분야 (선택, 예: 2차원 소재 · 배터리)"${val(l.topic)}>
+      <div class="hn" style="margin-top:6px">연구실 이름은 ${CLV_MIN_LABEL}이 모일 때까지 공개되지 않아요. 같은 연구실은 자동으로 하나로 모여요.</div>`;
 }
-
-function clvLabSugg(){
-  const q = (document.getElementById('clv-lab-q')?.value || '').trim().toLowerCase();
-  const box = document.getElementById('clv-lab-sugg');
-  const hits = q ? CLV.labs.filter(l => [l.univ,l.dept,l.name].join(' ').toLowerCase().includes(q)).slice(0,6) : [];
-  box.innerHTML = hits.length ? `<div class="clv-sugg">${hits.map(l => `<div onclick="clvChooseLab(${l.id})">${escHtml(l.univ)} ${escHtml(l.dept)} · <b>${escHtml(l.name)}</b></div>`).join('')}</div>` : '';
-  document.getElementById('clv-new-lab').style.display = (q && !hits.length) || !CLV.labs.length ? '' : 'none';
-}
-function clvChooseLab(id){ CLV.lab = CLV.labs.find(l => l.id === id); clvRenderLabPick(); }
 
 function clvPick(el){
   document.querySelectorAll(`.clv-opt[data-k="${el.dataset.k}"]`).forEach(b => b.classList.remove('sel'));
@@ -5904,16 +5907,21 @@ async function clvSubmitVote(){
   if(CLV_ITEMS.some(it => !CLV.vote[it.k])) return say('네 가지 항목의 클로버를 모두 골라 주세요.', true);
   const btn = document.getElementById('clv-vote-btn');
   btn.disabled = true;
-  let lab = CLV.lab;
-  if(!lab){
-    const v = id => (document.getElementById(id)?.value || '').trim();
-    const nl = { univ:v('clv-new-univ'), dept:v('clv-new-dept'), name:v('clv-new-name'), topic:v('clv-new-topic') || null };
-    if(nl.univ.length < 2 || nl.dept.length < 2 || nl.name.length < 2){ btn.disabled = false; return say('연구실을 고르거나 학교·학과·연구실 이름을 적어 주세요.', true); }
-    const { data, error } = await sbClient.from('clover_labs').insert(nl).select('id,univ,dept,name,topic,created_at').single();
-    if(error){ btn.disabled = false; return say(error.code === '23505' ? '이미 등록된 연구실이에요. 위 검색창에서 찾아 골라 주세요.' : '연구실을 등록하지 못했어요. 잠시 뒤 다시 시도해 주세요.', true); }
-    lab = data; CLV.labs.unshift(data);
+  const v = id => (document.getElementById(id)?.value || '').trim();
+  const nl = { univ:v('clv-new-univ'), dept:v('clv-new-dept'), name:v('clv-new-name'), topic:v('clv-new-topic') || null };
+  if(nl.univ.length < 2 || nl.dept.length < 2 || nl.name.length < 2){ btn.disabled = false; return say('학교·학과·연구실 이름을 적어 주세요.', true); }
+  let added = await sbClient.rpc('clover_add_lab', { p_univ:nl.univ, p_dept:nl.dept, p_name:nl.name, p_topic:nl.topic });
+  if(added.error && added.error.code === 'PGRST202'){
+    // (예전 데이터베이스 설정용) 직접 등록하고, 이미 있으면 그 연구실을 찾는다
+    const ins = await sbClient.from('clover_labs').insert(nl).select('id').single();
+    if(!ins.error) added = { data: ins.data.id };
+    else {
+      const f = await sbClient.from('clover_labs').select('id').eq('univ', nl.univ).eq('dept', nl.dept).eq('name', nl.name).maybeSingle();
+      added = f.data ? { data: f.data.id } : { error: ins.error };
+    }
   }
-  const { error } = await sbClient.from('clover_votes').insert({ lab_id: lab.id, ...CLV.vote });
+  if(added.error){ btn.disabled = false; return say(/hidden/.test(added.error.message||'') ? '이 연구실은 지금 검토 중이라 클로버를 남길 수 없어요.' : '연구실을 등록하지 못했어요. 잠시 뒤 다시 시도해 주세요.', true); }
+  const { error } = await sbClient.from('clover_votes').insert({ lab_id: added.data, ...CLV.vote });
   if(error){ btn.disabled = false; return say(error.code === '23505' ? '이 연구실에는 이미 클로버를 남기셨어요.' : '저장하지 못했어요. 잠시 뒤 다시 시도해 주세요.', true); }
   say('🍀 클로버를 남겼어요. 고마워요!');
   setTimeout(() => { clvClose('clv-vote-modal'); clvLoad(true); }, 1000);
@@ -5922,7 +5930,7 @@ async function clvSubmitVote(){
 function clvOpenReport(id){
   CLV.reportLab = CLV.labs.find(l => l.id === id);
   if(!CLV.reportLab) return;
-  document.getElementById('clv-report-lab').textContent = `${CLV.reportLab.univ} ${CLV.reportLab.dept} · ${CLV.reportLab.name}`;
+  document.getElementById('clv-report-lab').textContent = `${CLV.reportLab.univ} ${CLV.reportLab.dept}` + (CLV.reportLab.name ? ` · ${CLV.reportLab.name}` : '');
   document.getElementById('clv-report-reason').value = '';
   document.getElementById('clv-report-contact').value = currentUser?.email || '';
   document.getElementById('clv-report-msg').textContent = '';
