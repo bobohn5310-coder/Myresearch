@@ -6,7 +6,7 @@
 --  · 교수 개인이 아니라 '연구실 환경'을 4개 항목(인건비·지도·분위기·워라밸) 1~4잎으로 기록
 --  · 글(자유 서술)은 받지 않음
 --  · 학교 메일(.ac.kr/.edu) 계정 또는 관리자 인증 회원만 남길 수 있음, 연구실당 1번
---  · 개별 응답은 아무도(본인 제외) 볼 수 없고, 5명 이상 모였을 때 평균만 공개
+--  · 개별 응답은 아무도(본인 제외) 볼 수 없고, 6명 이상 모였을 때 평균만 공개 (화면에는 "n명"으로만 안내)
 --  · 신고·삭제 요청이 들어오면 그 연구실을 즉시 가리고(임시조치) 관리자가 검토
 -- ════════════════════════════════════════════════
 
@@ -74,16 +74,16 @@ drop policy if exists "내 클로버 취소" on public.clover_votes;
 create policy "내 클로버 취소" on public.clover_votes for delete to authenticated
   using (user_id = auth.uid());
 
--- 3) 공개용 요약: 5명 이상일 때만 평균 공개
+-- 3) 공개용 요약: 6명 이상일 때만 평균 공개
 create or replace function public.clover_summary()
 returns table (lab_id bigint, cnt int, pay numeric, guide numeric, mood numeric, balance numeric, total numeric)
 language sql stable security definer set search_path = public as $$
   select l.id, coalesce(count(v.user_id),0)::int,
-    case when count(v.user_id) >= 5 then round(avg(v.pay),1) end,
-    case when count(v.user_id) >= 5 then round(avg(v.guide),1) end,
-    case when count(v.user_id) >= 5 then round(avg(v.mood),1) end,
-    case when count(v.user_id) >= 5 then round(avg(v.balance),1) end,
-    case when count(v.user_id) >= 5 then round(avg((v.pay+v.guide+v.mood+v.balance)/4.0),1) end
+    case when count(v.user_id) >= 6 then round(avg(v.pay),1) end,
+    case when count(v.user_id) >= 6 then round(avg(v.guide),1) end,
+    case when count(v.user_id) >= 6 then round(avg(v.mood),1) end,
+    case when count(v.user_id) >= 6 then round(avg(v.balance),1) end,
+    case when count(v.user_id) >= 6 then round(avg((v.pay+v.guide+v.mood+v.balance)/4.0),1) end
   from public.clover_labs l left join public.clover_votes v on v.lab_id = l.id
   where not l.hidden
   group by l.id
