@@ -79,5 +79,64 @@
     "field": "eng",
     "tags": "해외,메타물질,광학",
     "url": "https://metaconferences.org/"
+  },
+  {
+    "id": "kism-2026",
+    "title": "KISM 2026 BUSAN",
+    "org": "Korean International Semiconductor Conference on Manufacturing Technology (한국반도체디스플레이기술학회)",
+    "start_date": "2026-11-09",
+    "end_date": "2026-11-13",
+    "location": "Paradise Hotel Busan, 부산, Korea",
+    "field": "eng",
+    "tags": "국내개최,반도체,디스플레이",
+    "url": "https://kism.kr/2026/",
+    "abstract_deadline": "2026-09-27",
+    "registration_deadline": "2026-10-30"
+  },
+  {
+    "id": "ieie-fall-2026",
+    "title": "대한전자공학회 2026 추계학술대회",
+    "org": "대한전자공학회",
+    "start_date": "2026-11-27",
+    "end_date": "2026-11-28",
+    "location": "곤지암리조트, 경기 광주, Korea",
+    "field": "eng",
+    "tags": "국내개최,반도체",
+    "url": "https://www.theieie.org/"
+  },
+  {
+    "id": "kcs-2027",
+    "title": "KCS 2027 (제34회 한국반도체학술대회)",
+    "org": "The 34th Korean Conference on Semiconductors",
+    "start_date": "2027-01-26",
+    "end_date": "2027-01-29",
+    "location": "강릉컨벤션센터, 강릉, Korea",
+    "field": "eng",
+    "tags": "국내개최,반도체",
+    "url": "https://www.kcsconference.org/2027/",
+    "abstract_deadline": "2026-11-06",
+    "registration_deadline": "2027-01-15"
+  },
+  {
+    "id": "semicon-korea-2027",
+    "title": "SEMICON Korea 2027",
+    "org": "SEMI",
+    "start_date": "2027-02-17",
+    "end_date": "2027-02-19",
+    "location": "COEX, 서울, Korea",
+    "field": "eng",
+    "tags": "국내개최,반도체",
+    "url": "https://www.semiconkorea.org"
+  },
+  {
+    "id": "itc-cscc-2027",
+    "title": "ITC-CSCC 2027",
+    "org": "International Technical Conference on Circuits/Systems, Computers and Communications",
+    "start_date": "2027-07-06",
+    "end_date": "2027-07-09",
+    "location": "Paradise Hotel Busan, 부산, Korea",
+    "field": "eng",
+    "tags": "국내개최,반도체",
+    "url": ""
   }
 ]
