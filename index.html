@@ -2899,8 +2899,9 @@ a { text-decoration: none; color: inherit; }
     <div class="nav-drawer-link" onclick="showPage('clover');setNavDrawer(this);closeDrawer();clvLoad()">🍀 클로버 지수</div>
   </div>
   <div class="nav-drawer-actions">
-    <button class="nav-drawer-btn-login" onclick="closeDrawer();openAuth('login')">로그인</button>
-    <button class="nav-drawer-btn-cta" onclick="closeDrawer();openAuth('signup')">무료로 시작하기 →</button>
+    <div id="nav-drawer-user" style="display:none;align-items:center;justify-content:space-between;gap:8px;font-size:14px;font-weight:600;color:var(--text);"></div>
+    <button class="nav-drawer-btn-login nav-drawer-auth-btn" onclick="closeDrawer();openAuth('login')">로그인</button>
+    <button class="nav-drawer-btn-cta nav-drawer-auth-btn" onclick="closeDrawer();openAuth('signup')">무료로 시작하기 →</button>
   </div>
 </div>
 
@@ -4795,9 +4796,10 @@ fetchPostsFromDB();
 fetchBannersFromDB();
 
 // Auth 상태 감지
+// 주의: 이 콜백 안에서 Supabase 호출을 바로 기다리면 로그인이 멈출 수 있어 setTimeout 으로 미룬다
 sbClient.auth.onAuthStateChange((event, session) => {
   currentUser = session?.user || null;
-  updateNavForAuth();
+  setTimeout(() => updateNavForAuth(session), 0);
 });
 
 // Supabase Realtime 구독
@@ -4823,8 +4825,8 @@ updateNavForAuth();
 
 
 // 로그인 상태 확인
-async function updateNavForAuth() {
-  const { data: { session } } = await sbClient.auth.getSession();
+async function updateNavForAuth(knownSession) {
+  const session = knownSession !== undefined ? knownSession : (await sbClient.auth.getSession()).data.session;
   currentUser = session?.user || null;
   const loginBtns = document.querySelectorAll('.nav-login-btn');
   const userArea = document.getElementById('nav-user-area');
@@ -4839,6 +4841,20 @@ async function updateNavForAuth() {
   } else {
     loginBtns.forEach(b => b.style.display = '');
     if(userArea) userArea.innerHTML = '';
+  }
+  // 모바일 메뉴(드로어)도 로그인 상태에 맞게 바꾼다
+  const drawerUser = document.getElementById('nav-drawer-user');
+  document.querySelectorAll('.nav-drawer-auth-btn').forEach(b => b.style.display = currentUser ? 'none' : '');
+  if(drawerUser) {
+    if(currentUser) {
+      const name = currentUser.user_metadata?.name || currentUser.email.split('@')[0];
+      drawerUser.style.display = 'flex';
+      drawerUser.innerHTML = `<span>👤 ${name}님</span>
+        <button onclick="closeDrawer();handleLogout()" style="font-size:13px;padding:6px 12px;border-radius:8px;border:1.5px solid var(--border);background:white;cursor:pointer;color:var(--text-muted);">로그아웃</button>`;
+    } else {
+      drawerUser.style.display = 'none';
+      drawerUser.innerHTML = '';
+    }
   }
 }
 
@@ -4942,7 +4958,8 @@ async function handleLogin() {
     btn.disabled = false;
   } else {
     showAuthMessage('✅ 로그인 성공! 환영합니다.');
-    await updateNavForAuth();
+    await updateNavForAuth(data.session);
+    if(btn){ btn.textContent = '로그인'; btn.disabled = false; }
     setTimeout(() => closeAuth(), 1200);
   }
 }
@@ -5536,12 +5553,16 @@ async function submitComment(){
 // ── 시작 ──
 cmInitUI();
 cmPaintAuth();
-sbClient.auth.onAuthStateChange(async (event, session) => {
+sbClient.auth.onAuthStateChange((event, session) => {
   currentUser = session?.user || null;
-  if(event==='SIGNED_IN' || event==='INITIAL_SESSION'){ await cmLoadMyLikes(); }
-  if(event==='SIGNED_IN'){ cmResumePending(); cmAfterLogin(); }
-  if(event==='SIGNED_OUT') _cmLiked=new Set();
   cmPaintAuth();
+  // Supabase 호출은 콜백이 끝난 뒤에 실행 (콜백 안에서 기다리면 로그인이 멈춤)
+  setTimeout(async () => {
+    if(event==='SIGNED_IN' || event==='INITIAL_SESSION'){ await cmLoadMyLikes(); }
+    if(event==='SIGNED_IN'){ cmResumePending(); cmAfterLogin(); }
+    if(event==='SIGNED_OUT') _cmLiked=new Set();
+    cmPaintAuth();
+  }, 0);
 });
 // 공유 링크(#post-123)로 들어오면 그 글을 바로 열기
 (async function(){
