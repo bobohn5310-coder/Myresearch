@@ -340,6 +340,9 @@
         <span class="icon">🔥</span> 배너 관리
       </div>
       <div class="sidebar-section" style="margin-top:8px;">회원 관리</div>
+      <div class="sidebar-item" onclick="showAdminPage('members', this); loadMembers();">
+        <span class="icon">👥</span> 회원 목록
+      </div>
       <div class="sidebar-item" onclick="showAdminPage('verify', this)" id="verify-menu-item">
         <span class="icon">🪪</span> 회원 인증
         <span id="verify-badge" style="display:none;margin-left:auto;background:#ef4444;color:white;font-size:11px;font-weight:800;padding:2px 7px;border-radius:20px;">0</span>
@@ -434,6 +437,35 @@
       </div>
     </div>
 
+
+    <!-- 회원 목록 -->
+    <div class="admin-page" id="page-members">
+      <div class="page-header">
+        <div class="page-title">👥 회원 목록</div>
+        <div class="page-sub">가입한 회원을 한눈에 봐요. 개인정보이니 내려받은 엑셀은 확인이 끝나면 지워 주세요.</div>
+      </div>
+      <div id="mb-stats" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;"></div>
+      <div class="card">
+        <div class="card-header" style="gap:8px;flex-wrap:wrap;">
+          <input id="mb-search" type="text" placeholder="이름·이메일·학교 검색" oninput="renderMembers()"
+            style="flex:1;min-width:180px;padding:8px 12px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:13px;font-family:'Noto Sans KR',sans-serif;">
+          <select id="mb-type" onchange="renderMembers()" style="padding:8px 10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:13px;font-family:'Noto Sans KR',sans-serif;">
+            <option value="">모든 유형</option>
+            <option>예비대학원생</option><option>학부연구생</option><option>석사과정</option><option>박사과정</option>
+            <option>석박통합</option><option>박사후연구원</option><option>기타</option><option value="-">유형 없음</option>
+          </select>
+          <button class="btn btn-primary" onclick="exportMembersExcel()" style="background:#059669;">📥 엑셀 다운로드</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>이름</th><th>이메일</th><th>회원 유형</th><th>학교 / 학과</th><th>메일 인증</th><th>학교 인증</th><th>가입일</th><th>최근 로그인</th></tr></thead>
+            <tbody id="members-table-body">
+              <tr><td colspan="8"><div class="empty-state"><div class="emoji">👥</div>불러오는 중...</div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
 
     <!-- 회원 인증 관리 -->
     <div class="admin-page" id="page-verify">
@@ -828,6 +860,73 @@ function showAdminPage(page, el) {
     if(targetPage) { document.querySelectorAll('.admin-page').forEach(p => p.classList.remove('active')); targetPage.classList.add('active'); }
   }
   el.classList.add('active');
+}
+
+// ════════════════════════════════════
+// 회원 목록
+// ════════════════════════════════════
+let _members = [];
+const mbDate = d => d ? new Date(d).toLocaleDateString('sv-SE', { timeZone:'Asia/Seoul' }) : '-';
+async function loadMembers() {
+  const body = document.getElementById('members-table-body');
+  const { data, error } = await sbClient.rpc('admin_members');
+  if(error) {
+    body.innerHTML = `<tr><td colspan="8"><div class="empty-state"><div class="emoji">⚠️</div>${error.code === 'PGRST202'
+      ? '회원 목록 기능을 켜려면 Supabase에서 supabase/admin_members.sql 을 실행해주세요.'
+      : '회원 목록을 불러오지 못했어요: ' + esc(error.message)}</div></td></tr>`;
+    return;
+  }
+  _members = data || [];
+  const n = f => _members.filter(f).length;
+  const chip = (label, v) => `<div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:10px 14px;font-size:12px;color:#64748b;">${label}<div style="font-size:20px;font-weight:800;color:#0f172a;">${v}</div></div>`;
+  const weekAgo = Date.now() - 7*864e5;
+  document.getElementById('mb-stats').innerHTML =
+    chip('전체 회원', _members.length) +
+    chip('최근 7일 가입', n(m => new Date(m.created_at) > weekAgo)) +
+    chip('메일 인증 완료', n(m => m.email_confirmed)) +
+    chip('학교 인증 완료', n(m => m.is_verified)) +
+    chip('예비대학원생', n(m => m.member_type === '예비대학원생'));
+  renderMembers();
+}
+function filteredMembers() {
+  const q = (document.getElementById('mb-search')?.value || '').trim().toLowerCase();
+  const t = document.getElementById('mb-type')?.value || '';
+  return _members.filter(m =>
+    (!q || [m.name, m.email, m.school, m.dept].some(x => (x || '').toLowerCase().includes(q))) &&
+    (!t || (t === '-' ? !m.member_type : m.member_type === t)));
+}
+function renderMembers() {
+  const body = document.getElementById('members-table-body');
+  const list = filteredMembers();
+  if(!list.length) { body.innerHTML = '<tr><td colspan="8"><div class="empty-state"><div class="emoji">👥</div>해당하는 회원이 없어요.</div></td></tr>'; return; }
+  const yes = '<span class="badge badge-blue">완료</span>', no = '<span style="color:#94a3b8;font-size:12px;">-</span>';
+  body.innerHTML = list.map(m => `<tr>
+    <td style="font-weight:700;">${esc(m.name || '-')}</td>
+    <td style="font-size:12.5px;">${esc(m.email || '')}</td>
+    <td>${m.member_type ? `<span class="badge badge-purple"${m.member_type === '예비대학원생' ? ' style="background:#fff7ed;color:#c2410c;"' : ''}>${esc(m.member_type)}</span>` : no}</td>
+    <td style="font-size:12.5px;">${esc(m.school || '-')}${m.dept ? '<br><span style="color:#64748b;">' + esc(m.dept) + '</span>' : ''}</td>
+    <td>${m.email_confirmed ? yes : '<span class="badge" style="background:#fff7ed;color:#c2410c;">대기</span>'}</td>
+    <td>${m.is_verified ? yes : no}</td>
+    <td style="font-size:12.5px;white-space:nowrap;">${mbDate(m.created_at)}</td>
+    <td style="font-size:12.5px;white-space:nowrap;">${mbDate(m.last_sign_in_at)}</td>
+  </tr>`).join('');
+}
+function exportMembersExcel() {
+  if(typeof XLSX === 'undefined') { showToast('❌ 엑셀 모듈을 불러오지 못했어요. 새로고침 후 다시 시도해주세요.'); return; }
+  const list = filteredMembers();
+  if(!list.length) { showToast('내려받을 회원이 없어요.'); return; }
+  const rows = list.map((m, i) => ({
+    '번호': i + 1, '이름': m.name || '', '이메일': m.email || '', '회원 유형': m.member_type || '',
+    '학교': m.school || '', '학과': m.dept || '',
+    '메일 인증': m.email_confirmed ? 'O' : 'X', '학교 인증': m.is_verified ? 'O' : 'X',
+    '가입일': mbDate(m.created_at), '최근 로그인': m.last_sign_in_at ? mbDate(m.last_sign_in_at) : ''
+  }));
+  const ws = XLSX.utils.json_to_sheet(rows);
+  ws['!cols'] = [6,12,28,12,18,18,9,9,12,12].map(w => ({ wch: w }));
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, '회원 목록');
+  XLSX.writeFile(wb, `회원목록_${mbDate(new Date())}.xlsx`);
+  showToast(`✅ ${rows.length}명을 엑셀로 내려받았어요.`);
 }
 
 // ── 토스트 ──
