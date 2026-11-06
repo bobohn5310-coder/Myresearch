@@ -26,7 +26,7 @@ import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
 
-UA = "MyResearchCalendar-PaperCollector/1.0 (+https://bobohn5310-coder.github.io/Myresearch/)"
+UA = "MyResearchCalendar-PaperCollector/1.0 (+https://myresearchcal.com/)"
 KST = dt.timezone(dt.timedelta(hours=9))
 NOW = dt.datetime.now(KST)
 KEEP_DAYS = 45          # 이보다 오래된 논문은 남기지 않는다

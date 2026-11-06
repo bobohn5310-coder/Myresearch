@@ -25,7 +25,7 @@ import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
 
-UA = "MyResearchCalendar-NewsCollector/1.0 (+https://bobohn5310-coder.github.io/Myresearch/)"
+UA = "MyResearchCalendar-NewsCollector/1.0 (+https://myresearchcal.com/)"
 KST = dt.timezone(dt.timedelta(hours=9))
 NOW = dt.datetime.now(KST)
 KEEP_DAYS = 30          # 이보다 오래된 기사는 모으지 않는다 (DB 에서도 30일 뒤 지움)
