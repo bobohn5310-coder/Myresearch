@@ -5028,7 +5028,7 @@ async function updateNavForAuth(knownSession) {
     if(currentUser) {
       const name = currentUser.user_metadata?.name || currentUser.email.split('@')[0];
       drawerUser.style.display = 'flex';
-      drawerUser.innerHTML = `<span>👤 ${name}님</span>
+      drawerUser.innerHTML = `<span>👤 ${escHtml(name)}님</span>
         <button onclick="closeDrawer();handleLogout()" style="font-size:13px;padding:6px 12px;border-radius:8px;border:1.5px solid var(--border);background:white;cursor:pointer;color:var(--text-muted);">로그아웃</button>`;
     } else {
       drawerUser.style.display = 'none';
