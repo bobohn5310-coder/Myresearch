@@ -3561,8 +3561,11 @@ a { text-decoration: none; color: inherit; }
     <div class="auth-form" id="signup-form" style="display:none;">
       <input class="auth-input" id="signup-name" type="text" placeholder="이름">
       <input class="auth-input" id="signup-email" type="email" placeholder="이메일 (학교 이메일 권장)">
-      <input class="auth-input" id="signup-password" type="password" placeholder="비밀번호 (8자 이상)">
-      <input class="auth-input" id="signup-school" type="text" placeholder="소속 학교 (예: 성균관대 반도체)">
+      <input class="auth-input" id="signup-password" type="password" placeholder="비밀번호 (8자 이상)" autocomplete="new-password" oninput="checkSignupPw()">
+      <input class="auth-input" id="signup-password2" type="password" placeholder="비밀번호 다시 입력" autocomplete="new-password" oninput="checkSignupPw()">
+      <div id="signup-pw-hint" style="display:none;font-size:12px;font-weight:600;margin-top:-6px;"></div>
+      <input class="auth-input" id="signup-school" type="text" maxlength="40" placeholder="학교 (예: 성균관대학교)">
+      <input class="auth-input" id="signup-dept" type="text" maxlength="40" placeholder="학과 (예: 반도체공학과)">
       <div class="auth-field-label">회원 유형</div>
       <input type="hidden" id="signup-type">
       <div class="auth-select-group" id="type-select-group">
@@ -3580,8 +3583,9 @@ a { text-decoration: none; color: inherit; }
         <label><input type="checkbox" class="consent-req" id="consent-age"> <span><span class="req">[필수]</span> 만 14세 이상이에요</span></label>
         <label><input type="checkbox" class="consent-req" id="consent-terms"> <span><span class="req">[필수]</span> <a href="terms.html" target="_blank" rel="noopener">이용약관</a>에 동의해요</span></label>
         <label><input type="checkbox" class="consent-req" id="consent-privacy"> <span><span class="req">[필수]</span> <a href="privacy.html" target="_blank" rel="noopener">개인정보 수집·이용</a>에 동의해요</span></label>
-        <div class="note">이름·이메일·비밀번호·회원 유형(필수), 소속 학교(선택)을 회원 관리에 쓰고 탈퇴 시 지워요. 정보는 Supabase(미국) 서버에 저장돼요. 동의하지 않으면 가입할 수 없어요.</div>
+        <div class="note">이름·이메일·비밀번호·회원 유형(필수), 학교·학과(선택)를 회원 관리에 쓰고 탈퇴 시 지워요. 정보는 Supabase(미국) 서버에 저장돼요. 동의하지 않으면 가입할 수 없어요.</div>
       </div>
+      <div style="font-size:12.5px;color:#92400e;line-height:1.6;background:#fffbeb;border:1px solid #fde68a;padding:10px 12px;border-radius:10px;">📩 가입하면 적은 이메일로 <b>인증 메일</b>이 가요. 메일 속 링크를 눌러 인증해야 로그인하고 <b>모든 기능</b>(클로버·커뮤니티·캘린더 저장 등)을 쓸 수 있어요. 메일이 안 보이면 스팸함도 확인해 주세요.</div>
       <button class="auth-btn" onclick="handleSignup()">무료로 시작하기</button>
     </div>
     <!-- 학교 인증: 가입 직후 또는 상단 '학교 인증' 버튼으로 열림 -->
@@ -5089,6 +5093,18 @@ async function handleLogin() {
 }
 
 // ── 학교 인증 ──
+function checkSignupPw() {
+  const a = document.getElementById('signup-password').value;
+  const b = document.getElementById('signup-password2').value;
+  const hint = document.getElementById('signup-pw-hint');
+  if(!hint) return;
+  if(!b) { hint.style.display = 'none'; return; }
+  const ok = a === b;
+  hint.style.display = 'block';
+  hint.style.color = ok ? '#059669' : '#dc2626';
+  hint.textContent = ok ? '✓ 비밀번호가 같아요' : '비밀번호가 서로 달라요';
+}
+
 function selectMemberType(el, value) {
   document.querySelectorAll('#type-select-group .auth-select-btn').forEach(b => b.classList.remove('selected'));
   el.classList.add('selected');
@@ -5127,6 +5143,8 @@ async function openVerify() {
   const fields = document.getElementById('verify-fields');
   const school = document.getElementById('verify-school');
   if(school && !school.value) school.value = user.user_metadata?.school || '';
+  const major = document.getElementById('verify-major');
+  if(major && !major.value) major.value = user.user_metadata?.dept || '';
   box.style.display = 'none'; fields.style.display = 'flex';
   if(verified) {
     box.style.cssText += ';display:block;background:#ecfdf5;color:#059669;';
@@ -5225,12 +5243,15 @@ async function handleSignup() {
   const name     = document.getElementById('signup-name').value.trim();
   const email    = document.getElementById('signup-email').value.trim();
   const password = document.getElementById('signup-password').value;
+  const password2 = document.getElementById('signup-password2').value;
   const school   = document.getElementById('signup-school').value.trim();
+  const dept     = document.getElementById('signup-dept').value.trim();
   const memberType = document.getElementById('signup-type').value;
 
   if(!name || !email || !password) return showAuthMessage('필수 항목을 모두 입력해주세요.', true);
   if(!memberType) return showAuthMessage('회원 유형을 골라주세요.', true);
   if(password.length < 8) return showAuthMessage('비밀번호는 8자 이상이어야 합니다.', true);
+  if(password !== password2) return showAuthMessage('비밀번호가 서로 달라요. 다시 확인해주세요.', true);
   if([...document.querySelectorAll('#signup-consent .consent-req')].some(c => !c.checked))
     return showAuthMessage('필수 항목에 모두 동의해주세요.', true);
 
@@ -5240,7 +5261,7 @@ async function handleSignup() {
 
   const { error } = await sbClient.auth.signUp({
     email, password,
-    options: { data: { name, school, member_type: memberType, consent_terms_at: new Date().toISOString(), consent_privacy_at: new Date().toISOString(), consent_version: '2026-11-06' } }
+    options: { data: { name, school, dept, member_type: memberType, consent_terms_at: new Date().toISOString(), consent_privacy_at: new Date().toISOString(), consent_version: '2026-11-06' } }
   });
 
   if(error) {
@@ -5262,7 +5283,8 @@ async function handleSignup() {
       }
     } else {
       switchAuth('login');
-      showAuthMessage('✅ 가입 완료! 메일함에서 인증 링크를 누른 뒤 로그인해주세요. 로그인 후 상단의 \'학교 인증\'에서 학생증을 올릴 수 있어요.');
+      const le = document.getElementById('login-email'); if(le) le.value = email;
+      showAuthMessage(`📩 거의 다 됐어요! ${email} 로 보낸 인증 메일의 링크를 눌러야 로그인하고 모든 기능을 쓸 수 있어요. (스팸함도 확인해 주세요)`);
     }
     btn.textContent = '무료로 시작하기';
     btn.disabled = false;
