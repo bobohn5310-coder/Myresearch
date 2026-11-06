@@ -4,5 +4,10 @@
   "compatibility_date": "2025-09-01",
   "assets": {
     "directory": "."
-  }
+  },
+  // 구매한 도메인을 이 사이트에 자동으로 연결
+  "routes": [
+    { "pattern": "myresearchcal.com", "custom_domain": true },
+    { "pattern": "www.myresearchcal.com", "custom_domain": true }
+  ]
 }
