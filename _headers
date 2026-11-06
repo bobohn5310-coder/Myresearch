@@ -12,3 +12,15 @@
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   X-Frame-Options: SAMEORIGIN
+
+# 페이지(HTML)와 화면 코드는 고칠 때마다 바로 보이도록 항상 최신본을 확인합니다.
+/
+  Cache-Control: no-cache
+/index*
+  Cache-Control: no-cache
+/dashboard*
+  Cache-Control: no-cache
+/admin*
+  Cache-Control: no-cache
+/cv.js
+  Cache-Control: no-cache
