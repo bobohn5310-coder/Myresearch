@@ -6,3 +6,4 @@ supabase
 docs
 wrangler.jsonc
 .assetsignore
+.wrangler
