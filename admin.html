@@ -6,6 +6,7 @@
 <meta name="robots" content="noindex, nofollow">
 <title>관리자 페이지 — My Research Calendar</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Noto+Sans+KR:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -449,6 +450,10 @@
         <button onclick="loadVerifications('rejected')" id="vf-tab-rejected"
           style="background:#f8fafc;color:#64748b;border:1.5px solid #e2e8f0;font-size:13px;padding:7px 16px;border-radius:8px;cursor:pointer;font-family:'Noto Sans KR',sans-serif;">
           ❌ 반려됨 <span id="vf-count-rejected">0</span>
+        </button>
+        <button onclick="exportVerificationsExcel()" id="vf-export-btn"
+          style="margin-left:auto;background:#059669;color:white;border:none;font-weight:700;font-size:13px;padding:7px 16px;border-radius:8px;cursor:pointer;font-family:'Noto Sans KR',sans-serif;">
+          📥 엑셀 다운로드
         </button>
       </div>
       <div id="verify-list" style="display:flex;flex-direction:column;gap:14px;">
@@ -1273,7 +1278,13 @@ async function loadVerifications(status = 'pending') {
     .order('created_at', { ascending: false });
 
   // 카운트 배지 업데이트
-  const pendingCount = (await sbClient.from('verification_requests').select('id', {count:'exact'}).eq('status','pending')).count || 0;
+  const counts = {};
+  await Promise.all(['pending','approved','rejected'].map(async s => {
+    counts[s] = (await sbClient.from('verification_requests').select('id', {count:'exact', head:true}).eq('status', s)).count || 0;
+    const c = document.getElementById('vf-count-' + s);
+    if(c) c.textContent = counts[s];
+  }));
+  const pendingCount = counts.pending;
   const el_p = document.getElementById('vf-count-pending');
   const badge = document.getElementById('verify-badge');
   if(el_p) el_p.textContent = pendingCount;
@@ -1349,6 +1360,62 @@ async function verifyDocLink(docUrl) {
   if(/^https?:/i.test(path)) return '';
   const { data, error } = await sbClient.storage.from('verify-docs').createSignedUrl(path, 600);
   return error ? '' : data.signedUrl;
+}
+
+// 인증 요청 전체를 엑셀(.xlsx)로 내려받기. 서류 원본은 저장소에 그대로 보관된다.
+async function exportVerificationsExcel() {
+  if(typeof XLSX === 'undefined') { showToast('❌ 엑셀 모듈을 불러오지 못했어요. 새로고침 후 다시 시도해주세요.'); return; }
+  const btn = document.getElementById('vf-export-btn');
+  if(btn) { btn.disabled = true; btn.textContent = '만드는 중...'; }
+  try {
+    const { data, error } = await sbClient.from('verification_requests').select('*').order('created_at', { ascending: false });
+    if(error) throw error;
+    if(!data || !data.length) { showToast('내보낼 인증 요청이 없습니다.'); return; }
+    const paths = data.map(r => {
+      let p = String(r.doc_url || '');
+      if(p.includes('/verify-docs/')) p = decodeURIComponent(p.split('/verify-docs/').pop().split('?')[0]);
+      return /^https?:/i.test(p) ? '' : p;
+    });
+    // 서류 보기 링크는 7일 동안만 열린다 (비공개 저장소)
+    const WEEK = 7 * 24 * 3600;
+    const links = {};
+    const valid = paths.filter(Boolean);
+    if(valid.length) {
+      const { data: signed } = await sbClient.storage.from('verify-docs').createSignedUrls(valid, WEEK);
+      (signed || []).forEach(s => { if(s.signedUrl) links[s.path] = s.signedUrl; });
+    }
+    const label = { pending:'대기중', approved:'승인', rejected:'반려' };
+    const fmt = t => t ? new Date(t).toLocaleString('ko-KR', { timeZone:'Asia/Seoul' }) : '';
+    const rows = data.map((r, i) => ({
+      '번호': i + 1,
+      '신청일시': fmt(r.created_at),
+      '이름': r.name || '',
+      '이메일': r.email || '',
+      '소속 대학원': r.school || '',
+      '전공/연구분야': r.major || '',
+      '과정': r.grade || '',
+      '상태': label[r.status] || r.status || '',
+      '처리일시': fmt(r.reviewed_at),
+      '반려 사유': r.reject_reason || '',
+      '서류 파일': paths[i] || '',
+      '서류 보기 (7일간 유효)': links[paths[i]] || ''
+    }));
+    const ws = XLSX.utils.json_to_sheet(rows);
+    ws['!cols'] = [6,20,10,26,22,18,12,8,20,24,44,60].map(w => ({ wch: w }));
+    rows.forEach((row, i) => {
+      const url = row['서류 보기 (7일간 유효)'];
+      if(url) { const ref = XLSX.utils.encode_cell({ r: i + 1, c: 11 }); ws[ref] = { t:'s', v:'서류 열기', l:{ Target: url } }; }
+    });
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, '학교 인증');
+    const today = new Date().toLocaleDateString('sv-SE', { timeZone:'Asia/Seoul' });
+    XLSX.writeFile(wb, `학교인증_${today}.xlsx`);
+    showToast(`✅ ${rows.length}건을 엑셀로 내려받았어요.`);
+  } catch(e) {
+    showToast('❌ 엑셀 만들기 실패: ' + (e.message || e));
+  } finally {
+    if(btn) { btn.disabled = false; btn.textContent = '📥 엑셀 다운로드'; }
+  }
 }
 
 async function approveVerification(reqId, userId) {

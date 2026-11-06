@@ -2894,6 +2894,7 @@ a { text-decoration: none; color: inherit; }
     <div class="nav-drawer-link" onclick="goToCalendar();closeDrawer()">📅 연구 캘린더 ✦</div>
     <div class="nav-drawer-link" onclick="showPage('news');setNavDrawer(this);closeDrawer()">📰 국내연구소식</div>
     <div class="nav-drawer-link" onclick="showPage('clover');setNavDrawer(this);closeDrawer();clvLoad()">🍀 클로버 지수</div>
+    <div class="nav-drawer-link" id="nav-drawer-verify" style="display:none;" onclick="closeDrawer();openVerify()">🪪 학교 인증</div>
   </div>
   <div class="nav-drawer-actions">
     <button class="nav-drawer-btn-login" onclick="closeDrawer();openAuth('login')">로그인</button>
@@ -3498,6 +3499,39 @@ a { text-decoration: none; color: inherit; }
       <input class="auth-input" id="signup-password" type="password" placeholder="비밀번호 (8자 이상)">
       <input class="auth-input" id="signup-school" type="text" placeholder="소속 대학원 (예: 성균관대 반도체)">
       <button class="auth-btn" onclick="handleSignup()">무료로 시작하기</button>
+    </div>
+    <!-- 학교 인증: 가입 직후 또는 상단 '학교 인증' 버튼으로 열림 -->
+    <div class="auth-form" id="verify-form" style="display:none;">
+      <div id="verify-status-box" style="display:none;padding:12px 14px;border-radius:10px;font-size:13px;line-height:1.6;"></div>
+      <div id="verify-fields" style="display:flex;flex-direction:column;gap:14px;">
+        <div style="font-size:13px;color:var(--text-muted);line-height:1.6;background:var(--bg);padding:12px 14px;border-radius:10px;">
+          🪪 <b style="color:var(--text);">학교 인증</b>을 하면 대학원생 인증 배지가 붙어요.<br>
+          학생증·재학증명서는 <b>운영자만 볼 수 있는 비공개 저장소</b>에 보관돼요.
+        </div>
+        <div class="auth-field-label">소속 대학원</div>
+        <input class="auth-input" id="verify-school" type="text" maxlength="80" placeholder="예: 성균관대 반도체">
+        <div class="auth-field-label">전공 / 연구분야</div>
+        <input class="auth-input" id="verify-major" type="text" maxlength="80" placeholder="예: 반도체공학">
+        <div class="auth-field-label">과정</div>
+        <input type="hidden" id="verify-grade">
+        <div class="auth-select-group" id="grade-select-group">
+          <button type="button" class="auth-select-btn" onclick="selectGrade(this,'석사과정')">석사과정</button>
+          <button type="button" class="auth-select-btn" onclick="selectGrade(this,'박사과정')">박사과정</button>
+          <button type="button" class="auth-select-btn" onclick="selectGrade(this,'석박통합')">석박통합</button>
+          <button type="button" class="auth-select-btn" onclick="selectGrade(this,'박사후연구원')">박사후연구원</button>
+        </div>
+        <div class="auth-field-label">학생증 또는 재학증명서</div>
+        <label id="verify-upload-area" ondragover="event.preventDefault()" ondrop="handleVerifyDrop(event)"
+          style="display:block;border:2px dashed var(--border);border-radius:12px;padding:18px;text-align:center;cursor:pointer;background:var(--bg);">
+          <input type="file" id="verify-file" accept="image/jpeg,image/png,image/webp,image/heic,application/pdf" style="display:none;" onchange="handleVerifySelect(event)">
+          <div id="verify-preview-wrap"><div style="font-size:14px;color:var(--text-sub);font-weight:600;">📎 사진 또는 PDF 올리기</div><div style="font-size:12px;color:var(--text-light);margin-top:4px;">JPG · PNG · PDF, 10MB 이하</div></div>
+        </label>
+        <input type="hidden" id="verify-doc-url">
+        <div class="auth-step-nav">
+          <button type="button" class="auth-btn-back" onclick="closeAuth()">나중에 하기</button>
+          <button type="button" class="auth-btn" style="flex:2;margin-top:0;" id="verify-submit-btn" onclick="submitVerification()">인증 요청하기</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -4813,12 +4847,20 @@ async function updateNavForAuth() {
     if(userArea) {
       userArea.style.display = 'flex';
       const name = currentUser.user_metadata?.name || currentUser.email.split('@')[0];
-      userArea.innerHTML = `<span style="font-size:14px;color:var(--text);font-weight:600;">👤 ${name}</span>
+      const v = await getMyVerification();
+      const vBtn = v.verified
+        ? `<span title="학교 인증 완료" style="font-size:12px;font-weight:700;color:#059669;background:#ecfdf5;padding:4px 9px;border-radius:20px;">✅ 인증</span>`
+        : `<button onclick="openVerify()" style="font-size:13px;padding:5px 12px;border-radius:8px;border:1.5px solid var(--blue);background:white;cursor:pointer;color:var(--blue);font-weight:700;">${v.last?.status==='pending' ? '⏳ 인증 확인중' : '🪪 학교 인증'}</button>`;
+      const dv = document.getElementById('nav-drawer-verify');
+      if(dv) { dv.style.display = v.verified ? 'none' : ''; dv.textContent = v.last?.status==='pending' ? '⏳ 학교 인증 확인중' : '🪪 학교 인증'; }
+      userArea.innerHTML = `<span style="font-size:14px;color:var(--text);font-weight:600;">👤 ${escHtml(name)}</span>${vBtn}
         <button onclick="handleLogout()" style="font-size:13px;padding:5px 12px;border-radius:8px;border:1.5px solid var(--border);background:white;cursor:pointer;color:var(--text-muted);">로그아웃</button>`;
     }
   } else {
     loginBtns.forEach(b => b.style.display = '');
     if(userArea) userArea.innerHTML = '';
+    const dv = document.getElementById('nav-drawer-verify');
+    if(dv) dv.style.display = 'none';
   }
 }
 
@@ -4829,12 +4871,14 @@ function closeAuth(){
 }
 
 function switchAuth(type){
+  const tabs = document.querySelector('.auth-tabs');
+  if(tabs) tabs.style.display = type==='verify' ? 'none' : '';
   document.querySelectorAll('.auth-tab').forEach(t=>t.classList.remove('active'));
   const tab = document.querySelector('.auth-tab[data-tab="'+type+'"]');
   if(tab) tab.classList.add('active');
   document.querySelectorAll('.auth-form').forEach(p=>p.style.display='none');
   const panel = document.getElementById(type+'-form');
-  if(panel) panel.style.display='block';
+  if(panel) panel.style.display = panel.classList.contains('auth-form') ? 'flex' : 'block';
   const msgEl = document.getElementById('auth-message');
   if(msgEl){ msgEl.textContent=''; msgEl.style.display='none'; }
 }
@@ -4858,12 +4902,7 @@ function openAuth(type){
   const m = document.getElementById('auth-modal');
   if(!m) return;
   m.style.display='flex';
-  document.querySelectorAll('.auth-tab').forEach(t=>t.classList.remove('active'));
-  const tab = document.querySelector('.auth-tab[data-tab="'+type+'"]');
-  if(tab) tab.classList.add('active');
-  document.querySelectorAll('.auth-panel').forEach(p=>p.style.display='none');
-  const panel = document.getElementById('auth-panel-'+type);
-  if(panel) panel.style.display='block';
+  switchAuth(type==='signup' ? 'signup' : 'login');
 }
 
 function filterNews(el, _type, value){
@@ -4927,77 +4966,80 @@ async function handleLogin() {
   }
 }
 
-// ── 회원가입 스텝 네비게이션 ──
-function signupNextStep() {
-  const name     = document.getElementById('signup-name').value.trim();
-  const email    = document.getElementById('signup-email').value.trim();
-  const password = document.getElementById('signup-password').value;
-
-  if(!name)     return showAuthMessage('이름을 입력해주세요.', true);
-  if(!email)    return showAuthMessage('이메일을 입력해주세요.', true);
-  if(!password) return showAuthMessage('비밀번호를 입력해주세요.', true);
-  if(password.length < 8) return showAuthMessage('비밀번호는 8자 이상이어야 합니다.', true);
-
-  const msgEl = document.getElementById('auth-message');
-  if(msgEl){ msgEl.textContent=''; msgEl.style.display='none'; }
-
-  document.getElementById('signup-step-1').style.display = 'none';
-  document.getElementById('signup-step-2').style.display = 'block';
-
-  const ind1 = document.getElementById('step-indicator-1');
-  ind1.classList.remove('active'); ind1.classList.add('done');
-  ind1.querySelector('.signup-step-num').textContent = '✓';
-  document.getElementById('step-line-1').classList.add('done');
-  document.getElementById('step-indicator-2').classList.add('active');
-}
-
-function signupPrevStep() {
-  document.getElementById('signup-step-2').style.display = 'none';
-  document.getElementById('signup-step-1').style.display = 'block';
-
-  const ind1 = document.getElementById('step-indicator-1');
-  ind1.classList.add('active'); ind1.classList.remove('done');
-  ind1.querySelector('.signup-step-num').textContent = '1';
-  document.getElementById('step-line-1').classList.remove('done');
-  document.getElementById('step-indicator-2').classList.remove('active');
-}
-
-function signupToStep3() {
-  const school = document.getElementById('signup-school').value.trim();
-  const major  = document.getElementById('signup-major').value.trim();
-  const grade  = document.getElementById('signup-grade').value;
-  if(!school) return showAuthMessage('소속 대학원을 입력해주세요.', true);
-  if(!major)  return showAuthMessage('전공/연구분야를 입력해주세요.', true);
-  if(!grade)  return showAuthMessage('학년을 선택해주세요.', true);
-
-  const msgEl = document.getElementById('auth-message');
-  if(msgEl){ msgEl.textContent=''; msgEl.style.display='none'; }
-
-  document.getElementById('signup-step-2').style.display = 'none';
-  document.getElementById('signup-step-3').style.display = 'block';
-
-  const ind2 = document.getElementById('step-indicator-2');
-  ind2.classList.remove('active'); ind2.classList.add('done');
-  ind2.querySelector('.signup-step-num').textContent = '✓';
-  document.getElementById('step-line-2').classList.add('done');
-  document.getElementById('step-indicator-3').classList.add('active');
-}
-
-function signupPrevStep2() {
-  document.getElementById('signup-step-3').style.display = 'none';
-  document.getElementById('signup-step-2').style.display = 'block';
-
-  const ind2 = document.getElementById('step-indicator-2');
-  ind2.classList.add('active'); ind2.classList.remove('done');
-  ind2.querySelector('.signup-step-num').textContent = '2';
-  document.getElementById('step-line-2').classList.remove('done');
-  document.getElementById('step-indicator-3').classList.remove('active');
-}
-
+// ── 학교 인증 ──
 function selectGrade(el, value) {
   document.querySelectorAll('#grade-select-group .auth-select-btn').forEach(b => b.classList.remove('selected'));
   el.classList.add('selected');
-  document.getElementById('signup-grade').value = value;
+  document.getElementById('verify-grade').value = value;
+}
+
+// 내 최신 인증 요청과 인증 여부
+async function getMyVerification() {
+  const { data: { user } } = await sbClient.auth.getUser();
+  if(!user) return { user: null };
+  const [{ data: reqs }, { data: prof }] = await Promise.all([
+    sbClient.from('verification_requests').select('status,reject_reason,created_at').eq('user_id', user.id).order('created_at', { ascending: false }).limit(1),
+    sbClient.from('profiles').select('is_verified').eq('id', user.id).maybeSingle()
+  ]);
+  return { user, last: (reqs && reqs[0]) || null, verified: !!prof?.is_verified };
+}
+
+async function openVerify() {
+  const m = document.getElementById('auth-modal');
+  if(!m) return;
+  const { user, last, verified } = await getMyVerification();
+  if(!user) { openAuth('login'); switchAuth('login'); return showAuthMessage('로그인 후 학교 인증을 할 수 있어요.', true); }
+  m.style.display = 'flex';
+  switchAuth('verify');
+  document.querySelector('.auth-tabs').style.display = 'none';
+
+  const box = document.getElementById('verify-status-box');
+  const fields = document.getElementById('verify-fields');
+  const school = document.getElementById('verify-school');
+  if(school && !school.value) school.value = user.user_metadata?.school || '';
+  box.style.display = 'none'; fields.style.display = 'flex';
+  if(verified) {
+    box.style.cssText += ';display:block;background:#ecfdf5;color:#059669;';
+    box.innerHTML = '✅ <b>학교 인증이 완료된 계정</b>이에요.';
+    fields.style.display = 'none';
+  } else if(last?.status === 'pending') {
+    box.style.cssText += ';display:block;background:#fffbeb;color:#92400e;';
+    box.innerHTML = '⏳ <b>인증 요청을 확인하고 있어요.</b><br>운영자가 서류를 확인하면 인증 배지가 붙어요.';
+    fields.style.display = 'none';
+  } else if(last?.status === 'rejected') {
+    box.style.cssText += ';display:block;background:#fef2f2;color:#dc2626;';
+    box.innerHTML = '❌ 이전 요청이 반려됐어요. 사유: ' + escHtml(last.reject_reason || '서류 확인 불가') + '<br>서류를 다시 올려 주세요.';
+  }
+}
+
+async function submitVerification() {
+  const school = document.getElementById('verify-school').value.trim();
+  const major  = document.getElementById('verify-major').value.trim();
+  const grade  = document.getElementById('verify-grade').value;
+  const docUrl = document.getElementById('verify-doc-url').value;
+  if(!school) return showAuthMessage('소속 대학원을 입력해주세요.', true);
+  if(!major)  return showAuthMessage('전공/연구분야를 입력해주세요.', true);
+  if(!grade)  return showAuthMessage('과정을 선택해주세요.', true);
+  if(!docUrl) return showAuthMessage('학생증 또는 재학증명서를 올려주세요.', true);
+
+  const { data: { user } } = await sbClient.auth.getUser();
+  if(!user) return showAuthMessage('로그인이 필요해요.', true);
+  const btn = document.getElementById('verify-submit-btn');
+  btn.disabled = true; btn.textContent = '보내는 중...';
+  const { error } = await sbClient.from('verification_requests').insert({
+    user_id: user.id,
+    email: user.email,
+    name: user.user_metadata?.name || '',
+    school, major, grade,
+    doc_url: docUrl,
+    status: 'pending'
+  });
+  btn.disabled = false; btn.textContent = '인증 요청하기';
+  if(error) return showAuthMessage('요청을 보내지 못했어요. 잠시 후 다시 시도해주세요.', true);
+  showAuthMessage('✅ 인증 요청을 보냈어요! 확인되면 인증 배지가 붙어요.');
+  document.getElementById('verify-fields').style.display = 'none';
+  await updateNavForAuth();
+  setTimeout(() => closeAuth(), 1800);
 }
 
 // 서류 업로드
@@ -5034,9 +5076,6 @@ async function uploadVerifyDoc(file) {
   area.style.background = '#f0fdf4';
 }
 
-// 탭 전환 시 스텝 초기화
-const _origSwitchAuth = typeof switchAuth === 'function' ? switchAuth : null;
-
 async function handleSignup() {
   const name     = document.getElementById('signup-name').value.trim();
   const email    = document.getElementById('signup-email').value.trim();
@@ -5062,12 +5101,13 @@ async function handleSignup() {
   } else {
     const { error: loginError } = await sbClient.auth.signInWithPassword({ email, password });
     if(!loginError) {
-      showAuthMessage('✅ 가입 완료! 환영합니다 🎉');
       await updateNavForAuth();
-      setTimeout(() => closeAuth(), 1200);
+      // 가입 직후 바로 학교 인증 단계로 이어서 진행 (나중에 하기 가능)
+      await openVerify();
+      showAuthMessage('✅ 가입 완료! 이어서 학교 인증을 해주세요 (나중에 해도 돼요).');
     } else {
-      showAuthMessage('✅ 가입 완료! 메일함에서 인증 링크를 누른 뒤 로그인해주세요.');
       switchAuth('login');
+      showAuthMessage('✅ 가입 완료! 메일함에서 인증 링크를 누른 뒤 로그인해주세요. 로그인 후 상단의 \'학교 인증\'에서 학생증을 올릴 수 있어요.');
     }
     btn.textContent = '무료로 시작하기';
     btn.disabled = false;
