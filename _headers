@@ -1,0 +1,14 @@
+# Cloudflare Pages 응답 헤더 설정
+# 매일 자동 갱신되는 데이터는 브라우저가 항상 최신본을 확인하도록 합니다.
+/data/*
+  Cache-Control: no-cache
+
+# 로고·아이콘은 자주 바뀌지 않으므로 하루 동안 캐시합니다.
+/assets/*
+  Cache-Control: public, max-age=86400
+
+# 기본 보안 헤더
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: SAMEORIGIN
