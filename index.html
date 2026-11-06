@@ -3015,7 +3015,7 @@ a { text-decoration: none; color: inherit; }
           <button class="hcl-btn" onclick="clvOpenVote()">내 연구실 클로버 남기기</button>
           <button class="hcl-link" onclick="goClover()">연구실 둘러보기 →</button>
         </div>
-        <p class="hcl-safe">누가 남겼는지는 보이지 않아요. 5명이 모인 연구실만 평균으로 공개돼요.</p>
+        <p class="hcl-safe">누가 남겼는지는 보이지 않아요. n명이 모인 연구실만 평균으로 공개돼요.</p>
       </div>
       <div class="hcl-board" id="home-clover-board"></div>
     </div>
@@ -3445,7 +3445,7 @@ a { text-decoration: none; color: inherit; }
       <button class="clv-btn" onclick="clvOpenVote()">🍀 클로버 남기기</button>
     </div>
     <div class="clv-grid" id="clv-grid"></div>
-    <div class="clv-note">🐞 클로버 지수는 연구실 구성원들이 남긴 <b>주관적인 의견을 모은 참고 정보</b>이며, My Research Calendar의 의견이 아니에요. 응답이 5개 이상 모인 연구실만 공개되고, 문제가 있는 내용은 각 카드의 '신고·삭제 요청'으로 알려 주시면 바로 가린 뒤 검토해요.</div>
+    <div class="clv-note">🐞 클로버 지수는 연구실 구성원들이 남긴 <b>주관적인 의견을 모은 참고 정보</b>이며, My Research Calendar의 의견이 아니에요. 응답이 n명 이상 모인 연구실만 공개되고, 문제가 있는 내용은 각 카드의 '신고·삭제 요청'으로 알려 주시면 바로 가린 뒤 검토해요.</div>
   </div>
 </div>
 
@@ -5574,7 +5574,8 @@ sbClient.auth.onAuthStateChange((event, session) => {
 
 // ══════════════════════════════════════════
 // ── 🍀 클로버 지수: 연구실 환경을 클로버 1~4잎으로 ──
-// 개별 응답은 서버가 숨기고, 5명 이상 모인 연구실의 평균만 받아온다 (clover_summary)
+// 개별 응답은 서버가 숨기고, 6명 이상 모인 연구실의 평균만 받아온다 (clover_summary)
+// 화면에는 공개 기준 숫자를 드러내지 않고 'n명'으로만 안내한다 (CLV_MIN_LABEL)
 // ══════════════════════════════════════════
 const CLV_ITEMS = [
   { k:'pay',     label:'인건비', q:'약속한 인건비가 잘 나오나요?' },
@@ -5583,7 +5584,8 @@ const CLV_ITEMS = [
   { k:'balance', label:'워라밸', q:'휴가와 근무 시간이 존중되나요?' },
 ];
 const CLV_WORDS = ['아쉬워요','보통이에요','좋아요','최고예요'];
-const CLV_MIN = 5;
+const CLV_MIN = 6;            // 실제 공개 기준 (supabase clover_summary 와 같아야 함)
+const CLV_MIN_LABEL = 'n명';  // 이용자에게 보이는 표현
 const CLV = { labs:[], sum:{}, mine:new Set(), filter:'all', loaded:false, ready:true, vote:{}, lab:null, reportLab:null, reportKind:'report' };
 
 function clvClover(n, size){
@@ -5651,10 +5653,9 @@ function clvRender(){
         ${mine ? '<span style="color:#15803d;font-weight:600">✓ 내 클로버를 남겼어요</span>' : `<button class="clv-link" onclick="clvOpenVote(${l.id})">🍀 클로버 남기기</button>`}
         <button class="clv-report" onclick="clvOpenReport(${l.id})">신고·삭제 요청</button></div>`;
     if(s.total == null){
-      const pct = Math.min(100, Math.round(s.cnt / CLV_MIN * 100));
       return `<div class="clv-card">${head}
         <div class="clv-grow">${clvClover(Math.min(3, s.cnt), 34)}<b>클로버가 자라는 중이에요</b>
-        <div class="clv-bar"><i style="width:${pct}%"></i></div><span>${s.cnt}/${CLV_MIN}명 · ${CLV_MIN}명이 모이면 공개돼요</span></div>${foot}</div>`;
+        <span>${s.cnt}명 참여 · ${CLV_MIN_LABEL}이 모이면 공개돼요</span></div>${foot}</div>`;
     }
     const tot = Number(s.total);
     return `<div class="clv-card">${tot >= 3.5 ? `<div class="clv-badge">${clvBug(18)}네잎 연구실</div>` : ''}${head}
@@ -5687,7 +5688,7 @@ function renderHomeClover(){
         <span class="hcl-sample-tag">이렇게 보여요 · 예시</span>
         <div class="clv-dept">○○대학교 ○○공학과</div>
         <h3>○○ 연구실</h3>
-        <div class="clv-total">${clvClover(3,40)}<div><b>3.0</b><span style="color:var(--text-muted);font-size:13px"> / 4</span><small>클로버 지수 · 5명 참여</small></div></div>
+        <div class="clv-total">${clvClover(3,40)}<div><b>3.0</b><span style="color:var(--text-muted);font-size:13px"> / 4</span><small>클로버 지수 · 6명 참여</small></div></div>
         ${ex.map(([l,n]) => `<div class="clv-row"><span>${l}</span>${clvClover(n,20)}</div>`).join('')}
       </div>
       ${legend}`;
@@ -5702,7 +5703,7 @@ function renderHomeClover(){
       const s = CLV.sum[l.id] || { cnt:0 };
       const right = s.total != null
         ? `<span class="hcl-score">${clvClover(Math.round(Number(s.total)),30)}<b>${Number(s.total).toFixed(1)}</b></span>`
-        : `<span class="hcl-grow">${clvClover(Math.min(3, s.cnt),24)}<small>${s.cnt}/${CLV_MIN}명</small></span>`;
+        : `<span class="hcl-grow">${clvClover(Math.min(3, s.cnt),24)}<small>${s.cnt}명 참여</small></span>`;
       return `<button class="hcl-lab" onclick="goClover()"><span><small>${escHtml(l.univ)} ${escHtml(l.dept)}</small><b>${escHtml(l.name)}</b></span>${right}</button>`;
     }).join('')}</div>
     ${legend}`;
@@ -5728,7 +5729,7 @@ async function clvOpenVote(labId){
     <div class="clv-q"><div class="lb">어떤 연구실인가요?</div><div id="clv-lab-pick"></div></div>
     ${CLV_ITEMS.map(it => `<div class="clv-q"><div class="lb">${it.label}</div><div class="hn">${it.q}</div>
       <div class="clv-opts">${[1,2,3,4].map(n => `<button class="clv-opt" data-k="${it.k}" data-n="${n}" onclick="clvPick(this)">${clvClover(n,26)}${CLV_WORDS[n-1]}</button>`).join('')}</div></div>`).join('')}
-    <div class="clv-rules">✍️ 글은 쓰지 않고 클로버만 고르면 끝이에요. 누가 남겼는지는 공개되지 않으며, ${CLV_MIN}명 이상 모인 뒤 평균만 보여 줘요. 교수님 성함은 적지 말아 주세요.</div>
+    <div class="clv-rules">✍️ 글은 쓰지 않고 클로버만 고르면 끝이에요. 누가 남겼는지는 공개되지 않으며, ${CLV_MIN_LABEL} 이상 모인 뒤 평균만 보여 줘요. 교수님 성함은 적지 말아 주세요.</div>
     <button class="clv-btn" id="clv-vote-btn" onclick="clvSubmitVote()">클로버 남기기</button>
     <div class="clv-msg" id="clv-vote-msg"></div>`;
   clvRenderLabPick();
