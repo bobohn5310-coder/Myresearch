@@ -340,12 +340,27 @@
         <span class="icon">🔥</span> 배너 관리
       </div>
       <div class="sidebar-section" style="margin-top:8px;">회원 관리</div>
+      <div class="sidebar-item" onclick="showAdminPage('reports', this); loadReports();">
+        <span class="icon">🚨</span> 신고함
+        <span id="reports-badge" style="display:none;margin-left:auto;background:#ef4444;color:white;font-size:11px;font-weight:800;padding:2px 7px;border-radius:20px;">0</span>
+      </div>
       <div class="sidebar-item" onclick="showAdminPage('members', this); loadMembers();">
         <span class="icon">👥</span> 회원 목록
+        <span id="withdraw-badge" style="display:none;margin-left:auto;background:#f97316;color:white;font-size:11px;font-weight:800;padding:2px 7px;border-radius:20px;">0</span>
       </div>
       <div class="sidebar-item" onclick="showAdminPage('verify', this)" id="verify-menu-item">
         <span class="icon">🪪</span> 회원 인증
         <span id="verify-badge" style="display:none;margin-left:auto;background:#ef4444;color:white;font-size:11px;font-weight:800;padding:2px 7px;border-radius:20px;">0</span>
+      </div>
+      <div class="sidebar-section" style="margin-top:8px;">운영</div>
+      <div class="sidebar-item" onclick="showAdminPage('clover', this); loadCloverAdmin();">
+        <span class="icon">🍀</span> 클로버 현황
+      </div>
+      <div class="sidebar-item" onclick="showAdminPage('notices', this); loadNotices();">
+        <span class="icon">📢</span> 공지사항
+      </div>
+      <div class="sidebar-item" onclick="showAdminPage('stats', this); loadStats();">
+        <span class="icon">📊</span> 통계
       </div>
     </div>
     <div class="sidebar-footer">
@@ -415,6 +430,11 @@
       <div class="card">
         <div class="card-header">
           <div class="card-title">학술정보 목록</div>
+          <input id="info-search" type="text" placeholder="제목·기관·지역 검색" oninput="renderInfoTable()"
+            style="flex:1;min-width:160px;margin:0 8px;padding:8px 12px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:13px;font-family:'Noto Sans KR',sans-serif;">
+          <select id="info-type-filter" onchange="renderInfoTable()" style="padding:8px 10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:13px;margin-right:8px;font-family:'Noto Sans KR',sans-serif;">
+            <option value="">모든 유형</option><option value="conf">학회</option><option value="scholar">장학금</option><option value="project">연구과제</option><option value="recruit">모집</option>
+          </select>
           <button class="btn btn-primary" onclick="openInfoModal()">+ 새 정보 등록</button>
         </div>
         <div class="table-wrap">
@@ -438,6 +458,81 @@
     </div>
 
 
+    <!-- 신고함 -->
+    <div class="admin-page" id="page-reports">
+      <div class="page-header">
+        <div class="page-title">🚨 신고함</div>
+        <div class="page-sub">클로버(연구실·한줄평)와 커뮤니티(글·댓글) 신고를 한곳에서 처리해요.<br>
+          클로버 신고는 들어오는 즉시 가려져 있어요. <b>문제 없음</b>을 누르면 다시 보이고, <b>삭제</b>를 누르면 계속 가려져요. 커뮤니티 글·댓글은 <b>삭제</b>하면 지워져요.</div>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+        <button class="btn btn-secondary rp-tab" data-s="pending" onclick="loadReports('pending')">⏳ 처리 대기</button>
+        <button class="btn btn-secondary rp-tab" data-s="dismissed" onclick="loadReports('dismissed')">↩️ 문제 없음</button>
+        <button class="btn btn-secondary rp-tab" data-s="removed" onclick="loadReports('removed')">🗑️ 삭제됨</button>
+      </div>
+      <div class="card"><div class="table-wrap"><table>
+        <thead><tr><th>구분</th><th>대상</th><th>내용</th><th>신고 사유</th><th>신고일</th><th>처리</th></tr></thead>
+        <tbody id="reports-table-body"><tr><td colspan="6"><div class="empty-state"><div class="emoji">🚨</div>불러오는 중...</div></td></tr></tbody>
+      </table></div></div>
+    </div>
+
+    <!-- 클로버 현황 -->
+    <div class="admin-page" id="page-clover">
+      <div class="page-header">
+        <div class="page-title">🍀 클로버 현황</div>
+        <div class="page-sub">연구실별 참여 인원이에요. 6명이 모이면 점수가 공개돼요. 교수님 성함은 관리자에게만 보여요.</div>
+      </div>
+      <div id="cl-stats" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;"></div>
+      <div class="card">
+        <div class="card-header" style="gap:8px;flex-wrap:wrap;">
+          <input id="cl-search" type="text" placeholder="학교·학과·연구실 검색" oninput="renderCloverAdmin()"
+            style="flex:1;min-width:180px;padding:8px 12px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:13px;font-family:'Noto Sans KR',sans-serif;">
+          <select id="cl-filter" onchange="renderCloverAdmin()" style="padding:8px 10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:13px;font-family:'Noto Sans KR',sans-serif;">
+            <option value="">전체</option><option value="near">곧 공개 (4~5명)</option><option value="open">공개됨 (6명 이상)</option>
+            <option value="hidden">가려짐</option><option value="reported">신고 대기 있음</option>
+          </select>
+        </div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>학교 / 학과</th><th>연구실</th><th>교수님</th><th>참여</th><th>한줄평</th><th>상태</th><th>관리</th></tr></thead>
+          <tbody id="clover-table-body"><tr><td colspan="7"><div class="empty-state"><div class="emoji">🍀</div>불러오는 중...</div></td></tr></tbody>
+        </table></div>
+      </div>
+    </div>
+
+    <!-- 공지사항 -->
+    <div class="admin-page" id="page-notices">
+      <div class="page-header">
+        <div class="page-title">📢 공지사항</div>
+        <div class="page-sub">켜 둔 공지 중 가장 최근 것 하나가 사이트 맨 위 띠에 보여요. 방문자가 ×를 누르면 그 공지는 다시 안 보여요.</div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">공지 목록</div><button class="btn btn-primary" onclick="openNoticeModal()">+ 새 공지</button></div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>제목</th><th>내용</th><th>노출</th><th>작성일</th><th>관리</th></tr></thead>
+          <tbody id="notices-table-body"><tr><td colspan="5"><div class="empty-state"><div class="emoji">📢</div>불러오는 중...</div></td></tr></tbody>
+        </table></div>
+      </div>
+    </div>
+
+    <!-- 통계 -->
+    <div class="admin-page" id="page-stats">
+      <div class="page-header">
+        <div class="page-title">📊 통계</div>
+        <div class="page-sub">하루 가입자 수와 방문자 수(브라우저 기준, 하루에 한 번만 셈)예요. 방문 기록은 이 기능을 켠 날부터 쌓여요.</div>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:16px;">
+        <button class="btn btn-secondary st-tab" data-d="7" onclick="loadStats(7)">7일</button>
+        <button class="btn btn-secondary st-tab" data-d="30" onclick="loadStats(30)">30일</button>
+        <button class="btn btn-secondary st-tab" data-d="90" onclick="loadStats(90)">90일</button>
+      </div>
+      <div id="st-stats" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;"></div>
+      <div class="card" style="padding:20px;margin-bottom:16px;"><div id="st-chart"></div></div>
+      <div class="card"><div class="table-wrap"><table>
+        <thead><tr><th>날짜</th><th>가입</th><th>방문자</th></tr></thead>
+        <tbody id="stats-table-body"></tbody>
+      </table></div></div>
+    </div>
+
     <!-- 회원 목록 -->
     <div class="admin-page" id="page-members">
       <div class="page-header">
@@ -454,13 +549,16 @@
             <option>예비대학원생</option><option>학부연구생</option><option>석사과정</option><option>박사과정</option>
             <option>석박통합</option><option>박사후연구원</option><option>기타</option><option value="-">유형 없음</option>
           </select>
+          <select id="mb-state" onchange="renderMembers()" style="padding:8px 10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:13px;font-family:'Noto Sans KR',sans-serif;">
+            <option value="">모든 상태</option><option value="withdraw">탈퇴 요청</option><option value="suspended">정지 중</option>
+          </select>
           <button class="btn btn-primary" onclick="exportMembersExcel()" style="background:#059669;">📥 엑셀 다운로드</button>
         </div>
         <div class="table-wrap">
           <table>
-            <thead><tr><th>이름</th><th>이메일</th><th>회원 유형</th><th>학교 / 학과</th><th>메일 인증</th><th>학교 인증</th><th>가입일</th><th>최근 로그인</th></tr></thead>
+            <thead><tr><th>이름</th><th>이메일</th><th>회원 유형</th><th>학교 / 학과</th><th>메일 인증</th><th>학교 인증</th><th>가입일</th><th>최근 로그인</th><th>상태</th><th>관리</th></tr></thead>
             <tbody id="members-table-body">
-              <tr><td colspan="8"><div class="empty-state"><div class="emoji">👥</div>불러오는 중...</div></td></tr>
+              <tr><td colspan="10"><div class="empty-state"><div class="emoji">👥</div>불러오는 중...</div></td></tr>
             </tbody>
           </table>
         </div>
@@ -632,6 +730,62 @@
 </div>
 
 <!-- ── 학술정보 등록/수정 모달 ── -->
+<div class="modal-overlay" id="member-modal">
+  <div class="modal" style="max-width:480px;">
+    <div class="modal-header">
+      <div class="modal-title">회원 관리</div>
+      <span class="modal-close" onclick="closeModal('member-modal')">×</span>
+    </div>
+    <div id="mm-who" style="font-size:14px;margin-bottom:14px;line-height:1.6;"></div>
+    <div class="form-group" style="margin-bottom:14px;">
+      <label class="form-label">회원 유형</label>
+      <div style="display:flex;gap:8px;">
+        <select class="form-select" id="mm-type" style="flex:1;">
+          <option value="">(없음)</option><option>예비대학원생</option><option>학부연구생</option><option>석사과정</option>
+          <option>박사과정</option><option>석박통합</option><option>박사후연구원</option><option>기타</option>
+        </select>
+        <button class="btn btn-primary" onclick="mmSaveType()">유형 저장</button>
+      </div>
+    </div>
+    <div class="form-group" style="margin-bottom:14px;">
+      <label class="form-label">활동 정지 <span style="font-weight:400;color:var(--text-muted)">(정지 중에는 글·댓글·클로버를 남길 수 없어요)</span></label>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <select class="form-select" id="mm-days" style="width:120px;">
+          <option value="3">3일</option><option value="7" selected>7일</option><option value="30">30일</option><option value="36500">영구</option>
+        </select>
+        <input class="form-input" id="mm-reason" style="flex:1;min-width:140px;" maxlength="200" placeholder="정지 사유 (관리자만 봐요)">
+        <button class="btn btn-danger" onclick="mmSuspend(true)">정지</button>
+        <button class="btn btn-secondary" id="mm-unsuspend" onclick="mmSuspend(false)">정지 풀기</button>
+      </div>
+    </div>
+    <div style="border-top:1px solid #fee2e2;padding-top:14px;">
+      <div id="mm-withdraw" style="font-size:13px;color:#64748b;margin-bottom:8px;"></div>
+      <button class="btn btn-danger" onclick="mmDelete()">🗑️ 탈퇴 처리 (계정 삭제)</button>
+      <div style="font-size:12px;color:#94a3b8;margin-top:6px;">계정과 개인정보가 지워지고 되돌릴 수 없어요. 쓴 글·댓글은 '탈퇴한 회원'으로 남아요.</div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="notice-modal">
+  <div class="modal" style="max-width:520px;">
+    <div class="modal-header">
+      <div class="modal-title" id="notice-modal-title">새 공지</div>
+      <span class="modal-close" onclick="closeModal('notice-modal')">×</span>
+    </div>
+    <div class="form-group" style="margin-bottom:12px;"><label class="form-label">제목 (띠에 보이는 글)</label>
+      <input class="form-input" id="nt-title" maxlength="100" placeholder="예: 11월 학회 마감 일정이 업데이트됐어요"></div>
+    <div class="form-group" style="margin-bottom:12px;"><label class="form-label">자세한 내용 (선택)</label>
+      <textarea class="form-textarea" id="nt-body" maxlength="2000" placeholder="띠를 누르면 보이는 내용"></textarea></div>
+    <div class="form-group" style="margin-bottom:12px;"><label class="form-label">링크 (선택)</label>
+      <input class="form-input" id="nt-url" type="url" placeholder="https://..."></div>
+    <label style="display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;margin-bottom:12px;"><input type="checkbox" id="nt-active" checked> 사이트에 보이기</label>
+    <div class="form-actions">
+      <button class="btn btn-secondary" onclick="closeModal('notice-modal')">취소</button>
+      <button class="btn btn-primary" onclick="saveNotice()">저장</button>
+    </div>
+  </div>
+</div>
+
 <div class="modal-overlay" id="info-modal">
   <div class="modal">
     <div class="modal-header">
@@ -687,6 +841,15 @@
         <input class="form-input" id="info-date" type="date">
       </div>
 
+      <!-- 학회: 초록·등록 마감일 -->
+      <div class="form-group" id="field-abstract" style="display:none;">
+        <label class="form-label">초록 마감일</label>
+        <input class="form-input" id="info-abstract" type="date">
+      </div>
+      <div class="form-group" id="field-registration" style="display:none;">
+        <label class="form-label">(사전)등록 마감일</label>
+        <input class="form-input" id="info-registration" type="date">
+      </div>
       <!-- 장학금: 신청 시작일 -->
       <div class="form-group" id="field-apply-start" style="display:none;">
         <label class="form-label">신청 시작일</label>
@@ -790,6 +953,7 @@ function enterAdmin() {
   loadNews();
   loadInfo();
   purgeOldVerifyDocs(false);
+  refreshAdminBadges();
 }
 
 // ── 인증 서류 보관 기간(6개월) 관리 ──
@@ -891,14 +1055,16 @@ async function loadMembers() {
 function filteredMembers() {
   const q = (document.getElementById('mb-search')?.value || '').trim().toLowerCase();
   const t = document.getElementById('mb-type')?.value || '';
+  const st = document.getElementById('mb-state')?.value || '';
   return _members.filter(m =>
     (!q || [m.name, m.email, m.school, m.dept].some(x => (x || '').toLowerCase().includes(q))) &&
-    (!t || (t === '-' ? !m.member_type : m.member_type === t)));
+    (!t || (t === '-' ? !m.member_type : m.member_type === t)) &&
+    (!st || (st === 'withdraw' ? !!m.withdraw_at : mbSuspended(m))));
 }
 function renderMembers() {
   const body = document.getElementById('members-table-body');
   const list = filteredMembers();
-  if(!list.length) { body.innerHTML = '<tr><td colspan="8"><div class="empty-state"><div class="emoji">👥</div>해당하는 회원이 없어요.</div></td></tr>'; return; }
+  if(!list.length) { body.innerHTML = '<tr><td colspan="10"><div class="empty-state"><div class="emoji">👥</div>해당하는 회원이 없어요.</div></td></tr>'; return; }
   const yes = '<span class="badge badge-blue">완료</span>', no = '<span style="color:#94a3b8;font-size:12px;">-</span>';
   body.innerHTML = list.map(m => `<tr>
     <td style="font-weight:700;">${esc(m.name || '-')}</td>
@@ -909,6 +1075,8 @@ function renderMembers() {
     <td>${m.is_verified ? yes : no}</td>
     <td style="font-size:12.5px;white-space:nowrap;">${mbDate(m.created_at)}</td>
     <td style="font-size:12.5px;white-space:nowrap;">${mbDate(m.last_sign_in_at)}</td>
+    <td style="font-size:12px;white-space:nowrap;">${m.is_admin ? '<span class="badge badge-blue">관리자</span>' : ''}${mbSuspended(m) ? `<span class="badge" style="background:#fef2f2;color:#dc2626;">정지 ~${mbDate(m.suspended_until).slice(5)}</span>` : ''}${m.withdraw_at ? '<span class="badge" style="background:#fff7ed;color:#c2410c;">탈퇴 요청</span>' : ''}</td>
+    <td>${m.is_admin ? '' : `<button class="btn btn-secondary btn-sm" onclick="openMemberModal('${esc(m.id)}')">관리</button>`}</td>
   </tr>`).join('');
 }
 function exportMembersExcel() {
@@ -927,6 +1095,220 @@ function exportMembersExcel() {
   XLSX.utils.book_append_sheet(wb, ws, '회원 목록');
   XLSX.writeFile(wb, `회원목록_${mbDate(new Date())}.xlsx`);
   showToast(`✅ ${rows.length}명을 엑셀로 내려받았어요.`);
+}
+
+const mbSuspended = m => m.suspended_until && new Date(m.suspended_until) > new Date();
+let _mmId = null;
+function openMemberModal(id) {
+  const m = _members.find(x => x.id === id); if(!m) return;
+  _mmId = id;
+  document.getElementById('mm-who').innerHTML = `<b>${esc(m.name || '(이름 없음)')}</b> · ${esc(m.email || '')}<br><span style="color:#64748b;font-size:13px;">가입 ${mbDate(m.created_at)}${mbSuspended(m) ? ` · <b style="color:#dc2626;">${mbDate(m.suspended_until)}까지 정지</b> (${esc(m.suspend_reason || '사유 없음')})` : ''}</span>`;
+  document.getElementById('mm-type').value = m.member_type || '';
+  document.getElementById('mm-reason').value = '';
+  document.getElementById('mm-unsuspend').style.display = mbSuspended(m) ? '' : 'none';
+  document.getElementById('mm-withdraw').innerHTML = m.withdraw_at
+    ? `📩 <b>${mbDate(m.withdraw_at)}</b>에 탈퇴를 요청했어요. 사유: ${esc(m.withdraw_reason || '없음')}` : '탈퇴 요청은 없어요. 회원이 메일 등으로 요청한 경우에만 처리해 주세요.';
+  openModal('member-modal');
+}
+async function mmUpsert(patch, okMsg) {
+  const { error } = await sbClient.from('profiles').upsert({ id: _mmId, ...patch }, { onConflict: 'id' });
+  if(error) { showToast('❌ 저장 실패: ' + error.message); return; }
+  showToast(okMsg); closeModal('member-modal'); loadMembers();
+}
+function mmSaveType() { mmUpsert({ member_type: document.getElementById('mm-type').value || null }, '✅ 회원 유형을 바꿨어요.'); }
+function mmSuspend(on) {
+  if(!on) return mmUpsert({ suspended_until: null, suspend_reason: null }, '✅ 정지를 풀었어요.');
+  const days = Number(document.getElementById('mm-days').value);
+  const until = new Date(Date.now() + days * 864e5).toISOString();
+  mmUpsert({ suspended_until: until, suspend_reason: document.getElementById('mm-reason').value.trim() || null },
+    days > 3650 ? '⛔ 영구 정지했어요.' : `⛔ ${days}일 정지했어요.`);
+}
+async function mmDelete() {
+  const m = _members.find(x => x.id === _mmId); if(!m) return;
+  if(prompt(`정말 탈퇴 처리할까요? 되돌릴 수 없어요.\n확인하려면 이메일을 그대로 입력하세요:\n${m.email}`) !== m.email) { showToast('취소했어요.'); return; }
+  const { error } = await sbClient.rpc('admin_delete_user', { p_user: _mmId });
+  if(error) { showToast('❌ 탈퇴 처리 실패: ' + error.message); return; }
+  showToast('🗑️ 탈퇴 처리했어요.'); closeModal('member-modal'); loadMembers();
+}
+
+// ════════════════════════════════════
+// 사이드바 숫자 (신고 대기 · 탈퇴 요청)
+// ════════════════════════════════════
+async function refreshAdminBadges() {
+  const setBadge = (id, n) => { const b = document.getElementById(id); if(b) { b.textContent = n; b.style.display = n ? '' : 'none'; } };
+  const r = await sbClient.rpc('admin_reports', { p_status: 'pending' });
+  if(!r.error) setBadge('reports-badge', (r.data || []).length);
+  const w = await sbClient.from('withdraw_requests').select('user_id', { count: 'exact', head: true });
+  if(!w.error) setBadge('withdraw-badge', w.count || 0);
+}
+const NEED_SQL = '이 기능을 켜려면 Supabase에서 supabase/admin_tools.sql 을 실행해주세요.';
+const rpcErr = e => e.code === 'PGRST202' || /does not exist|schema cache/i.test(e.message || '') ? NEED_SQL : '불러오지 못했어요: ' + esc(e.message);
+
+// ════════════════════════════════════
+// 신고함
+// ════════════════════════════════════
+let _reports = [], _reportStatus = 'pending';
+async function loadReports(status) {
+  if(status) _reportStatus = status;
+  document.querySelectorAll('.rp-tab').forEach(b => b.className = 'btn rp-tab ' + (b.dataset.s === _reportStatus ? 'btn-primary' : 'btn-secondary'));
+  const body = document.getElementById('reports-table-body');
+  const { data, error } = await sbClient.rpc('admin_reports', { p_status: _reportStatus });
+  if(error) { body.innerHTML = `<tr><td colspan="6"><div class="empty-state"><div class="emoji">⚠️</div>${rpcErr(error)}</div></td></tr>`; return; }
+  _reports = data || [];
+  if(!_reports.length) { body.innerHTML = '<tr><td colspan="6"><div class="empty-state"><div class="emoji">✨</div>여기에 해당하는 신고가 없어요.</div></td></tr>'; refreshAdminBadges(); return; }
+  body.innerHTML = _reports.map((r, i) => `<tr>
+    <td style="white-space:nowrap;"><span class="badge ${r.src === 'clover' ? 'badge-green' : 'badge-purple'}">${r.src === 'clover' ? '🍀 ' : '💬 '}${esc(r.kind)}</span></td>
+    <td style="max-width:200px;font-size:13px;font-weight:600;">${esc(r.target || '(지워진 대상)')}</td>
+    <td style="max-width:260px;font-size:12.5px;color:#475569;white-space:pre-wrap;">${esc((r.detail || '').slice(0, 200)) || '-'}</td>
+    <td style="max-width:220px;font-size:12.5px;">${esc(r.reason || '-')}${r.contact ? `<div style="color:#94a3b8;font-size:11.5px;">연락처: ${esc(r.contact)}</div>` : ''}</td>
+    <td style="font-size:12.5px;white-space:nowrap;">${mbDate(r.created_at)}</td>
+    <td style="white-space:nowrap;">${r.status === 'pending' ? `
+      <button class="btn btn-secondary btn-sm" onclick="resolveReport(${i},'restore')">문제 없음</button>
+      <button class="btn btn-danger btn-sm" onclick="resolveReport(${i},'remove')">삭제</button>` : `<span style="font-size:12px;color:#94a3b8;">${r.status === 'removed' ? '삭제됨' : '문제 없음'}</span>`}</td>
+  </tr>`).join('');
+  refreshAdminBadges();
+}
+async function resolveReport(i, action) {
+  const r = _reports[i]; if(!r) return;
+  if(action === 'remove' && r.src === 'community' && !confirm('이 ' + r.kind + '을(를) 지울까요? 되돌릴 수 없어요.')) return;
+  const { error } = await sbClient.rpc('admin_resolve_report', { p_src: r.src, p_id: r.id, p_action: action });
+  if(error) { showToast('❌ 처리 실패: ' + error.message); return; }
+  showToast(action === 'remove' ? '🗑️ 삭제했어요.' : '↩️ 다시 보이게 했어요.');
+  loadReports();
+}
+
+// ════════════════════════════════════
+// 클로버 현황
+// ════════════════════════════════════
+let _labs = [];
+async function loadCloverAdmin() {
+  const body = document.getElementById('clover-table-body');
+  const { data, error } = await sbClient.rpc('admin_clover_labs');
+  if(error) { body.innerHTML = `<tr><td colspan="7"><div class="empty-state"><div class="emoji">⚠️</div>${rpcErr(error)}</div></td></tr>`; return; }
+  _labs = data || [];
+  const chip = (label, v) => `<div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:10px 14px;font-size:12px;color:#64748b;">${label}<div style="font-size:20px;font-weight:800;color:#0f172a;">${v}</div></div>`;
+  document.getElementById('cl-stats').innerHTML =
+    chip('등록된 연구실', _labs.length) +
+    chip('공개됨 (6명+)', _labs.filter(l => l.cnt >= 6).length) +
+    chip('곧 공개 (4~5명)', _labs.filter(l => l.cnt >= 4 && l.cnt < 6).length) +
+    chip('전체 참여', _labs.reduce((a, l) => a + l.cnt, 0)) +
+    chip('가려진 연구실', _labs.filter(l => l.hidden).length);
+  renderCloverAdmin();
+}
+function renderCloverAdmin() {
+  const body = document.getElementById('clover-table-body');
+  const q = (document.getElementById('cl-search')?.value || '').trim().toLowerCase();
+  const f = document.getElementById('cl-filter')?.value || '';
+  const list = _labs.filter(l =>
+    (!q || [l.univ, l.dept, l.name, l.topic].some(x => (x || '').toLowerCase().includes(q))) &&
+    (!f || (f === 'near' ? l.cnt >= 4 && l.cnt < 6 : f === 'open' ? l.cnt >= 6 : f === 'hidden' ? l.hidden : l.pending_reports > 0)));
+  if(!list.length) { body.innerHTML = '<tr><td colspan="7"><div class="empty-state"><div class="emoji">🍀</div>해당하는 연구실이 없어요.</div></td></tr>'; return; }
+  body.innerHTML = list.map(l => `<tr>
+    <td style="font-size:13px;">${esc(l.univ)}<br><span style="color:#64748b;">${esc(l.dept)}</span></td>
+    <td style="font-size:13px;font-weight:700;">${esc(l.name)}${l.topic ? `<div style="font-weight:400;color:#94a3b8;font-size:12px;">${esc(l.topic)}</div>` : ''}</td>
+    <td style="font-size:13px;">${esc(l.prof || '-')}</td>
+    <td style="white-space:nowrap;"><b style="font-size:15px;">${l.cnt}</b><span style="color:#94a3b8;font-size:12px;"> / 6</span>
+      <div style="height:5px;width:70px;background:#f1f5f9;border-radius:4px;margin-top:4px;"><div style="height:5px;width:${Math.min(100, l.cnt / 6 * 100)}%;background:${l.cnt >= 6 ? '#059669' : l.cnt >= 4 ? '#f59e0b' : '#cbd5e1'};border-radius:4px;"></div></div></td>
+    <td style="font-size:13px;">${l.comments}</td>
+    <td style="white-space:nowrap;">${l.hidden ? '<span class="badge" style="background:#fef2f2;color:#dc2626;">가려짐</span>' : l.cnt >= 6 ? '<span class="badge badge-blue">공개</span>' : '<span style="font-size:12px;color:#94a3b8;">모으는 중</span>'}${l.pending_reports ? ` <span class="badge" style="background:#fff7ed;color:#c2410c;">신고 ${l.pending_reports}</span>` : ''}</td>
+    <td><button class="btn btn-secondary btn-sm" onclick="toggleLabHidden(${l.id}, ${!l.hidden})">${l.hidden ? '다시 보이기' : '가리기'}</button></td>
+  </tr>`).join('');
+}
+async function toggleLabHidden(id, hide) {
+  const { error } = await sbClient.rpc('admin_set_lab_hidden', { p_lab: id, p_hidden: hide });
+  if(error) { showToast('❌ 실패: ' + error.message); return; }
+  showToast(hide ? '🙈 연구실을 가렸어요.' : '👀 다시 보이게 했어요.'); loadCloverAdmin();
+}
+
+// ════════════════════════════════════
+// 공지사항
+// ════════════════════════════════════
+let _notices = [], _noticeId = null;
+async function loadNotices() {
+  const body = document.getElementById('notices-table-body');
+  const { data, error } = await sbClient.from('notices').select('*').order('created_at', { ascending: false });
+  if(error) { body.innerHTML = `<tr><td colspan="5"><div class="empty-state"><div class="emoji">⚠️</div>${rpcErr(error)}</div></td></tr>`; return; }
+  _notices = data || [];
+  if(!_notices.length) { body.innerHTML = '<tr><td colspan="5"><div class="empty-state"><div class="emoji">📢</div>아직 공지가 없어요.</div></td></tr>'; return; }
+  const live = _notices.find(n => n.is_active);
+  body.innerHTML = _notices.map(n => `<tr>
+    <td style="font-weight:700;max-width:260px;">${esc(n.title)}${live && live.id === n.id ? ' <span class="badge badge-green">지금 띠에 보임</span>' : ''}</td>
+    <td style="font-size:12.5px;color:#64748b;max-width:280px;">${esc((n.body || '').slice(0, 80)) || '-'}${n.url ? '<br>🔗 ' + esc(n.url) : ''}</td>
+    <td><button class="btn btn-sm ${n.is_active ? 'btn-primary' : 'btn-secondary'}" onclick="toggleNotice(${n.id}, ${!n.is_active})">${n.is_active ? '켜짐' : '꺼짐'}</button></td>
+    <td style="font-size:12.5px;white-space:nowrap;">${mbDate(n.created_at)}</td>
+    <td style="white-space:nowrap;"><button class="btn btn-secondary btn-sm" onclick="openNoticeModal(${n.id})">수정</button>
+      <button class="btn btn-danger btn-sm" onclick="deleteNotice(${n.id})">삭제</button></td>
+  </tr>`).join('');
+}
+function openNoticeModal(id = null) {
+  _noticeId = id;
+  const n = _notices.find(x => x.id === id) || {};
+  document.getElementById('notice-modal-title').textContent = id ? '공지 수정' : '새 공지';
+  document.getElementById('nt-title').value = n.title || '';
+  document.getElementById('nt-body').value = n.body || '';
+  document.getElementById('nt-url').value = n.url || '';
+  document.getElementById('nt-active').checked = id ? !!n.is_active : true;
+  openModal('notice-modal');
+}
+async function saveNotice() {
+  const row = {
+    title: document.getElementById('nt-title').value.trim(),
+    body: document.getElementById('nt-body').value.trim() || null,
+    url: document.getElementById('nt-url').value.trim() || null,
+    is_active: document.getElementById('nt-active').checked
+  };
+  if(!row.title) { showToast('❌ 제목을 입력해주세요.'); return; }
+  const { error } = _noticeId
+    ? await sbClient.from('notices').update(row).eq('id', _noticeId)
+    : await sbClient.from('notices').insert(row);
+  if(error) { showToast('❌ 저장 실패: ' + error.message); return; }
+  showToast('✅ 공지를 저장했어요.'); closeModal('notice-modal'); loadNotices();
+}
+async function toggleNotice(id, on) {
+  const { error } = await sbClient.from('notices').update({ is_active: on }).eq('id', id);
+  if(error) { showToast('❌ 실패: ' + error.message); return; }
+  loadNotices();
+}
+async function deleteNotice(id) {
+  if(!confirm('이 공지를 지울까요?')) return;
+  const { error } = await sbClient.from('notices').delete().eq('id', id);
+  if(error) { showToast('❌ 삭제 실패: ' + error.message); return; }
+  showToast('🗑️ 공지를 지웠어요.'); loadNotices();
+}
+
+// ════════════════════════════════════
+// 통계
+// ════════════════════════════════════
+let _statDays = 30;
+async function loadStats(days) {
+  if(days) _statDays = days;
+  document.querySelectorAll('.st-tab').forEach(b => b.className = 'btn st-tab ' + (Number(b.dataset.d) === _statDays ? 'btn-primary' : 'btn-secondary'));
+  const { data, error } = await sbClient.rpc('admin_daily_stats', { p_days: _statDays });
+  const body = document.getElementById('stats-table-body');
+  if(error) { document.getElementById('st-chart').innerHTML = `<div class="empty-state"><div class="emoji">⚠️</div>${rpcErr(error)}</div>`; body.innerHTML = ''; return; }
+  const rows = data || [];
+  const sum = k => rows.reduce((a, r) => a + r[k], 0);
+  const chip = (label, v) => `<div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:10px 14px;font-size:12px;color:#64748b;">${label}<div style="font-size:20px;font-weight:800;color:#0f172a;">${v}</div></div>`;
+  const today = rows[0] || { signups: 0, visitors: 0 };
+  document.getElementById('st-stats').innerHTML =
+    chip('오늘 가입', today.signups) + chip('오늘 방문자', today.visitors) +
+    chip(`${_statDays}일 가입`, sum('signups')) + chip(`${_statDays}일 하루 평균 방문자`, rows.length ? Math.round(sum('visitors') / rows.length) : 0);
+  // 막대그래프 (오래된 날 → 오늘)
+  const asc = rows.slice().reverse();
+  const max = Math.max(1, ...asc.map(r => r.visitors), ...asc.map(r => r.signups));
+  const W = 900, H = 200, pad = 28, bw = (W - pad * 2) / Math.max(asc.length, 1);
+  const bars = asc.map((r, i) => {
+    const x = pad + i * bw, hv = (r.visitors / max) * (H - 40), hs = (r.signups / max) * (H - 40);
+    return `<rect x="${x + bw * 0.1}" y="${H - 20 - hv}" width="${bw * 0.4}" height="${hv}" rx="2" fill="#93c5fd"><title>${r.day} 방문자 ${r.visitors}</title></rect>
+      <rect x="${x + bw * 0.5}" y="${H - 20 - hs}" width="${bw * 0.4}" height="${hs}" rx="2" fill="#059669"><title>${r.day} 가입 ${r.signups}</title></rect>
+      ${asc.length <= 31 || i % 7 === 0 ? `<text x="${x + bw / 2}" y="${H - 6}" font-size="10" text-anchor="middle" fill="#94a3b8">${String(r.day).slice(5)}</text>` : ''}`;
+  }).join('');
+  document.getElementById('st-chart').innerHTML = `<div style="display:flex;gap:14px;font-size:12px;color:#64748b;margin-bottom:6px;">
+      <span><span style="display:inline-block;width:10px;height:10px;background:#93c5fd;border-radius:2px;"></span> 방문자</span>
+      <span><span style="display:inline-block;width:10px;height:10px;background:#059669;border-radius:2px;"></span> 가입</span>
+      <span style="margin-left:auto;">최대 ${max}</span></div>
+    <svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;">${bars}<line x1="${pad}" y1="${H - 20}" x2="${W - pad}" y2="${H - 20}" stroke="#e2e8f0"/></svg>`;
+  body.innerHTML = rows.map(r => `<tr><td style="font-size:13px;">${r.day}</td><td>${r.signups}</td><td>${r.visitors}</td></tr>`).join('');
 }
 
 // ── 토스트 ──
@@ -1110,11 +1492,15 @@ async function loadInfo() {
 
 function renderInfoTable() {
   const tbody = document.getElementById('info-table-body');
-  if(infoData.length === 0) {
+  const iq = (document.getElementById('info-search')?.value || '').trim().toLowerCase();
+  const it = document.getElementById('info-type-filter')?.value || '';
+  const rows = infoData.filter(n => (!it || n.type === it) &&
+    (!iq || [n.title, n.org, n.location, n.tags].some(x => (x || '').toLowerCase().includes(iq))));
+  if(rows.length === 0) {
     tbody.innerHTML = '<tr><td colspan="6"><div class="empty-state"><div class="emoji">📅</div>등록된 정보가 없습니다.</div></td></tr>';
     return;
   }
-  tbody.innerHTML = infoData.map(n => {
+  tbody.innerHTML = rows.map(n => {
     const today = new Date();
     const deadline = n.date ? new Date(n.date) : null;
     const dday = deadline ? Math.ceil((deadline - today) / (1000*60*60*24)) : null;
@@ -1132,6 +1518,8 @@ function renderInfoTable() {
       <td>
         ${n.type === 'conf'
           ? `<div style="font-size:12px;color:var(--text-muted)">${esc(n.start_date)} ~ ${esc(n.end_date)}</div>`
+            + (n.abstract_deadline ? `<div style="font-size:11px;color:var(--text-light)">초록 ${esc(n.abstract_deadline)}</div>` : '')
+            + (n.registration_deadline ? `<div style="font-size:11px;color:var(--text-light)">등록 ${esc(n.registration_deadline)}</div>` : '')
           : `<span style="font-family:'DM Mono',monospace;font-size:12px;font-weight:700;color:${dday<=7&&dday>=0?'var(--red)':'var(--text-muted)'}">${ddayStr}</span>
              <div style="font-size:11px;color:var(--text-light)">${esc(n.date)}</div>`
         }
@@ -1152,7 +1540,7 @@ function openInfoModal(id = null) {
   if(!id) {
     ['info-id','info-title','info-desc','info-url','info-org','info-tags','info-location'].forEach(i => document.getElementById(i).value = '');
     const ifc = document.getElementById('info-featured'); if(ifc) ifc.checked = false;
-    ['info-date','info-start-date','info-end-date','info-apply-start'].forEach(i => document.getElementById(i).value = '');
+    ['info-date','info-start-date','info-end-date','info-apply-start','info-abstract','info-registration'].forEach(i => document.getElementById(i).value = '');
   }
   updateInfoDateFields();
   openModal('info-modal');
@@ -1176,6 +1564,9 @@ function editInfo(id) {
   document.getElementById('info-url').value = n.url || '';
   document.getElementById('info-tags').value = n.tags || '';
   document.getElementById('info-location').value = n.location || '';
+  document.getElementById('info-abstract').value = n.abstract_deadline || '';
+  document.getElementById('info-registration').value = n.registration_deadline || '';
+  const ifc = document.getElementById('info-featured'); if(ifc) ifc.checked = !!n.is_featured;
   updateInfoDateFields();
   openModal('info-modal');
 }
@@ -1189,6 +1580,8 @@ function updateInfoDateFields() {
   document.getElementById('field-apply-start').style.display = 'none';
 
   document.getElementById('field-location').style.display = type === 'conf' ? '' : 'none';
+  document.getElementById('field-abstract').style.display = type === 'conf' ? '' : 'none';
+  document.getElementById('field-registration').style.display = type === 'conf' ? '' : 'none';
 
   if(type === 'conf') {
     // 학회: 시작일 ~ 종료일
@@ -1227,8 +1620,11 @@ async function saveInfo() {
     tags:        document.getElementById('info-tags').value,
     location:    document.getElementById('info-location').value,
     is_featured: document.getElementById('info-featured')?.checked || false,
-    is_featured: document.getElementById('info-featured')?.checked || false,
   };
+  if(type === 'conf') {
+    data.abstract_deadline     = document.getElementById('info-abstract').value || null;
+    data.registration_deadline = document.getElementById('info-registration').value || null;
+  }
   if(!data.title) { showToast('❌ 제목을 입력해주세요.'); return; }
   if(type === 'conf' && (!data.start_date || !data.end_date)) { showToast('❌ 학회 기간을 입력해주세요.'); return; }
   if(type !== 'conf' && !data.date) { showToast('❌ 마감일을 입력해주세요.'); return; }
@@ -1248,8 +1644,10 @@ async function saveInfo() {
   btn.textContent = '저장'; btn.disabled = false;
 }
 
-function deleteInfo(id) {
+async function deleteInfo(id) {
   if(!confirm('정말 삭제하시겠습니까?')) return;
+  const { error } = await sbClient.from('academic_info').delete().eq('id', id);
+  if(error) { showToast('❌ 삭제 실패: ' + error.message); return; }
   infoData = infoData.filter(x => x.id !== id);
   renderInfoTable();
   showToast('🗑️ 학술정보가 삭제되었습니다.');
