@@ -2914,6 +2914,12 @@ a { text-decoration: none; color: inherit; }
 </head>
 <body>
 
+<!-- 공지 띠 (관리자 페이지에서 켠 최신 공지 1개) -->
+<div id="site-notice" style="display:none;background:#0f172a;color:#f8fafc;font-size:13.5px;padding:9px 44px 9px 16px;position:relative;text-align:center;line-height:1.5;">
+  <span id="site-notice-text" style="cursor:pointer;"></span>
+  <button onclick="closeSiteNotice()" aria-label="공지 닫기" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:#94a3b8;font-size:18px;cursor:pointer;">×</button>
+</div>
+
 <!-- NAVBAR -->
 <nav class="navbar">
   <div class="nav-logo" onclick="showPage('home')">
@@ -3718,6 +3724,7 @@ a { text-decoration: none; color: inherit; }
         <button class="cm-act" onclick="cmSharePost()">링크 복사</button>
         <span class="cm-spacer"></span>
         <button class="cm-act cm-del" id="post-del-btn" style="display:none;" onclick="cmDeletePost()">삭제</button>
+        <button class="cm-act" id="post-report-btn" onclick="cmReport('post', _currentPostId)">신고</button>
       </div>
       <div class="cm-comments">
         <div class="cm-comments-h">댓글 <span id="comment-count"></span></div>
@@ -5105,6 +5112,38 @@ async function handleResetPw() {
   setTimeout(() => closeAuth(), 1500);
 }
 
+// ── 공지 띠 ──
+async function loadSiteNotice(){
+  const { data, error } = await sbClient.from('notices').select('id,title,body,url').eq('is_active', true).order('created_at', { ascending:false }).limit(1);
+  const n = !error && data && data[0];
+  if(!n) return;
+  let closed = null; try{ closed = localStorage.getItem('mrc_notice_closed'); }catch(e){}
+  if(String(closed) === String(n.id)) return;
+  const box = document.getElementById('site-notice'), txt = document.getElementById('site-notice-text');
+  txt.textContent = '📢 ' + n.title + (n.body || n.url ? '  ›' : '');
+  txt.onclick = () => { if(n.url) window.open(n.url, '_blank', 'noopener'); else if(n.body) alert(n.title + '\n\n' + n.body); };
+  box.dataset.id = n.id;
+  box.style.display = 'block';
+}
+function closeSiteNotice(){
+  const box = document.getElementById('site-notice');
+  try{ localStorage.setItem('mrc_notice_closed', box.dataset.id || ''); }catch(e){}
+  box.style.display = 'none';
+}
+// ── 방문 기록 (브라우저마다 무작위 번호 하나, 하루 한 번) ──
+function logVisit(){
+  let vid = null;
+  try{
+    vid = localStorage.getItem('mrc_vid');
+    if(!vid){ vid = (crypto.randomUUID ? crypto.randomUUID() : String(Math.random()).slice(2) + Date.now()); localStorage.setItem('mrc_vid', vid); }
+    const today = new Date().toLocaleDateString('sv-SE', { timeZone:'Asia/Seoul' });
+    if(localStorage.getItem('mrc_vday') === today) return;
+    localStorage.setItem('mrc_vday', today);
+  }catch(e){ if(!vid) vid = String(Math.random()).slice(2) + Date.now(); }
+  sbClient.rpc('log_visit', { p_vid: vid }).then(()=>{}, ()=>{});
+}
+setTimeout(() => { loadSiteNotice(); logVisit(); }, 0);
+
 // 재설정 메일 링크로 들어온 경우 (주소에 type=recovery 가 붙어 옴)
 const _cameForRecovery = /type=recovery/.test(location.hash + location.search);
 sbClient.auth.onAuthStateChange((event) => {
@@ -5728,7 +5767,7 @@ async function cmInsertPost(draft){
   let { error } = await sbClient.from('posts').insert([row]);
   if(error && /field/.test(error.message||'')){ delete row.field; ({ error } = await sbClient.from('posts').insert([row])); }
   btns.forEach(b=>{ if(b){ b.disabled=false; b.textContent='올리기'; } });
-  if(error){ cmToast('글을 올리지 못했어요. 잠시 후 다시 해주세요.'); console.warn(error); return false; }
+  if(error){ cmToast(await cmSuspendedMsg() || '글을 올리지 못했어요. 잠시 후 다시 해주세요.'); console.warn(error); return false; }
   try{ sessionStorage.removeItem('mrc_pending_post'); }catch(e){}
   if(draft.src==='quick'){
     const q=document.getElementById('cm-quick-text'); q.value=''; cmAutoGrow(q);
@@ -5767,6 +5806,7 @@ async function openPost(id){
   document.getElementById('post-modal-date').textContent=cmAgo(p.created_at);
   document.getElementById('post-modal-content').textContent=p.content||'';
   document.getElementById('post-del-btn').style.display = (currentUser && (currentUser.id===p.author_id)) ? '' : 'none';
+  const rb=document.getElementById('post-report-btn'); if(rb) rb.style.display = (currentUser && currentUser.id===p.author_id) ? 'none' : '';
   cmPaintLike(p);
   document.getElementById('comment-text').value='';
   document.getElementById('post-modal').style.display='flex';
@@ -5839,10 +5879,33 @@ async function loadComments(postId){
       <div class="cm-cmt-b">
         <span class="cm-cmt-n">${escHtml(name)}</span>${isOp&&!c.is_anonymous?'<span class="cm-cmt-op">글쓴이</span>':''}<span class="cm-cmt-d">${cmAgo(c.created_at)}</span>
         <div class="cm-cmt-c">${escHtml(c.content)}</div>
+        ${currentUser && currentUser.id===c.author_id ? '' : `<button onclick="cmReport('comment', ${Number(c.id)})" style="background:none;border:none;padding:2px 0;font-size:11.5px;color:#94a3b8;cursor:pointer;">신고</button>`}
       </div>
     </div>`;
   }).join('');
 }
+// ── 신고 · 정지 안내 ──
+async function cmReport(kind, id){
+  if(!id) return;
+  if(!currentUser){ openAuth('login'); showAuthMessage('로그인하면 신고할 수 있어요'); return; }
+  const reason = prompt(kind==='post' ? '이 글을 신고하는 이유를 적어주세요 (예: 욕설, 광고, 개인정보)' : '이 댓글을 신고하는 이유를 적어주세요 (예: 욕설, 광고, 개인정보)');
+  if(reason===null) return;
+  const row = { reason: reason.trim().slice(0,500) || null, reporter_id: currentUser.id };
+  row[kind==='post' ? 'post_id' : 'comment_id'] = id;
+  const { error } = await sbClient.from('post_reports').insert(row);
+  if(error && error.code==='23505'){ cmToast('이미 신고했어요. 운영자가 확인하고 있어요'); return; }
+  if(error){ cmToast('신고하지 못했어요. 잠시 후 다시 해주세요'); return; }
+  cmToast('신고했어요. 운영자가 확인할게요');
+}
+async function cmSuspendedMsg(){
+  try{
+    const { data } = await sbClient.from('profiles').select('suspended_until').eq('id', currentUser.id).maybeSingle();
+    if(data?.suspended_until && new Date(data.suspended_until) > new Date())
+      return '운영 정책 위반으로 '+new Date(data.suspended_until).toLocaleDateString('ko-KR')+'까지 글·댓글을 쓸 수 없어요';
+  }catch(e){}
+  return '';
+}
+
 async function submitComment(){
   const ta=document.getElementById('comment-text');
   const text=ta?.value.trim();
@@ -5854,7 +5917,7 @@ async function submitComment(){
     author_nickname: isAnon ? '익명' : cmMyName(),
     content:text, is_anonymous:isAnon
   }]);
-  if(error){ cmToast('댓글을 등록하지 못했어요'); return; }
+  if(error){ cmToast(await cmSuspendedMsg() || '댓글을 등록하지 못했어요'); return; }
   ta.value=''; cmAutoGrow(ta);
   await loadComments(_currentPostId);
   fetchPostsFromDB();

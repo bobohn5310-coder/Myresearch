@@ -1472,6 +1472,9 @@ renderCal();
         <button onclick="closeProfileModal()" style="padding:10px 20px;border:1.5px solid #e2e8f0;border-radius:10px;background:#fff;font-size:14px;font-weight:600;color:#64748b;cursor:pointer;font-family:'Noto Sans KR',sans-serif;">취소</button>
         <button onclick="saveProfile()" id="profile-save-btn" style="padding:10px 24px;border:none;border-radius:10px;background:#0f172a;color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:'Noto Sans KR',sans-serif;">저장하기</button>
       </div>
+      <div style="border-top:1px solid #f1f5f9;padding-top:12px;margin-top:4px;text-align:right;">
+        <button onclick="requestWithdraw()" id="withdraw-btn" style="background:none;border:none;font-size:12.5px;color:#94a3b8;text-decoration:underline;cursor:pointer;font-family:'Noto Sans KR',sans-serif;">회원 탈퇴 요청</button>
+      </div>
     </div>
   </div>
 </div>
@@ -1548,6 +1551,23 @@ function openProfileModal() {
 function closeProfileModal() {
   const overlay = document.getElementById('profile-modal-overlay');
   overlay.style.display = 'none';
+}
+
+// 회원 탈퇴 요청: 운영자가 확인 후 계정과 개인정보를 지운다
+async function requestWithdraw() {
+  if(!_currentUser) { alert('로그인이 필요합니다.'); return; }
+  const { data: prev } = await _sb.from('withdraw_requests').select('created_at').eq('user_id', _currentUser.id).maybeSingle();
+  if(prev) {
+    if(confirm('이미 탈퇴를 요청했어요 (' + new Date(prev.created_at).toLocaleDateString('ko-KR') + ').\n요청을 취소할까요?')) {
+      const { error } = await _sb.from('withdraw_requests').delete().eq('user_id', _currentUser.id);
+      alert(error ? '취소하지 못했어요. 잠시 후 다시 해주세요.' : '탈퇴 요청을 취소했어요.');
+    }
+    return;
+  }
+  const reason = prompt('정말 탈퇴할까요? 운영자가 확인한 뒤 계정과 개인정보를 지워요 (보통 3일 이내).\n쓴 글·댓글은 \'탈퇴한 회원\'으로 남아요.\n\n떠나는 이유를 알려주시면 서비스 개선에 쓸게요 (선택):');
+  if(reason === null) return;
+  const { error } = await _sb.from('withdraw_requests').insert({ user_id: _currentUser.id, reason: reason.trim().slice(0, 500) || null });
+  alert(error ? '요청하지 못했어요. 잠시 후 다시 해주세요.' : '탈퇴 요청을 받았어요. 처리되면 더 이상 로그인할 수 없어요.');
 }
 
 // 프로필 저장
