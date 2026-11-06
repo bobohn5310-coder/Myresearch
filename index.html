@@ -5070,8 +5070,7 @@ async function handleFindPw() {
   btn.disabled = true; btn.textContent = '보내는 중...';
   const { error } = await sbClient.auth.resetPasswordForEmail(email, { redirectTo: location.origin + '/' });
   btn.disabled = false; btn.textContent = '재설정 메일 보내기';
-  if(error && /rate|seconds/i.test(error.message || '')) return showAuthMessage('잠시 뒤 다시 시도해주세요. (메일은 1분에 한 번만 보낼 수 있어요)', true);
-  if(error) return showAuthMessage('메일을 보내지 못했어요. 잠시 뒤 다시 시도해주세요.', true);
+  if(error) return showAuthMessage(authErrorText(error, '메일을 보내지 못했어요. 잠시 뒤 다시 시도해주세요.'), true);
   // 가입 여부를 알려주지 않도록 항상 같은 안내
   showAuthMessage(`📩 ${email} 로 가입된 계정이 있으면 재설정 링크를 보냈어요. 메일함(스팸함 포함)을 확인해 주세요.`);
 }
@@ -5168,6 +5167,25 @@ function renderInfoCards(containerId){
   }).join('');
 }
 
+// Supabase 인증 오류를 알기 쉬운 말로
+function authErrorText(error, fallback) {
+  const code = error?.code || '', msg = error?.message || '';
+  if(code === 'over_email_send_rate_limit' || error?.status === 429 || /rate limit/i.test(msg))
+    return '지금 인증 메일을 보내려는 사람이 많아 잠시 막혔어요. 10분쯤 뒤에 다시 시도해주세요.';
+  if(code === 'email_address_invalid' || /invalid.*email|email.*invalid/i.test(msg))
+    return '이 이메일 주소로는 메일을 보낼 수 없어요. 주소를 다시 확인해주세요.';
+  if(code === 'weak_password' || /password/i.test(msg)) return '비밀번호가 너무 쉬워요. 8자 이상으로 더 복잡하게 정해주세요.';
+  return msg ? `${fallback} (${msg})` : fallback;
+}
+
+async function resendConfirm() {
+  const email = document.getElementById('login-email').value.trim();
+  if(!email) return showAuthMessage('이메일을 먼저 적어주세요.', true);
+  const { error } = await sbClient.auth.resend({ type: 'signup', email });
+  if(error) return showAuthMessage(authErrorText(error, '메일을 보내지 못했어요. 잠시 뒤 다시 시도해주세요.'), true);
+  showAuthMessage(`📩 ${email} 로 인증 메일을 다시 보냈어요. 스팸함도 확인해 주세요.`);
+}
+
 async function handleLogin() {
   const email = document.getElementById('login-email').value.trim();
   const password = document.getElementById('login-password').value;
@@ -5177,10 +5195,17 @@ async function handleLogin() {
   if(btn){ btn.textContent = '로그인 중...'; btn.disabled = true; }
 
   const { data, error } = await sbClient.auth.signInWithPassword({ email, password });
-  console.log('로그인 결과:', { data, error });
 
   if(error) {
-    showAuthMessage('❌ ' + (error.message || '로그인 실패'), true);
+    if(error.code === 'email_not_confirmed' || /not confirmed/i.test(error.message || '')) {
+      showAuthMessage('📩 아직 메일 인증을 안 했어요. 메일함(스팸함 포함)에서 인증 링크를 눌러주세요.', true);
+      const el = document.getElementById('auth-message');
+      el.insertAdjacentHTML('beforeend', '<br><a href="javascript:void(0)" onclick="resendConfirm()" style="color:inherit;text-decoration:underline;">인증 메일 다시 보내기</a>');
+    } else if(/invalid login/i.test(error.message || '')) {
+      showAuthMessage('이메일 또는 비밀번호가 맞지 않아요.', true);
+    } else {
+      showAuthMessage(authErrorText(error, '로그인하지 못했어요. 잠시 뒤 다시 시도해주세요.'), true);
+    }
     btn.textContent = '로그인';
     btn.disabled = false;
   } else {
@@ -5364,7 +5389,7 @@ async function handleSignup() {
   });
 
   if(error) {
-    showAuthMessage(error.message.includes('already') ? '이미 가입된 이메일입니다.' : '오류가 발생했습니다. 다시 시도해주세요.', true);
+    showAuthMessage(/already/i.test(error.message || '') ? '이미 가입된 이메일이에요. 로그인하거나 비밀번호 찾기를 해주세요.' : authErrorText(error, '오류가 발생했습니다. 다시 시도해주세요.'), true);
     btn.textContent = '무료로 시작하기';
     btn.disabled = false;
   } else {
