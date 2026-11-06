@@ -2739,6 +2739,12 @@ a { text-decoration: none; color: inherit; }
 .clv-sugg div:hover{background:#f0fdf4}
 .clv-rules{margin-top:16px;font-size:12px;color:var(--text-muted);line-height:1.7;background:var(--bg);border-radius:10px;padding:10px 12px}
 .clv-box .clv-btn{width:100%;margin-top:14px;padding:13px}
+.clv-cmts{margin-top:10px;padding-top:10px;border-top:1px dashed var(--border);display:flex;flex-direction:column;gap:6px}
+.clv-cmts-h{font-size:12px;font-weight:700;color:var(--text-sub)}
+.clv-cmt{font-size:13px;color:var(--text-sub);background:var(--bg);border-radius:10px;padding:7px 10px;line-height:1.5;display:flex;gap:8px;justify-content:space-between;align-items:flex-start}
+.clv-cmt span{word-break:break-all}
+.clv-cmt .clv-report{white-space:nowrap;flex-shrink:0}
+.clv-cnt{font-size:11px;color:var(--text-light);text-align:right;margin-top:2px}
 .clv-msg{font-size:13px;margin-top:10px;text-align:center;min-height:18px}
 @media(max-width:900px){.clv-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.clv-wrap{padding:18px 16px 60px}.clv-grid{grid-template-columns:1fr}.clv-hero{flex-direction:column-reverse;align-items:flex-start;padding:20px}.clv-hero h1{font-size:22px}.clv-mascot{width:90px;height:90px;flex-basis:auto}.clv-opts{grid-template-columns:repeat(2,1fr)}.clv-tools .clv-btn{width:100%}}
@@ -5928,6 +5934,9 @@ async function clvLoad(force){
   CLV.labs = rows.map(x => ({ id:x.id, univ:x.univ, dept:x.dept, name:x.name, topic:x.topic, created_at:x.created_at }));
   CLV.sum = {};
   rows.forEach(x => CLV.sum[x.id] = { cnt:x.cnt||0, pay:x.pay, guide:x.guide, mood:x.mood, balance:x.balance, total:x.total });
+  CLV.comments = {};
+  const cm = await sbClient.rpc('clover_comments_public');
+  if(!cm.error) (cm.data || []).forEach(c => (CLV.comments[c.lab_id] = CLV.comments[c.lab_id] || []).push(c));
   CLV.mine = new Set();
   if(currentUser){
     const { data } = await sbClient.from('clover_votes').select('lab_id').eq('user_id', currentUser.id);
@@ -5981,6 +5990,7 @@ function clvRender(){
     return `<div class="clv-card">${tot >= 3.5 ? `<div class="clv-badge">${clvBug(18)}네잎 연구실</div>` : ''}${head}
       <div class="clv-total">${clvClover(Math.round(tot), 40)}<div><b>${tot.toFixed(1)}</b><span style="color:var(--text-muted);font-size:13px"> / 4</span><small>클로버 지수 · ${s.cnt}명 참여</small></div></div>
       ${CLV_ITEMS.map(it => `<div class="clv-row"><span>${it.label}</span>${clvClover(Math.round(Number(s[it.k])), 20)}</div>`).join('')}
+      ${clvCommentsHtml(l.id)}
       ${foot}</div>`;
   }).join('');
 }
@@ -6057,7 +6067,11 @@ async function clvOpenVote(labId){
     <div class="clv-q"><div class="lb">어떤 연구실인가요?</div><div id="clv-lab-pick"></div></div>
     ${CLV_ITEMS.map(it => `<div class="clv-q"><div class="lb">${it.label}</div><div class="hn">${it.q}</div>
       <div class="clv-opts">${[1,2,3,4].map(n => `<button class="clv-opt" data-k="${it.k}" data-n="${n}" onclick="clvPick(this)">${clvClover(n,26)}${CLV_WORDS[n-1]}</button>`).join('')}</div></div>`).join('')}
-    <div class="clv-rules">✍️ 글은 쓰지 않고 클로버만 고르면 끝이에요. 누가 남겼는지는 공개되지 않으며, ${CLV_MIN_LABEL} 이상 모인 뒤 평균만 보여 줘요. 교수님 성함은 적지 말아 주세요.</div>
+    <div class="clv-q"><div class="lb">한줄평 <span style="font-weight:400;color:var(--text-muted);font-size:12px">(선택)</span></div>
+      <div class="hn">연구실 생활을 한 줄로 알려 주세요. 예: 실험 장비가 잘 갖춰져 있고 선배들이 친절해요</div>
+      <textarea class="clv-input" id="clv-comment" rows="2" maxlength="80" placeholder="80자 이내" oninput="document.getElementById('clv-comment-n').textContent=this.value.length"></textarea>
+      <div class="clv-cnt"><span id="clv-comment-n">0</span>/80</div></div>
+    <div class="clv-rules">🔒 누가 남겼는지는 공개되지 않아요. 클로버와 한줄평은 ${CLV_MIN_LABEL} 이상 모인 뒤에만 보여요.<br>👤 교수님 성함은 같은 연구실을 묶는 데만 쓰이고 화면에 공개되지 않아요.<br>🙏 한줄평에는 욕설, 확인되지 않은 사실, 다른 사람의 신상을 적지 말아 주세요. 신고된 한줄평은 바로 가려져요.</div>
     <button class="clv-btn" id="clv-vote-btn" onclick="clvSubmitVote()">클로버 남기기</button>
     <div class="clv-msg" id="clv-vote-msg"></div>`;
   clvRenderLabPick();
@@ -6074,6 +6088,7 @@ function clvRenderLabPick(){
       <input class="clv-input" id="clv-new-univ" maxlength="40" placeholder="학교 (예: 한국대학교)"${val(l.univ)}>
       <input class="clv-input" id="clv-new-dept" maxlength="40" placeholder="학과 (예: 신소재공학과)"${val(l.dept)}>
       <input class="clv-input" id="clv-new-name" maxlength="40" placeholder="연구실 이름 (예: 나노소재 연구실)"${val(l.name)}>
+      <input class="clv-input" id="clv-new-prof" maxlength="30" placeholder="지도교수님 성함 (필수 · 화면에 공개되지 않아요)">
       <input class="clv-input" id="clv-new-topic" maxlength="60" placeholder="연구 분야 (선택, 예: 2차원 소재 · 배터리)"${val(l.topic)}>
       <div class="hn" style="margin-top:6px">연구실 이름은 ${CLV_MIN_LABEL}이 모일 때까지 공개되지 않아요. 같은 연구실은 자동으로 하나로 모여요.</div>`;
 }
@@ -6092,8 +6107,16 @@ async function clvSubmitVote(){
   btn.disabled = true;
   const v = id => (document.getElementById(id)?.value || '').trim();
   const nl = { univ:v('clv-new-univ'), dept:v('clv-new-dept'), name:v('clv-new-name'), topic:v('clv-new-topic') || null };
-  if(nl.univ.length < 2 || nl.dept.length < 2 || nl.name.length < 2){ btn.disabled = false; return say('학교·학과·연구실 이름을 적어 주세요.', true); }
-  let added = await sbClient.rpc('clover_add_lab', { p_univ:nl.univ, p_dept:nl.dept, p_name:nl.name, p_topic:nl.topic });
+  const profName = v('clv-new-prof');
+  const comment = v('clv-comment');
+  if(nl.univ.length < 2 || nl.dept.length < 2 || nl.name.length < 2 || profName.length < 2){ btn.disabled = false; return say('학교·학과·연구실 이름·지도교수님 성함을 모두 적어 주세요.', true); }
+  if(comment){
+    const bad = clvCommentProblem(comment);
+    if(bad){ btn.disabled = false; return say(bad, true); }
+  }
+  let added = await sbClient.rpc('clover_add_lab', { p_univ:nl.univ, p_dept:nl.dept, p_name:nl.name, p_topic:nl.topic, p_prof:profName });
+  if(added.error && added.error.code === 'PGRST202')
+    added = await sbClient.rpc('clover_add_lab', { p_univ:nl.univ, p_dept:nl.dept, p_name:nl.name, p_topic:nl.topic });
   if(added.error && added.error.code === 'PGRST202'){
     // (예전 데이터베이스 설정용) 직접 등록하고, 이미 있으면 그 연구실을 찾는다
     const ins = await sbClient.from('clover_labs').insert(nl).select('id').single();
@@ -6106,8 +6129,38 @@ async function clvSubmitVote(){
   if(added.error){ btn.disabled = false; return say(/hidden/.test(added.error.message||'') ? '이 연구실은 지금 검토 중이라 클로버를 남길 수 없어요.' : '연구실을 등록하지 못했어요. 잠시 뒤 다시 시도해 주세요.', true); }
   const { error } = await sbClient.from('clover_votes').insert({ lab_id: added.data, ...CLV.vote });
   if(error){ btn.disabled = false; return say(error.code === '23505' ? '이 연구실에는 이미 클로버를 남기셨어요.' : '저장하지 못했어요. 잠시 뒤 다시 시도해 주세요.', true); }
+  if(comment){
+    const c = await sbClient.from('clover_comments').insert({ lab_id: added.data, body: comment });
+    if(c.error && c.error.code !== '42P01' && c.error.code !== 'PGRST205'){
+      say(/bad word|contact/.test(c.error.message||'') ? '🍀 클로버는 남겼어요. 한줄평은 욕설이나 연락처가 있어 저장하지 않았어요.' : '🍀 클로버는 남겼어요. 한줄평은 저장하지 못했어요.', true);
+      setTimeout(() => { clvClose('clv-vote-modal'); clvLoad(true); }, 2200);
+      return;
+    }
+  }
   say('🍀 클로버를 남겼어요. 고마워요!');
   setTimeout(() => { clvClose('clv-vote-modal'); clvLoad(true); }, 1000);
+}
+
+// 한줄평: 저장 전에 화면에서 한 번 거르고, 서버(clover_comment_guard)에서 한 번 더 거른다
+const CLV_BAD = /(씨발|시발|ㅅㅂ|ㅆㅂ|씨바|시바|병신|ㅂㅅ|븅신|개새|개색|개세|좆|존나|졸라|미친|ㅁㅊ|지랄|ㅈㄹ|꺼져|닥쳐|죽어|뒤져|썅|쌍놈|년놈|새끼|fuck|shit)/i;
+function clvCommentProblem(t){
+  if(t.length < 2) return '한줄평은 2자 이상 적어 주세요.';
+  if(CLV_BAD.test(t.replace(/[\s.\-_*~!]/g,''))) return '한줄평에 욕설이나 비하 표현이 있어요. 고쳐서 다시 남겨 주세요.';
+  if(/(\d{2,3}[-\s]?\d{3,4}[-\s]?\d{4}|[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}|https?:\/\/)/.test(t)) return '한줄평에는 연락처나 링크를 적을 수 없어요.';
+  return '';
+}
+function clvCommentsHtml(labId){
+  const list = (CLV.comments || {})[labId] || [];
+  if(!list.length) return '';
+  return `<div class="clv-cmts"><div class="clv-cmts-h">💬 한줄평</div>${list.map(c =>
+    `<div class="clv-cmt"><span>“${escHtml(c.body)}”</span><button class="clv-report" onclick="clvReportComment(${c.id})">신고</button></div>`).join('')}</div>`;
+}
+async function clvReportComment(id){
+  if(!confirm('이 한줄평을 신고할까요? 신고하면 바로 가려지고 운영자가 확인해요.')) return;
+  const { error } = await sbClient.rpc('clover_report_comment', { p_comment: id, p_reason: '' });
+  if(error){ alert('신고를 접수하지 못했어요. 잠시 뒤 다시 시도해 주세요.'); return; }
+  alert('신고가 접수됐어요. 한줄평은 바로 가려졌어요.');
+  clvLoad(true);
 }
 
 function clvOpenReport(id){
