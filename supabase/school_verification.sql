@@ -5,7 +5,7 @@
 -- 문제: profiles 의 '본인 프로필 쓰기/업데이트' 정책 때문에 회원이 직접
 --       is_verified = true 로 바꿔 스스로 '인증됨'이 될 수 있었다.
 -- 해결: 관리자(is_admin())가 아니면 is_verified 를 바꿀 수 없게 막는다.
---       인증 서류는 삭제하지 않고 verify-docs 저장소에 그대로 보관한다.
+--       인증 서류는 verify-docs 저장소에 6개월 보관 후 삭제한다 (verify_docs_retention.sql).
 -- ════════════════════════════════════════════════════════════════
 
 create or replace function public.guard_is_verified()

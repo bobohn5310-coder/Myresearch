@@ -439,7 +439,8 @@
     <div class="admin-page" id="page-verify">
       <div class="page-header">
         <div class="page-title">🪪 회원 인증 관리</div>
-        <div class="page-sub">업로드된 학생증/재직증명서를 확인하고 승인 또는 반려해주세요.</div>
+        <div class="page-sub">업로드된 학생증/재직증명서를 확인하고 승인 또는 반려해주세요.<br>
+          서류는 <b>제출일로부터 6개월</b>이 지나면 관리자 화면을 열 때 자동으로 삭제돼요. 내려받은 엑셀도 확인이 끝나면 지워 주세요.</div>
       </div>
       <div style="display:flex;gap:8px;margin-bottom:20px;">
         <button onclick="loadVerifications('pending')" id="vf-tab-pending"
@@ -457,6 +458,10 @@
         <button onclick="exportVerificationsExcel()" id="vf-export-btn"
           style="margin-left:auto;background:#059669;color:white;border:none;font-weight:700;font-size:13px;padding:7px 16px;border-radius:8px;cursor:pointer;font-family:'Noto Sans KR',sans-serif;">
           📥 엑셀 다운로드
+        </button>
+        <button onclick="purgeOldVerifyDocs(true)" id="vf-purge-btn"
+          style="background:#fff;color:#64748b;border:1.5px solid #e2e8f0;font-size:13px;padding:7px 16px;border-radius:8px;cursor:pointer;font-family:'Noto Sans KR',sans-serif;">
+          🧹 6개월 지난 서류 정리
         </button>
       </div>
       <div id="verify-list" style="display:flex;flex-direction:column;gap:14px;">
@@ -752,6 +757,51 @@ function enterAdmin() {
   document.getElementById('admin-avatar').textContent = name[0].toUpperCase();
   loadNews();
   loadInfo();
+  purgeOldVerifyDocs(false);
+}
+
+// ── 인증 서류 보관 기간(6개월) 관리 ──
+// 개인정보처리방침에 적은 대로 제출일로부터 6개월이 지난 서류 파일을 저장소에서 지운다.
+// Supabase 는 SQL 로 저장소 파일을 직접 지울 수 없어서, 관리자가 화면을 열 때마다 자동으로 실행한다.
+// 신청을 끝내지 않고 올리기만 한 파일도 함께 지운다. 인증 여부(is_verified)는 그대로 남는다.
+const VERIFY_DOC_KEEP_DAYS = 183;
+async function purgeOldVerifyDocs(manual) {
+  const btn = document.getElementById('vf-purge-btn');
+  if(manual && btn) { btn.disabled = true; btn.textContent = '정리 중...'; }
+  const cutoff = new Date(Date.now() - VERIFY_DOC_KEEP_DAYS * 864e5);
+  let removed = 0, failed = false;
+  try {
+    const bucket = sbClient.storage.from('verify-docs');
+    const { data: folders, error } = await bucket.list('', { limit: 1000 });
+    if(error) throw error;
+    for(const folder of (folders || [])) {
+      if(folder.id) continue; // 맨 위에 파일이 바로 있는 경우는 없음 (폴더만)
+      const { data: files, error: e2 } = await bucket.list(folder.name, { limit: 1000 });
+      if(e2) { failed = true; continue; }
+      const old = (files || [])
+        .filter(f => f.id && f.created_at && new Date(f.created_at) < cutoff)
+        .map(f => `${folder.name}/${f.name}`);
+      for(let i = 0; i < old.length; i += 100) {
+        const { data: gone, error: e3 } = await bucket.remove(old.slice(i, i + 100));
+        if(e3) { failed = true; continue; }
+        removed += (gone || []).length;
+      }
+    }
+    // 신청 기록에서 서류 경로를 비워 '삭제됨'으로 표시
+    const { error: e4 } = await sbClient.from('verification_requests')
+      .update({ doc_url: '' }).lt('created_at', cutoff.toISOString()).neq('doc_url', '');
+    if(e4) failed = true;
+  } catch(e) {
+    failed = true;
+  }
+  if(manual) {
+    if(btn) { btn.disabled = false; btn.textContent = '🧹 6개월 지난 서류 정리'; }
+    showToast(failed ? '⚠️ 일부 서류를 지우지 못했어요. supabase/verify_docs_retention.sql 을 실행했는지 확인해주세요.'
+                     : `✅ 6개월 지난 서류 ${removed}개를 삭제했어요.`);
+    loadVerifications(currentVerifyStatus);
+  } else if(removed) {
+    showToast(`🧹 보관 기간이 지난 인증 서류 ${removed}개를 삭제했어요.`);
+  }
 }
 
 async function doAdminLogout() {
@@ -1318,7 +1368,7 @@ async function loadVerifications(status = 'pending') {
         <div style="background:#f8fafc;border-right:1px solid #f1f5f9;display:flex;align-items:center;justify-content:center;cursor:pointer;" data-doc="${esc(docLink)}" onclick="if(this.dataset.doc) window.open(this.dataset.doc,'_blank','noopener')">
           ${docLink
             ? `<img src="${esc(docLink)}" style="width:100%;height:180px;object-fit:cover;" onerror="this.parentElement.innerHTML='<div style=\\'text-align:center;color:#94a3b8;font-size:13px;\\'>이미지 없음</div>'">`
-            : '<div style="text-align:center;color:#94a3b8;font-size:13px;padding:20px;">서류 미첨부</div>'}
+            : `<div style="text-align:center;color:#94a3b8;font-size:13px;padding:20px;">${req.doc_url === '' ? '보관 기간(6개월)이<br>지나 삭제됨' : '서류 미첨부'}</div>`}
         </div>
         <!-- 유저 정보 -->
         <div style="padding:20px 24px;display:flex;flex-direction:column;gap:10px;">
@@ -1365,7 +1415,7 @@ async function verifyDocLink(docUrl) {
   return error ? '' : data.signedUrl;
 }
 
-// 인증 요청 전체를 엑셀(.xlsx)로 내려받기. 서류 원본은 저장소에 그대로 보관된다.
+// 인증 요청 전체를 엑셀(.xlsx)로 내려받기. 서류 원본은 제출 6개월 뒤 저장소에서 삭제된다.
 async function exportVerificationsExcel() {
   if(typeof XLSX === 'undefined') { showToast('❌ 엑셀 모듈을 불러오지 못했어요. 새로고침 후 다시 시도해주세요.'); return; }
   const btn = document.getElementById('vf-export-btn');

@@ -1185,6 +1185,13 @@ a { text-decoration: none; color: inherit; }
 }
 .auth-input:focus { outline: none; border-color: var(--blue); background: white; box-shadow: 0 0 0 3px rgba(5,150,105,0.1); }
 .auth-input::placeholder { color: var(--text-light); }
+.auth-consent { display:flex; flex-direction:column; gap:8px; background:var(--bg); border-radius:11px; padding:12px 14px; font-size:13px; color:var(--text-sub); }
+.auth-consent label { display:flex; align-items:flex-start; gap:8px; cursor:pointer; line-height:1.5; }
+.auth-consent input { margin-top:3px; accent-color:var(--blue); flex-shrink:0; }
+.auth-consent .all { font-weight:700; color:var(--text); padding-bottom:8px; border-bottom:1px solid var(--border); }
+.auth-consent a { color:var(--blue); text-decoration:underline; }
+.auth-consent .req { color:var(--blue); font-weight:700; }
+.auth-consent .note { font-size:12px; color:var(--text-light); line-height:1.6; padding-left:22px; }
 
 .auth-btn {
   width: 100%;
@@ -3169,8 +3176,8 @@ a { text-decoration: none; color: inherit; }
         <!-- 정보 -->
         <div>
           <div class="footer-col-title">정보</div>
-          <span class="footer-link">이용약관</span>
-          <span class="footer-link">개인정보처리방침</span>
+          <a class="footer-link" href="terms.html">이용약관</a>
+          <a class="footer-link" href="privacy.html"><b>개인정보처리방침</b></a>
           <span class="footer-link">광고/제휴 문의</span>
           <span class="footer-link">공지사항</span>
         </div>
@@ -3541,6 +3548,13 @@ a { text-decoration: none; color: inherit; }
       <input class="auth-input" id="signup-email" type="email" placeholder="이메일 (학교 이메일 권장)">
       <input class="auth-input" id="signup-password" type="password" placeholder="비밀번호 (8자 이상)">
       <input class="auth-input" id="signup-school" type="text" placeholder="소속 대학원 (예: 성균관대 반도체)">
+      <div class="auth-consent" id="signup-consent">
+        <label class="all"><input type="checkbox" id="consent-all" onchange="toggleAllConsent(this)"> 아래 내용에 모두 동의해요</label>
+        <label><input type="checkbox" class="consent-req" id="consent-age"> <span><span class="req">[필수]</span> 만 14세 이상이에요</span></label>
+        <label><input type="checkbox" class="consent-req" id="consent-terms"> <span><span class="req">[필수]</span> <a href="terms.html" target="_blank" rel="noopener">이용약관</a>에 동의해요</span></label>
+        <label><input type="checkbox" class="consent-req" id="consent-privacy"> <span><span class="req">[필수]</span> <a href="privacy.html" target="_blank" rel="noopener">개인정보 수집·이용</a>에 동의해요</span></label>
+        <div class="note">이름·이메일·비밀번호(필수), 소속 대학원(선택)을 회원 관리에 쓰고 탈퇴 시 지워요. 정보는 Supabase(미국) 서버에 저장돼요. 동의하지 않으면 가입할 수 없어요.</div>
+      </div>
       <button class="auth-btn" onclick="handleSignup()">무료로 시작하기</button>
     </div>
     <!-- 학교 인증: 가입 직후 또는 상단 '학교 인증' 버튼으로 열림 -->
@@ -3549,7 +3563,7 @@ a { text-decoration: none; color: inherit; }
       <div id="verify-fields" style="display:flex;flex-direction:column;gap:14px;">
         <div style="font-size:13px;color:var(--text-muted);line-height:1.6;background:var(--bg);padding:12px 14px;border-radius:10px;">
           🪪 <b style="color:var(--text);">학교 인증</b>을 하면 대학원생 인증 배지가 붙어요.<br>
-          학생증·재학증명서는 <b>운영자만 볼 수 있는 비공개 저장소</b>에 보관돼요.
+          학생증·재학증명서는 <b>운영자만 볼 수 있는 비공개 저장소</b>에 6개월간 보관 후 삭제돼요.
         </div>
         <div class="auth-field-label">소속 대학원</div>
         <input class="auth-input" id="verify-school" type="text" maxlength="80" placeholder="예: 성균관대 반도체">
@@ -3562,6 +3576,10 @@ a { text-decoration: none; color: inherit; }
           <button type="button" class="auth-select-btn" onclick="selectGrade(this,'박사과정')">박사과정</button>
           <button type="button" class="auth-select-btn" onclick="selectGrade(this,'석박통합')">석박통합</button>
           <button type="button" class="auth-select-btn" onclick="selectGrade(this,'박사후연구원')">박사후연구원</button>
+        </div>
+        <div class="auth-consent">
+          <label><input type="checkbox" id="consent-verify"> <span><span class="req">[필수]</span> 학교 인증 서류 수집·이용에 동의해요</span></label>
+          <div class="note">소속·전공·과정과 학생증 또는 재학증명서를 대학원생 확인에만 써요. 서류 파일은 <b>제출일로부터 6개월</b> 뒤 삭제되고 인증 여부만 남아요. 학번·생년월일 등은 가리고 올려 주세요. 동의하지 않으면 인증을 받을 수 없어요. <a href="privacy.html" target="_blank" rel="noopener">자세히</a></div>
         </div>
         <div class="auth-field-label">학생증 또는 재학증명서</div>
         <label id="verify-upload-area" ondragover="event.preventDefault()" ondrop="handleVerifyDrop(event)"
@@ -5096,6 +5114,7 @@ async function submitVerification() {
   if(!school) return showAuthMessage('소속 대학원을 입력해주세요.', true);
   if(!major)  return showAuthMessage('전공/연구분야를 입력해주세요.', true);
   if(!grade)  return showAuthMessage('과정을 선택해주세요.', true);
+  if(!document.getElementById('consent-verify').checked) return showAuthMessage('학교 인증 서류 수집·이용에 동의해주세요.', true);
   if(!docUrl) return showAuthMessage('학생증 또는 재학증명서를 올려주세요.', true);
 
   const { data: { user } } = await sbClient.auth.getUser();
@@ -5129,6 +5148,11 @@ function handleVerifyDrop(event) {
   if(file) uploadVerifyDoc(file);
 }
 async function uploadVerifyDoc(file) {
+  const consent = document.getElementById('consent-verify');
+  if(consent && !consent.checked) {
+    document.getElementById('verify-file').value = '';
+    return showAuthMessage('먼저 학교 인증 서류 수집·이용에 동의해주세요.', true);
+  }
   if(file.size > 10 * 1024 * 1024) return showAuthMessage('10MB 이하 파일만 업로드 가능합니다.', true);
   const area = document.getElementById('verify-upload-area');
   const preview = document.getElementById('verify-preview-wrap');
@@ -5152,6 +5176,15 @@ async function uploadVerifyDoc(file) {
   area.style.background = '#f0fdf4';
 }
 
+function toggleAllConsent(el) {
+  document.querySelectorAll('#signup-consent .consent-req').forEach(c => { c.checked = el.checked; });
+}
+document.addEventListener('change', e => {
+  if(!e.target.classList || !e.target.classList.contains('consent-req')) return;
+  const all = document.getElementById('consent-all');
+  if(all) all.checked = [...document.querySelectorAll('#signup-consent .consent-req')].every(c => c.checked);
+});
+
 async function handleSignup() {
   const name     = document.getElementById('signup-name').value.trim();
   const email    = document.getElementById('signup-email').value.trim();
@@ -5160,6 +5193,8 @@ async function handleSignup() {
 
   if(!name || !email || !password) return showAuthMessage('필수 항목을 모두 입력해주세요.', true);
   if(password.length < 8) return showAuthMessage('비밀번호는 8자 이상이어야 합니다.', true);
+  if([...document.querySelectorAll('#signup-consent .consent-req')].some(c => !c.checked))
+    return showAuthMessage('필수 항목에 모두 동의해주세요.', true);
 
   const btn = document.querySelector('#signup-form .auth-btn');
   btn.textContent = '가입 중...';
@@ -5167,7 +5202,7 @@ async function handleSignup() {
 
   const { error } = await sbClient.auth.signUp({
     email, password,
-    options: { data: { name, school } }
+    options: { data: { name, school, consent_terms_at: new Date().toISOString(), consent_privacy_at: new Date().toISOString(), consent_version: '2026-11-06' } }
   });
 
   if(error) {
