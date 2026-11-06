@@ -1192,6 +1192,11 @@
 </div>
 
 <script>
+// 화면에 글자를 넣을 때 HTML 로 해석되지 않게 바꿔 준다 (회원 입력 보호)
+function esc(str){
+  return String(str ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
 const DATA = [
   { id:1, type:'conf',    title:'IEEE IEDM 2025',               org:'IEEE',       deadline:'2025-04-15', tags:['반도체','소자'],      dday:45 },
   { id:2, type:'scholar', title:'한국연구재단 박사과정생 연구장려금',    org:'NRF',        deadline:'2025-04-01', tags:['이공계','박사'],      dday:31 },
@@ -1349,8 +1354,8 @@ function renderCal() {
         <div class="user-event-item">
           ${getBadge(e.type)}
           <div class="info-body">
-            <div class="info-title">${e.title}</div>
-            <div class="info-meta"><span>${e.date}</span>${e.memo?`<span>${e.memo}</span>`:''}</div>
+            <div class="info-title">${esc(e.title)}</div>
+            <div class="info-meta"><span>${esc(e.date)}</span>${e.memo?`<span>${esc(e.memo)}</span>`:''}</div>
           </div>
         </div>
       `).join('');
@@ -1528,7 +1533,7 @@ function renderProfileCard(p) {
   const metaParts = [p.degree, p.institution].filter(Boolean);
   if(meta) meta.textContent = metaParts.join(' · ') || p.major || '';
   if(kwWrap) kwWrap.innerHTML = (p.keywords || []).slice(0,4).map(k =>
-    `<span class="profile-keyword">#${k.trim()}</span>`).join('');
+    `<span class="profile-keyword">#${esc(k.trim())}</span>`).join('');
   if(btn) btn.textContent = '✏️ 프로필 수정';
 }
 
@@ -1644,8 +1649,8 @@ function renderMyStats() {
     : myPapers.map((p,i) => `
       <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid #f8fafc;">
         <div style="flex:1;overflow:hidden;min-width:0;">
-          <div style="font-size:12.5px;font-weight:600;color:#1e293b;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${p.title}</div>
-          ${p.author ? `<div style="font-size:11px;color:#94a3b8;margin-top:2px;">${p.author}${p.venue ? ' · ' + p.venue : ''}</div>` : ''}
+          <div style="font-size:12.5px;font-weight:600;color:#1e293b;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(p.title)}</div>
+          ${p.author ? `<div style="font-size:11px;color:#94a3b8;margin-top:2px;">${esc(p.author)}${p.venue ? ' · ' + esc(p.venue) : ''}</div>` : ''}
         </div>
         <span style="flex-shrink:0;font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:20px;background:${p.status==='pub'?'#eff6ff':p.status==='sub'?'#fffbeb':'#f8fafc'};color:${p.status==='pub'?'#2563eb':p.status==='sub'?'#d97706':'#cbd5e1'};">${p.status==='pub'?'게재':p.status==='sub'?'투고중':'준비중'}</span>
         <button onclick="removeMy('paper',${p.id})" style="background:none;border:none;color:#e2e8f0;cursor:pointer;font-size:16px;padding:0;line-height:1;" onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color='#e2e8f0'">×</button>
@@ -1662,8 +1667,8 @@ function renderMyStats() {
     : myProjects.map((p,i) => `
       <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:5px 0;border-bottom:1px solid #f8fafc;">
         <div style="flex:1;overflow:hidden;">
-          <div style="font-size:12.5px;color:#334155;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${p.title}</div>
-          ${p.author ? `<div style="font-size:11.5px;color:#94a3b8;margin-top:1px;">${p.author}</div>` : ''}
+          <div style="font-size:12.5px;color:#334155;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(p.title)}</div>
+          ${p.author ? `<div style="font-size:11.5px;color:#94a3b8;margin-top:1px;">${esc(p.author)}</div>` : ''}
         </div>
         <span style="font-size:11px;font-weight:700;padding:2px 7px;border-radius:10px;background:${p.status==='active'?'#f0fdf4':'#f8fafc'};color:${p.status==='active'?'#059669':'#94a3b8'};white-space:nowrap;">${p.status==='active'?'진행중':'완료'}</span>
         <button onclick="removeMy('project',${p.id})" style="background:none;border:none;color:#cbd5e1;cursor:pointer;font-size:14px;padding:0;">×</button>
@@ -1673,15 +1678,17 @@ function renderMyStats() {
   const now = new Date();
   const upcoming = myConfs.filter(c => c.date && new Date(c.date) >= now).length;
   document.getElementById('conf-count-total').textContent    = myConfs.length;
-  document.getElementById('conf-count-upcoming').textContent = upcoming;
+  // '다가오는 학회' 칸은 화면에서 빠졌으므로 있을 때만 채운다 (없으면 아래 학회 목록이 그려지지 않던 문제)
+  const upEl = document.getElementById('conf-count-upcoming');
+  if(upEl) upEl.textContent = upcoming;
   const cl = document.getElementById('conf-list');
   cl.innerHTML = myConfs.length === 0
     ? '<div style="font-size:13px;color:#cbd5e1;text-align:center;padding:16px 0;">등록된 학회가 없어요</div>'
     : myConfs.map((c,i) => `
       <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid #f8fafc;">
         <div style="flex:1;overflow:hidden;min-width:0;">
-          <div style="font-size:12.5px;font-weight:600;color:#1e293b;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${c.title}</div>
-          <div style="font-size:11px;color:#94a3b8;margin-top:2px;">${[c.date, c.status==='oral'?'구두발표':c.status==='poster'?'포스터':'청중 참석'].filter(Boolean).join(' · ')}</div>
+          <div style="font-size:12.5px;font-weight:600;color:#1e293b;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(c.title)}</div>
+          <div style="font-size:11px;color:#94a3b8;margin-top:2px;">${esc([c.date, c.status==='oral'?'구두발표':c.status==='poster'?'포스터':'청중 참석'].filter(Boolean).join(' · '))}</div>
         </div>
         <button onclick="removeMy('conf',${c.id})" style="background:none;border:none;color:#e2e8f0;cursor:pointer;font-size:16px;padding:0;line-height:1;" onmouseover="this.style.color='#ef4444'" onmouseout="this.style.color='#e2e8f0'">×</button>
       </div>`).join('');

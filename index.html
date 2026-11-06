@@ -3542,7 +3542,7 @@ a { text-decoration: none; color: inherit; }
   <div class="clv-box">
     <button class="clv-x" onclick="clvClose('clv-report-modal')">×</button>
     <h2>신고·삭제 요청</h2>
-    <div class="clv-info clv-warn">접수되면 이 연구실은 <b>바로 가려지고</b>, 운영자가 확인한 뒤 다시 보이게 하거나 삭제해요.</div>
+    <div class="clv-info clv-warn">접수되면 <b>운영자가 확인한 뒤</b> 문제가 있으면 이 연구실을 가리거나 삭제해요.</div>
     <div class="clv-q"><div class="lb" id="clv-report-lab"></div></div>
     <div class="clv-q"><div class="lb">요청 종류</div>
       <div class="clv-opts" style="grid-template-columns:1fr 1fr;margin-top:6px">
@@ -5028,7 +5028,7 @@ async function updateNavForAuth(knownSession) {
     if(currentUser) {
       const name = currentUser.user_metadata?.name || currentUser.email.split('@')[0];
       drawerUser.style.display = 'flex';
-      drawerUser.innerHTML = `<span>👤 ${name}님</span>
+      drawerUser.innerHTML = `<span>👤 ${escHtml(name)}님</span>
         <button onclick="closeDrawer();handleLogout()" style="font-size:13px;padding:6px 12px;border-radius:8px;border:1.5px solid var(--border);background:white;cursor:pointer;color:var(--text-muted);">로그아웃</button>`;
     } else {
       drawerUser.style.display = 'none';
@@ -5507,9 +5507,18 @@ function cmAgo(iso){
   if(s<86400*7) return Math.floor(s/86400)+'일 전';
   const d=new Date(iso); return (d.getMonth()+1)+'.'+d.getDate();
 }
+// 익명을 끄고 쓸 때 보이는 이름: 내 캘린더 프로필의 닉네임, 없으면 '익명의 연구자' (가입 때 적은 실명은 쓰지 않음)
+let _cmNick = null;
+async function cmLoadMyNick(){
+  _cmNick = null;
+  if(!currentUser) return;
+  try{
+    const { data } = await sbClient.from('profiles').select('nickname').eq('id', currentUser.id).maybeSingle();
+    _cmNick = (data?.nickname || '').trim() || null;
+  }catch(e){}
+}
 function cmMyName(){
-  const m=currentUser?.user_metadata||{};
-  return m.nickname || m.name || '연구자';
+  return _cmNick || '익명의 연구자';
 }
 function cmAuthorLabel(p){
   return p.is_anonymous ? '익명의 연구자' : (p.author_nickname || '연구자');
@@ -5559,10 +5568,16 @@ function cmComposerOpen(){
 // ── 데이터 ──
 async function fetchPostsFromDB(){
   if(!sbClient) return;
-  const { data, error } = await sbClient.from('posts').select('*').order('created_at', { ascending: false }).limit(300);
+  // 글쓴이 번호(author_id)는 서버가 내려주지 않는다. 내 글인지는 my_post_ids 로만 확인.
+  const cols = 'id,category,field,title,content,likes,comments,is_anonymous,author_nickname,created_at';
+  const [{ data, error }, mine] = await Promise.all([
+    sbClient.from('posts').select(cols).order('created_at', { ascending: false }).limit(300),
+    currentUser ? sbClient.rpc('my_post_ids') : Promise.resolve({ data: [] }),
+  ]);
   if(error || !data) return;
+  const mineSet = new Set((mine.data || []).map(r => Number(typeof r === 'object' ? r.my_post_ids ?? r.id : r)));
   POSTS.length = 0;
-  data.forEach(p => POSTS.push(p));
+  data.forEach(p => { p.is_mine = mineSet.has(Number(p.id)); POSTS.push(p); });
   cmRenderAll();
 }
 async function cmLoadMyLikes(){
@@ -5805,8 +5820,8 @@ async function openPost(id){
   document.getElementById('post-modal-author').textContent=cmAuthorLabel(p);
   document.getElementById('post-modal-date').textContent=cmAgo(p.created_at);
   document.getElementById('post-modal-content').textContent=p.content||'';
-  document.getElementById('post-del-btn').style.display = (currentUser && (currentUser.id===p.author_id)) ? '' : 'none';
-  const rb=document.getElementById('post-report-btn'); if(rb) rb.style.display = (currentUser && currentUser.id===p.author_id) ? 'none' : '';
+  document.getElementById('post-del-btn').style.display = (currentUser && p.is_mine) ? '' : 'none';
+  const rb=document.getElementById('post-report-btn'); if(rb) rb.style.display = (currentUser && p.is_mine) ? 'none' : '';
   cmPaintLike(p);
   document.getElementById('comment-text').value='';
   document.getElementById('post-modal').style.display='flex';
@@ -5858,28 +5873,36 @@ async function loadComments(postId){
   const listEl=document.getElementById('comment-list');
   const countEl=document.getElementById('comment-count');
   listEl.innerHTML='<div class="cm-empty" style="padding:14px;">불러오는 중...</div>';
-  const { data, error } = await sbClient.from('comments').select('*').eq('post_id', postId).order('created_at', { ascending:true });
+  // 서버가 글쓴이 번호 대신 '내 댓글인지·글쓴이인지·익명 몇 번인지'만 알려 준다
+  let { data, error } = await sbClient.rpc('post_comments', { p_post: postId });
+  if(error && error.code === 'PGRST202'){
+    // (고침 SQL 실행 전 데이터베이스용) 예전 방식으로 읽고 같은 모양으로 맞춘다
+    const old = await sbClient.from('comments').select('*').eq('post_id', postId).order('created_at', { ascending:true });
+    error = old.error;
+    const op = POSTS.find(x=>x.id===postId)?.author_id, no = {}; let n = 0;
+    data = (old.data||[]).map(c => {
+      const is_op = !!(op && c.author_id === op);
+      const k = c.author_id || ('x'+c.id);
+      if(c.is_anonymous && !is_op && !no[k]) no[k] = ++n;
+      return { ...c, is_op, is_mine: !!(currentUser && c.author_id === currentUser.id), anon_no: no[k] };
+    });
+  }
   if(postId!==_currentPostId) return;
   if(error || !data){ listEl.innerHTML='<div class="cm-empty" style="padding:14px;">댓글을 불러오지 못했어요</div>'; return; }
   countEl.textContent = data.length ? data.length+'개' : '';
   if(!data.length){ listEl.innerHTML='<div class="cm-empty" style="padding:18px;">첫 댓글로 힘이 되어주세요</div>'; return; }
-  const post=POSTS.find(x=>x.id===postId);
-  // 익명 댓글은 글 안에서만 '익명1, 익명2…'로 구분
-  const anonNo={}; let n=0;
+  // 익명 댓글은 글 안에서만 '익명1, 익명2…'로 구분 (번호는 서버가 매김)
   listEl.innerHTML = data.map(c=>{
-    const isOp = post && c.author_id && c.author_id===post.author_id;
+    const isOp = !!c.is_op;
     let name;
-    if(c.is_anonymous){
-      const key=c.author_id||('x'+c.id);
-      if(isOp) name='글쓴이';
-      else { if(!anonNo[key]) anonNo[key]=++n; name='익명'+anonNo[key]; }
-    } else name=c.author_nickname||'연구자';
+    if(c.is_anonymous) name = isOp ? '글쓴이' : '익명'+(c.anon_no||'');
+    else name=c.author_nickname||'익명의 연구자';
     return `<div class="cm-cmt">
       <div class="cm-cmt-av">${escHtml(name[0])}</div>
       <div class="cm-cmt-b">
         <span class="cm-cmt-n">${escHtml(name)}</span>${isOp&&!c.is_anonymous?'<span class="cm-cmt-op">글쓴이</span>':''}<span class="cm-cmt-d">${cmAgo(c.created_at)}</span>
         <div class="cm-cmt-c">${escHtml(c.content)}</div>
-        ${currentUser && currentUser.id===c.author_id ? '' : `<button onclick="cmReport('comment', ${Number(c.id)})" style="background:none;border:none;padding:2px 0;font-size:11.5px;color:#94a3b8;cursor:pointer;">신고</button>`}
+        ${currentUser && c.is_mine ? '' : `<button onclick="cmReport('comment', ${Number(c.id)})" style="background:none;border:none;padding:2px 0;font-size:11.5px;color:#94a3b8;cursor:pointer;">신고</button>`}
       </div>
     </div>`;
   }).join('');
@@ -5914,7 +5937,7 @@ async function submitComment(){
   const isAnon=document.getElementById('comment-anon')?.checked;
   const { error } = await sbClient.from('comments').insert([{
     post_id:_currentPostId, author_id:currentUser.id,
-    author_nickname: isAnon ? '익명' : cmMyName(),
+    author_nickname: isAnon ? '익명' : cmMyName(),  // 닉네임이 없으면 '익명의 연구자'
     content:text, is_anonymous:isAnon
   }]);
   if(error){ cmToast(await cmSuspendedMsg() || '댓글을 등록하지 못했어요'); return; }
@@ -5931,9 +5954,9 @@ sbClient.auth.onAuthStateChange((event, session) => {
   cmPaintAuth();
   // Supabase 호출은 콜백이 끝난 뒤에 실행 (콜백 안에서 기다리면 로그인이 멈춤)
   setTimeout(async () => {
-    if(event==='SIGNED_IN' || event==='INITIAL_SESSION'){ await cmLoadMyLikes(); }
+    if(event==='SIGNED_IN' || event==='INITIAL_SESSION'){ await cmLoadMyLikes(); await cmLoadMyNick(); fetchPostsFromDB(); }
     if(event==='SIGNED_IN'){ cmResumePending(); cmAfterLogin(); }
-    if(event==='SIGNED_OUT') _cmLiked=new Set();
+    if(event==='SIGNED_OUT'){ _cmLiked=new Set(); _cmNick=null; POSTS.forEach(p=>p.is_mine=false); }
     cmPaintAuth();
   }, 0);
 });
@@ -6134,7 +6157,7 @@ async function clvOpenVote(labId){
       <div class="hn">연구실 생활을 한 줄로 알려 주세요. 예: 실험 장비가 잘 갖춰져 있고 선배들이 친절해요</div>
       <textarea class="clv-input" id="clv-comment" rows="2" maxlength="80" placeholder="80자 이내" oninput="document.getElementById('clv-comment-n').textContent=this.value.length"></textarea>
       <div class="clv-cnt"><span id="clv-comment-n">0</span>/80</div></div>
-    <div class="clv-rules">🔒 누가 남겼는지는 공개되지 않아요. 클로버와 한줄평은 ${CLV_MIN_LABEL} 이상 모인 뒤에만 보여요.<br>👤 교수님 성함은 같은 연구실을 묶는 데만 쓰이고 화면에 공개되지 않아요.<br>🙏 한줄평에는 욕설, 확인되지 않은 사실, 다른 사람의 신상을 적지 말아 주세요. 신고된 한줄평은 바로 가려져요.</div>
+    <div class="clv-rules">🔒 누가 남겼는지는 공개되지 않아요. 클로버와 한줄평은 ${CLV_MIN_LABEL} 이상 모인 뒤에만 보여요.<br>👤 교수님 성함은 같은 연구실을 묶는 데만 쓰이고 화면에 공개되지 않아요.<br>🙏 한줄평에는 욕설, 확인되지 않은 사실, 다른 사람의 신상을 적지 말아 주세요. 신고된 한줄평은 운영자가 확인한 뒤 가려져요.</div>
     <button class="clv-btn" id="clv-vote-btn" onclick="clvSubmitVote()">클로버 남기기</button>
     <div class="clv-msg" id="clv-vote-msg"></div>`;
   clvRenderLabPick();
@@ -6219,11 +6242,10 @@ function clvCommentsHtml(labId){
     `<div class="clv-cmt"><span>“${escHtml(c.body)}”</span><button class="clv-report" onclick="clvReportComment(${c.id})">신고</button></div>`).join('')}</div>`;
 }
 async function clvReportComment(id){
-  if(!confirm('이 한줄평을 신고할까요? 신고하면 바로 가려지고 운영자가 확인해요.')) return;
+  if(!confirm('이 한줄평을 신고할까요? 운영자가 확인한 뒤 문제가 있으면 가려요.')) return;
   const { error } = await sbClient.rpc('clover_report_comment', { p_comment: id, p_reason: '' });
   if(error){ alert('신고를 접수하지 못했어요. 잠시 뒤 다시 시도해 주세요.'); return; }
-  alert('신고가 접수됐어요. 한줄평은 바로 가려졌어요.');
-  clvLoad(true);
+  alert('신고가 접수됐어요. 운영자가 확인할게요.');
 }
 
 function clvOpenReport(id){
@@ -6251,7 +6273,7 @@ async function clvSubmitReport(){
     p_contact: document.getElementById('clv-report-contact').value.trim(),
   });
   if(error){ btn.disabled = false; msg.style.color = '#dc2626'; msg.textContent = '접수하지 못했어요. 잠시 뒤 다시 시도해 주세요.'; return; }
-  msg.style.color = '#15803d'; msg.textContent = '접수됐어요. 이 연구실은 바로 가려졌고, 운영자가 확인할게요.';
+  msg.style.color = '#15803d'; msg.textContent = '접수됐어요. 운영자가 확인할게요.';
   setTimeout(() => { clvClose('clv-report-modal'); clvLoad(true); }, 1400);
 }
 
