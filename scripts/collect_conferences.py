@@ -277,12 +277,18 @@ def parse_wikicfp_item(item, field, tag):
 
 def collect_wikicfp(categories=WIKICFP_CATEGORIES, delay=3.0):
     rows = []
+    fails = 0
     for cat, field, tag in categories:
+        if fails >= 3 and not rows:
+            # 처음부터 연달아 응답이 없으면 서버가 멈춘 것으로 보고 나머지는 건너뛴다
+            print("[wikicfp] 서버가 응답하지 않아 오늘은 건너뜁니다", file=sys.stderr)
+            break
         url = "http://www.wikicfp.com/cfp/rss?cat=" + urllib.parse.quote(cat)
         try:
-            root = ET.fromstring(http_get(url))
+            root = ET.fromstring(http_get(url, timeout=15))
         except Exception as e:  # 네트워크·파싱 오류는 그 카테고리만 건너뛴다
             print(f"[wikicfp] {cat} 실패: {e}", file=sys.stderr)
+            fails += 1
             continue
         n = 0
         items = list(root.iter("item"))
@@ -351,11 +357,11 @@ def resolve_official_links(rows, cache_path=None, delay=1.5, limit=400):
             continue
         if "wikicfp.com" in cfp_url:
             r["url"] = ""
-        if "wikicfp.com" not in cfp_url or fetched >= limit or fails >= 5:
+        if "wikicfp.com" not in cfp_url or fetched >= limit or fails >= 3:
             continue
         fetched += 1
         try:
-            page = http_get(cfp_url).decode("utf-8", "replace")
+            page = http_get(cfp_url, timeout=15).decode("utf-8", "replace")
         except Exception as e:
             print(f"[wikicfp-link] {cfp_url} 실패: {e}", file=sys.stderr)
             fails += 1  # WikiCFP가 응답하지 않으면 몇 번 뒤에 그만둔다 (다음 날 다시 시도)
