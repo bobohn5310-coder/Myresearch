@@ -2209,6 +2209,13 @@ a { text-decoration: none; color: inherit; }
 .cf-org { font-size: 12.5px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .cf-meta { font-size: 12px; color: #64748b; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
 .cf-meta .cf-cfp { color: #c2410c; font-weight: 700; }
+.cf-dl { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+.cf-dl-i { font-size:12px; padding:3px 8px; border-radius:6px; background:#f1f5f9; color:#334155; white-space:nowrap; }
+.cf-dl-i b { font-weight:700; margin-left:2px; }
+.cf-dl-i.soon { background:#fff7ed; color:#c2410c; }
+.cf-dl-i.hot { background:#fef2f2; color:#dc2626; }
+.cf-dl-i.past { background:#f8fafc; color:#94a3b8; text-decoration:line-through; }
+.cf-dl.none { font-size:12px; color:#94a3b8; margin-top:8px; }
 .cf-topics { font-size: 11.5px; color: #94a3b8; }
 
 .cf-month { display: flex; align-items: baseline; gap: 8px; margin: 6px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
@@ -4115,11 +4122,26 @@ function buildConfCard(d){
       <div class="cf-meta">
         ${d.location?`<span>📍 ${escHtml(d.location)}</span>`:''}
         ${period?`<span>🗓 ${period}</span>`:''}
-        ${cfpLeft!==null && cfpLeft>=0 && !ended?`<span class="cf-cfp">✍️ 논문 마감 ${cfpLeft===0?'오늘':'D-'+cfpLeft}</span>`:''}
       </div>
+      ${ended?'':confDeadlines(d, today)}
       ${topics.length?`<div class="cf-topics">${topics.map(t=>'#'+escHtml(t)).join(' ')}</div>`:''}
     </div>
   </div>`;
+}
+
+// 학회에 가려면 챙겨야 하는 마감일: 초록 → 논문 → 등록
+function confDeadlines(d, today){
+  const items=[['📝','초록',d.abstract_date],['✍️','논문',d.cfp_date],['🎫','등록',d.reg_date]]
+    .map(([ic,label,v])=>{ const t=parseYMD(v); return t?{ic,label,t,left:Math.round((t-today)/86400000)}:null; })
+    .filter(Boolean);
+  if(!items.length) return `<div class="cf-dl none">⏳ 마감일 정보 없음 · 학회 홈페이지에서 확인</div>`;
+  return `<div class="cf-dl">${items.map(x=>{
+    const past=x.left<0;
+    const cls=past?'past':x.left<=7?'hot':x.left<=30?'soon':'';
+    const when=`${x.t.getMonth()+1}.${x.t.getDate()}`;
+    const tail=past?'마감됨':x.left===0?'오늘':'D-'+x.left;
+    return `<span class="cf-dl-i ${cls}">${x.ic} ${x.label} 마감 ${when} <b>${tail}</b></span>`;
+  }).join('')}</div>`;
 }
 
 // 학회 목록을 '2026년 11월' 처럼 달별로 묶어서 그린다
@@ -4524,6 +4546,8 @@ async function fetchInfoFromDB() {
       dday: dday, date: n.type === 'conf' ? (n.start_date || n.date) : n.date,
       start_date: n.start_date, end_date: n.end_date,
       cfp_date: n.type === 'conf' ? (n.date || null) : null, // 학회의 date 컬럼 = 논문 투고 마감일
+      abstract_date: n.abstract_deadline || null,            // 초록 마감일
+      reg_date: n.registration_deadline || null,             // (사전)등록 마감일
       url: infoLink(n),
       tags: Array.isArray(n.tags) ? n.tags.join(',') : (n.tags || ''),
       location: n.location || '',
