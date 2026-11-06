@@ -2436,6 +2436,15 @@ a { text-decoration: none; color: inherit; }
 .cfp-item .f { font-size: 13px; }
 @media (prefers-reduced-motion: reduce) { .cfp-track { animation: none; } .hero-map .hm-ring { animation: none; opacity: 0; } }
 
+/* 홈: 쿠팡 파트너스 한 줄 배너 */
+.cp-strip { display: flex; align-items: center; gap: 14px; margin-top: 20px; padding: 12px 18px; border: 1px solid var(--border); border-radius: 12px; background: #fff; text-decoration: none; color: inherit; transition: box-shadow .18s; }
+.cp-strip:hover { box-shadow: 0 6px 18px rgba(15,23,42,.07); }
+.cp-ico { font-size: 22px; }
+.cp-txt { flex: 1; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; font-size: 14px; color: var(--text); min-width: 0; }
+.cp-sub { color: var(--text-muted); font-size: 13px; }
+.cp-go { font-size: 13px; font-weight: 700; color: var(--blue); white-space: nowrap; }
+.cp-note { font-size: 9px; letter-spacing: -0.1px; color: var(--text-light); margin-top: 3px; text-align: right; }
+@media (max-width: 700px) { .cp-txt { flex-direction: column; gap: 2px; } .cp-note { text-align: left; } }
 /* 홈: 오늘의 연구소식 */
 .hn-section { background: #fff; }
 .hn-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr; grid-template-rows: auto auto; gap: 12px; }
@@ -3081,6 +3090,13 @@ a { text-decoration: none; color: inherit; }
         <div class="see-all" onclick="showPage('news');setNavByName('news')">전체보기 →</div>
       </div>
       <div class="hn-grid" id="home-news"></div>
+      <!-- 쿠팡 파트너스 한 줄 배너 -->
+      <a class="cp-strip" href="https://link.coupang.com/a/irYepUGqSz" target="_blank" rel="sponsored noopener">
+        <span class="cp-ico">🎧</span>
+        <span class="cp-txt"><b>연구실 집중템</b><span class="cp-sub">노이즈캔슬링 헤드폰 · 모니터 · 태블릿 모아보기</span></span>
+        <span class="cp-go">쿠팡에서 보기 →</span>
+      </a>
+      <div class="cp-note">쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</div>
     </div>
   </div>
 
