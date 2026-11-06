@@ -37,5 +37,6 @@ jobs:
             echo "변경 없음"
           else
             git commit -m "학회 정보 자동 갱신 ($(date -u +%Y-%m-%d))"
+            git pull --rebase origin main   # 수집 중에 main이 바뀌었어도 저장되게
             git push
           fi
