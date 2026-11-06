@@ -1383,12 +1383,12 @@ async function loadVerifications(status = 'pending') {
             <div style="font-size:13px;color:#475569;"><span style="font-weight:700;color:#64748b;width:72px;display:inline-block;">이메일</span>${esc(req.email||'-')}</div>
             <div style="font-size:13px;color:#475569;"><span style="font-weight:700;color:#64748b;width:72px;display:inline-block;">소속</span>${esc(req.school||'-')}</div>
             <div style="font-size:13px;color:#475569;"><span style="font-weight:700;color:#64748b;width:72px;display:inline-block;">전공</span>${esc(req.major||'-')}</div>
-            <div style="font-size:13px;color:#475569;"><span style="font-weight:700;color:#64748b;width:72px;display:inline-block;">학년</span>${esc(req.grade||'-')}</div>
+            <div style="font-size:13px;color:#475569;"><span style="font-weight:700;color:#64748b;width:72px;display:inline-block;">과정</span>${esc(req.grade||'-')}</div>
           </div>
           ${req.reject_reason ? `<div style="font-size:12px;background:#fef2f2;color:#dc2626;padding:8px 12px;border-radius:8px;border:1px solid #fecaca;">반려 사유: ${esc(req.reject_reason)}</div>` : ''}
           ${req.status === 'pending' ? `
           <div style="display:flex;gap:8px;margin-top:auto;">
-            <button onclick="approveVerification('${esc(req.id)}','${esc(req.user_id)}')"
+            <button onclick="approveVerification('${esc(req.id)}','${esc(req.user_id)}','${esc(req.grade||'')}')"
               style="flex:1;padding:9px;background:#2563eb;color:white;border:none;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Noto Sans KR',sans-serif;">
               ✅ 승인
             </button>
@@ -1471,10 +1471,12 @@ async function exportVerificationsExcel() {
   }
 }
 
-async function approveVerification(reqId, userId) {
+// 학교 인증 승인 시 회원 유형을 인증된 과정으로 갱신 (예: 예비대학원생 → 석사과정이면 클로버가 열림)
+const MEMBER_TYPES = ['예비대학원생','학부연구생','석사과정','박사과정','석박통합','박사후연구원','기타'];
+async function approveVerification(reqId, userId, grade) {
   if(!confirm('이 회원을 승인하시겠습니까?')) return;
   const { error: e1 } = await sbClient.from('verification_requests').update({ status:'approved', reviewed_at: new Date().toISOString() }).eq('id', reqId);
-  const { error: e2 } = await sbClient.from('profiles').upsert({ id: userId, is_verified: true }, { onConflict: 'id' });
+  const { error: e2 } = await sbClient.from('profiles').upsert({ id: userId, is_verified: true, ...(MEMBER_TYPES.includes(grade) ? { member_type: grade } : {}) }, { onConflict: 'id' });
   if(e1 || e2) { showToast('❌ 승인 실패: ' + (e1||e2).message); return; }
   showToast('✅ 승인 완료!');
   loadVerifications(currentVerifyStatus);

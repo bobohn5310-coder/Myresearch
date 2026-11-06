@@ -3562,13 +3562,25 @@ a { text-decoration: none; color: inherit; }
       <input class="auth-input" id="signup-name" type="text" placeholder="이름">
       <input class="auth-input" id="signup-email" type="email" placeholder="이메일 (학교 이메일 권장)">
       <input class="auth-input" id="signup-password" type="password" placeholder="비밀번호 (8자 이상)">
-      <input class="auth-input" id="signup-school" type="text" placeholder="소속 대학원 (예: 성균관대 반도체)">
+      <input class="auth-input" id="signup-school" type="text" placeholder="소속 학교 (예: 성균관대 반도체)">
+      <div class="auth-field-label">회원 유형</div>
+      <input type="hidden" id="signup-type">
+      <div class="auth-select-group" id="type-select-group">
+        <button type="button" class="auth-select-btn" onclick="selectMemberType(this,'예비대학원생')">예비대학원생</button>
+        <button type="button" class="auth-select-btn" onclick="selectMemberType(this,'학부연구생')">학부연구생</button>
+        <button type="button" class="auth-select-btn" onclick="selectMemberType(this,'석사과정')">석사과정</button>
+        <button type="button" class="auth-select-btn" onclick="selectMemberType(this,'박사과정')">박사과정</button>
+        <button type="button" class="auth-select-btn" onclick="selectMemberType(this,'석박통합')">석박통합</button>
+        <button type="button" class="auth-select-btn" onclick="selectMemberType(this,'박사후연구원')">박사후연구원</button>
+        <button type="button" class="auth-select-btn" onclick="selectMemberType(this,'기타')">기타</button>
+      </div>
+      <div id="signup-type-note" style="display:none;font-size:12px;color:var(--text-muted);line-height:1.6;background:var(--bg);padding:10px 12px;border-radius:10px;">🌱 예비대학원생은 학회·장학 정보와 커뮤니티를 모두 쓸 수 있어요. 다만 <b>연구실 클로버 남기기</b>는 실제로 연구실에 있는 분들만 할 수 있어서, 입학 후 학교 인증을 하면 열려요.</div>
       <div class="auth-consent" id="signup-consent">
         <label class="all"><input type="checkbox" id="consent-all" onchange="toggleAllConsent(this)"> 아래 내용에 모두 동의해요</label>
         <label><input type="checkbox" class="consent-req" id="consent-age"> <span><span class="req">[필수]</span> 만 14세 이상이에요</span></label>
         <label><input type="checkbox" class="consent-req" id="consent-terms"> <span><span class="req">[필수]</span> <a href="terms.html" target="_blank" rel="noopener">이용약관</a>에 동의해요</span></label>
         <label><input type="checkbox" class="consent-req" id="consent-privacy"> <span><span class="req">[필수]</span> <a href="privacy.html" target="_blank" rel="noopener">개인정보 수집·이용</a>에 동의해요</span></label>
-        <div class="note">이름·이메일·비밀번호(필수), 소속 대학원(선택)을 회원 관리에 쓰고 탈퇴 시 지워요. 정보는 Supabase(미국) 서버에 저장돼요. 동의하지 않으면 가입할 수 없어요.</div>
+        <div class="note">이름·이메일·비밀번호·회원 유형(필수), 소속 학교(선택)을 회원 관리에 쓰고 탈퇴 시 지워요. 정보는 Supabase(미국) 서버에 저장돼요. 동의하지 않으면 가입할 수 없어요.</div>
       </div>
       <button class="auth-btn" onclick="handleSignup()">무료로 시작하기</button>
     </div>
@@ -3587,6 +3599,7 @@ a { text-decoration: none; color: inherit; }
         <div class="auth-field-label">과정</div>
         <input type="hidden" id="verify-grade">
         <div class="auth-select-group" id="grade-select-group">
+          <button type="button" class="auth-select-btn" onclick="selectGrade(this,'학부연구생')">학부연구생</button>
           <button type="button" class="auth-select-btn" onclick="selectGrade(this,'석사과정')">석사과정</button>
           <button type="button" class="auth-select-btn" onclick="selectGrade(this,'박사과정')">박사과정</button>
           <button type="button" class="auth-select-btn" onclick="selectGrade(this,'석박통합')">석박통합</button>
@@ -5076,6 +5089,14 @@ async function handleLogin() {
 }
 
 // ── 학교 인증 ──
+function selectMemberType(el, value) {
+  document.querySelectorAll('#type-select-group .auth-select-btn').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('signup-type').value = value;
+  const note = document.getElementById('signup-type-note');
+  if(note) note.style.display = value === '예비대학원생' ? 'block' : 'none';
+}
+
 function selectGrade(el, value) {
   document.querySelectorAll('#grade-select-group .auth-select-btn').forEach(b => b.classList.remove('selected'));
   el.classList.add('selected');
@@ -5205,8 +5226,10 @@ async function handleSignup() {
   const email    = document.getElementById('signup-email').value.trim();
   const password = document.getElementById('signup-password').value;
   const school   = document.getElementById('signup-school').value.trim();
+  const memberType = document.getElementById('signup-type').value;
 
   if(!name || !email || !password) return showAuthMessage('필수 항목을 모두 입력해주세요.', true);
+  if(!memberType) return showAuthMessage('회원 유형을 골라주세요.', true);
   if(password.length < 8) return showAuthMessage('비밀번호는 8자 이상이어야 합니다.', true);
   if([...document.querySelectorAll('#signup-consent .consent-req')].some(c => !c.checked))
     return showAuthMessage('필수 항목에 모두 동의해주세요.', true);
@@ -5217,7 +5240,7 @@ async function handleSignup() {
 
   const { error } = await sbClient.auth.signUp({
     email, password,
-    options: { data: { name, school, consent_terms_at: new Date().toISOString(), consent_privacy_at: new Date().toISOString(), consent_version: '2026-11-06' } }
+    options: { data: { name, school, member_type: memberType, consent_terms_at: new Date().toISOString(), consent_privacy_at: new Date().toISOString(), consent_version: '2026-11-06' } }
   });
 
   if(error) {
@@ -5228,9 +5251,15 @@ async function handleSignup() {
     const { error: loginError } = await sbClient.auth.signInWithPassword({ email, password });
     if(!loginError) {
       await updateNavForAuth();
-      // 가입 직후 바로 학교 인증 단계로 이어서 진행 (나중에 하기 가능)
-      await openVerify();
-      showAuthMessage('✅ 가입 완료! 이어서 학교 인증을 해주세요 (나중에 해도 돼요).');
+      if(memberType === '예비대학원생') {
+        // 예비대학원생은 아직 인증할 재학 서류가 없으니 인증 단계를 건너뛴다
+        showAuthMessage('✅ 가입 완료! 환영해요. 대학원에 입학하면 상단의 \'학교 인증\'을 해주세요.');
+        setTimeout(() => closeAuth(), 1800);
+      } else {
+        // 가입 직후 바로 학교 인증 단계로 이어서 진행 (나중에 하기 가능)
+        await openVerify();
+        showAuthMessage('✅ 가입 완료! 이어서 학교 인증을 해주세요 (나중에 해도 돼요).');
+      }
     } else {
       switchAuth('login');
       showAuthMessage('✅ 가입 완료! 메일함에서 인증 링크를 누른 뒤 로그인해주세요. 로그인 후 상단의 \'학교 인증\'에서 학생증을 올릴 수 있어요.');
@@ -5862,7 +5891,15 @@ async function clvOpenVote(labId){
   const body = document.getElementById('clv-vote-body');
   clvShow('clv-vote-modal');
   if(!CLV.ready){ body.innerHTML = '<div class="clv-info clv-warn">클로버 지수를 준비하고 있어요. 곧 열릴 예정이에요!</div>'; return; }
-  const { data: ok } = await sbClient.rpc('can_clover');
+  const [{ data: ok }, { data: prof }] = await Promise.all([
+    sbClient.rpc('can_clover'),
+    sbClient.from('profiles').select('member_type').eq('id', currentUser.id).maybeSingle()
+  ]);
+  if(!ok && prof?.member_type === '예비대학원생'){
+    body.innerHTML = `<div class="clv-info clv-warn">🌱 예비대학원생은 아직 클로버를 남길 수 없어요. 클로버는 지금 연구실에 있는 분들(학부연구생 포함)의 목소리만 모으고 있어요. 입학 후 학교 인증을 받으면 남길 수 있어요.</div>
+      <button class="clv-btn" onclick="clvClose('clv-vote-modal')">확인</button>`;
+    return;
+  }
   if(!ok){
     body.innerHTML = `<div class="clv-info clv-warn">🎓 클로버는 학교 메일(ac.kr, edu)로 가입한 계정이나 연구자 인증을 받은 회원만 남길 수 있어요. 실제 연구실 구성원의 목소리만 모으기 위해서예요.</div>
       <button class="clv-btn" onclick="clvClose('clv-vote-modal')">확인</button>`;
