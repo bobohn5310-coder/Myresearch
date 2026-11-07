@@ -9,11 +9,13 @@ jobs:
     steps:
       - run: |
           U="https://www.nl.go.kr/rink/contents/R11101000000.do"
-          curl -sS -A "Mozilla/5.0" -c c.txt "$U" -o p.html
-          echo "=== script 330-420"; sed -n 330,420p p.html
-          echo "=== form 530-595"; sed -n 530,595p p.html | grep -v '^\s*$'
-          echo "=== paging 730-760"; sed -n 730,760p p.html
-          for q in "pageIndex=2" "pageIndex=2&recordCountPerPage=100" "pageIndex=1&pageUnit=100"; do
-            curl -sS -A "Mozilla/5.0" -b c.txt -X POST --data "$q" "$U" -o q.html
-            echo "=== POST $q rows=$(grep -c "fn_goView('" q.html) first=$(grep -o "fn_goView('[0-9]*')" q.html | head -2 | tr '\n' ' ')"
+          for p in 1 2 3 4; do
+            curl -sS -A "Mozilla/5.0" "$U?page=$p&pageSize=100&ordFld=regdtASC&ordBy=asc" -o l$p.html
+            echo "page $p rows=$(grep -c "fn_goView('" l$p.html)"
           done
+          echo "=== categories"; cat l*.html | grep -o 'class="title" title="[0-9]*">[^<]*' | sed 's/.*title="//' | sort | uniq -c | sort -rn
+          echo "=== korean-looking titles"; cat l*.html | grep -A1 "fn_goView('" | grep -v fn_goView | grep -E '[가-힣]' | sed 's/^\s*//' | head -60
+          ID=$(grep -o "fn_goView('[0-9]*')" l1.html | grep -o '[0-9]\+' | sed -n 8p)
+          curl -sS -A "Mozilla/5.0" "$U?schM=view&recKey=$ID" -o d.html
+          echo "=== detail $ID"; sed -e 's/<[^>]*>/ /g' d.html | tr -s ' \t' ' ' | grep -v '^\s*$' | grep -n -i -A40 '주최\|홈페이지\|기간' | head -80
+          echo "=== detail links"; grep -o 'href="http[^"]*"' d.html | grep -v nl.go.kr | head
