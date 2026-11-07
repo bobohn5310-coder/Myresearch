@@ -3753,22 +3753,9 @@ a { text-decoration: none; color: inherit; }
       <button class="cm-x" onclick="closeSuggestModal()" aria-label="닫기">×</button>
     </div>
     <div class="cm-sheet-body">
-      <div class="cm-note" style="display:block;">관리자가 확인한 뒤 학회 목록에 올라가요. 아는 만큼만 적어도 괜찮아요.</div>
-      <input id="cs-title" type="text" class="cm-input" placeholder="학회 이름 * (예: 제72회 한국진공학회 동계정기학술대회)" maxlength="200">
-      <input id="cs-org" type="text" class="cm-input" placeholder="주최 학회·기관 (예: 한국진공학회)" maxlength="200">
-      <div class="cs-row">
-        <label class="cs-l">시작일<input id="cs-start" type="date" class="cm-input"></label>
-        <label class="cs-l">종료일<input id="cs-end" type="date" class="cm-input"></label>
-      </div>
-      <input id="cs-location" type="text" class="cm-input" placeholder="장소 (예: 강원 평창 알펜시아)" maxlength="120">
-      <input id="cs-url" type="url" class="cm-input" placeholder="학회 홈페이지 주소 (https://...)" maxlength="500">
-      <div class="cs-row">
-        <label class="cs-l">초록 마감<input id="cs-abs" type="date" class="cm-input"></label>
-        <label class="cs-l">등록 마감<input id="cs-reg" type="date" class="cm-input"></label>
-      </div>
-      <textarea id="cs-note" class="cm-input cm-textarea" style="min-height:70px" placeholder="더 알려 주실 내용 (선택)" maxlength="1000"></textarea>
+      <div class="cm-note" style="display:block;">빠진 학회 이름만 알려 주세요. 관리자가 확인한 뒤 학회 목록에 올려요.</div>
+      <input id="cs-title" type="text" class="cm-input" placeholder="학회 이름 (예: 한국진공학회 동계정기학술대회)" maxlength="200" onkeydown="if(event.key==='Enter'&&!event.isComposing)submitSuggestion()">
       <div class="cm-composer-bar">
-        <select id="cs-field" class="cm-mini-select" aria-label="분야"></select>
         <span class="cm-spacer"></span>
         <button class="cm-btn" onclick="submitSuggestion()" id="cs-submit-btn">제보하기</button>
       </div>
@@ -5783,8 +5770,6 @@ function cmOpenWrite(fromQuick){
 // ── 학회 제보 ──
 function openSuggestModal(){
   if(!currentUser){ cmToast('로그인하면 학회를 제보할 수 있어요'); openAuth('login'); return; }
-  const f=document.getElementById('cs-field');
-  if(f && !f.options.length) f.innerHTML='<option value="">분야 선택</option>'+FIELD_ORDER.map(k=>`<option value="${k}">${FIELD_META[k].label}</option>`).join('');
   const m=document.getElementById('suggest-modal'); if(m) m.style.display='flex';
   setTimeout(()=>document.getElementById('cs-title')?.focus(), 50);
 }
@@ -5793,18 +5778,12 @@ async function submitSuggestion(){
   const v=id=>(document.getElementById(id)?.value||'').trim();
   const title=v('cs-title');
   if(title.length<2){ cmToast('학회 이름을 적어 주세요'); return; }
-  const url=v('cs-url');
-  if(url && !/^https?:\/\//i.test(url)){ cmToast('홈페이지 주소는 https:// 로 시작해야 해요'); return; }
-  if(v('cs-start') && v('cs-end') && v('cs-end')<v('cs-start')){ cmToast('종료일이 시작일보다 빨라요'); return; }
   const btn=document.getElementById('cs-submit-btn'); if(btn){ btn.disabled=true; btn.textContent='보내는 중…'; }
-  const row={ title, org:v('cs-org')||null, start_date:v('cs-start')||null, end_date:v('cs-end')||v('cs-start')||null,
-    location:v('cs-location')||null, url:url||null, abstract_deadline:v('cs-abs')||null,
-    registration_deadline:v('cs-reg')||null, field:v('cs-field')||null, note:v('cs-note')||null,
-    user_id: currentUser.id };
+  const row={ title, user_id: currentUser.id };
   const { error } = await sbClient.from('conference_suggestions').insert(row);
   if(btn){ btn.disabled=false; btn.textContent='제보하기'; }
   if(error){ console.error(error); cmToast('제보를 보내지 못했어요. 잠시 뒤 다시 해 주세요'); return; }
-  ['cs-title','cs-org','cs-start','cs-end','cs-location','cs-url','cs-abs','cs-reg','cs-note'].forEach(id=>{ const e=document.getElementById(id); if(e) e.value=''; });
+  document.getElementById('cs-title').value='';
   closeSuggestModal();
   cmToast('고마워요! 확인한 뒤 목록에 올릴게요');
 }
