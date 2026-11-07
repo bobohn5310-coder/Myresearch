@@ -18,6 +18,7 @@
 from __future__ import annotations
 
 import argparse
+import collections
 import datetime as dt
 import glob
 import html
@@ -539,6 +540,123 @@ def add_topic_tags(row):
     return row
 
 
+# ─────────────────────────── 소스 5: 국립중앙도서관 연구정보서비스(RINK) 학회/행사 ───────────────────────────
+# 국내외 학술행사 목록. 국내 학회 대부분이 여기에 올라온다. 이공계·의학 분야만 가져온다.
+RINK_URL = "https://www.nl.go.kr/rink/contents/R11101000000.do"
+RINK_ROW_RE = re.compile(r'<li class="board_tr board_td">(.*?)</li>', re.S)
+HANGUL_RE = re.compile(r"[가-힣]")
+RINK_NOT_CONF_RE = re.compile(r"(교육|강좌|강의|과정)\s*$|페스티벌|박람회|전시회")
+
+
+def rink_field(code):
+    """RINK 주제분야 코드(KDC) → 우리 분야. None 이면 가져오지 않는다."""
+    try:
+        c = int(code)
+    except (TypeError, ValueError):
+        return None
+    if c <= 9 or c == 310:          # 컴퓨터·프로그래밍·데이터·통계
+        return "cs"
+    if 510 <= c <= 519 or 470 <= c <= 499:   # 의학, 생물학
+        return "bio"
+    if 400 <= c <= 469 or 500 <= c <= 589:   # 자연과학, 공학 (590번대 가정학은 뺀다)
+        return "eng"
+    return None
+
+
+def parse_rink_rows(html_text):
+    rows = []
+    for b in RINK_ROW_RE.findall(html_text):
+        rid = re.search(r"fn_goView\('(\d+)'\)", b)
+        cat = re.search(r'class="title" title="(\d+)">([^<]*)', b)
+        tit = re.search(r"fn_goView\('\d+'\)\">(.*?)</a>", b, re.S)
+        loc = re.search(r'class="bd_location">(.*?)</div>', b, re.S)
+        tm = re.search(r'class="bd_time">(.*?)</div>', b, re.S)
+        if not (rid and tit and tm):
+            continue
+        dates = re.findall(r"\d{4}[-.]\d{2}[-.]\d{2}", tm.group(1))
+        rows.append({
+            "id": rid.group(1), "code": cat.group(1) if cat else "", "cat": clean(cat.group(2), 60) if cat else "",
+            "title": clean(tit.group(1), 300), "location": clean(loc.group(1), 120) if loc else "",
+            "start": dates[0].replace(".", "-") if dates else None,
+            "end": dates[-1].replace(".", "-") if dates else None,
+        })
+    return rows
+
+
+def collect_rink(cache_path=None, page_size=100, max_pages=10, delay=1.0):
+    cache = {}
+    if cache_path and os.path.exists(cache_path):
+        try:
+            for r in json.load(open(cache_path, encoding="utf-8")):
+                if r.get("source") == "rink" and r.get("url"):
+                    cache[r["external_id"]] = r["url"]
+        except (OSError, ValueError):
+            pass
+    seen, out, skipped = set(), [], collections.Counter()
+    for page in range(1, max_pages + 1):
+        url = f"{RINK_URL}?page={page}&pageSize={page_size}&ordFld=regdtASC&ordBy=asc"
+        try:
+            html_text = http_get(url, timeout=30).decode("utf-8", "replace")
+        except Exception as e:
+            print(f"[rink] {page}쪽 실패: {e}", file=sys.stderr)
+            break
+        items = [x for x in parse_rink_rows(html_text) if x["id"] not in seen]
+        if not items:
+            break
+        for x in items:
+            seen.add(x["id"])
+            field = rink_field(x["code"])
+            korean = bool(HANGUL_RE.search(x["title"])) or is_korea(x["location"]) or bool(HANGUL_RE.search(x["location"]))
+            if not field or not korean:
+                skipped["분야 밖" if not field else "해외"] += 1
+                continue
+            start, end = parse_one_date(x["start"]), parse_one_date(x["end"])
+            if not start or not end or end < TODAY:
+                continue
+            title, org = x["title"], ""
+            m = re.match(r"^\[([^\]]+)\]\s*(.*)$", title)
+            if m:
+                org, title = m.group(1).strip(), m.group(2).strip() or title
+            if RINK_NOT_CONF_RE.search(title):
+                skipped["교육·강좌"] += 1
+                continue
+            # '2026 추계학술대회'처럼 학회 이름이 빠진 제목은 앞에 학회 이름을 붙인다
+            if org and org not in title and not re.search(r"[A-Z]{2,}", title):
+                title = f"{org} {title}"
+            out.append({
+                "type": "conf", "field": field, "title": clean(title, 200), "org": clean(org or x["cat"], 200),
+                "start_date": start.isoformat(), "end_date": end.isoformat(), "date": None,
+                "abstract_deadline": None, "registration_deadline": None,
+                "content": clean(f"{org} · {x['cat']}" if org else x["cat"], 300),
+                "url": "", "tags": ",".join(["국내개최" if (HANGUL_RE.search(x["location"]) or is_korea(x["location"])
+                                  or (HANGUL_RE.search(x["title"]) and "online" in x["location"].lower())) else "해외",
+                                 x["cat"].split(",")[0].strip()]),
+                "location": x["location"], "source": "rink", "external_id": f"rink:{x['id']}",
+                "_detail": f"{RINK_URL}?schM=view&recKey={x['id']}",
+            })
+        time.sleep(delay)
+    # 상세 페이지의 '상세 URL'(학회 홈페이지)을 읽는다. 지난번에 읽은 것은 다시 받지 않는다.
+    fetched = 0
+    for r in out:
+        detail = r.pop("_detail")
+        if r["external_id"] in cache:
+            r["url"] = cache[r["external_id"]]
+            continue
+        if fetched >= 200:
+            continue
+        fetched += 1
+        try:
+            page = http_get(detail, timeout=20).decode("utf-8", "replace")
+            m = re.search(r"상세 URL.*?href=\"(https?://[^\"]+)\"", page, re.S)
+            if m and "nl.go.kr" not in m.group(1):
+                r["url"] = safe_url(html.unescape(m.group(1)))
+        except Exception as e:
+            print(f"[rink] 상세 {detail} 실패: {e}", file=sys.stderr)
+        time.sleep(delay / 2)
+    print(f"[rink] 국내 이공계·의학 {len(out)}건 (전체 {len(seen)}건, 제외 {dict(skipped)}, 상세 조회 {fetched}건)")
+    return out
+
+
 def dedupe(rows):
     """같은 ID, 또는 같은 이름과 시작일인 학회는 하나만 남긴다.
     WikiCFP는 한 학회의 세부 세션을 따로 올리기도 하고, ccfddl과 겹치기도 한다 (먼저 온 ccfddl을 남김)."""
@@ -562,7 +680,7 @@ def main():
     ap.add_argument("--skip-wikicfp", action="store_true")
     args = ap.parse_args()
 
-    rows = collect_ccfddl(args.ccfddl_dir) + collect_curated()
+    rows = collect_ccfddl(args.ccfddl_dir) + collect_curated() + collect_rink(cache_path=args.out)
     if not args.skip_wikicfp:
         wiki = collect_wikicfp()
         if not wiki:
