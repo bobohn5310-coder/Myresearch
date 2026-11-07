@@ -545,6 +545,7 @@ def add_topic_tags(row):
 RINK_URL = "https://www.nl.go.kr/rink/contents/R11101000000.do"
 RINK_ROW_RE = re.compile(r'<li class="board_tr board_td">(.*?)</li>', re.S)
 HANGUL_RE = re.compile(r"[가-힣]")
+RINK_NOT_CONF_RE = re.compile(r"(교육|강좌|강의|과정)\s*$|페스티벌|박람회|전시회")
 
 
 def rink_field(code):
@@ -557,7 +558,7 @@ def rink_field(code):
         return "cs"
     if 510 <= c <= 519 or 470 <= c <= 499:   # 의학, 생물학
         return "bio"
-    if 400 <= c <= 469 or 500 <= c <= 599:   # 자연과학, 공학
+    if 400 <= c <= 469 or 500 <= c <= 589:   # 자연과학, 공학 (590번대 가정학은 뺀다)
         return "eng"
     return None
 
@@ -616,6 +617,12 @@ def collect_rink(cache_path=None, page_size=100, max_pages=10, delay=1.0):
             m = re.match(r"^\[([^\]]+)\]\s*(.*)$", title)
             if m:
                 org, title = m.group(1).strip(), m.group(2).strip() or title
+            if RINK_NOT_CONF_RE.search(title):
+                skipped["교육·강좌"] += 1
+                continue
+            # '2026 추계학술대회'처럼 학회 이름이 빠진 제목은 앞에 학회 이름을 붙인다
+            if org and org not in title and not re.search(r"[A-Z]{2,}", title):
+                title = f"{org} {title}"
             out.append({
                 "type": "conf", "field": field, "title": clean(title, 200), "org": clean(org or x["cat"], 200),
                 "start_date": start.isoformat(), "end_date": end.isoformat(), "date": None,
