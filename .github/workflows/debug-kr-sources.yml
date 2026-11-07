@@ -10,12 +10,10 @@ jobs:
       - run: |
           U="https://www.nl.go.kr/rink/contents/R11101000000.do"
           curl -sS -A "Mozilla/5.0" -c c.txt "$U" -o p.html
-          wc -c p.html
-          echo "=== forms"; grep -n -i -o '<form[^>]*>' p.html | head
-          echo "=== inputs"; grep -n -i -o '<input[^>]*hidden[^>]*>' p.html | head -40
-          echo "=== js src"; grep -o 'src="[^"]*\.js[^"]*"' p.html | head -30
-          echo "=== onclick/fn"; grep -n -o 'onclick="[^"]*"' p.html | sort | uniq -c | sort -rn | head -30
-          echo "=== script funcs"; grep -n -o 'function [A-Za-z_0-9]*' p.html | head -40
-          echo "=== ajax"; grep -n -i -E 'ajax|\.do["'"'"']|url *:' p.html | head -40
-          echo "=== row sample"; grep -n -i -m3 -A25 'ACK 2026' p.html | head -80
-          echo "=== IEIE"; curl -sS -A "Mozilla/5.0" "https://www.theieie.org/pages_conference/all.vm?part=all&year=2026" -o i.html; wc -c i.html; grep -n -m2 -B5 -A30 '추계학술대회' i.html | head -90
+          echo "=== script 330-420"; sed -n 330,420p p.html
+          echo "=== form 530-595"; sed -n 530,595p p.html | grep -v '^\s*$'
+          echo "=== paging 730-760"; sed -n 730,760p p.html
+          for q in "pageIndex=2" "pageIndex=2&recordCountPerPage=100" "pageIndex=1&pageUnit=100"; do
+            curl -sS -A "Mozilla/5.0" -b c.txt -X POST --data "$q" "$U" -o q.html
+            echo "=== POST $q rows=$(grep -c "fn_goView('" q.html) first=$(grep -o "fn_goView('[0-9]*')" q.html | head -2 | tr '\n' ' ')"
+          done
