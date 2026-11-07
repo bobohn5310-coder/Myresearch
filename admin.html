@@ -466,8 +466,8 @@
     <div class="admin-page" id="page-suggest">
       <div class="page-header">
         <div class="page-title">📮 학회 제보</div>
-        <div class="page-sub">사용자가 알려 준 학회예요. <b>올리기</b>를 누르면 학회 목록에 바로 추가되고, <b>반려</b>하면 목록에 올라가지 않아요.<br>
-          날짜가 비어 있으면 올릴 수 없으니, 홈페이지를 확인한 뒤 학술정보 관리에서 직접 등록해 주세요.</div>
+        <div class="page-sub">사용자가 알려 준 학회 이름이에요. <b>구글 검색</b>으로 날짜와 홈페이지를 확인한 뒤 <b>등록하기</b>를 누르면, 이름이 채워진 등록 창이 열려요.<br>
+          저장하면 제보는 자동으로 '올림'으로 바뀌어요. 목록에 올리지 않을 제보는 <b>반려</b>해 주세요.</div>
       </div>
       <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
         <button class="btn btn-secondary cs-tab" data-s="pending" onclick="loadSuggestions('pending')">⏳ 확인 대기</button>
@@ -475,8 +475,8 @@
         <button class="btn btn-secondary cs-tab" data-s="rejected" onclick="loadSuggestions('rejected')">❌ 반려</button>
       </div>
       <div class="card"><div class="table-wrap"><table>
-        <thead><tr><th>학회</th><th>기간·장소</th><th>마감</th><th>메모</th><th>제보일</th><th>처리</th></tr></thead>
-        <tbody id="suggest-table-body"><tr><td colspan="6"><div class="empty-state"><div class="emoji">📮</div>불러오는 중...</div></td></tr></tbody>
+        <thead><tr><th>학회 이름</th><th>제보일</th><th>처리</th></tr></thead>
+        <tbody id="suggest-table-body"><tr><td colspan="3"><div class="empty-state"><div class="emoji">📮</div>불러오는 중...</div></td></tr></tbody>
       </table></div></div>
     </div>
 
@@ -1168,8 +1168,7 @@ async function refreshAdminBadges() {
 // ════════════════════════════════════
 // 학회 제보
 // ════════════════════════════════════
-let _suggestions = [], _suggestStatus = 'pending';
-const FIELD_LABEL = { cs:'컴퓨터', eng:'공학', bio:'바이오·의학', energy:'에너지', quantum:'양자' };
+let _suggestions = [], _suggestStatus = 'pending', _approvingSuggestId = null;
 async function loadSuggestions(status) {
   if(status) _suggestStatus = status;
   document.querySelectorAll('.cs-tab').forEach(b => b.className = 'btn cs-tab ' + (b.dataset.s === _suggestStatus ? 'btn-primary' : 'btn-secondary'));
@@ -1177,42 +1176,36 @@ async function loadSuggestions(status) {
   const { data, error } = await sbClient.from('conference_suggestions').select('*').eq('status', _suggestStatus).order('created_at', { ascending: false }).limit(200);
   if(error) {
     const msg = /does not exist|schema cache/i.test(error.message || '') ? '이 기능을 켜려면 Supabase에서 supabase/conference_suggestions.sql 을 실행해주세요.' : '불러오지 못했어요: ' + esc(error.message);
-    body.innerHTML = `<tr><td colspan="6"><div class="empty-state"><div class="emoji">⚠️</div>${msg}</div></td></tr>`; return;
+    body.innerHTML = `<tr><td colspan="3"><div class="empty-state"><div class="emoji">⚠️</div>${msg}</div></td></tr>`; return;
   }
   _suggestions = data || [];
-  if(!_suggestions.length) { body.innerHTML = '<tr><td colspan="6"><div class="empty-state"><div class="emoji">✨</div>여기에 해당하는 제보가 없어요.</div></td></tr>'; refreshAdminBadges(); return; }
-  const d = v => v ? esc(v) : '-';
+  if(!_suggestions.length) { body.innerHTML = '<tr><td colspan="3"><div class="empty-state"><div class="emoji">✨</div>여기에 해당하는 제보가 없어요.</div></td></tr>'; refreshAdminBadges(); return; }
   body.innerHTML = _suggestions.map((r, i) => `<tr>
-    <td style="max-width:240px;font-size:13px;"><b>${esc(r.title)}</b>${r.org ? `<div style="color:#64748b;font-size:12px;">${esc(r.org)}</div>` : ''}
-      ${r.field ? `<span class="badge badge-purple">${esc(FIELD_LABEL[r.field] || r.field)}</span>` : ''}
-      ${r.url ? `<div><a href="${esc(r.url)}" target="_blank" rel="noopener" style="font-size:12px;">홈페이지 열기 ↗</a></div>` : ''}</td>
-    <td style="font-size:12.5px;white-space:nowrap;">${d(r.start_date)} ~ ${d(r.end_date)}<div style="color:#64748b;">${d(r.location)}</div></td>
-    <td style="font-size:12px;white-space:nowrap;">초록 ${d(r.abstract_deadline)}<br>등록 ${d(r.registration_deadline)}</td>
-    <td style="max-width:220px;font-size:12.5px;color:#475569;white-space:pre-wrap;">${esc(r.note || '') || '-'}</td>
+    <td style="font-size:13.5px;"><b>${esc(r.title)}</b>
+      <a href="https://www.google.com/search?q=${encodeURIComponent(r.title)}" target="_blank" rel="noopener" style="font-size:12px;margin-left:8px;">구글 검색 ↗</a></td>
     <td style="font-size:12.5px;white-space:nowrap;">${(r.created_at || '').slice(0, 10)}</td>
     <td style="white-space:nowrap;">${r.status === 'pending' ? `
-      <button class="btn btn-primary btn-sm" onclick="approveSuggestion(${i})">올리기</button>
+      <button class="btn btn-primary btn-sm" onclick="approveSuggestion(${i})">등록하기</button>
       <button class="btn btn-secondary btn-sm" onclick="rejectSuggestion(${i})">반려</button>` : `<span style="font-size:12px;color:#94a3b8;">${r.status === 'approved' ? '올림' : '반려'}</span>`}</td>
   </tr>`).join('');
   refreshAdminBadges();
 }
-async function approveSuggestion(i) {
+// 등록 창을 학회 이름으로 채워 연다. 저장에 성공하면 saveInfo가 제보를 '올림'으로 바꾼다.
+function approveSuggestion(i) {
   const r = _suggestions[i]; if(!r) return;
-  if(!r.start_date) { showToast('❌ 학회 날짜가 없어요. 홈페이지를 확인하고 학술정보 관리에서 직접 등록해 주세요.'); return; }
-  const domestic = /[가-힣]/.test((r.location || '') + (r.title || ''));
-  const row = {
-    type: 'conf', field: r.field || 'eng', title: r.title, org: r.org || '',
-    start_date: r.start_date, end_date: r.end_date || r.start_date,
-    abstract_deadline: r.abstract_deadline, registration_deadline: r.registration_deadline,
-    location: r.location || '', url: r.url || '', content: '',
-    tags: domestic ? '국내개최' : '해외', source: 'suggested',
-  };
-  const { error } = await sbClient.from('academic_info').insert([row]);
-  if(error) { showToast('❌ 올리기 실패: ' + error.message); return; }
-  const u = await sbClient.from('conference_suggestions').update({ status: 'approved', reviewed_at: new Date().toISOString() }).eq('id', r.id);
-  if(u.error) { showToast('⚠️ 학회는 올렸지만 제보 상태를 바꾸지 못했어요: ' + u.error.message); }
-  else showToast('✅ 학회 목록에 올렸어요.');
-  loadSuggestions();
+  openInfoModal();
+  document.getElementById('info-type').value = 'conf';
+  updateInfoDateFields();
+  document.getElementById('info-title').value = r.title;
+  _approvingSuggestId = r.id;
+}
+async function markSuggestionApproved() {
+  if(!_approvingSuggestId) return;
+  const id = _approvingSuggestId; _approvingSuggestId = null;
+  const { error } = await sbClient.from('conference_suggestions').update({ status: 'approved', reviewed_at: new Date().toISOString() }).eq('id', id);
+  if(error) showToast('⚠️ 학회는 등록했지만 제보 상태를 바꾸지 못했어요: ' + error.message);
+  refreshAdminBadges();
+  if(document.getElementById('page-suggest')?.classList.contains('active')) loadSuggestions();
 }
 async function rejectSuggestion(i) {
   const r = _suggestions[i]; if(!r) return;
@@ -1617,6 +1610,7 @@ function renderInfoTable() {
 
 function openInfoModal(id = null) {
   editingInfoId = id;
+  _approvingSuggestId = null;
   document.getElementById('info-modal-title').textContent = id ? '학술정보 수정' : '새 학술정보 등록';
   if(!id) {
     ['info-id','info-title','info-desc','info-url','info-org','info-tags','info-location'].forEach(i => document.getElementById(i).value = '');
@@ -1720,7 +1714,7 @@ async function saveInfo() {
   } else {
     const { error } = await sbClient.from('academic_info').insert([data]);
     if(error) { showToast('❌ 등록 실패: ' + error.message); }
-    else { showToast('✅ 새 학술정보가 등록되었습니다.'); await loadInfo(); closeModal('info-modal'); }
+    else { showToast('✅ 새 학술정보가 등록되었습니다.'); await loadInfo(); closeModal('info-modal'); markSuggestionApproved(); }
   }
   btn.textContent = '저장'; btn.disabled = false;
 }
