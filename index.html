@@ -6069,12 +6069,12 @@ function clvRender(){
         <button class="clv-report" onclick="clvOpenReport(${l.id})">신고·삭제 요청</button></div>`;
     if(s.total == null){
       return `<div class="clv-card">${head}
-        <div class="clv-grow">${clvClover(Math.min(3, s.cnt), 34)}<b>클로버가 자라는 중이에요</b>
-        <span>${s.cnt}명 참여 · ${CLV_MIN_LABEL}이 모이면 공개돼요</span></div>${foot}</div>`;
+        <div class="clv-grow">${clvClover(2, 34)}<b>클로버가 자라는 중이에요</b>
+        <span>${CLV_MIN_LABEL}이 모이면 공개돼요</span></div>${foot}</div>`;
     }
     const tot = Number(s.total);
     return `<div class="clv-card">${tot >= 3.5 ? `<div class="clv-badge">${clvBug(18)}네잎 연구실</div>` : ''}${head}
-      <div class="clv-total">${clvClover(Math.round(tot), 40)}<div><b>${tot.toFixed(1)}</b><span style="color:var(--text-muted);font-size:13px"> / 4</span><small>클로버 지수 · ${s.cnt}명 참여</small></div></div>
+      <div class="clv-total">${clvClover(Math.round(tot), 40)}<div><b>${tot.toFixed(1)}</b><span style="color:var(--text-muted);font-size:13px"> / 4</span><small>클로버 지수</small></div></div>
       ${CLV_ITEMS.map(it => `<div class="clv-row"><span>${it.label}</span>${clvClover(Math.round(Number(s[it.k])), 20)}</div>`).join('')}
       ${clvCommentsHtml(l.id)}
       ${foot}</div>`;
@@ -6104,7 +6104,7 @@ function renderHomeClover(){
         <span class="hcl-sample-tag">이렇게 보여요 · 예시</span>
         <div class="clv-dept">○○대학교 ○○공학과</div>
         <h3>○○ 연구실</h3>
-        <div class="clv-total">${clvClover(3,40)}<div><b>3.0</b><span style="color:var(--text-muted);font-size:13px"> / 4</span><small>클로버 지수 · 6명 참여</small></div></div>
+        <div class="clv-total">${clvClover(3,40)}<div><b>3.0</b><span style="color:var(--text-muted);font-size:13px"> / 4</span><small>클로버 지수</small></div></div>
         ${ex.map(([l,n]) => `<div class="clv-row"><span>${l}</span>${clvClover(n,20)}</div>`).join('')}
       </div>
       ${legend}`;
@@ -6119,7 +6119,7 @@ function renderHomeClover(){
       const s = CLV.sum[l.id] || { cnt:0 };
       const right = s.total != null
         ? `<span class="hcl-score">${clvClover(Math.round(Number(s.total)),30)}<b>${Number(s.total).toFixed(1)}</b></span>`
-        : `<span class="hcl-grow">${clvClover(Math.min(3, s.cnt),24)}<small>${s.cnt}명 참여</small></span>`;
+        : `<span class="hcl-grow">${clvClover(2,24)}<small>자라는 중</small></span>`;
       return `<button class="hcl-lab" onclick="goClover()"><span>${l.name ? `<small>${escHtml(l.univ)} ${escHtml(l.dept)}</small><b>${escHtml(l.name)}</b>` : `<small>${escHtml(l.univ)}</small><b>${escHtml(l.dept)}</b>`}</span>${right}</button>`;
     }).join('')}</div>
     ${legend}`;
