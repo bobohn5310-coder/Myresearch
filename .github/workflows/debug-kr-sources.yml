@@ -1,0 +1,21 @@
+name: 국내 학회 출처 조사 (임시)
+on:
+  push:
+    branches: [claude/project-thread-m4j4e5]
+    paths: [.github/workflows/debug-kr-sources.yml]
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          U="https://www.nl.go.kr/rink/contents/R11101000000.do"
+          curl -sS -A "Mozilla/5.0" -c c.txt "$U" -o p.html
+          wc -c p.html
+          echo "=== forms"; grep -n -i -o '<form[^>]*>' p.html | head
+          echo "=== inputs"; grep -n -i -o '<input[^>]*hidden[^>]*>' p.html | head -40
+          echo "=== js src"; grep -o 'src="[^"]*\.js[^"]*"' p.html | head -30
+          echo "=== onclick/fn"; grep -n -o 'onclick="[^"]*"' p.html | sort | uniq -c | sort -rn | head -30
+          echo "=== script funcs"; grep -n -o 'function [A-Za-z_0-9]*' p.html | head -40
+          echo "=== ajax"; grep -n -i -E 'ajax|\.do["'"'"']|url *:' p.html | head -40
+          echo "=== row sample"; grep -n -i -m3 -A25 'ACK 2026' p.html | head -80
+          echo "=== IEIE"; curl -sS -A "Mozilla/5.0" "https://www.theieie.org/pages_conference/all.vm?part=all&year=2026" -o i.html; wc -c i.html; grep -n -m2 -B5 -A30 '추계학술대회' i.html | head -90
