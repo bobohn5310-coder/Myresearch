@@ -336,6 +336,10 @@
       <div class="sidebar-item" onclick="showAdminPage('info', this)">
         <span class="icon">📅</span> 학술정보
       </div>
+      <div class="sidebar-item" onclick="showAdminPage('suggest', this); loadSuggestions();">
+        <span class="icon">📮</span> 학회 제보
+        <span id="suggest-badge" style="display:none;margin-left:auto;background:#ef4444;color:white;font-size:11px;font-weight:800;padding:2px 7px;border-radius:20px;">0</span>
+      </div>
       <div class="sidebar-item" onclick="showAdminPage('banner', this)">
         <span class="icon">🔥</span> 배너 관리
       </div>
@@ -459,6 +463,23 @@
 
 
     <!-- 신고함 -->
+    <div class="admin-page" id="page-suggest">
+      <div class="page-header">
+        <div class="page-title">📮 학회 제보</div>
+        <div class="page-sub">사용자가 알려 준 학회예요. <b>올리기</b>를 누르면 학회 목록에 바로 추가되고, <b>반려</b>하면 목록에 올라가지 않아요.<br>
+          날짜가 비어 있으면 올릴 수 없으니, 홈페이지를 확인한 뒤 학술정보 관리에서 직접 등록해 주세요.</div>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+        <button class="btn btn-secondary cs-tab" data-s="pending" onclick="loadSuggestions('pending')">⏳ 확인 대기</button>
+        <button class="btn btn-secondary cs-tab" data-s="approved" onclick="loadSuggestions('approved')">✅ 올림</button>
+        <button class="btn btn-secondary cs-tab" data-s="rejected" onclick="loadSuggestions('rejected')">❌ 반려</button>
+      </div>
+      <div class="card"><div class="table-wrap"><table>
+        <thead><tr><th>학회</th><th>기간·장소</th><th>마감</th><th>메모</th><th>제보일</th><th>처리</th></tr></thead>
+        <tbody id="suggest-table-body"><tr><td colspan="6"><div class="empty-state"><div class="emoji">📮</div>불러오는 중...</div></td></tr></tbody>
+      </table></div></div>
+    </div>
+
     <div class="admin-page" id="page-reports">
       <div class="page-header">
         <div class="page-title">🚨 신고함</div>
@@ -1140,6 +1161,66 @@ async function refreshAdminBadges() {
   if(!r.error) setBadge('reports-badge', (r.data || []).length);
   const w = await sbClient.from('withdraw_requests').select('user_id', { count: 'exact', head: true });
   if(!w.error) setBadge('withdraw-badge', w.count || 0);
+  const cs = await sbClient.from('conference_suggestions').select('id', { count: 'exact', head: true }).eq('status', 'pending');
+  if(!cs.error) setBadge('suggest-badge', cs.count || 0);
+}
+
+// ════════════════════════════════════
+// 학회 제보
+// ════════════════════════════════════
+let _suggestions = [], _suggestStatus = 'pending';
+const FIELD_LABEL = { cs:'컴퓨터', eng:'공학', bio:'바이오·의학', energy:'에너지', quantum:'양자' };
+async function loadSuggestions(status) {
+  if(status) _suggestStatus = status;
+  document.querySelectorAll('.cs-tab').forEach(b => b.className = 'btn cs-tab ' + (b.dataset.s === _suggestStatus ? 'btn-primary' : 'btn-secondary'));
+  const body = document.getElementById('suggest-table-body');
+  const { data, error } = await sbClient.from('conference_suggestions').select('*').eq('status', _suggestStatus).order('created_at', { ascending: false }).limit(200);
+  if(error) {
+    const msg = /does not exist|schema cache/i.test(error.message || '') ? '이 기능을 켜려면 Supabase에서 supabase/conference_suggestions.sql 을 실행해주세요.' : '불러오지 못했어요: ' + esc(error.message);
+    body.innerHTML = `<tr><td colspan="6"><div class="empty-state"><div class="emoji">⚠️</div>${msg}</div></td></tr>`; return;
+  }
+  _suggestions = data || [];
+  if(!_suggestions.length) { body.innerHTML = '<tr><td colspan="6"><div class="empty-state"><div class="emoji">✨</div>여기에 해당하는 제보가 없어요.</div></td></tr>'; refreshAdminBadges(); return; }
+  const d = v => v ? esc(v) : '-';
+  body.innerHTML = _suggestions.map((r, i) => `<tr>
+    <td style="max-width:240px;font-size:13px;"><b>${esc(r.title)}</b>${r.org ? `<div style="color:#64748b;font-size:12px;">${esc(r.org)}</div>` : ''}
+      ${r.field ? `<span class="badge badge-purple">${esc(FIELD_LABEL[r.field] || r.field)}</span>` : ''}
+      ${r.url ? `<div><a href="${esc(r.url)}" target="_blank" rel="noopener" style="font-size:12px;">홈페이지 열기 ↗</a></div>` : ''}</td>
+    <td style="font-size:12.5px;white-space:nowrap;">${d(r.start_date)} ~ ${d(r.end_date)}<div style="color:#64748b;">${d(r.location)}</div></td>
+    <td style="font-size:12px;white-space:nowrap;">초록 ${d(r.abstract_deadline)}<br>등록 ${d(r.registration_deadline)}</td>
+    <td style="max-width:220px;font-size:12.5px;color:#475569;white-space:pre-wrap;">${esc(r.note || '') || '-'}</td>
+    <td style="font-size:12.5px;white-space:nowrap;">${(r.created_at || '').slice(0, 10)}</td>
+    <td style="white-space:nowrap;">${r.status === 'pending' ? `
+      <button class="btn btn-primary btn-sm" onclick="approveSuggestion(${i})">올리기</button>
+      <button class="btn btn-secondary btn-sm" onclick="rejectSuggestion(${i})">반려</button>` : `<span style="font-size:12px;color:#94a3b8;">${r.status === 'approved' ? '올림' : '반려'}</span>`}</td>
+  </tr>`).join('');
+  refreshAdminBadges();
+}
+async function approveSuggestion(i) {
+  const r = _suggestions[i]; if(!r) return;
+  if(!r.start_date) { showToast('❌ 학회 날짜가 없어요. 홈페이지를 확인하고 학술정보 관리에서 직접 등록해 주세요.'); return; }
+  const domestic = /[가-힣]/.test((r.location || '') + (r.title || ''));
+  const row = {
+    type: 'conf', field: r.field || 'eng', title: r.title, org: r.org || '',
+    start_date: r.start_date, end_date: r.end_date || r.start_date,
+    abstract_deadline: r.abstract_deadline, registration_deadline: r.registration_deadline,
+    location: r.location || '', url: r.url || '', content: '',
+    tags: domestic ? '국내개최' : '해외', source: 'suggested',
+  };
+  const { error } = await sbClient.from('academic_info').insert([row]);
+  if(error) { showToast('❌ 올리기 실패: ' + error.message); return; }
+  const u = await sbClient.from('conference_suggestions').update({ status: 'approved', reviewed_at: new Date().toISOString() }).eq('id', r.id);
+  if(u.error) { showToast('⚠️ 학회는 올렸지만 제보 상태를 바꾸지 못했어요: ' + u.error.message); }
+  else showToast('✅ 학회 목록에 올렸어요.');
+  loadSuggestions();
+}
+async function rejectSuggestion(i) {
+  const r = _suggestions[i]; if(!r) return;
+  if(!confirm('이 제보를 반려할까요?')) return;
+  const { error } = await sbClient.from('conference_suggestions').update({ status: 'rejected', reviewed_at: new Date().toISOString() }).eq('id', r.id);
+  if(error) { showToast('❌ 처리 실패: ' + error.message); return; }
+  showToast('반려했어요.');
+  loadSuggestions();
 }
 const NEED_SQL = '이 기능을 켜려면 Supabase에서 supabase/admin_tools.sql 을 실행해주세요.';
 const rpcErr = e => e.code === 'PGRST202' || /does not exist|schema cache/i.test(e.message || '') ? NEED_SQL : '불러오지 못했어요: ' + esc(e.message);
