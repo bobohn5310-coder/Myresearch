@@ -1068,6 +1068,10 @@ a { text-decoration: none; color: inherit; }
   display: none; align-items: center; justify-content: center;
 }
 .modal-overlay.open { display: flex; }
+.cs-open-btn { margin-left: auto; border: 1.5px dashed #94a3b8 !important; }
+.cs-row { display: flex; gap: 8px; margin-bottom: 10px; }
+.cs-l { flex: 1; display: flex; flex-direction: column; font-size: 12px; color: #64748b; font-weight: 600; gap: 4px; }
+.cs-l .cm-input { margin: 0; }
 
 .auth-modal {
   background: var(--white);
@@ -2679,7 +2683,7 @@ a { text-decoration: none; color: inherit; }
   .cm-composer-bar .cm-btn-ghost { display:none; }
   #page-community .ufb-inner { scrollbar-width: none; }
   /* 휴대폰에서는 글쓰기·글보기 창을 아래에서 올라오는 시트로 */
-  #write-modal, #post-modal { align-items: flex-end; }
+  #write-modal, #post-modal, #suggest-modal { align-items: flex-end; }
   .cm-sheet { width:100%; max-width:100%; max-height:92vh; border-radius:20px 20px 0 0; }
 }
 
@@ -3361,6 +3365,7 @@ a { text-decoration: none; color: inherit; }
         <button class="ufb-tab" onclick="switchInfoTab(this,'conf')" data-type="conf">🎤 학회</button>
         <button class="ufb-tab" onclick="switchInfoTab(this,'recruit')" data-type="recruit">📢 모집</button>
       </div>
+      <button class="ufb-tab cs-open-btn" onclick="openSuggestModal()" title="목록에 없는 학회를 알려 주세요">📮 학회 제보</button>
     </div>
   </div>
 
@@ -3741,6 +3746,36 @@ a { text-decoration: none; color: inherit; }
 </div>
 
 <!-- ═══ WRITE MODAL ═══ -->
+<div class="modal-overlay" id="suggest-modal" style="display:none;" onclick="if(event.target===this)closeSuggestModal()">
+  <div class="cm-sheet cm-write-sheet">
+    <div class="cm-sheet-h">
+      <span style="font-size:17px;font-weight:800;color:#0f172a;">📮 빠진 학회 알려 주기</span>
+      <button class="cm-x" onclick="closeSuggestModal()" aria-label="닫기">×</button>
+    </div>
+    <div class="cm-sheet-body">
+      <div class="cm-note" style="display:block;">관리자가 확인한 뒤 학회 목록에 올라가요. 아는 만큼만 적어도 괜찮아요.</div>
+      <input id="cs-title" type="text" class="cm-input" placeholder="학회 이름 * (예: 제72회 한국진공학회 동계정기학술대회)" maxlength="200">
+      <input id="cs-org" type="text" class="cm-input" placeholder="주최 학회·기관 (예: 한국진공학회)" maxlength="200">
+      <div class="cs-row">
+        <label class="cs-l">시작일<input id="cs-start" type="date" class="cm-input"></label>
+        <label class="cs-l">종료일<input id="cs-end" type="date" class="cm-input"></label>
+      </div>
+      <input id="cs-location" type="text" class="cm-input" placeholder="장소 (예: 강원 평창 알펜시아)" maxlength="120">
+      <input id="cs-url" type="url" class="cm-input" placeholder="학회 홈페이지 주소 (https://...)" maxlength="500">
+      <div class="cs-row">
+        <label class="cs-l">초록 마감<input id="cs-abs" type="date" class="cm-input"></label>
+        <label class="cs-l">등록 마감<input id="cs-reg" type="date" class="cm-input"></label>
+      </div>
+      <textarea id="cs-note" class="cm-input cm-textarea" style="min-height:70px" placeholder="더 알려 주실 내용 (선택)" maxlength="1000"></textarea>
+      <div class="cm-composer-bar">
+        <select id="cs-field" class="cm-mini-select" aria-label="분야"></select>
+        <span class="cm-spacer"></span>
+        <button class="cm-btn" onclick="submitSuggestion()" id="cs-submit-btn">제보하기</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="modal-overlay" id="write-modal" style="display:none;" onclick="if(event.target===this)closeWriteModal()">
   <div class="cm-sheet cm-write-sheet">
     <div class="cm-sheet-h">
@@ -4210,10 +4245,12 @@ function matchInfoQuery(d, q){
 // 학회 링크: WikiCFP로는 보내지 않는다. 공식 주소가 없으면 학회 이름으로 검색한 결과를 연다.
 function infoLink(n){
   const u = n.url || '';
-  if(u && u !== '#' && !/wikicfp\.com/i.test(u)) return u;
+  // 국립중앙도서관(rink)에서 온 국내 학회는 구글 검색으로 연결한다
+  const viaSearch = n.source === 'rink' || /nl\.go\.kr/i.test(u);
+  if(u && u !== '#' && !viaSearch && !/wikicfp\.com/i.test(u)) return u;
   if(n.type === 'conf' && n.title){
     const y = (n.start_date || '').slice(0,4);
-    let q = n.org || n.title;
+    let q = n.source === 'rink' ? n.title : (n.org || n.title);
     if(y && !q.includes(y)) q += ' ' + y;
     return 'https://www.google.com/search?q=' + encodeURIComponent(q);
   }
@@ -5743,6 +5780,35 @@ function cmOpenWrite(fromQuick){
   m.style.display='flex';
   setTimeout(()=>document.getElementById('write-content')?.focus(), 50);
 }
+// ── 학회 제보 ──
+function openSuggestModal(){
+  if(!currentUser){ cmToast('로그인하면 학회를 제보할 수 있어요'); openAuth('login'); return; }
+  const f=document.getElementById('cs-field');
+  if(f && !f.options.length) f.innerHTML='<option value="">분야 선택</option>'+FIELD_ORDER.map(k=>`<option value="${k}">${FIELD_META[k].label}</option>`).join('');
+  const m=document.getElementById('suggest-modal'); if(m) m.style.display='flex';
+  setTimeout(()=>document.getElementById('cs-title')?.focus(), 50);
+}
+function closeSuggestModal(){ const m=document.getElementById('suggest-modal'); if(m) m.style.display='none'; }
+async function submitSuggestion(){
+  const v=id=>(document.getElementById(id)?.value||'').trim();
+  const title=v('cs-title');
+  if(title.length<2){ cmToast('학회 이름을 적어 주세요'); return; }
+  const url=v('cs-url');
+  if(url && !/^https?:\/\//i.test(url)){ cmToast('홈페이지 주소는 https:// 로 시작해야 해요'); return; }
+  if(v('cs-start') && v('cs-end') && v('cs-end')<v('cs-start')){ cmToast('종료일이 시작일보다 빨라요'); return; }
+  const btn=document.getElementById('cs-submit-btn'); if(btn){ btn.disabled=true; btn.textContent='보내는 중…'; }
+  const row={ title, org:v('cs-org')||null, start_date:v('cs-start')||null, end_date:v('cs-end')||v('cs-start')||null,
+    location:v('cs-location')||null, url:url||null, abstract_deadline:v('cs-abs')||null,
+    registration_deadline:v('cs-reg')||null, field:v('cs-field')||null, note:v('cs-note')||null,
+    user_id: currentUser.id };
+  const { error } = await sbClient.from('conference_suggestions').insert(row);
+  if(btn){ btn.disabled=false; btn.textContent='제보하기'; }
+  if(error){ console.error(error); cmToast('제보를 보내지 못했어요. 잠시 뒤 다시 해 주세요'); return; }
+  ['cs-title','cs-org','cs-start','cs-end','cs-location','cs-url','cs-abs','cs-reg','cs-note'].forEach(id=>{ const e=document.getElementById(id); if(e) e.value=''; });
+  closeSuggestModal();
+  cmToast('고마워요! 확인한 뒤 목록에 올릴게요');
+}
+
 function closeWriteModal(){ const m=document.getElementById('write-modal'); if(m) m.style.display='none'; }
 
 function cmBuildPost(src){
@@ -6303,6 +6369,7 @@ const NAV_OVERLAYS = [
   { isOpen: () => document.getElementById('nav-drawer')?.classList.contains('open'), close: () => closeDrawer() },
   { isOpen: () => document.getElementById('auth-modal')?.style.display === 'flex', close: () => closeAuth() },
   { isOpen: () => document.getElementById('write-modal')?.style.display === 'flex', close: () => closeWriteModal() },
+  { isOpen: () => document.getElementById('suggest-modal')?.style.display === 'flex', close: () => closeSuggestModal() },
   { isOpen: () => document.getElementById('post-modal')?.style.display === 'flex', close: () => closePostModal() },
   { isOpen: () => document.getElementById('clv-vote-modal')?.classList.contains('open'), close: () => clvClose('clv-vote-modal') },
   { isOpen: () => document.getElementById('clv-report-modal')?.classList.contains('open'), close: () => clvClose('clv-report-modal') },
