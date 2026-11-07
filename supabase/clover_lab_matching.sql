@@ -98,4 +98,8 @@ end $$;
 grant execute on function public.clover_add_lab(text, text, text, text, text) to authenticated;
 
 -- 6) 성함 없이 묶던 예전 방식(4칸)은 더 쓰지 않음
-revoke execute on function public.clover_add_lab(text, text, text, text) from authenticated, anon, public;
+do $$ begin
+  if to_regprocedure('public.clover_add_lab(text,text,text,text)') is not null then
+    revoke execute on function public.clover_add_lab(text, text, text, text) from authenticated, anon, public;
+  end if;
+end $$;
