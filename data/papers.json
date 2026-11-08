@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-08T07:08+09:00",
+ "updated": "2026-11-09T07:19+09:00",
  "issues": {
   "Nature": {
    "url": "https://www.nature.com/nature/volumes/659/issues/8139",
@@ -650,28 +650,6 @@
    "doi": "10.1126/science.aed3341",
    "date": "2026-10-01",
    "external_id": "paper:f5b2b8fdba4a9a08bb03"
-  },
-  {
-   "journal": "Science",
-   "field": "quantum",
-   "tag": "양자/물리",
-   "title": "Antiferroelectric hafnia down to the 2D limit",
-   "summary": "",
-   "url": "https://www.science.org/doi/10.1126/science.ady5526",
-   "doi": "10.1126/science.ady5526",
-   "date": "2026-09-24",
-   "external_id": "paper:0a20954e19d78e20db6b"
-  },
-  {
-   "journal": "Science",
-   "field": "eng",
-   "tag": "소재/화학",
-   "title": "Stereodivergent telomerization of linear functionalized dienes with amines",
-   "summary": "",
-   "url": "https://www.science.org/doi/10.1126/science.aeh7895",
-   "doi": "10.1126/science.aeh7895",
-   "date": "2026-09-24",
-   "external_id": "paper:bacf29fe96f2c19f2e6e"
   }
  ]
 }
