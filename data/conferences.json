@@ -481,7 +481,7 @@
   "title": "ICLR 2027",
   "org": "International Conference on Learning Representations",
   "start_date": "2027-04-26",
-  "end_date": "2027-04-30",
+  "end_date": "2027-04-28",
   "date": "2026-09-25",
   "abstract_deadline": "2026-09-18",
   "registration_deadline": null,
@@ -508,6 +508,23 @@
   "location": "Riocentro, Rio de Janeiro, Brazil",
   "source": "ccfddl",
   "external_id": "ccfddl:icml27"
+ },
+ {
+  "type": "conf",
+  "field": "cs",
+  "title": "ICMLA 2027",
+  "org": "International Conference on Machine Learning and Applications",
+  "start_date": "2027-12-14",
+  "end_date": "2027-12-16",
+  "date": "2027-05-15",
+  "abstract_deadline": null,
+  "registration_deadline": null,
+  "content": "International Conference on Machine Learning and Applications · 투고 마감 2027-05-15",
+  "url": "https://www.icmla-conference.org/icmla27/",
+  "tags": "해외,인공지능,CORE-C",
+  "location": "University of Miami, Coral Gables Campus, Miami, Florida, USA",
+  "source": "ccfddl",
+  "external_id": "ccfddl:icmla27"
  },
  {
   "type": "conf",
@@ -593,23 +610,6 @@
   "location": "Foz do Iguaçu, Brazil",
   "source": "ccfddl",
   "external_id": "ccfddl:ijcb2027"
- },
- {
-  "type": "conf",
-  "field": "cs",
-  "title": "IJCNLP 2026",
-  "org": "International Joint Conference on Natural Language Processing",
-  "start_date": "2026-11-06",
-  "end_date": "2026-11-08",
-  "date": "2026-08-25",
-  "abstract_deadline": null,
-  "registration_deadline": null,
-  "content": "International Joint Conference on Natural Language Processing",
-  "url": "https://2026.aaclnet.org/",
-  "tags": "해외,인공지능,CORE-B",
-  "location": "Hengqin, Zhuhai, China (Hybrid)",
-  "source": "ccfddl",
-  "external_id": "ccfddl:ijcnlp2026"
  },
  {
   "type": "conf",
@@ -752,7 +752,7 @@
   "field": "cs",
   "title": "WACV 2027",
   "org": "IEEE/CVF Winter Conference on Applications of Computer Vision",
-  "start_date": "2027-01-04",
+  "start_date": "2027-01-06",
   "end_date": "2027-01-08",
   "date": "2026-08-28",
   "abstract_deadline": "2026-08-21",
@@ -1124,23 +1124,6 @@
  {
   "type": "conf",
   "field": "cs",
-  "title": "NCMMSC 2026",
-  "org": "National Conference on Man-Machine Speech Communication",
-  "start_date": "2026-11-05",
-  "end_date": "2026-11-08",
-  "date": "2026-07-12",
-  "abstract_deadline": "2026-07-05",
-  "registration_deadline": null,
-  "content": "National Conference on Man-Machine Speech Communication",
-  "url": "https://www.ncmmsc.org.cn/",
-  "tags": "해외,그래픽스·멀티미디어,CCF-C",
-  "location": "Hengqin, China",
-  "source": "ccfddl",
-  "external_id": "ccfddl:ncmmsc26"
- },
- {
-  "type": "conf",
-  "field": "cs",
   "title": "PacificVis 2027",
   "org": "IEEE Pacific Visualization Symposium",
   "start_date": "2027-04-19",
@@ -1148,7 +1131,7 @@
   "date": "2026-11-09",
   "abstract_deadline": "2026-11-02",
   "registration_deadline": null,
-  "content": "IEEE Pacific Visualization Symposium · 투고 마감 2026-11-09",
+  "content": "IEEE Pacific Visualization Symposium",
   "url": "https://pacificvis2027.github.io/",
   "tags": "국내개최,그래픽스·멀티미디어,CCF-C,CORE-B",
   "location": "Busan, South Korea",
@@ -2229,6 +2212,23 @@
  {
   "type": "conf",
   "field": "cs",
+  "title": "FCCM 2027",
+  "org": "IEEE Symposium on Field-Programmable Custom Computing Machines",
+  "start_date": "2027-05-10",
+  "end_date": "2027-05-11",
+  "date": "2027-01-17",
+  "abstract_deadline": "2027-01-10",
+  "registration_deadline": null,
+  "content": "IEEE Symposium on Field-Programmable Custom Computing Machines · 투고 마감 2027-01-17",
+  "url": "https://www.fccm.org/",
+  "tags": "해외,컴퓨터구조·시스템,CCF-C,CORE-B",
+  "location": "Provo, Utah, USA",
+  "source": "ccfddl",
+  "external_id": "ccfddl:fccm27"
+ },
+ {
+  "type": "conf",
+  "field": "cs",
   "title": "FPGA 2027",
   "org": "ACM/SIGDA International Symposium on Field-Programmable Gate Arrays",
   "start_date": "2027-03-14",
@@ -2896,10 +2896,10 @@
   "org": "International Conference on Business Information Systems",
   "start_date": "2027-06-23",
   "end_date": "2027-06-25",
-  "date": "2027-01-11",
+  "date": "2027-01-10",
   "abstract_deadline": null,
   "registration_deadline": null,
-  "content": "International Conference on Business Information Systems · 투고 마감 2027-01-11",
+  "content": "International Conference on Business Information Systems · 투고 마감 2027-01-10",
   "url": "https://bisconf.org/2027/",
   "tags": "해외,융합",
   "location": "Poznań, Poland",
@@ -3861,23 +3861,6 @@
  {
   "type": "conf",
   "field": "cs",
-  "title": "INSCRYPT 2026",
-  "org": "International Conference on Information Security and Cryptology",
-  "start_date": "2026-11-07",
-  "end_date": "2026-11-09",
-  "date": "2026-05-08",
-  "abstract_deadline": null,
-  "registration_deadline": null,
-  "content": "International Conference on Information Security and Cryptology",
-  "url": "https://inscrypt2026.comp.polyu.edu.hk",
-  "tags": "해외,보안,CCF-C",
-  "location": "Hong Kong SAR, China",
-  "source": "ccfddl",
-  "external_id": "ccfddl:inscrypt26"
- },
- {
-  "type": "conf",
-  "field": "cs",
   "title": "NDSS 2027",
   "org": "Network and Distributed System Security (NDSS) Symposium",
   "start_date": "2027-03-22",
@@ -3902,7 +3885,7 @@
   "date": "2026-11-09",
   "abstract_deadline": null,
   "registration_deadline": null,
-  "content": "IEEE/IFIP Network Operations and Management Symposium · 투고 마감 2026-11-09",
+  "content": "IEEE/IFIP Network Operations and Management Symposium",
   "url": "https://noms2027.ieee-noms.org/",
   "tags": "해외,보안,CORE-B",
   "location": "Montreal, Canada",
@@ -6313,13 +6296,14 @@
   "org": "2026 International Conference on Semiconductor Materials and Advanced Integrated Circuit Technology",
   "start_date": "2026-11-27",
   "end_date": "2026-11-29",
-  "date": null,
+  "date": "2026-11-13",
   "content": "2026 International Conference on Semiconductor Materials and Advanced Integrated Circuit Technology",
-  "url": "",
+  "url": "https://ais.cn/u/3Ij6Jv",
   "tags": "해외,반도체,재료",
   "location": "Chongqing, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:192763"
+  "external_id": "wikicfp:192763",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6328,13 +6312,14 @@
   "org": "The 27th Workshop on Synthesis And System Integration of Mixed Information technologies",
   "start_date": "2027-03-15",
   "end_date": "2027-03-16",
-  "date": null,
+  "date": "2026-10-26",
   "content": "The 27th Workshop on Synthesis And System Integration of Mixed Information technologies",
-  "url": "",
+  "url": "https://sasimi.jp/",
   "tags": "해외,반도체",
   "location": "Miyazaki, Japan",
   "source": "wikicfp",
-  "external_id": "wikicfp:201200"
+  "external_id": "wikicfp:201200",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6343,13 +6328,14 @@
   "org": "17th International Conference on VLSI",
   "start_date": "2026-11-27",
   "end_date": "2026-11-28",
-  "date": null,
+  "date": "2026-10-31",
   "content": "17th International Conference on VLSI",
-  "url": "",
+  "url": "https://dppr2026.org/vlsi/index",
   "tags": "해외,반도체",
   "location": "Zurich, Switzerland",
   "source": "wikicfp",
-  "external_id": "wikicfp:194324"
+  "external_id": "wikicfp:194324",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6358,13 +6344,14 @@
   "org": "14th International Conference on Signal, Image Processing and Pattern Recognition",
   "start_date": "2026-11-21",
   "end_date": "2026-11-22",
-  "date": null,
+  "date": "2026-10-31",
   "content": "14th International Conference on Signal, Image Processing and Pattern Recognition",
-  "url": "",
+  "url": "https://ccsit2026.org/sipp/index",
   "tags": "해외,반도체",
   "location": "London, United Kingdom",
   "source": "wikicfp",
-  "external_id": "wikicfp:192361"
+  "external_id": "wikicfp:192361",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6373,13 +6360,14 @@
   "org": "4th International Conference on Blockchain and Applications",
   "start_date": "2026-12-29",
   "end_date": "2026-12-30",
-  "date": null,
+  "date": "2026-10-31",
   "content": "4th International Conference on Blockchain and Applications",
-  "url": "",
+  "url": "https://blkca2026.org/index",
   "tags": "해외,반도체",
   "location": "Virtual Conference",
   "source": "wikicfp",
-  "external_id": "wikicfp:192038"
+  "external_id": "wikicfp:192038",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6388,28 +6376,14 @@
   "org": "3rd International Conference on Education and Artificial Intelligence",
   "start_date": "2026-12-30",
   "end_date": "2026-12-31",
-  "date": null,
+  "date": "2026-10-31",
   "content": "3rd International Conference on Education and Artificial Intelligence",
-  "url": "",
+  "url": "https://eduai2026.org/",
   "tags": "해외,반도체",
   "location": "Virtual Conference",
   "source": "wikicfp",
-  "external_id": "wikicfp:191434"
- },
- {
-  "type": "conf",
-  "field": "eng",
-  "title": "ISRASC 2026",
-  "org": "2026 International Symposium on Robotics, Autonomous Systems and Control",
-  "start_date": "2026-12-18",
-  "end_date": "2026-12-20",
-  "date": null,
-  "content": "2026 International Symposium on Robotics, Autonomous Systems and Control",
-  "url": "",
-  "tags": "해외,로봇",
-  "location": "Guangzhou, China",
-  "source": "wikicfp",
-  "external_id": "wikicfp:204098"
+  "external_id": "wikicfp:191434",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6418,13 +6392,14 @@
   "org": "IEEE 2026 6th International Conference on Mechatronics, Automation and Intelligent Control",
   "start_date": "2026-12-11",
   "end_date": "2026-12-13",
-  "date": null,
+  "date": "2026-10-31",
   "content": "IEEE 2026 6th International Conference on Mechatronics, Automation and Intelligent Control",
-  "url": "",
+  "url": "https://ais.cn/u/ay2mAr",
   "tags": "해외,로봇",
   "location": "Liuzhou, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203860"
+  "external_id": "wikicfp:203860",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6433,13 +6408,14 @@
   "org": "2027 5th International Conference on Mechatronics, Control and Robotics (ICMCR 2027)",
   "start_date": "2027-08-05",
   "end_date": "2027-08-07",
-  "date": null,
+  "date": "2027-03-10",
   "content": "2027 5th International Conference on Mechatronics, Control and Robotics (ICMCR 2027)",
-  "url": "",
+  "url": "https://www.icmcr.org/",
   "tags": "국내개최,로봇",
   "location": "Jeju, South Korea",
   "source": "wikicfp",
-  "external_id": "wikicfp:203831"
+  "external_id": "wikicfp:203831",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6448,13 +6424,14 @@
   "org": "2027 5th International Conference on Control and Robot Technology (ICCRT 2027)",
   "start_date": "2027-06-11",
   "end_date": "2027-06-13",
-  "date": null,
+  "date": "2027-01-20",
   "content": "2027 5th International Conference on Control and Robot Technology (ICCRT 2027)",
-  "url": "",
+  "url": "http://www.iccrt.org",
   "tags": "해외,로봇",
   "location": "Urumqi, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203823"
+  "external_id": "wikicfp:203823",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6463,13 +6440,14 @@
   "org": "2027 12th Asia-Pacific Conference on Intelligent Robot Systems (ACIRS 2027)",
   "start_date": "2027-07-23",
   "end_date": "2027-07-25",
-  "date": null,
+  "date": "2027-03-10",
   "content": "2027 12th Asia-Pacific Conference on Intelligent Robot Systems (ACIRS 2027)",
-  "url": "",
+  "url": "http://www.acirs.org/",
   "tags": "해외,로봇",
   "location": "Hong kong, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203777"
+  "external_id": "wikicfp:203777",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6478,13 +6456,14 @@
   "org": "Springer--2027 10th International Conference on Mechanical Manufacturing and Industrial Engineering (MMIE 2027)",
   "start_date": "2027-08-12",
   "end_date": "2027-08-15",
-  "date": null,
+  "date": "2027-03-25",
   "content": "Springer--2027 10th International Conference on Mechanical Manufacturing and Industrial Engineering (MMIE 2027)",
-  "url": "",
+  "url": "http://www.mmie.org",
   "tags": "해외,로봇",
   "location": "Doshisha University, Kyoto, Japan",
   "source": "wikicfp",
-  "external_id": "wikicfp:203775"
+  "external_id": "wikicfp:203775",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6493,13 +6472,14 @@
   "org": "2027 9th International Conference on Control, Robotics and Informatics (ICCRI 2027)",
   "start_date": "2027-06-24",
   "end_date": "2027-06-26",
-  "date": null,
+  "date": "2027-01-25",
   "content": "2027 9th International Conference on Control, Robotics and Informatics (ICCRI 2027)",
-  "url": "",
+  "url": "https://www.iccri.org/",
   "tags": "해외,로봇",
   "location": "Milan, Italy",
   "source": "wikicfp",
-  "external_id": "wikicfp:203772"
+  "external_id": "wikicfp:203772",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6508,13 +6488,14 @@
   "org": "IEEE 2026 5th International Conference on Aerospace and Control Engineering",
   "start_date": "2026-12-11",
   "end_date": "2026-12-13",
-  "date": null,
+  "date": "2026-10-30",
   "content": "IEEE 2026 5th International Conference on Aerospace and Control Engineering",
-  "url": "",
+  "url": "https://ais.cn/u/AFVBRr",
   "tags": "해외,로봇",
   "location": "Shenzhen, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203755"
+  "external_id": "wikicfp:203755",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6523,13 +6504,14 @@
   "org": "IEEE 2026 3rd International Conference on Intelligent Robotics and Automatic Control",
   "start_date": "2026-12-11",
   "end_date": "2026-12-13",
-  "date": null,
+  "date": "2026-10-30",
   "content": "IEEE 2026 3rd International Conference on Intelligent Robotics and Automatic Control",
-  "url": "",
+  "url": "https://ais.cn/u/M7RFZn",
   "tags": "해외,로봇",
   "location": "Hangzhou,China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203741"
+  "external_id": "wikicfp:203741",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6538,28 +6520,30 @@
   "org": "2027 the 11th International Conference on Mechanical Engineering and Robotics Research (ICMERR 2027)",
   "start_date": "2027-05-10",
   "end_date": "2027-05-12",
-  "date": null,
+  "date": "2026-12-10",
   "content": "2027 the 11th International Conference on Mechanical Engineering and Robotics Research (ICMERR 2027)",
-  "url": "",
+  "url": "https://www.icmerr.com/",
   "tags": "해외,로봇",
   "location": "Paris, France",
   "source": "wikicfp",
-  "external_id": "wikicfp:203680"
+  "external_id": "wikicfp:203680",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
   "field": "eng",
-  "title": "IEEE RSAE 2027",
-  "org": "IEEE--2027 8th International Conference on Robotics Systems and Automation Engineering (RSAE 2027)",
+  "title": "RSAE 2027",
+  "org": "2027 8th International Conference on Robotics Systems and Automation Engineering (RSAE 2027)",
   "start_date": "2027-07-08",
   "end_date": "2027-07-10",
-  "date": null,
-  "content": "IEEE--2027 8th International Conference on Robotics Systems and Automation Engineering (RSAE 2027)",
-  "url": "",
+  "date": "2027-02-20",
+  "content": "2027 8th International Conference on Robotics Systems and Automation Engineering (RSAE 2027)",
+  "url": "https://www.rsae.org/",
   "tags": "해외,로봇",
   "location": "Bangkok, Thailand",
   "source": "wikicfp",
-  "external_id": "wikicfp:203677"
+  "external_id": "wikicfp:203677",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6568,28 +6552,30 @@
   "org": "The Second International Conference on Control, Mechatronics, Robotics, and Machine Vision",
   "start_date": "2027-11-14",
   "end_date": "2027-11-18",
-  "date": null,
+  "date": "2027-07-15",
   "content": "The Second International Conference on Control, Mechatronics, Robotics, and Machine Vision",
-  "url": "",
+  "url": "https://www.dtrsociety.org/cmrmv2027/",
   "tags": "해외,로봇",
   "location": "Barcelona, Spain",
   "source": "wikicfp",
-  "external_id": "wikicfp:203609"
+  "external_id": "wikicfp:203609",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
   "field": "eng",
   "title": "Cross-AI 2026",
-  "org": "Cross-AI International Symposium on Cross-Disciplinary Artificial Intelligence",
+  "org": "International Symposium on Cross-Disciplinary Artificial Intelligence",
   "start_date": "2026-12-14",
   "end_date": "2026-12-16",
-  "date": null,
-  "content": "Cross-AI International Symposium on Cross-Disciplinary Artificial Intelligence",
-  "url": "",
+  "date": "2026-10-26",
+  "content": "International Symposium on Cross-Disciplinary Artificial Intelligence",
+  "url": "https://cross-ai.io/conference/2027/preconf/",
   "tags": "해외,로봇",
   "location": "Online",
   "source": "wikicfp",
-  "external_id": "wikicfp:203587"
+  "external_id": "wikicfp:203587",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6598,13 +6584,14 @@
   "org": "From Capability to Assurance: Trustworthy Humanoid Systems in Human Environments (Humanoids2026’s workshop)",
   "start_date": "2026-12-07",
   "end_date": "2026-12-07",
-  "date": null,
+  "date": "2026-11-15",
   "content": "From Capability to Assurance: Trustworthy Humanoid Systems in Human Environments (Humanoids2026’s workshop)",
-  "url": "",
+  "url": "https://humanoid-safety-assurance.paiagent.ai/humanoids2026/",
   "tags": "해외,로봇",
   "location": "Santa Clara, California",
   "source": "wikicfp",
-  "external_id": "wikicfp:203526"
+  "external_id": "wikicfp:203526",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6613,13 +6600,15 @@
   "org": "FLAIRS-40 Special Track: Embodied AI Agents, Robotics, and IoT",
   "start_date": "2027-05-24",
   "end_date": "2027-05-27",
-  "date": null,
+  "date": "2027-02-01",
   "content": "FLAIRS-40 Special Track: Embodied AI Agents, Robotics, and IoT",
-  "url": "",
+  "url": "https://embodiedaicfp.github.io",
   "tags": "해외,로봇",
   "location": "St. Pete Beach, Florida, USA",
   "source": "wikicfp",
-  "external_id": "wikicfp:203402"
+  "external_id": "wikicfp:203402",
+  "wikicfp_checked": true,
+  "abstract_deadline": "2027-01-22"
  },
  {
   "type": "conf",
@@ -6628,13 +6617,14 @@
   "org": "2026 IEEE 8th International Conference on Robotics, Intelligent Control and Artificial Intelligence",
   "start_date": "2026-11-20",
   "end_date": "2026-11-22",
-  "date": null,
+  "date": "2026-10-30",
   "content": "2026 IEEE 8th International Conference on Robotics, Intelligent Control and Artificial Intelligence",
-  "url": "",
+  "url": "https://ais.cn/u/mQFRNf",
   "tags": "해외,로봇",
   "location": "Shenzhen, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203297"
+  "external_id": "wikicfp:203297",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6643,13 +6633,14 @@
   "org": "SPIE--2027 The 10th International congress on Machine Vision and Applications (ICMVA 2027)",
   "start_date": "2027-06-03",
   "end_date": "2027-06-05",
-  "date": null,
+  "date": "2027-01-10",
   "content": "SPIE--2027 The 10th International congress on Machine Vision and Applications (ICMVA 2027)",
-  "url": "",
+  "url": "https://icmva.org/",
   "tags": "해외,로봇",
   "location": "Singapore",
   "source": "wikicfp",
-  "external_id": "wikicfp:203232"
+  "external_id": "wikicfp:203232",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6658,13 +6649,14 @@
   "org": "2027 6th International Conference on Intelligent Science and Technology (ICIST 2027)",
   "start_date": "2027-08-06",
   "end_date": "2027-08-08",
-  "date": null,
+  "date": "2027-03-05",
   "content": "2027 6th International Conference on Intelligent Science and Technology (ICIST 2027)",
-  "url": "",
+  "url": "http://icist.org/",
   "tags": "해외,로봇",
   "location": "Nanjing, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203227"
+  "external_id": "wikicfp:203227",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6673,13 +6665,30 @@
   "org": "2027 The 8th International Conference on Industrial Engineering and Artificial Intelligence (IEAI 2027)",
   "start_date": "2027-04-28",
   "end_date": "2027-04-30",
-  "date": null,
+  "date": "2026-11-30",
   "content": "2027 The 8th International Conference on Industrial Engineering and Artificial Intelligence (IEAI 2027)",
-  "url": "",
+  "url": "https://ieai.net/",
   "tags": "해외,로봇",
   "location": "Chiang Mai, Thailand",
   "source": "wikicfp",
-  "external_id": "wikicfp:203180"
+  "external_id": "wikicfp:203180",
+  "wikicfp_checked": true
+ },
+ {
+  "type": "conf",
+  "field": "eng",
+  "title": "ICAIRC 2026",
+  "org": "2026 6th International Conference on Artificial Intelligence, Robotics, and Communication",
+  "start_date": "2026-11-13",
+  "end_date": "2026-11-15",
+  "date": "2026-10-30",
+  "content": "2026 6th International Conference on Artificial Intelligence, Robotics, and Communication",
+  "url": "https://ais.cn/u/m6N7Zv",
+  "tags": "해외,로봇",
+  "location": "Xiamen,China",
+  "source": "wikicfp",
+  "external_id": "wikicfp:203084",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6688,13 +6697,14 @@
   "org": "Transgender Ecology",
   "start_date": "2026-11-15",
   "end_date": "2026-11-15",
-  "date": null,
+  "date": "2026-11-15",
   "content": "Transgender Ecology",
   "url": "",
   "tags": "해외,의학",
   "location": "",
   "source": "wikicfp",
-  "external_id": "wikicfp:204070"
+  "external_id": "wikicfp:204070",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6703,13 +6713,15 @@
   "org": "25th International Conference on Artificial Intelligence in Medicine",
   "start_date": "2027-07-05",
   "end_date": "2027-07-08",
-  "date": null,
+  "date": "2027-02-07",
   "content": "25th International Conference on Artificial Intelligence in Medicine",
-  "url": "",
+  "url": "https://aime27.aimedicine.info/",
   "tags": "해외,의학",
   "location": "Amsterdam, the Netherlands",
   "source": "wikicfp",
-  "external_id": "wikicfp:203986"
+  "external_id": "wikicfp:203986",
+  "wikicfp_checked": true,
+  "abstract_deadline": "2027-01-31"
  },
  {
   "type": "conf",
@@ -6718,13 +6730,14 @@
   "org": "2027 12th International Conference on Pharmacy and Pharmaceutical Science (ICPPS 2027)",
   "start_date": "2027-08-20",
   "end_date": "2027-08-23",
-  "date": null,
+  "date": "2027-02-20",
   "content": "2027 12th International Conference on Pharmacy and Pharmaceutical Science (ICPPS 2027)",
-  "url": "",
+  "url": "http://www.icpps.org",
   "tags": "해외,의학",
   "location": "Tokyo, Japan",
   "source": "wikicfp",
-  "external_id": "wikicfp:202560"
+  "external_id": "wikicfp:202560",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6733,13 +6746,14 @@
   "org": "IEEE--2027 17th International Conference on Biomedical Engineering and Technology (ICBET 2027)",
   "start_date": "2027-08-20",
   "end_date": "2027-08-23",
-  "date": null,
+  "date": "2027-02-20",
   "content": "IEEE--2027 17th International Conference on Biomedical Engineering and Technology (ICBET 2027)",
-  "url": "",
+  "url": "http://www.icbet.org",
   "tags": "해외,의학",
   "location": "Tokyo, Japan",
   "source": "wikicfp",
-  "external_id": "wikicfp:202558"
+  "external_id": "wikicfp:202558",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6748,13 +6762,14 @@
   "org": "2027 19th International Conference on Bioinformatics and Biomedical Technology (ICBBT 2027)",
   "start_date": "2027-05-21",
   "end_date": "2027-05-24",
-  "date": null,
+  "date": "2026-11-30",
   "content": "2027 19th International Conference on Bioinformatics and Biomedical Technology (ICBBT 2027)",
-  "url": "",
+  "url": "http://www.icbbt.org/",
   "tags": "해외,의학",
   "location": "Qingdao, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:201538"
+  "external_id": "wikicfp:201538",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6763,13 +6778,14 @@
   "org": "ACM--2027 11th International Conference on Medical and Health Informatics (ICMHI 2027)",
   "start_date": "2027-05-28",
   "end_date": "2027-05-30",
-  "date": null,
+  "date": "2026-12-10",
   "content": "ACM--2027 11th International Conference on Medical and Health Informatics (ICMHI 2027)",
-  "url": "",
+  "url": "http://www.icmhi.org/",
   "tags": "해외,의학",
   "location": "Kyoto, Japan",
   "source": "wikicfp",
-  "external_id": "wikicfp:201231"
+  "external_id": "wikicfp:201231",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6778,13 +6794,14 @@
   "org": "2027 9th International Conference on Intelligent Medicine and Image Processing (IMIP 2027)",
   "start_date": "2027-04-23",
   "end_date": "2027-04-26",
-  "date": null,
+  "date": "2026-11-10",
   "content": "2027 9th International Conference on Intelligent Medicine and Image Processing (IMIP 2027)",
-  "url": "",
+  "url": "http://www.imip.org/",
   "tags": "국내개최,의학",
   "location": "Seoul, South Korea",
   "source": "wikicfp",
-  "external_id": "wikicfp:201222"
+  "external_id": "wikicfp:201222",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6793,13 +6810,14 @@
   "org": "IEEE--2027 11th International Conference on Biomedical Engineering and Applications (ICBEA 2027)",
   "start_date": "2027-03-26",
   "end_date": "2027-03-29",
-  "date": null,
+  "date": "2026-11-20",
   "content": "IEEE--2027 11th International Conference on Biomedical Engineering and Applications (ICBEA 2027)",
-  "url": "",
+  "url": "https://www.icbea.org/",
   "tags": "해외,의학",
   "location": "Xi'an, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:199498"
+  "external_id": "wikicfp:199498",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6808,13 +6826,14 @@
   "org": "2027 16th International Conference on Chemistry and Chemical Process (ICCCP 2027)",
   "start_date": "2027-03-03",
   "end_date": "2027-03-05",
-  "date": null,
+  "date": "2026-11-20",
   "content": "2027 16th International Conference on Chemistry and Chemical Process (ICCCP 2027)",
-  "url": "",
+  "url": "https://www.icccp.org",
   "tags": "해외,의학,화학",
   "location": "Sapporo, Japan",
   "source": "wikicfp",
-  "external_id": "wikicfp:199495"
+  "external_id": "wikicfp:199495",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6823,13 +6842,14 @@
   "org": "2026 8th International Conference on Advanced Bioinformatics and Biomedical Engineering (ICABB 2026)",
   "start_date": "2026-11-13",
   "end_date": "2026-11-15",
-  "date": null,
+  "date": "2026-09-30",
   "content": "2026 8th International Conference on Advanced Bioinformatics and Biomedical Engineering (ICABB 2026)",
-  "url": "",
+  "url": "http://www.icabb.org/",
   "tags": "해외,의학",
   "location": "Bangkok, Thailand",
   "source": "wikicfp",
-  "external_id": "wikicfp:194991"
+  "external_id": "wikicfp:194991",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6838,13 +6858,14 @@
   "org": "ACM--2026 13th International Conference on Biomedical and Bioinformatics Engineering (ICBBE 2026)",
   "start_date": "2026-12-25",
   "end_date": "2026-12-28",
-  "date": null,
+  "date": "2026-10-30",
   "content": "ACM--2026 13th International Conference on Biomedical and Bioinformatics Engineering (ICBBE 2026)",
-  "url": "",
+  "url": "http://www.icbbe.com",
   "tags": "해외,의학",
   "location": "Hokkaido, Japan",
   "source": "wikicfp",
-  "external_id": "wikicfp:192954"
+  "external_id": "wikicfp:192954",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6853,13 +6874,14 @@
   "org": "ACM--2026 9th International Conference on Digital Medicine and Image Processing (DMIP 2026)",
   "start_date": "2026-12-25",
   "end_date": "2026-12-28",
-  "date": null,
+  "date": "2026-10-30",
   "content": "ACM--2026 9th International Conference on Digital Medicine and Image Processing (DMIP 2026)",
-  "url": "",
+  "url": "http://www.dmip.org/",
   "tags": "해외,의학",
   "location": "Sapporo, Japan",
   "source": "wikicfp",
-  "external_id": "wikicfp:192952"
+  "external_id": "wikicfp:192952",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6868,13 +6890,14 @@
   "org": "2027 12th International Conference on Biomedical Signal and Image Processing (ICBIP 2027)",
   "start_date": "2027-07-16",
   "end_date": "2027-07-18",
-  "date": null,
+  "date": "2027-01-25",
   "content": "2027 12th International Conference on Biomedical Signal and Image Processing (ICBIP 2027)",
-  "url": "",
+  "url": "http://www.icbip.org/",
   "tags": "국내개최,의학",
   "location": "Jeju Island, South Korea",
   "source": "wikicfp",
-  "external_id": "wikicfp:203762"
+  "external_id": "wikicfp:203762",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6883,13 +6906,14 @@
   "org": "Vision for Biomedical Discovery (CVPath + Vision4Neuro) @ WACV2027",
   "start_date": "2027-01-04",
   "end_date": "2027-01-05",
-  "date": null,
+  "date": "2026-10-16",
   "content": "Vision for Biomedical Discovery (CVPath + Vision4Neuro) @ WACV2027",
-  "url": "",
+  "url": "https://cvpath-vision4neuro.github.io/wacv2027/",
   "tags": "해외,의학",
   "location": "Oralndo, Florida, USA",
   "source": "wikicfp",
-  "external_id": "wikicfp:203051"
+  "external_id": "wikicfp:203051",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6898,13 +6922,14 @@
   "org": "2026 2nd International Conference on Medical Image Processing and Recognition",
   "start_date": "2026-11-27",
   "end_date": "2026-11-29",
-  "date": null,
+  "date": "2026-11-13",
   "content": "2026 2nd International Conference on Medical Image Processing and Recognition",
-  "url": "",
+  "url": "https://www.aischolar.com/u/UVnuam",
   "tags": "해외,의학",
   "location": "Kuala Lumpur, Malaysia",
   "source": "wikicfp",
-  "external_id": "wikicfp:202870"
+  "external_id": "wikicfp:202870",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6913,13 +6938,14 @@
   "org": "IEEE--2027 17th International Conference on Biomedical Engineering and Technology (ICBET 2027)",
   "start_date": "2027-08-20",
   "end_date": "2027-08-23",
-  "date": null,
+  "date": "2027-02-20",
   "content": "IEEE--2027 17th International Conference on Biomedical Engineering and Technology (ICBET 2027)",
-  "url": "",
+  "url": "http://www.icbet.org",
   "tags": "해외,의학",
   "location": "Tokyo, Japan",
   "source": "wikicfp",
-  "external_id": "wikicfp:202559"
+  "external_id": "wikicfp:202559",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6928,13 +6954,14 @@
   "org": "2027 9th International Conference on Intelligent Medicine and Image Processing (IMIP 2027)",
   "start_date": "2027-04-23",
   "end_date": "2027-04-26",
-  "date": null,
+  "date": "2026-11-10",
   "content": "2027 9th International Conference on Intelligent Medicine and Image Processing (IMIP 2027)",
-  "url": "",
+  "url": "http://www.imip.org/",
   "tags": "국내개최,의학",
   "location": "Seoul, South Korea",
   "source": "wikicfp",
-  "external_id": "wikicfp:201223"
+  "external_id": "wikicfp:201223",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6943,13 +6970,14 @@
   "org": "14th International Conference on Bioimaging",
   "start_date": "2027-02-19",
   "end_date": "2027-02-21",
-  "date": null,
+  "date": "2026-11-29",
   "content": "14th International Conference on Bioimaging",
-  "url": "",
+  "url": "https://bioimaging.scitevents.org",
   "tags": "해외,의학",
   "location": "Valletta, Malta",
   "source": "wikicfp",
-  "external_id": "wikicfp:200097"
+  "external_id": "wikicfp:200097",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6958,13 +6986,14 @@
   "org": "SPIE--2027 12th International Conference on Multimedia and Image Processing (ICMIP 2027)",
   "start_date": "2027-03-27",
   "end_date": "2027-03-30",
-  "date": null,
+  "date": "2026-12-05",
   "content": "SPIE--2027 12th International Conference on Multimedia and Image Processing (ICMIP 2027)",
-  "url": "",
+  "url": "http://www.icmip.org/",
   "tags": "해외,의학",
   "location": "Nagoya, Japan",
   "source": "wikicfp",
-  "external_id": "wikicfp:199955"
+  "external_id": "wikicfp:199955",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6973,13 +7002,14 @@
   "org": "IEEE--2027 11th International Conference on Biomedical Engineering and Applications (ICBEA 2027)",
   "start_date": "2027-03-26",
   "end_date": "2027-03-29",
-  "date": null,
+  "date": "2026-11-20",
   "content": "IEEE--2027 11th International Conference on Biomedical Engineering and Applications (ICBEA 2027)",
-  "url": "",
+  "url": "https://www.icbea.org/",
   "tags": "해외,의학",
   "location": "Xi'an, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:199499"
+  "external_id": "wikicfp:199499",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6988,13 +7018,14 @@
   "org": "22nd International Symposium on Medical Information Processing and Analysis",
   "start_date": "2026-11-18",
   "end_date": "2026-11-20",
-  "date": null,
+  "date": "2026-07-09",
   "content": "22nd International Symposium on Medical Information Processing and Analysis",
-  "url": "",
+  "url": "https://sipaim.org/",
   "tags": "해외,의학",
   "location": "Lima, Perú",
   "source": "wikicfp",
-  "external_id": "wikicfp:195391"
+  "external_id": "wikicfp:195391",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7003,13 +7034,14 @@
   "org": "2026 8th International Conference on Advanced Bioinformatics and Biomedical Engineering (ICABB 2026)",
   "start_date": "2026-11-13",
   "end_date": "2026-11-15",
-  "date": null,
+  "date": "2026-09-30",
   "content": "2026 8th International Conference on Advanced Bioinformatics and Biomedical Engineering (ICABB 2026)",
-  "url": "",
+  "url": "http://www.icabb.org/",
   "tags": "해외,의학",
   "location": "Bangkok, Thailand",
   "source": "wikicfp",
-  "external_id": "wikicfp:194992"
+  "external_id": "wikicfp:194992",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7018,28 +7050,14 @@
   "org": "Advanced Concepts for Intelligent Vision Systems",
   "start_date": "2026-12-15",
   "end_date": "2026-12-17",
-  "date": null,
+  "date": "2026-06-22",
   "content": "Advanced Concepts for Intelligent Vision Systems",
-  "url": "",
+  "url": "https://www.acivs2026.com/",
   "tags": "해외,의학",
   "location": "Okinawa, Japan",
   "source": "wikicfp",
-  "external_id": "wikicfp:192279"
- },
- {
-  "type": "conf",
-  "field": "bio",
-  "title": "ICHIH 2026",
-  "org": "2026 5th International Conference on Health Big Data and Intelligent Healthcare",
-  "start_date": "2026-12-25",
-  "end_date": "2026-12-27",
-  "date": null,
-  "content": "2026 5th International Conference on Health Big Data and Intelligent Healthcare",
-  "url": "",
-  "tags": "해외,의학",
-  "location": "Hangzhou, China",
-  "source": "wikicfp",
-  "external_id": "wikicfp:204131"
+  "external_id": "wikicfp:192279",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7048,13 +7066,14 @@
   "org": "2nd International Conference on Artificial Intelligence and Blockchain in Healthcare",
   "start_date": "2027-07-22",
   "end_date": "2027-07-23",
-  "date": null,
+  "date": "2027-02-16",
   "content": "2nd International Conference on Artificial Intelligence and Blockchain in Healthcare",
-  "url": "",
+  "url": "https://abh.scitevents.org/Home.aspx",
   "tags": "해외,의학",
   "location": "Rome, Italy",
   "source": "wikicfp",
-  "external_id": "wikicfp:203048"
+  "external_id": "wikicfp:203048",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7063,13 +7082,14 @@
   "org": "13th International Conference on Information and Communication Technologies for Ageing Well and e-Health",
   "start_date": "2027-04-19",
   "end_date": "2027-04-21",
-  "date": null,
+  "date": "2026-11-17",
   "content": "13th International Conference on Information and Communication Technologies for Ageing Well and e-Health",
-  "url": "",
+  "url": "https://ict4awe.scitevents.org/",
   "tags": "해외,의학",
   "location": "Rome, Italy",
   "source": "wikicfp",
-  "external_id": "wikicfp:201737"
+  "external_id": "wikicfp:201737",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7078,13 +7098,14 @@
   "org": "2027 10th International Conference on Healthcare Service Management (ICHSM 2027)",
   "start_date": "2027-01-08",
   "end_date": "2027-01-10",
-  "date": null,
+  "date": "2026-11-15",
   "content": "2027 10th International Conference on Healthcare Service Management (ICHSM 2027)",
-  "url": "",
+  "url": "https://ichsm.org/2027",
   "tags": "해외,의학",
   "location": "Chiang Mai, Thailand",
   "source": "wikicfp",
-  "external_id": "wikicfp:200165"
+  "external_id": "wikicfp:200165",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7093,13 +7114,14 @@
   "org": "2026 International Conference on Artificial Intelligence and Smart Health",
   "start_date": "2026-11-27",
   "end_date": "2026-11-29",
-  "date": null,
+  "date": "2026-10-30",
   "content": "2026 International Conference on Artificial Intelligence and Smart Health",
-  "url": "",
+  "url": "https://ais.cn/u/Yveaya",
   "tags": "해외,의학",
   "location": "Hangzhou, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:199881"
+  "external_id": "wikicfp:199881",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7110,11 +7132,12 @@
   "end_date": "2027-02-05",
   "date": null,
   "content": "1st International School on Generative & Multimodal AI for Healthcare",
-  "url": "",
+  "url": "https://gemaihc.irdta.eu/2027/",
   "tags": "해외,의학",
   "location": "Milan, Italy",
   "source": "wikicfp",
-  "external_id": "wikicfp:199635"
+  "external_id": "wikicfp:199635",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7123,13 +7146,14 @@
   "org": "11th International Conference on Software Engineering and Applications",
   "start_date": "2027-01-23",
   "end_date": "2027-01-24",
-  "date": null,
+  "date": "2026-10-31",
   "content": "11th International Conference on Software Engineering and Applications",
-  "url": "",
+  "url": "https://net2027.org/soea/index",
   "tags": "해외,의학",
   "location": "Zurich, Switzerland",
   "source": "wikicfp",
-  "external_id": "wikicfp:195388"
+  "external_id": "wikicfp:195388",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7138,13 +7162,14 @@
   "org": "9th Special Session on HealthCare Data @ IEEE BigData 2026",
   "start_date": "2026-12-14",
   "end_date": "2026-12-17",
-  "date": null,
+  "date": "2026-08-29",
   "content": "9th Special Session on HealthCare Data @ IEEE BigData 2026",
-  "url": "",
+  "url": "https://bigdataieee.org/BigData2026/calls/special-healthcare/",
   "tags": "해외,의학",
   "location": "Phoenix, Arizona, USA.",
   "source": "wikicfp",
-  "external_id": "wikicfp:195266"
+  "external_id": "wikicfp:195266",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7153,13 +7178,14 @@
   "org": "2027 12th International Conference on Biomedical Signal and Image Processing (ICBIP 2027)",
   "start_date": "2027-07-16",
   "end_date": "2027-07-18",
-  "date": null,
+  "date": "2027-01-25",
   "content": "2027 12th International Conference on Biomedical Signal and Image Processing (ICBIP 2027)",
-  "url": "",
+  "url": "http://www.icbip.org/",
   "tags": "국내개최,생물정보학,의학",
   "location": "Jeju Island, South Korea",
   "source": "wikicfp",
-  "external_id": "wikicfp:203774"
+  "external_id": "wikicfp:203774",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7168,13 +7194,14 @@
   "org": "15th International Conference on Intelligent Control and Information Processing",
   "start_date": "2027-02-08",
   "end_date": "2027-02-14",
-  "date": null,
+  "date": "2026-10-20",
   "content": "15th International Conference on Intelligent Control and Information Processing",
-  "url": "",
+  "url": "https://conference.cs.cityu.edu.hk/icicip/",
   "tags": "해외,생물정보학",
   "location": "Vientiane and Luang Prabang, Laos",
   "source": "wikicfp",
-  "external_id": "wikicfp:203242"
+  "external_id": "wikicfp:203242",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7183,13 +7210,14 @@
   "org": "2027 5th Asia Conference on Advances in Image Processing (AAIP 2027)",
   "start_date": "2027-06-25",
   "end_date": "2027-06-27",
-  "date": null,
+  "date": "2027-01-20",
   "content": "2027 5th Asia Conference on Advances in Image Processing (AAIP 2027)",
-  "url": "",
+  "url": "http://www.aaip.net/",
   "tags": "해외,생물정보학",
   "location": "Shanghai, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:202566"
+  "external_id": "wikicfp:202566",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7198,13 +7226,14 @@
   "org": "4th IEEE International Conference on Medical Artificial Intelligence",
   "start_date": "2026-11-20",
   "end_date": "2026-11-22",
-  "date": null,
+  "date": "2026-08-15",
   "content": "4th IEEE International Conference on Medical Artificial Intelligence",
-  "url": "",
+  "url": "https://medai2026.zzuli.edu.cn/",
   "tags": "해외,생물정보학,의학",
   "location": "Zhengzhou, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:201417"
+  "external_id": "wikicfp:201417",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7213,13 +7242,14 @@
   "org": "11th International Conference on Software Engineering",
   "start_date": "2026-11-21",
   "end_date": "2026-11-22",
-  "date": null,
+  "date": "2026-10-31",
   "content": "11th International Conference on Software Engineering",
-  "url": "",
+  "url": "https://soen2026.org/index",
   "tags": "해외,생물정보학",
   "location": "London, United Kingdom",
   "source": "wikicfp",
-  "external_id": "wikicfp:201306"
+  "external_id": "wikicfp:201306",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7228,13 +7258,14 @@
   "org": "IEEE BIBM 2026 Undergraduate and High School Symposium",
   "start_date": "2026-12-01",
   "end_date": "2026-12-04",
-  "date": null,
+  "date": "2026-08-31",
   "content": "IEEE BIBM 2026 Undergraduate and High School Symposium",
-  "url": "",
+  "url": "https://bibm2026-hs.github.io/#dates",
   "tags": "해외,생물정보학",
   "location": "Dallas",
   "source": "wikicfp",
-  "external_id": "wikicfp:201248"
+  "external_id": "wikicfp:201248",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7243,13 +7274,14 @@
   "org": "18th International Conference on Bioinformatics Models, Methods and Algorithms",
   "start_date": "2027-02-19",
   "end_date": "2027-02-21",
-  "date": null,
+  "date": "2026-11-29",
   "content": "18th International Conference on Bioinformatics Models, Methods and Algorithms",
-  "url": "",
+  "url": "https://bioinformatics.scitevents.org",
   "tags": "해외,생물정보학",
   "location": "Valletta, Malta",
   "source": "wikicfp",
-  "external_id": "wikicfp:200094"
+  "external_id": "wikicfp:200094",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7258,13 +7290,30 @@
   "org": "IEEE--2027 15th International Conference on Bioinformatics and Computational Biology (ICBCB 2027)",
   "start_date": "2027-03-26",
   "end_date": "2027-03-29",
-  "date": null,
+  "date": "2026-11-20",
   "content": "IEEE--2027 15th International Conference on Bioinformatics and Computational Biology (ICBCB 2027)",
-  "url": "",
+  "url": "http://www.icbcb.org",
   "tags": "해외,생물정보학",
   "location": "Xi'an, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:199496"
+  "external_id": "wikicfp:199496",
+  "wikicfp_checked": true
+ },
+ {
+  "type": "conf",
+  "field": "bio",
+  "title": "DSA 2026",
+  "org": "7th International Conference on Data Science and Applications",
+  "start_date": "2026-11-27",
+  "end_date": "2026-11-28",
+  "date": "2026-10-31",
+  "content": "7th International Conference on Data Science and Applications",
+  "url": "https://aiaa2026.org/dsa/index",
+  "tags": "해외,생물정보학",
+  "location": "Zurich, Switzerland",
+  "source": "wikicfp",
+  "external_id": "wikicfp:195439",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7273,13 +7322,14 @@
   "org": "Chapters Integrating Ecological and Transgender Issues",
   "start_date": "2026-11-15",
   "end_date": "2026-11-15",
-  "date": null,
+  "date": "2026-11-15",
   "content": "Chapters Integrating Ecological and Transgender Issues",
   "url": "",
   "tags": "해외,생명과학",
   "location": "",
   "source": "wikicfp",
-  "external_id": "wikicfp:203637"
+  "external_id": "wikicfp:203637",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7288,13 +7338,14 @@
   "org": "Chapters Integrating Transgender and Environmental Issues",
   "start_date": "2026-11-15",
   "end_date": "2026-11-15",
-  "date": null,
+  "date": "2026-11-15",
   "content": "Chapters Integrating Transgender and Environmental Issues",
   "url": "",
   "tags": "해외,생명과학",
   "location": "",
   "source": "wikicfp",
-  "external_id": "wikicfp:203567"
+  "external_id": "wikicfp:203567",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7303,13 +7354,15 @@
   "org": "Annual International Conference on Frontiers in Plant Science",
   "start_date": "2027-05-17",
   "end_date": "2027-05-19",
-  "date": null,
+  "date": "2027-03-17",
   "content": "Annual International Conference on Frontiers in Plant Science",
-  "url": "",
+  "url": "https://aicfps2027.synergiasummits.com/",
   "tags": "해외,생명과학",
   "location": "Paris france",
   "source": "wikicfp",
-  "external_id": "wikicfp:199464"
+  "external_id": "wikicfp:199464",
+  "wikicfp_checked": true,
+  "abstract_deadline": "2026-12-31"
  },
  {
   "type": "conf",
@@ -7318,13 +7371,14 @@
   "org": "2027 14th International Conference on Asia Agriculture and Animal (ICAAA 2027)",
   "start_date": "2027-01-08",
   "end_date": "2027-01-10",
-  "date": null,
+  "date": "2026-11-20",
   "content": "2027 14th International Conference on Asia Agriculture and Animal (ICAAA 2027)",
-  "url": "",
+  "url": "https://www.icaaa.org/",
   "tags": "해외,생명과학",
   "location": "Fukuoka, Japan",
   "source": "wikicfp",
-  "external_id": "wikicfp:195419"
+  "external_id": "wikicfp:195419",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7333,13 +7387,14 @@
   "org": "2027 14th International Conference on Chemical and Biological Sciences (ICCBS 2027)",
   "start_date": "2027-04-02",
   "end_date": "2027-04-05",
-  "date": null,
+  "date": "2026-11-15",
   "content": "2027 14th International Conference on Chemical and Biological Sciences (ICCBS 2027)",
-  "url": "",
+  "url": "http://www.iccbs.org",
   "tags": "해외,생명과학,화학",
   "location": "Kyoto University (Yoshida Campus), Japan",
   "source": "wikicfp",
-  "external_id": "wikicfp:195281"
+  "external_id": "wikicfp:195281",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7348,13 +7403,14 @@
   "org": "2027 17th International Conference on Bioscience, Biochemistry and Bioinformatics (ICBBB 2027)",
   "start_date": "2027-01-15",
   "end_date": "2027-01-18",
-  "date": null,
+  "date": "2026-11-25",
   "content": "2027 17th International Conference on Bioscience, Biochemistry and Bioinformatics (ICBBB 2027)",
-  "url": "",
+  "url": "http://icbbb.org/",
   "tags": "해외,생명과학,화학",
   "location": "Osaka, Japan",
   "source": "wikicfp",
-  "external_id": "wikicfp:194947"
+  "external_id": "wikicfp:194947",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7363,13 +7419,14 @@
   "org": "ACM--2026 13th International Conference on Biomedical and Bioinformatics Engineering (ICBBE 2026)",
   "start_date": "2026-12-25",
   "end_date": "2026-12-28",
-  "date": null,
+  "date": "2026-10-30",
   "content": "ACM--2026 13th International Conference on Biomedical and Bioinformatics Engineering (ICBBE 2026)",
-  "url": "",
+  "url": "http://www.icbbe.com",
   "tags": "해외,생명과학,의학",
   "location": "Hokkaido, Japan",
   "source": "wikicfp",
-  "external_id": "wikicfp:192955"
+  "external_id": "wikicfp:192955",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7378,13 +7435,14 @@
   "org": "3rd International Conference on Computer Science, Engineering and AI",
   "start_date": "2026-12-30",
   "end_date": "2026-12-31",
-  "date": null,
+  "date": "2026-10-31",
   "content": "3rd International Conference on Computer Science, Engineering and AI",
-  "url": "",
+  "url": "https://ccseai2026.org/",
   "tags": "해외,생명과학",
   "location": "Virtual Conference",
   "source": "wikicfp",
-  "external_id": "wikicfp:191506"
+  "external_id": "wikicfp:191506",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7393,13 +7451,14 @@
   "org": "2027 IEEE the 15th International Conference on Smart Energy Grid Engineering (SEGE 2027)",
   "start_date": "2027-08-17",
   "end_date": "2027-08-19",
-  "date": null,
+  "date": "2027-03-05",
   "content": "2027 IEEE the 15th International Conference on Smart Energy Grid Engineering (SEGE 2027)",
-  "url": "",
+  "url": "https://www.ieee-sege.com/",
   "tags": "해외,공학",
   "location": "Ontario Tech University, Oshawa, Canada",
   "source": "wikicfp",
-  "external_id": "wikicfp:203931"
+  "external_id": "wikicfp:203931",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7408,13 +7467,14 @@
   "org": "IEEE--2027 15th International Conference on Traffic and Logistic Engineering (ICTLE 2027)",
   "start_date": "2027-08-20",
   "end_date": "2027-08-22",
-  "date": null,
+  "date": "2027-03-10",
   "content": "IEEE--2027 15th International Conference on Traffic and Logistic Engineering (ICTLE 2027)",
-  "url": "",
+  "url": "http://www.ictle.org",
   "tags": "해외,공학",
   "location": "Macau, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203836"
+  "external_id": "wikicfp:203836",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7423,13 +7483,14 @@
   "org": "2027 5th International Conference on Mechatronics, Control and Robotics (ICMCR 2027)",
   "start_date": "2027-08-05",
   "end_date": "2027-08-07",
-  "date": null,
+  "date": "2027-03-10",
   "content": "2027 5th International Conference on Mechatronics, Control and Robotics (ICMCR 2027)",
-  "url": "",
+  "url": "https://www.icmcr.org/",
   "tags": "국내개최,공학,로봇",
   "location": "Jeju, South Korea",
   "source": "wikicfp",
-  "external_id": "wikicfp:203832"
+  "external_id": "wikicfp:203832",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7438,13 +7499,14 @@
   "org": "2027 4th Asia Conference on Electronics Engineering (ACEE 2027)",
   "start_date": "2027-07-09",
   "end_date": "2027-07-11",
-  "date": null,
+  "date": "2027-02-15",
   "content": "2027 4th Asia Conference on Electronics Engineering (ACEE 2027)",
-  "url": "",
+  "url": "http://www.acee.net",
   "tags": "해외,공학",
   "location": "Chengdu, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203770"
+  "external_id": "wikicfp:203770",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7453,13 +7515,14 @@
   "org": "2027 the 11th International Conference on Mechanical Engineering and Robotics Research (ICMERR 2027)",
   "start_date": "2027-05-10",
   "end_date": "2027-05-12",
-  "date": null,
+  "date": "2026-12-10",
   "content": "2027 the 11th International Conference on Mechanical Engineering and Robotics Research (ICMERR 2027)",
-  "url": "",
+  "url": "https://www.icmerr.com/",
   "tags": "해외,공학,로봇",
   "location": "Paris, France",
   "source": "wikicfp",
-  "external_id": "wikicfp:203681"
+  "external_id": "wikicfp:203681",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7468,13 +7531,14 @@
   "org": "2027 the 16th International Conference on Engineering and Innovative Materials (ICEIM 2027)",
   "start_date": "2027-09-02",
   "end_date": "2027-09-04",
-  "date": null,
+  "date": "2027-04-05",
   "content": "2027 the 16th International Conference on Engineering and Innovative Materials (ICEIM 2027)",
-  "url": "",
+  "url": "http://www.iceim.org",
   "tags": "해외,공학,재료",
   "location": "Sapporo, Japan",
   "source": "wikicfp",
-  "external_id": "wikicfp:203679"
+  "external_id": "wikicfp:203679",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7483,13 +7547,14 @@
   "org": "2027 16th International Conference on Environment, Energy and Biotechnology (ICEEB 2027)",
   "start_date": "2027-07-22",
   "end_date": "2027-07-24",
-  "date": null,
+  "date": "2027-02-25",
   "content": "2027 16th International Conference on Environment, Energy and Biotechnology (ICEEB 2027)",
-  "url": "",
+  "url": "http://www.iceeb.org",
   "tags": "국내개최,공학",
   "location": "Seoul, South Korea",
   "source": "wikicfp",
-  "external_id": "wikicfp:203674"
+  "external_id": "wikicfp:203674",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7498,13 +7563,14 @@
   "org": "16th International Conference on Computer Science and Information Technology",
   "start_date": "2026-11-21",
   "end_date": "2026-11-22",
-  "date": null,
+  "date": "2026-10-31",
   "content": "16th International Conference on Computer Science and Information Technology",
-  "url": "",
+  "url": "https://ccsit2026.org/",
   "tags": "해외,공학",
   "location": "London, United Kingdom",
   "source": "wikicfp",
-  "external_id": "wikicfp:203625"
+  "external_id": "wikicfp:203625",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7513,13 +7579,14 @@
   "org": "The First International Conference on Building and Testing AI-supported Systems",
   "start_date": "2027-06-13",
   "end_date": "2027-06-17",
-  "date": null,
+  "date": "2027-03-04",
   "content": "The First International Conference on Building and Testing AI-supported Systems",
-  "url": "",
+  "url": "https://www.dtrsociety.org/sysai2027/",
   "tags": "해외,공학",
   "location": "Nice, France",
   "source": "wikicfp",
-  "external_id": "wikicfp:203601"
+  "external_id": "wikicfp:203601",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7528,13 +7595,14 @@
   "org": "The First International Conference on Experience, Practice, and Innovation in AI Professional Competencies",
   "start_date": "2027-06-13",
   "end_date": "2027-06-17",
-  "date": null,
+  "date": "2027-03-04",
   "content": "The First International Conference on Experience, Practice, and Innovation in AI Professional Competencies",
-  "url": "",
+  "url": "https://www.dtrsociety.org/epicai2027/",
   "tags": "해외,공학",
   "location": "Nice, France",
   "source": "wikicfp",
-  "external_id": "wikicfp:203597"
+  "external_id": "wikicfp:203597",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7543,13 +7611,14 @@
   "org": "EuroSimE 2027",
   "start_date": "2027-04-11",
   "end_date": "2027-04-14",
-  "date": null,
+  "date": "2026-10-26",
   "content": "EuroSimE 2027",
-  "url": "",
+  "url": "https://www.eurosime.org/",
   "tags": "해외,공학",
   "location": "Regensburg, Germany",
   "source": "wikicfp",
-  "external_id": "wikicfp:203591"
+  "external_id": "wikicfp:203591",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7558,13 +7627,14 @@
   "org": "2026 9th International Conference on Civil Architecture, Hydropower and Engineering Management",
   "start_date": "2026-12-04",
   "end_date": "2026-12-06",
-  "date": null,
+  "date": "2026-11-20",
   "content": "2026 9th International Conference on Civil Architecture, Hydropower and Engineering Management",
-  "url": "",
+  "url": "https://www.aischolar.com/u/memyQn",
   "tags": "해외,공학",
   "location": "Kunming, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203470"
+  "external_id": "wikicfp:203470",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7573,13 +7643,14 @@
   "org": "Springer--2027 12th International Conference on Civil Engineering and Materials Science (ICCEMS 2027)",
   "start_date": "2027-07-05",
   "end_date": "2027-07-09",
-  "date": null,
+  "date": "2027-02-15",
   "content": "Springer--2027 12th International Conference on Civil Engineering and Materials Science (ICCEMS 2027)",
-  "url": "",
+  "url": "https://www.iccem.org",
   "tags": "해외,공학,재료",
   "location": "Colombo, Sri Lanka",
   "source": "wikicfp",
-  "external_id": "wikicfp:203386"
+  "external_id": "wikicfp:203386",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7588,13 +7659,14 @@
   "org": "2027 The 8th International Conference on Industrial Engineering and Artificial Intelligence (IEAI 2027)",
   "start_date": "2027-04-28",
   "end_date": "2027-04-30",
-  "date": null,
+  "date": "2026-11-30",
   "content": "2027 The 8th International Conference on Industrial Engineering and Artificial Intelligence (IEAI 2027)",
-  "url": "",
+  "url": "https://ieai.net/",
   "tags": "해외,공학",
   "location": "Chiang Mai, Thailand",
   "source": "wikicfp",
-  "external_id": "wikicfp:203179"
+  "external_id": "wikicfp:203179",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7603,13 +7675,14 @@
   "org": "CFP: Mathematics & Engineering in Popular Culture: Southwest Popular / American Culture Association (SWPACA)",
   "start_date": "2027-02-17",
   "end_date": "2027-02-20",
-  "date": null,
+  "date": "2026-10-31",
   "content": "CFP: Mathematics & Engineering in Popular Culture: Southwest Popular / American Culture Association (SWPACA)",
-  "url": "",
+  "url": "https://www.southwestpca.orgSu",
   "tags": "해외,공학",
   "location": "Albuquerque, New Mexico",
   "source": "wikicfp",
-  "external_id": "wikicfp:203052"
+  "external_id": "wikicfp:203052",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7618,13 +7691,14 @@
   "org": "2027 The 11th International Conference on Materials Sciences and Nanomaterials (ICMSN 2027)",
   "start_date": "2027-07-20",
   "end_date": "2027-07-23",
-  "date": null,
+  "date": "2027-03-01",
   "content": "2027 The 11th International Conference on Materials Sciences and Nanomaterials (ICMSN 2027)",
-  "url": "",
+  "url": "http://www.icmsn.org",
   "tags": "해외,공학,나노,재료",
   "location": "Bristol, United Kingdom",
   "source": "wikicfp",
-  "external_id": "wikicfp:202891"
+  "external_id": "wikicfp:202891",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7633,13 +7707,14 @@
   "org": "Springer--2027 11th International Conference on Advanced Manufacturing and Materials (ICAMM 2027)",
   "start_date": "2027-07-20",
   "end_date": "2027-07-23",
-  "date": null,
+  "date": "2027-03-01",
   "content": "Springer--2027 11th International Conference on Advanced Manufacturing and Materials (ICAMM 2027)",
-  "url": "",
+  "url": "https://icamm.org/",
   "tags": "해외,공학,재료",
   "location": "Bristol, United Kingdom",
   "source": "wikicfp",
-  "external_id": "wikicfp:202889"
+  "external_id": "wikicfp:202889",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7648,13 +7723,14 @@
   "org": "2027 5th International Conference on Precision Engineering and Mechanical Manufacturing (PEMM 2027)--ESCI",
   "start_date": "2027-06-10",
   "end_date": "2027-06-13",
-  "date": null,
+  "date": "2027-01-20",
   "content": "2027 5th International Conference on Precision Engineering and Mechanical Manufacturing (PEMM 2027)--ESCI",
-  "url": "",
+  "url": "http://www.pemm.net",
   "tags": "해외,공학",
   "location": "Hong Kong",
   "source": "wikicfp",
-  "external_id": "wikicfp:202887"
+  "external_id": "wikicfp:202887",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7663,13 +7739,14 @@
   "org": "2027 the 10th International Conference on Nanoscience and Technology (ICNST 2027)",
   "start_date": "2027-07-13",
   "end_date": "2027-07-16",
-  "date": null,
+  "date": "2027-02-20",
   "content": "2027 the 10th International Conference on Nanoscience and Technology (ICNST 2027)",
-  "url": "",
+  "url": "http://www.icnst.org",
   "tags": "해외,재료,나노",
   "location": "Singapore",
   "source": "wikicfp",
-  "external_id": "wikicfp:203672"
+  "external_id": "wikicfp:203672",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7678,13 +7755,14 @@
   "org": "Springer--2027 12th International Conference on Civil Engineering and Materials Science (ICCEMS 2027)",
   "start_date": "2027-07-05",
   "end_date": "2027-07-09",
-  "date": null,
+  "date": "2027-02-15",
   "content": "Springer--2027 12th International Conference on Civil Engineering and Materials Science (ICCEMS 2027)",
-  "url": "",
+  "url": "https://www.iccem.org",
   "tags": "해외,재료",
   "location": "Colombo, Sri Lanka",
   "source": "wikicfp",
-  "external_id": "wikicfp:203385"
+  "external_id": "wikicfp:203385",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7695,11 +7773,12 @@
   "end_date": "2027-05-19",
   "date": null,
   "content": "Inscitech Meet On Green Chemistry, Sustainable Materials & Circular Economy",
-  "url": "",
+  "url": "https://inscitechsummits.com/2027/imgreenchem",
   "tags": "해외,재료,화학",
   "location": "Bangkok, Thailand",
   "source": "wikicfp",
-  "external_id": "wikicfp:203015"
+  "external_id": "wikicfp:203015",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7708,13 +7787,14 @@
   "org": "8th International Conference on Desalination Science and Technology 2027",
   "start_date": "2027-11-14",
   "end_date": "2027-11-18",
-  "date": null,
+  "date": "2027-05-28",
   "content": "8th International Conference on Desalination Science and Technology 2027",
-  "url": "",
+  "url": "https://www.elsevier.com/events/conferences/all/desalination-science-and-technology",
   "tags": "해외,재료",
   "location": "Shanghai",
   "source": "wikicfp",
-  "external_id": "wikicfp:202968"
+  "external_id": "wikicfp:202968",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7723,13 +7803,14 @@
   "org": "2027 The 9th International Conference on Materials and Intelligent Manufacturing (ICMIM 2027)",
   "start_date": "2027-06-10",
   "end_date": "2027-06-13",
-  "date": null,
+  "date": "2027-01-20",
   "content": "2027 The 9th International Conference on Materials and Intelligent Manufacturing (ICMIM 2027)",
-  "url": "",
+  "url": "http://www.icmim.org",
   "tags": "해외,재료",
   "location": "Hong Kong",
   "source": "wikicfp",
-  "external_id": "wikicfp:202886"
+  "external_id": "wikicfp:202886",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7738,13 +7819,14 @@
   "org": "Materials Today Conference 2027",
   "start_date": "2027-07-18",
   "end_date": "2027-07-22",
-  "date": null,
+  "date": "2027-02-05",
   "content": "Materials Today Conference 2027",
-  "url": "",
+  "url": "https://www.elsevier.com/events/conferences/all/materials-today-conference?utm_campaign=STMJ_1786896417422_CONF_NEWS_AB&utm_medium=WEB&utm_source=WEB&dgcid=STMJ_1786896417422_CONF_",
   "tags": "해외,재료",
   "location": "Montpellier, France",
   "source": "wikicfp",
-  "external_id": "wikicfp:202817"
+  "external_id": "wikicfp:202817",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7753,13 +7835,14 @@
   "org": "2027 8th International Conference on Materials Science and Manufacturing Engineering (MSME 2027)",
   "start_date": "2027-04-22",
   "end_date": "2027-04-24",
-  "date": null,
+  "date": "2026-12-20",
   "content": "2027 8th International Conference on Materials Science and Manufacturing Engineering (MSME 2027)",
-  "url": "",
+  "url": "https://msme2027.org/",
   "tags": "해외,재료",
   "location": "Tianjin, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:202514"
+  "external_id": "wikicfp:202514",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7768,13 +7851,14 @@
   "org": "2027 8th International Conference on Materials Science and Manufacturing Engineering (MSME 2027)",
   "start_date": "2027-04-22",
   "end_date": "2027-04-24",
-  "date": null,
+  "date": "2026-12-20",
   "content": "2027 8th International Conference on Materials Science and Manufacturing Engineering (MSME 2027)",
-  "url": "",
+  "url": "https://msme2027.org/",
   "tags": "해외,재료",
   "location": "Tianjin, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:202513"
+  "external_id": "wikicfp:202513",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7783,13 +7867,14 @@
   "org": "2027 The 10th Advanced Functional Materials and Devices (AFMD 2027)",
   "start_date": "2027-07-26",
   "end_date": "2027-07-30",
-  "date": null,
+  "date": "2027-03-05",
   "content": "2027 The 10th Advanced Functional Materials and Devices (AFMD 2027)",
-  "url": "",
+  "url": "https://www.icafmd.org",
   "tags": "해외,재료",
   "location": "Athens, Greece",
   "source": "wikicfp",
-  "external_id": "wikicfp:201685"
+  "external_id": "wikicfp:201685",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7798,13 +7883,14 @@
   "org": "2027 The 15th Asia Conference on Mechanical and Materials Engineering (ACMME 2027)",
   "start_date": "2027-06-21",
   "end_date": "2027-06-25",
-  "date": null,
+  "date": "2027-02-01",
   "content": "2027 The 15th Asia Conference on Mechanical and Materials Engineering (ACMME 2027)",
-  "url": "",
+  "url": "http://www.acmme.org",
   "tags": "국내개최,재료",
   "location": "Jeju Island, South Korea",
   "source": "wikicfp",
-  "external_id": "wikicfp:201684"
+  "external_id": "wikicfp:201684",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7813,13 +7899,14 @@
   "org": "Springer--2027 18th International Conference on Materials and Manufacturing Technologies (ICMMT 2027)",
   "start_date": "2027-03-26",
   "end_date": "2027-03-28",
-  "date": null,
+  "date": "2026-11-20",
   "content": "Springer--2027 18th International Conference on Materials and Manufacturing Technologies (ICMMT 2027)",
-  "url": "",
+  "url": "http://www.icmmt.org",
   "tags": "해외,재료",
   "location": "Fukuoka, Japan",
   "source": "wikicfp",
-  "external_id": "wikicfp:200256"
+  "external_id": "wikicfp:200256",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7828,13 +7915,14 @@
   "org": "2027 10th International Conference on Smart Materials Applications (ICSMA 2027)",
   "start_date": "2027-01-08",
   "end_date": "2027-01-10",
-  "date": null,
+  "date": "2026-11-15",
   "content": "2027 10th International Conference on Smart Materials Applications (ICSMA 2027)",
-  "url": "",
+  "url": "http://www.icsma.org",
   "tags": "해외,재료",
   "location": "Sapporo, Japan",
   "source": "wikicfp",
-  "external_id": "wikicfp:200150"
+  "external_id": "wikicfp:200150",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7843,13 +7931,14 @@
   "org": "2027 The 12th International Conference on Composite Materials and Material Engineering (ICCMME 2027)",
   "start_date": "2027-01-08",
   "end_date": "2027-01-10",
-  "date": null,
+  "date": "2026-11-15",
   "content": "2027 The 12th International Conference on Composite Materials and Material Engineering (ICCMME 2027)",
-  "url": "",
+  "url": "http://www.iccmme.com",
   "tags": "해외,재료",
   "location": "Sapporo, Japan",
   "source": "wikicfp",
-  "external_id": "wikicfp:200149"
+  "external_id": "wikicfp:200149",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7858,13 +7947,14 @@
   "org": "KomPlasTech & NeuroMet - Joint conference on computer methods and artificial intelligence in materials technology (ECCOMAS Thematic Conference)",
   "start_date": "2027-04-05",
   "end_date": "2027-04-07",
-  "date": null,
+  "date": "2027-01-29",
   "content": "KomPlasTech & NeuroMet - Joint conference on computer methods and artificial intelligence in materials technology (ECCOMAS Thematic Conference)",
-  "url": "",
+  "url": "https://www.komplastech.agh.edu.pl/",
   "tags": "해외,재료",
   "location": "Kraków, Poland",
   "source": "wikicfp",
-  "external_id": "wikicfp:200080"
+  "external_id": "wikicfp:200080",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7873,13 +7963,14 @@
   "org": "Springer--2027 6th International Conference on Materials Engineering and Functional Materials (ICMFM 2027)",
   "start_date": "2027-03-01",
   "end_date": "2027-03-04",
-  "date": null,
+  "date": "2026-11-20",
   "content": "Springer--2027 6th International Conference on Materials Engineering and Functional Materials (ICMFM 2027)",
-  "url": "",
+  "url": "https://www.icmfm.org/",
   "tags": "해외,재료",
   "location": "Da Nang, Vietnam",
   "source": "wikicfp",
-  "external_id": "wikicfp:195426"
+  "external_id": "wikicfp:195426",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7888,13 +7979,14 @@
   "org": "12th International Conference of Advances in Materials Science and Engineering",
   "start_date": "2026-12-30",
   "end_date": "2026-12-31",
-  "date": null,
+  "date": "2026-10-31",
   "content": "12th International Conference of Advances in Materials Science and Engineering",
-  "url": "",
+  "url": "https://mat2026.org/",
   "tags": "해외,재료",
   "location": "Virtual Conference",
   "source": "wikicfp",
-  "external_id": "wikicfp:195331"
+  "external_id": "wikicfp:195331",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7903,13 +7995,14 @@
   "org": "2027 The 11th International Conference on Civil and Building Materials (ICCBM 2027)",
   "start_date": "2027-01-23",
   "end_date": "2027-01-25",
-  "date": null,
+  "date": "2026-11-10",
   "content": "2027 The 11th International Conference on Civil and Building Materials (ICCBM 2027)",
-  "url": "",
+  "url": "http://www.iccbm.org",
   "tags": "해외,재료",
   "location": "Phuket, Thailand",
   "source": "wikicfp",
-  "external_id": "wikicfp:195285"
+  "external_id": "wikicfp:195285",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7918,13 +8011,14 @@
   "org": "2026 12th International Conference on Advances in Energy Resources and Environment Engineering",
   "start_date": "2026-12-18",
   "end_date": "2026-12-20",
-  "date": null,
+  "date": "2026-11-22",
   "content": "2026 12th International Conference on Advances in Energy Resources and Environment Engineering",
-  "url": "",
+  "url": "https://ais.cn/u/eeq2Ef",
   "tags": "해외,재료",
   "location": "Dali, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203972"
+  "external_id": "wikicfp:203972",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7933,13 +8027,14 @@
   "org": "2026 10th International Conference on Energy Technology and Materials Science",
   "start_date": "2026-12-11",
   "end_date": "2026-12-13",
-  "date": null,
+  "date": "2026-11-11",
   "content": "2026 10th International Conference on Energy Technology and Materials Science",
-  "url": "",
+  "url": "https://ais.cn/u/Azimee",
   "tags": "해외,재료",
   "location": "Xi'an, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203798"
+  "external_id": "wikicfp:203798",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7948,13 +8043,14 @@
   "org": "2026 8th International Conference on Optoelectronic Materials and Devices",
   "start_date": "2026-11-27",
   "end_date": "2026-11-29",
-  "date": null,
+  "date": "2026-10-30",
   "content": "2026 8th International Conference on Optoelectronic Materials and Devices",
-  "url": "",
+  "url": "https://ais.cn/u/JbMRZr",
   "tags": "해외,재료,디스플레이",
   "location": "Shenzhen, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203410"
+  "external_id": "wikicfp:203410",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7963,13 +8059,14 @@
   "org": "2027 14th International Conference on Mechanics, Materials and Manufacturing (ICMMM 2027)",
   "start_date": "2027-06-14",
   "end_date": "2027-06-16",
-  "date": null,
+  "date": "2027-01-25",
   "content": "2027 14th International Conference on Mechanics, Materials and Manufacturing (ICMMM 2027)",
-  "url": "",
+  "url": "http://www.icmmm.org/",
   "tags": "해외,재료",
   "location": "Sydney, Australia",
   "source": "wikicfp",
-  "external_id": "wikicfp:203035"
+  "external_id": "wikicfp:203035",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7978,13 +8075,14 @@
   "org": "2026 International Conference on Artificial Intelligence and New Materials Development",
   "start_date": "2026-12-18",
   "end_date": "2026-12-20",
-  "date": null,
+  "date": "2026-10-30",
   "content": "2026 International Conference on Artificial Intelligence and New Materials Development",
-  "url": "",
+  "url": "https://www.aischolar.com/u/YRvauu",
   "tags": "해외,재료",
   "location": "Johor Bahru, Malaysia",
   "source": "wikicfp",
-  "external_id": "wikicfp:202953"
+  "external_id": "wikicfp:202953",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7993,13 +8091,14 @@
   "org": "Springer--2027 11th International Conference on Advanced Manufacturing and Materials (ICAMM 2027)",
   "start_date": "2027-07-20",
   "end_date": "2027-07-23",
-  "date": null,
+  "date": "2027-03-01",
   "content": "Springer--2027 11th International Conference on Advanced Manufacturing and Materials (ICAMM 2027)",
-  "url": "",
+  "url": "https://icamm.org/",
   "tags": "해외,재료",
   "location": "Bristol, United Kingdom",
   "source": "wikicfp",
-  "external_id": "wikicfp:202890"
+  "external_id": "wikicfp:202890",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8008,28 +8107,14 @@
   "org": "2026 International Conference on Advanced Manufacturing and Smart Materials & CfAMT Research Symposium",
   "start_date": "2026-12-02",
   "end_date": "2026-12-04",
-  "date": null,
+  "date": "2026-11-18",
   "content": "2026 International Conference on Advanced Manufacturing and Smart Materials & CfAMT Research Symposium",
-  "url": "",
+  "url": "https://www.aischolar.com/u/Rf222i",
   "tags": "해외,재료",
   "location": "Western Sydney University, Australia",
   "source": "wikicfp",
-  "external_id": "wikicfp:202883"
- },
- {
-  "type": "conf",
-  "field": "eng",
-  "title": "ICMTEM 2026",
-  "org": "2026 12th International Conference on Manufacturing Technology and Engineering Materials",
-  "start_date": "2026-11-06",
-  "end_date": "2026-11-08",
-  "date": null,
-  "content": "2026 12th International Conference on Manufacturing Technology and Engineering Materials",
-  "url": "",
-  "tags": "해외,재료",
-  "location": "Shenyang, China",
-  "source": "wikicfp",
-  "external_id": "wikicfp:202775"
+  "external_id": "wikicfp:202883",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8038,13 +8123,14 @@
   "org": "2027 The 15th Asia Conference on Mechanical and Materials Engineering (ACMME 2027)",
   "start_date": "2027-06-21",
   "end_date": "2027-06-25",
-  "date": null,
+  "date": "2027-02-01",
   "content": "2027 The 15th Asia Conference on Mechanical and Materials Engineering (ACMME 2027)",
-  "url": "",
+  "url": "http://www.acmme.org",
   "tags": "국내개최,재료",
   "location": "Jeju Island, South Korea",
   "source": "wikicfp",
-  "external_id": "wikicfp:201683"
+  "external_id": "wikicfp:201683",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8053,13 +8139,14 @@
   "org": "5th Food Chemistry Conference",
   "start_date": "2027-11-08",
   "end_date": "2027-11-11",
-  "date": null,
+  "date": "2027-05-21",
   "content": "5th Food Chemistry Conference",
-  "url": "",
+  "url": "https://www.elsevier.com/events/conferences/all/food-chemistry-conference",
   "tags": "해외,화학",
   "location": "Guangzhou",
   "source": "wikicfp",
-  "external_id": "wikicfp:202967"
+  "external_id": "wikicfp:202967",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8068,13 +8155,14 @@
   "org": "Springer--2027 12th International Conference on Advances on Clean Energy Research (ICACER 2027)",
   "start_date": "2027-04-09",
   "end_date": "2027-04-11",
-  "date": null,
+  "date": "2026-11-10",
   "content": "Springer--2027 12th International Conference on Advances on Clean Energy Research (ICACER 2027)",
-  "url": "",
+  "url": "http://www.icacer.com/",
   "tags": "해외,화학",
   "location": "Porto, Portugal",
   "source": "wikicfp",
-  "external_id": "wikicfp:199958"
+  "external_id": "wikicfp:199958",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8083,13 +8171,14 @@
   "org": "11th International Conference on Networks and Communications",
   "start_date": "2027-01-23",
   "end_date": "2027-01-24",
-  "date": null,
+  "date": "2026-10-31",
   "content": "11th International Conference on Networks and Communications",
-  "url": "",
+  "url": "https://net2027.org/index",
   "tags": "해외,화학",
   "location": "Zurich, Switzerland",
   "source": "wikicfp",
-  "external_id": "wikicfp:195089"
+  "external_id": "wikicfp:195089",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8098,13 +8187,14 @@
   "org": "16thInternational Conference on Advances in Computing and Information Technology",
   "start_date": "2026-11-27",
   "end_date": "2026-11-28",
-  "date": null,
+  "date": "2026-10-31",
   "content": "16thInternational Conference on Advances in Computing and Information Technology",
-  "url": "",
+  "url": "https://acity2026.org/index",
   "tags": "해외,화학",
   "location": "Zurich, Switzerland",
   "source": "wikicfp",
-  "external_id": "wikicfp:194359"
+  "external_id": "wikicfp:194359",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8113,13 +8203,31 @@
   "org": "2026 the 13th International Conference on Chemical and Material Engineering (ICCME 2026)",
   "start_date": "2026-11-25",
   "end_date": "2026-11-28",
-  "date": null,
+  "date": "2026-10-10",
   "content": "2026 the 13th International Conference on Chemical and Material Engineering (ICCME 2026)",
-  "url": "",
+  "url": "http://www.iccme.org",
   "tags": "해외,화학,재료",
   "location": "Osaka, Japan",
   "source": "wikicfp",
-  "external_id": "wikicfp:192960"
+  "external_id": "wikicfp:192960",
+  "wikicfp_checked": true
+ },
+ {
+  "type": "conf",
+  "field": "eng",
+  "title": "USCC 2027",
+  "org": "7th Unite Scientific Chemistry Conference (USCC-2027)",
+  "start_date": "2027-07-22",
+  "end_date": "2027-07-23",
+  "date": "2027-07-22",
+  "content": "7th Unite Scientific Chemistry Conference (USCC-2027)",
+  "url": "https://chemistry.uniteexplores.com/",
+  "tags": "해외,유기화학,화학",
+  "location": "Hotel Acca Sporting Milano",
+  "source": "wikicfp",
+  "external_id": "wikicfp:204103",
+  "wikicfp_checked": true,
+  "abstract_deadline": "2027-07-20"
  },
  {
   "type": "conf",
@@ -8128,13 +8236,14 @@
   "org": "22nd Edition of International Conference on Catalysis, Chemical Engineering and Technology",
   "start_date": "2027-06-21",
   "end_date": "2027-06-23",
-  "date": null,
+  "date": "2027-06-10",
   "content": "22nd Edition of International Conference on Catalysis, Chemical Engineering and Technology",
-  "url": "",
+  "url": "https://catalysis-conferences.com",
   "tags": "해외,화학공학,유기화학,화학",
   "location": "NH Villa Carpegna Via Pio IV, 6, 00165 R",
   "source": "wikicfp",
-  "external_id": "wikicfp:202574"
+  "external_id": "wikicfp:202574",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8143,13 +8252,14 @@
   "org": "2027 AIChE Spring Meeting & 23rd Global Congress on Process Safety",
   "start_date": "2027-03-21",
   "end_date": "2027-03-25",
-  "date": null,
+  "date": "2026-10-02",
   "content": "2027 AIChE Spring Meeting & 23rd Global Congress on Process Safety",
-  "url": "",
+  "url": "https://aiche.confex.com/aiche/s27/cfp.cgi?utm_source=CFA&utm_medium=wikicfp&utm_campaign=ad",
   "tags": "해외,화학공학",
   "location": "Oklahoma City, OK",
   "source": "wikicfp",
-  "external_id": "wikicfp:200276"
+  "external_id": "wikicfp:200276",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8158,13 +8268,14 @@
   "org": "2026 AIChE Annual Meeting Call For Abstracts is Open!",
   "start_date": "2026-11-08",
   "end_date": "2026-11-12",
-  "date": null,
+  "date": "2026-04-08",
   "content": "2026 AIChE Annual Meeting Call For Abstracts is Open!",
-  "url": "",
+  "url": "https://www.aiche.org/conferences/aiche-annual-meeting/2026?utm_source=wiki-cfp&utm_medium=cfa&utm_campaign=Ads",
   "tags": "해외,화학공학",
   "location": "Minneapolis, MN",
   "source": "wikicfp",
-  "external_id": "wikicfp:192043"
+  "external_id": "wikicfp:192043",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8173,13 +8284,14 @@
   "org": "2027 5th International Conference on Chemical, Energy Science and Environmental Engineering",
   "start_date": "2027-06-17",
   "end_date": "2027-06-20",
-  "date": null,
+  "date": "2026-11-20",
   "content": "2027 5th International Conference on Chemical, Energy Science and Environmental Engineering",
-  "url": "",
+  "url": "https://www.cesee.org/",
   "tags": "해외,화학공학,화학",
   "location": "Milan, Italy",
   "source": "wikicfp",
-  "external_id": "wikicfp:179430"
+  "external_id": "wikicfp:179430",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8188,13 +8300,14 @@
   "org": "2027 International Workshop on Computational Nanotechnology",
   "start_date": "2027-04-19",
   "end_date": "2027-04-22",
-  "date": null,
+  "date": "2026-11-22",
   "content": "2027 International Workshop on Computational Nanotechnology",
-  "url": "",
+  "url": "https://iwcn2027.nycu.site/submission?utm_source=wikicfp&utm_medium=cfp",
   "tags": "해외,나노",
   "location": "Hsinchu, Taiwan",
   "source": "wikicfp",
-  "external_id": "wikicfp:203863"
+  "external_id": "wikicfp:203863",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8203,13 +8316,14 @@
   "org": "International Conference on Functional Nanomaterials and Nanodevices",
   "start_date": "2027-07-11",
   "end_date": "2027-07-14",
-  "date": null,
+  "date": "2027-03-13",
   "content": "International Conference on Functional Nanomaterials and Nanodevices",
-  "url": "",
+  "url": "https://www.nanomat-conference.com/",
   "tags": "해외,나노,재료",
   "location": "Krakow, Poland",
   "source": "wikicfp",
-  "external_id": "wikicfp:203751"
+  "external_id": "wikicfp:203751",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8218,13 +8332,14 @@
   "org": "2027 9th International Conference on Functional Materials and Chemical Engineering",
   "start_date": "2027-09-24",
   "end_date": "2027-09-26",
-  "date": null,
+  "date": "2027-04-01",
   "content": "2027 9th International Conference on Functional Materials and Chemical Engineering",
-  "url": "",
+  "url": "http://www.icfmce.org",
   "tags": "해외,나노,화학,재료",
   "location": "China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203346"
+  "external_id": "wikicfp:203346",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8233,13 +8348,14 @@
   "org": "Springer--2027 11th International Conference on Civil Engineering (ICOCE 2027)",
   "start_date": "2027-04-07",
   "end_date": "2027-04-10",
-  "date": null,
+  "date": "2027-02-28",
   "content": "Springer--2027 11th International Conference on Civil Engineering (ICOCE 2027)",
-  "url": "",
+  "url": "https://www.icoce.org/",
   "tags": "해외,나노",
   "location": "Singapore",
   "source": "wikicfp",
-  "external_id": "wikicfp:201541"
+  "external_id": "wikicfp:201541",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8248,28 +8364,30 @@
   "org": "2027 The 10th International Conference on Circuits, Systems and Simulation (ICCSS 2027)",
   "start_date": "2027-06-25",
   "end_date": "2027-06-27",
-  "date": null,
+  "date": "2027-01-15",
   "content": "2027 The 10th International Conference on Circuits, Systems and Simulation (ICCSS 2027)",
-  "url": "",
+  "url": "https://iccss.org/",
   "tags": "해외,나노",
   "location": "Da Nang, Vietnam",
   "source": "wikicfp",
-  "external_id": "wikicfp:201531"
+  "external_id": "wikicfp:201531",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
   "field": "eng",
-  "title": "NMCO 2027",
-  "org": "13th International Conference on Networks, Mobile Communication",
-  "start_date": "2027-01-30",
-  "end_date": "2027-01-31",
-  "date": null,
-  "content": "13th International Conference on Networks, Mobile Communication",
-  "url": "",
+  "title": "ENERGY 2026",
+  "org": "4th International Conference on Energy",
+  "start_date": "2026-11-14",
+  "end_date": "2026-11-15",
+  "date": "2026-10-31",
+  "content": "4th International Conference on Energy",
+  "url": "https://coraj2026.org/energy/index",
   "tags": "해외,나노",
-  "location": "Copenhagen, Denmark",
+  "location": "Melbourne, Australia",
   "source": "wikicfp",
-  "external_id": "wikicfp:200313"
+  "external_id": "wikicfp:200313",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8278,13 +8396,14 @@
   "org": "2027 10th International Conference on Materials Design and Applications (ICMDA 2027)",
   "start_date": "2027-04-08",
   "end_date": "2027-04-11",
-  "date": null,
+  "date": "2026-11-20",
   "content": "2027 10th International Conference on Materials Design and Applications (ICMDA 2027)",
-  "url": "",
+  "url": "http://www.icmda.org",
   "tags": "해외,나노,재료",
   "location": "Hiroshima, Japan",
   "source": "wikicfp",
-  "external_id": "wikicfp:200260"
+  "external_id": "wikicfp:200260",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8293,13 +8412,14 @@
   "org": "Springer--2027 18th International Conference on Materials and Manufacturing Technologies (ICMMT 2027)",
   "start_date": "2027-03-26",
   "end_date": "2027-03-28",
-  "date": null,
+  "date": "2026-11-20",
   "content": "Springer--2027 18th International Conference on Materials and Manufacturing Technologies (ICMMT 2027)",
-  "url": "",
+  "url": "http://www.icmmt.org",
   "tags": "해외,나노,재료",
   "location": "Fukuoka, Japan",
   "source": "wikicfp",
-  "external_id": "wikicfp:200257"
+  "external_id": "wikicfp:200257",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8308,13 +8428,14 @@
   "org": "15th International Conference on Photonics, Optics and Laser Technology",
   "start_date": "2027-02-25",
   "end_date": "2027-02-27",
-  "date": null,
+  "date": "2026-11-29",
   "content": "15th International Conference on Photonics, Optics and Laser Technology",
-  "url": "",
+  "url": "https://photoptics.scitevents.org",
   "tags": "해외,나노,디스플레이",
   "location": "Valletta, Malta",
   "source": "wikicfp",
-  "external_id": "wikicfp:200099"
+  "external_id": "wikicfp:200099",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8323,13 +8444,14 @@
   "org": "12th International Conference on Computer Science and Information Technology",
   "start_date": "2026-12-26",
   "end_date": "2026-12-27",
-  "date": null,
+  "date": "2026-10-31",
   "content": "12th International Conference on Computer Science and Information Technology",
-  "url": "",
+  "url": "https://csty2026.org/",
   "tags": "해외,나노",
   "location": "Dubai, UAE",
   "source": "wikicfp",
-  "external_id": "wikicfp:192130"
+  "external_id": "wikicfp:192130",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8338,13 +8460,14 @@
   "org": "2026 2nd International Conference on Advanced Materials, Mechanical Engineering, and Manufacturing",
   "start_date": "2026-11-25",
   "end_date": "2026-11-27",
-  "date": null,
+  "date": "2026-10-10",
   "content": "2026 2nd International Conference on Advanced Materials, Mechanical Engineering, and Manufacturing",
-  "url": "",
+  "url": "https://ammem.site/",
   "tags": "해외,나노,재료",
   "location": "Kota Kinabalu, Malaysia",
   "source": "wikicfp",
-  "external_id": "wikicfp:184899"
+  "external_id": "wikicfp:184899",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8353,13 +8476,14 @@
   "org": "AES 2027, 13th International Conference on Antennas & Electromagnetic Systems",
   "start_date": "2027-03-16",
   "end_date": "2027-03-19",
-  "date": null,
+  "date": "2027-01-20",
   "content": "AES 2027, 13th International Conference on Antennas & Electromagnetic Systems",
-  "url": "",
+  "url": "https://aesconference.org/",
   "tags": "해외,메타물질",
   "location": "Athens, Greece",
   "source": "wikicfp",
-  "external_id": "wikicfp:203439"
+  "external_id": "wikicfp:203439",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8368,13 +8492,14 @@
   "org": "Sustainable Photonics Conference (SPC 2027)",
   "start_date": "2027-04-17",
   "end_date": "2027-04-19",
-  "date": null,
+  "date": "2027-01-20",
   "content": "Sustainable Photonics Conference (SPC 2027)",
-  "url": "",
+  "url": "https://www.spconf.org/",
   "tags": "해외,광학,디스플레이",
   "location": "Hangzhou, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203816"
+  "external_id": "wikicfp:203816",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8383,13 +8508,14 @@
   "org": "2026 7th International Conference on Electrical, Electronic Information and Communication Engineering",
   "start_date": "2026-12-04",
   "end_date": "2026-12-06",
-  "date": null,
+  "date": "2026-10-30",
   "content": "2026 7th International Conference on Electrical, Electronic Information and Communication Engineering",
-  "url": "",
+  "url": "https://ais.cn/u/QjA3If",
   "tags": "해외,광학",
   "location": "Xinxiang, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203702"
+  "external_id": "wikicfp:203702",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8398,13 +8524,15 @@
   "org": "10th International Conference on Optics, Photonics and Lasers",
   "start_date": "2027-05-03",
   "end_date": "2027-05-05",
-  "date": null,
+  "date": "2027-02-15",
   "content": "10th International Conference on Optics, Photonics and Lasers",
-  "url": "",
+  "url": "https://opal-conference.com/",
   "tags": "해외,광학,디스플레이",
   "location": "Crowne Plaza hotel, Geneva, Switzerland",
   "source": "wikicfp",
-  "external_id": "wikicfp:203154"
+  "external_id": "wikicfp:203154",
+  "wikicfp_checked": true,
+  "abstract_deadline": "2027-03-30"
  },
  {
   "type": "conf",
@@ -8413,13 +8541,14 @@
   "org": "2026 7th International Conference on Mechanical Engineering, Intelligent Manufacturing and Automation Technology",
   "start_date": "2026-12-18",
   "end_date": "2026-12-20",
-  "date": null,
+  "date": "2026-11-16",
   "content": "2026 7th International Conference on Mechanical Engineering, Intelligent Manufacturing and Automation Technology",
-  "url": "",
+  "url": "https://ais.cn/u/7BrUne",
   "tags": "해외,로봇",
   "location": "Foshan, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203989"
+  "external_id": "wikicfp:203989",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8428,13 +8557,14 @@
   "org": "Smart Homes Devroom FOSDEM 2027",
   "start_date": "2027-01-30",
   "end_date": "2027-01-31",
-  "date": null,
+  "date": "2026-11-24",
   "content": "Smart Homes Devroom FOSDEM 2027",
-  "url": "",
+  "url": "https://raeymeister.github.io/FOSDEM_2027_SmartHomes_Devroom_cfp/",
   "tags": "해외,로봇",
   "location": "Brussels",
   "source": "wikicfp",
-  "external_id": "wikicfp:203978"
+  "external_id": "wikicfp:203978",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8443,13 +8573,14 @@
   "org": "2027 5th International Conference on Control and Robot Technology (ICCRT 2027)",
   "start_date": "2027-06-11",
   "end_date": "2027-06-13",
-  "date": null,
+  "date": "2027-01-20",
   "content": "2027 5th International Conference on Control and Robot Technology (ICCRT 2027)",
-  "url": "",
+  "url": "http://www.iccrt.org",
   "tags": "해외,로봇",
   "location": "Urumqi, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203824"
+  "external_id": "wikicfp:203824",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8458,13 +8589,14 @@
   "org": "Springer--2027 10th International Conference on Mechanical Manufacturing and Industrial Engineering (MMIE 2027)",
   "start_date": "2027-08-12",
   "end_date": "2027-08-15",
-  "date": null,
+  "date": "2027-03-25",
   "content": "Springer--2027 10th International Conference on Mechanical Manufacturing and Industrial Engineering (MMIE 2027)",
-  "url": "",
+  "url": "http://www.mmie.org",
   "tags": "해외,로봇",
   "location": "Doshisha University, Kyoto, Japan",
   "source": "wikicfp",
-  "external_id": "wikicfp:203780"
+  "external_id": "wikicfp:203780",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8473,13 +8605,14 @@
   "org": "2027 12th Asia-Pacific Conference on Intelligent Robot Systems (ACIRS 2027)",
   "start_date": "2027-07-23",
   "end_date": "2027-07-25",
-  "date": null,
+  "date": "2027-03-10",
   "content": "2027 12th Asia-Pacific Conference on Intelligent Robot Systems (ACIRS 2027)",
-  "url": "",
+  "url": "http://www.acirs.org/",
   "tags": "해외,로봇",
   "location": "Hong kong, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203778"
+  "external_id": "wikicfp:203778",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8488,13 +8621,14 @@
   "org": "2027 9th International Conference on Control, Robotics and Informatics (ICCRI 2027)",
   "start_date": "2027-06-24",
   "end_date": "2027-06-26",
-  "date": null,
+  "date": "2027-01-25",
   "content": "2027 9th International Conference on Control, Robotics and Informatics (ICCRI 2027)",
-  "url": "",
+  "url": "https://www.iccri.org/",
   "tags": "해외,로봇",
   "location": "Milan, Italy",
   "source": "wikicfp",
-  "external_id": "wikicfp:203773"
+  "external_id": "wikicfp:203773",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8503,13 +8637,14 @@
   "org": "2026 8th International Conference on Mechanical Engineering and Automation",
   "start_date": "2026-12-18",
   "end_date": "2026-12-20",
-  "date": null,
+  "date": "2026-10-30",
   "content": "2026 8th International Conference on Mechanical Engineering and Automation",
-  "url": "",
+  "url": "https://www.aischolar.com/u/ZZNzi2",
   "tags": "해외,로봇",
   "location": "Guangzhou, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203640"
+  "external_id": "wikicfp:203640",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8518,13 +8653,14 @@
   "org": "2027 11th IEEE/IFAC/DBLP International Conference on Control, Automation and Diagnosis",
   "start_date": "2027-07-06",
   "end_date": "2027-07-08",
-  "date": null,
+  "date": "2027-01-31",
   "content": "2027 11th IEEE/IFAC/DBLP International Conference on Control, Automation and Diagnosis",
-  "url": "",
+  "url": "https://www.iccad-conf.com/",
   "tags": "해외,로봇,반도체",
   "location": "Paris",
   "source": "wikicfp",
-  "external_id": "wikicfp:203534"
+  "external_id": "wikicfp:203534",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8533,13 +8669,14 @@
   "org": "IEEE 2026 3rd International Conference on Automation, Electrical Control Systems and Equipment",
   "start_date": "2026-11-27",
   "end_date": "2026-11-29",
-  "date": null,
+  "date": "2026-10-29",
   "content": "IEEE 2026 3rd International Conference on Automation, Electrical Control Systems and Equipment",
-  "url": "",
+  "url": "https://ais.cn/u/zqEZNr",
   "tags": "해외,로봇",
   "location": "Huai'an, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203452"
+  "external_id": "wikicfp:203452",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8548,13 +8685,14 @@
   "org": "2026 6th International Symposium on Artificial Intelligence and Intelligent Manufacturing",
   "start_date": "2026-11-27",
   "end_date": "2026-11-29",
-  "date": null,
+  "date": "2026-11-13",
   "content": "2026 6th International Symposium on Artificial Intelligence and Intelligent Manufacturing",
-  "url": "",
+  "url": "https://ais.cn/u/7RNRny",
   "tags": "해외,로봇",
   "location": "Guangzhou, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203424"
+  "external_id": "wikicfp:203424",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8563,13 +8701,14 @@
   "org": "2027 6th International Symposium on Automation, Mechanical and Design Engineering",
   "start_date": "2027-09-11",
   "end_date": "2027-09-13",
-  "date": null,
+  "date": "2027-04-16",
   "content": "2027 6th International Symposium on Automation, Mechanical and Design Engineering",
-  "url": "",
+  "url": "http://www.samde.org",
   "tags": "해외,로봇",
   "location": "Stuttgart, Germany",
   "source": "wikicfp",
-  "external_id": "wikicfp:203311"
+  "external_id": "wikicfp:203311",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8578,13 +8717,14 @@
   "org": "IEEE 2026 13th International Forum on Electrical Engineering and Automation",
   "start_date": "2026-11-20",
   "end_date": "2026-11-22",
-  "date": null,
+  "date": "2026-10-30",
   "content": "IEEE 2026 13th International Forum on Electrical Engineering and Automation",
-  "url": "",
+  "url": "https://ais.cn/u/EvMzUf",
   "tags": "해외,로봇",
   "location": "Wuhan, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203222"
+  "external_id": "wikicfp:203222",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8593,13 +8733,14 @@
   "org": "2027 9th International Conference on Management Science and Industrial Engineering (MSIE 2027)",
   "start_date": "2027-04-28",
   "end_date": "2027-04-30",
-  "date": null,
+  "date": "2026-11-30",
   "content": "2027 9th International Conference on Management Science and Industrial Engineering (MSIE 2027)",
-  "url": "",
+  "url": "https://www.msie.org/",
   "tags": "해외,로봇",
   "location": "Chiang Mai, Thailand",
   "source": "wikicfp",
-  "external_id": "wikicfp:203182"
+  "external_id": "wikicfp:203182",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8608,13 +8749,14 @@
   "org": "2026 3rd International Symposium on Intelligent Manufacturing and Automation",
   "start_date": "2026-11-13",
   "end_date": "2026-11-15",
-  "date": null,
+  "date": "2026-10-30",
   "content": "2026 3rd International Symposium on Intelligent Manufacturing and Automation",
-  "url": "",
+  "url": "https://ais.cn/u/U3yyMr",
   "tags": "해외,로봇",
   "location": "Changchun, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203131"
+  "external_id": "wikicfp:203131",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8623,13 +8765,14 @@
   "org": "2027 7th Power System and Green Energy Conference (PSGEC 2027)",
   "start_date": "2027-08-25",
   "end_date": "2027-08-28",
-  "date": null,
+  "date": "2027-02-05",
   "content": "2027 7th Power System and Green Energy Conference (PSGEC 2027)",
-  "url": "",
+  "url": "http://www.psgec.org",
   "tags": "해외,전기전자",
   "location": "Beijing, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203993"
+  "external_id": "wikicfp:203993",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8638,13 +8781,14 @@
   "org": "IEEE--2027 10th Asia Conference on Energy and Electrical Engineering (ACEEE 2027)",
   "start_date": "2027-08-13",
   "end_date": "2027-08-15",
-  "date": null,
+  "date": "2027-03-05",
   "content": "IEEE--2027 10th Asia Conference on Energy and Electrical Engineering (ACEEE 2027)",
-  "url": "",
+  "url": "https://aceee.net/",
   "tags": "해외,전기전자",
   "location": "Tianjin, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203933"
+  "external_id": "wikicfp:203933",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8653,13 +8797,14 @@
   "org": "2027 IEEE the 15th International Conference on Smart Energy Grid Engineering (SEGE 2027)",
   "start_date": "2027-08-17",
   "end_date": "2027-08-19",
-  "date": null,
+  "date": "2027-03-05",
   "content": "2027 IEEE the 15th International Conference on Smart Energy Grid Engineering (SEGE 2027)",
-  "url": "",
+  "url": "https://www.ieee-sege.com/",
   "tags": "해외,전기전자",
   "location": "Ontario Tech University, Oshawa, Canada",
   "source": "wikicfp",
-  "external_id": "wikicfp:203930"
+  "external_id": "wikicfp:203930",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8668,13 +8813,14 @@
   "org": "2026 8th International Conference on New Energy System and Electrical Engineering",
   "start_date": "2026-12-18",
   "end_date": "2026-12-20",
-  "date": null,
+  "date": "2026-11-11",
   "content": "2026 8th International Conference on New Energy System and Electrical Engineering",
-  "url": "",
+  "url": "https://ais.cn/u/iuiyue",
   "tags": "해외,전기전자",
   "location": "Guangzhou, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203919"
+  "external_id": "wikicfp:203919",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8683,13 +8829,14 @@
   "org": "2026 6th International Conference on Electrical Engineering and Control Science",
   "start_date": "2026-12-11",
   "end_date": "2026-12-13",
-  "date": null,
+  "date": "2026-10-30",
   "content": "2026 6th International Conference on Electrical Engineering and Control Science",
-  "url": "",
+  "url": "https://ais.cn/u/UB3Uvi",
   "tags": "해외,전기전자",
   "location": "Urumqi, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203852"
+  "external_id": "wikicfp:203852",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8698,13 +8845,14 @@
   "org": "IEEE--2027 The 9th International Conference on Power and Energy Technology (ICPET 2027)",
   "start_date": "2027-07-16",
   "end_date": "2027-07-19",
-  "date": null,
+  "date": "2027-02-25",
   "content": "IEEE--2027 The 9th International Conference on Power and Energy Technology (ICPET 2027)",
-  "url": "",
+  "url": "http://www.icpet.org",
   "tags": "해외,전기전자",
   "location": "Changsha, Hunan, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203825"
+  "external_id": "wikicfp:203825",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8713,13 +8861,14 @@
   "org": "2027 4th Asia Conference on Electronics Engineering (ACEE 2027)",
   "start_date": "2027-07-09",
   "end_date": "2027-07-11",
-  "date": null,
+  "date": "2027-02-15",
   "content": "2027 4th Asia Conference on Electronics Engineering (ACEE 2027)",
-  "url": "",
+  "url": "http://www.acee.net",
   "tags": "해외,전기전자",
   "location": "Chengdu, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203771"
+  "external_id": "wikicfp:203771",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8728,13 +8877,14 @@
   "org": "2027 IEEE 3rd International Symposium on the Application of Artificial Intelligence in Electrical Engineering (AAIEE 2027)",
   "start_date": "2027-04-23",
   "end_date": "2027-04-26",
-  "date": null,
+  "date": "2026-11-30",
   "content": "2027 IEEE 3rd International Symposium on the Application of Artificial Intelligence in Electrical Engineering (AAIEE 2027)",
-  "url": "",
+  "url": "https://aaiee.net",
   "tags": "해외,전기전자",
   "location": "Guangzhou, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203675"
+  "external_id": "wikicfp:203675",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8743,13 +8893,14 @@
   "org": "IEEE 2026 5th International Conference on Energy Internet and Power Systems",
   "start_date": "2026-11-27",
   "end_date": "2026-11-29",
-  "date": null,
+  "date": "2026-10-30",
   "content": "IEEE 2026 5th International Conference on Energy Internet and Power Systems",
-  "url": "",
+  "url": "https://ais.cn/u/iMJfau",
   "tags": "해외,전기전자",
   "location": "Wuxi, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203465"
+  "external_id": "wikicfp:203465",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8758,13 +8909,14 @@
   "org": "IEEE--2027 the 3rd World Symposium on Electrical Systems (WSES 2027)",
   "start_date": "2027-06-11",
   "end_date": "2027-06-13",
-  "date": null,
+  "date": "2027-01-15",
   "content": "IEEE--2027 the 3rd World Symposium on Electrical Systems (WSES 2027)",
-  "url": "",
+  "url": "https://wses.net/",
   "tags": "해외,전기전자",
   "location": "Nanjing, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203230"
+  "external_id": "wikicfp:203230",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8773,13 +8925,14 @@
   "org": "2027 IEEE 5th International Conference on Power Science and Technology (ICPST 2027)",
   "start_date": "2027-05-14",
   "end_date": "2027-05-17",
-  "date": null,
+  "date": "2026-12-20",
   "content": "2027 IEEE 5th International Conference on Power Science and Technology (ICPST 2027)",
-  "url": "",
+  "url": "http://www.icpst.org",
   "tags": "해외,전기전자",
   "location": "Zhengzhou, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203229"
+  "external_id": "wikicfp:203229",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8788,13 +8941,14 @@
   "org": "2027 5th International Conference on Mechatronics and Electrical Engineering (MEEE 2027)",
   "start_date": "2027-08-06",
   "end_date": "2027-08-08",
-  "date": null,
+  "date": "2027-03-20",
   "content": "2027 5th International Conference on Mechatronics and Electrical Engineering (MEEE 2027)",
-  "url": "",
+  "url": "http://www.meee.org/",
   "tags": "해외,전기전자,로봇",
   "location": "Chengdu, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:202894"
+  "external_id": "wikicfp:202894",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8803,13 +8957,14 @@
   "org": "PCIM Conference 2027 | 11–13 May 2027 | Call for Papers",
   "start_date": "2027-05-11",
   "end_date": "2027-05-13",
-  "date": null,
+  "date": "2026-10-14",
   "content": "PCIM Conference 2027 | 11–13 May 2027 | Call for Papers",
-  "url": "",
+  "url": "https://pcim.mesago.com/nuernberg/en/conference/call_for_papers.html?wt_mc=ext-organic.wiki_cfp.mf-exh.pcim.en.ca.aw.call_for_papers",
   "tags": "해외,전기전자",
   "location": "Nuremberg, Germany",
   "source": "wikicfp",
-  "external_id": "wikicfp:202784"
+  "external_id": "wikicfp:202784",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8818,13 +8973,14 @@
   "org": "2027 2nd International Conference on Electromagnetic Engineering & Microwave Systems (EEMS 2027)",
   "start_date": "2027-06-11",
   "end_date": "2027-06-13",
-  "date": null,
+  "date": "2027-01-10",
   "content": "2027 2nd International Conference on Electromagnetic Engineering & Microwave Systems (EEMS 2027)",
-  "url": "",
+  "url": "http://www.iceems.org",
   "tags": "해외,전기전자",
   "location": "Hangzhou, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:202770"
+  "external_id": "wikicfp:202770",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8833,13 +8989,14 @@
   "org": "2027 the 13th International Conference on Renewable Energy Technologies (ICRET 2027)",
   "start_date": "2027-04-28",
   "end_date": "2027-04-30",
-  "date": null,
+  "date": "2026-12-05",
   "content": "2027 the 13th International Conference on Renewable Energy Technologies (ICRET 2027)",
-  "url": "",
+  "url": "http://www.icret.org",
   "tags": "해외,전기전자",
   "location": "Osaka, Japan",
   "source": "wikicfp",
-  "external_id": "wikicfp:202766"
+  "external_id": "wikicfp:202766",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8848,13 +9005,14 @@
   "org": "Springer--2027 The 9th International Conference on Clean Energy and Electrical Systems (CEES 2027)",
   "start_date": "2027-04-28",
   "end_date": "2027-04-30",
-  "date": null,
+  "date": "2026-12-05",
   "content": "Springer--2027 The 9th International Conference on Clean Energy and Electrical Systems (CEES 2027)",
-  "url": "",
+  "url": "https://www.cees.net",
   "tags": "해외,전기전자",
   "location": "Osaka, Japan",
   "source": "wikicfp",
-  "external_id": "wikicfp:202763"
+  "external_id": "wikicfp:202763",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8863,28 +9021,30 @@
   "org": "2026 7th International Conference on Applied Mechanics and Mechanical Engineering",
   "start_date": "2026-12-11",
   "end_date": "2026-12-13",
-  "date": null,
+  "date": "2026-10-30",
   "content": "2026 7th International Conference on Applied Mechanics and Mechanical Engineering",
-  "url": "",
+  "url": "https://ais.cn/u/NjANVr",
   "tags": "해외,기계",
   "location": "Xi'an, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203754"
+  "external_id": "wikicfp:203754",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
   "field": "eng",
-  "title": "RSAE 2027",
-  "org": "IEEE--2027 8th International Conference on Robotics Systems and Automation Engineering (RSAE 2027)",
+  "title": "RSAE--EI 2027",
+  "org": "2027 8th International Conference on Robotics Systems and Automation Engineering (RSAE 2027)",
   "start_date": "2027-07-08",
   "end_date": "2027-07-10",
-  "date": null,
-  "content": "IEEE--2027 8th International Conference on Robotics Systems and Automation Engineering (RSAE 2027)",
-  "url": "",
+  "date": "2027-02-20",
+  "content": "2027 8th International Conference on Robotics Systems and Automation Engineering (RSAE 2027)",
+  "url": "https://www.rsae.org/",
   "tags": "해외,기계,로봇",
   "location": "Bangkok, Thailand",
   "source": "wikicfp",
-  "external_id": "wikicfp:203678"
+  "external_id": "wikicfp:203678",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8893,13 +9053,14 @@
   "org": "IEEE 2026 6th International Conference on Mechanical Automation and Electronic Information Engineering",
   "start_date": "2026-11-13",
   "end_date": "2026-11-15",
-  "date": null,
+  "date": "2026-10-30",
   "content": "IEEE 2026 6th International Conference on Mechanical Automation and Electronic Information Engineering",
-  "url": "",
+  "url": "https://ais.cn/u/umiQRn",
   "tags": "해외,기계",
   "location": "Jiangmen, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203116"
+  "external_id": "wikicfp:203116",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8908,13 +9069,14 @@
   "org": "2027 5th International Conference on Precision Engineering and Mechanical Manufacturing (PEMM 2027)--ESCI",
   "start_date": "2027-06-10",
   "end_date": "2027-06-13",
-  "date": null,
+  "date": "2027-01-20",
   "content": "2027 5th International Conference on Precision Engineering and Mechanical Manufacturing (PEMM 2027)--ESCI",
-  "url": "",
+  "url": "http://www.pemm.net",
   "tags": "해외,기계",
   "location": "Hong Kong",
   "source": "wikicfp",
-  "external_id": "wikicfp:202888"
+  "external_id": "wikicfp:202888",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8923,13 +9085,14 @@
   "org": "10th International Symposium on Advanced Engineering Days",
   "start_date": "2026-12-16",
   "end_date": "2026-12-17",
-  "date": null,
+  "date": "2026-10-16",
   "content": "10th International Symposium on Advanced Engineering Days",
-  "url": "",
+  "url": "https://conferences.yakarm.com/AED",
   "tags": "해외,기계",
   "location": "Online",
   "source": "wikicfp",
-  "external_id": "wikicfp:202792"
+  "external_id": "wikicfp:202792",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8938,13 +9101,14 @@
   "org": "2027 The 18th International Conference on Mechanical and Electrical Technologies (ICMET 2027)",
   "start_date": "2027-04-28",
   "end_date": "2027-04-30",
-  "date": null,
+  "date": "2026-12-05",
   "content": "2027 The 18th International Conference on Mechanical and Electrical Technologies (ICMET 2027)",
-  "url": "",
+  "url": "http://icmet.ac.cn/",
   "tags": "해외,기계",
   "location": "Osaka, Japan",
   "source": "wikicfp",
-  "external_id": "wikicfp:202764"
+  "external_id": "wikicfp:202764",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8953,13 +9117,14 @@
   "org": "Springer--2027 6th International Conference on Intelligent Systems Design and Engineering Applications (ISDEA 2027)",
   "start_date": "2027-04-24",
   "end_date": "2027-04-26",
-  "date": null,
+  "date": "2026-11-20",
   "content": "Springer--2027 6th International Conference on Intelligent Systems Design and Engineering Applications (ISDEA 2027)",
-  "url": "",
+  "url": "https://www.isdea.org/",
   "tags": "해외,기계",
   "location": "Okinawa, Japan",
   "source": "wikicfp",
-  "external_id": "wikicfp:202551"
+  "external_id": "wikicfp:202551",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8968,28 +9133,14 @@
   "org": "IEEE--2027 11th International Conference on Robotics and Automation Sciences (ICRAS 2027)",
   "start_date": "2027-06-04",
   "end_date": "2027-06-06",
-  "date": null,
+  "date": "2027-01-20",
   "content": "IEEE--2027 11th International Conference on Robotics and Automation Sciences (ICRAS 2027)",
-  "url": "",
+  "url": "http://www.icras.org/",
   "tags": "해외,기계,로봇",
   "location": "Nagoya, Japan",
   "source": "wikicfp",
-  "external_id": "wikicfp:201693"
- },
- {
-  "type": "conf",
-  "field": "energy",
-  "title": "ISNEET 2026",
-  "org": "IEEE 2026 7th International Symposium on New Energy and Electrical Technology",
-  "start_date": "2026-12-18",
-  "end_date": "2026-12-20",
-  "date": null,
-  "content": "IEEE 2026 7th International Symposium on New Energy and Electrical Technology",
-  "url": "",
-  "tags": "해외,에너지",
-  "location": "Weihai, China",
-  "source": "wikicfp",
-  "external_id": "wikicfp:204106"
+  "external_id": "wikicfp:201693",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8998,13 +9149,14 @@
   "org": "XX International Scientific Conference of Environmental and Climate Technologies CONECT 2027",
   "start_date": "2027-05-11",
   "end_date": "2027-05-14",
-  "date": null,
+  "date": "2027-02-03",
   "content": "XX International Scientific Conference of Environmental and Climate Technologies CONECT 2027",
-  "url": "",
+  "url": "https://conect.rtu.lv/",
   "tags": "해외,에너지",
   "location": "Azenes street 12/1, Riga, Latvia,LV-1048",
   "source": "wikicfp",
-  "external_id": "wikicfp:203998"
+  "external_id": "wikicfp:203998",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9013,13 +9165,14 @@
   "org": "2026 11th International Conference on Clean Energy and Power Generation Technology",
   "start_date": "2026-12-18",
   "end_date": "2026-12-20",
-  "date": null,
+  "date": "2026-11-30",
   "content": "2026 11th International Conference on Clean Energy and Power Generation Technology",
-  "url": "",
+  "url": "https://ais.cn/u/ZVBZny",
   "tags": "해외,에너지",
   "location": "Chengdu, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203942"
+  "external_id": "wikicfp:203942",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9028,13 +9181,14 @@
   "org": "2027 9th International Conference on Environmental Sciences and Renewable Energy (ESRE 2027)",
   "start_date": "2027-06-12",
   "end_date": "2027-06-14",
-  "date": null,
+  "date": "2027-01-25",
   "content": "2027 9th International Conference on Environmental Sciences and Renewable Energy (ESRE 2027)",
-  "url": "",
+  "url": "https://www.esre.org/",
   "tags": "해외,에너지",
   "location": "Munich, Germany",
   "source": "wikicfp",
-  "external_id": "wikicfp:203932"
+  "external_id": "wikicfp:203932",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9043,13 +9197,14 @@
   "org": "2027 10th International Conference on Green Energy and Environment Engineering (CGEEE 2027)",
   "start_date": "2027-07-22",
   "end_date": "2027-07-24",
-  "date": null,
+  "date": "2027-02-25",
   "content": "2027 10th International Conference on Green Energy and Environment Engineering (CGEEE 2027)",
-  "url": "",
+  "url": "http://www.cgeee.net/",
   "tags": "국내개최,에너지",
   "location": "Seoul, South Korea",
   "source": "wikicfp",
-  "external_id": "wikicfp:203673"
+  "external_id": "wikicfp:203673",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9058,13 +9213,14 @@
   "org": "2027 The 9th International Conference on Electronics and Communication Technologies (ICECT 2027)",
   "start_date": "2027-06-25",
   "end_date": "2027-06-27",
-  "date": null,
+  "date": "2027-01-30",
   "content": "2027 The 9th International Conference on Electronics and Communication Technologies (ICECT 2027)",
-  "url": "",
+  "url": "https://icect.org/",
   "tags": "국내개최,에너지",
   "location": "Seoul, South Korea",
   "source": "wikicfp",
-  "external_id": "wikicfp:203502"
+  "external_id": "wikicfp:203502",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9073,13 +9229,14 @@
   "org": "2027 15th International Conference on Power Science and Engineering (ICPSE 2027)",
   "start_date": "2027-06-25",
   "end_date": "2027-06-27",
-  "date": null,
+  "date": "2027-01-20",
   "content": "2027 15th International Conference on Power Science and Engineering (ICPSE 2027)",
-  "url": "",
+  "url": "https://www.icpse.org/",
   "tags": "해외,에너지",
   "location": "Urumqi, Xinjiang, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203491"
+  "external_id": "wikicfp:203491",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9088,13 +9245,14 @@
   "org": "2027 The 10th International Conference on Renewable Energy and Environment Engineering (REEE 2027)",
   "start_date": "2027-06-15",
   "end_date": "2027-06-18",
-  "date": null,
+  "date": "2027-01-25",
   "content": "2027 The 10th International Conference on Renewable Energy and Environment Engineering (REEE 2027)",
-  "url": "",
+  "url": "https://www.reee.net/",
   "tags": "해외,에너지",
   "location": "Almaty, Kazakhstan",
   "source": "wikicfp",
-  "external_id": "wikicfp:203490"
+  "external_id": "wikicfp:203490",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9103,73 +9261,14 @@
   "org": "2026 International Conference on Ship Power and Intelligent Manufacturing",
   "start_date": "2026-11-27",
   "end_date": "2026-11-29",
-  "date": null,
+  "date": "2026-11-13",
   "content": "2026 International Conference on Ship Power and Intelligent Manufacturing",
-  "url": "",
+  "url": "https://www.aischolar.com/u/Mjiqq2",
   "tags": "해외,에너지",
   "location": "Qingdao,China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203471"
- },
- {
-  "type": "conf",
-  "field": "energy",
-  "title": "IEEE-PSGEC 2027",
-  "org": "2027 7th Power System and Green Energy Conference (PSGEC 2027)",
-  "start_date": "2027-08-25",
-  "end_date": "2027-08-28",
-  "date": null,
-  "content": "2027 7th Power System and Green Energy Conference (PSGEC 2027)",
-  "url": "",
-  "tags": "해외,신재생에너지",
-  "location": "Beijing, China",
-  "source": "wikicfp",
-  "external_id": "wikicfp:203992"
- },
- {
-  "type": "conf",
-  "field": "energy",
-  "title": "ACEEE 2027",
-  "org": "IEEE--2027 10th Asia Conference on Energy and Electrical Engineering (ACEEE 2027)",
-  "start_date": "2027-08-13",
-  "end_date": "2027-08-15",
-  "date": null,
-  "content": "IEEE--2027 10th Asia Conference on Energy and Electrical Engineering (ACEEE 2027)",
-  "url": "",
-  "tags": "해외,신재생에너지",
-  "location": "Tianjin, China",
-  "source": "wikicfp",
-  "external_id": "wikicfp:203934"
- },
- {
-  "type": "conf",
-  "field": "energy",
-  "title": "ICPET 2027",
-  "org": "IEEE--2027 The 9th International Conference on Power and Energy Technology (ICPET 2027)",
-  "start_date": "2027-07-16",
-  "end_date": "2027-07-19",
-  "date": null,
-  "content": "IEEE--2027 The 9th International Conference on Power and Energy Technology (ICPET 2027)",
-  "url": "",
-  "tags": "해외,신재생에너지",
-  "location": "Changsha, Hunan, China",
-  "source": "wikicfp",
-  "external_id": "wikicfp:203826"
- },
- {
-  "type": "conf",
-  "field": "energy",
-  "title": "ICSciEnTec 2027",
-  "org": "International Conference on Science, Engineering and Technology",
-  "start_date": "2027-05-05",
-  "end_date": "2027-05-07",
-  "date": null,
-  "content": "International Conference on Science, Engineering and Technology",
-  "url": "",
-  "tags": "해외,신재생에너지",
-  "location": "OVC, RUB, Thimphu, BHUTAN",
-  "source": "wikicfp",
-  "external_id": "wikicfp:203570"
+  "external_id": "wikicfp:203471",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9178,13 +9277,78 @@
   "org": "IEEE 2026 7th International Conference on Smart Grid and Energy Engineering",
   "start_date": "2026-11-27",
   "end_date": "2026-11-29",
-  "date": null,
+  "date": "2026-10-30",
   "content": "IEEE 2026 7th International Conference on Smart Grid and Energy Engineering",
-  "url": "",
-  "tags": "해외,신재생에너지",
+  "url": "https://ais.cn/u/mym6na",
+  "tags": "해외,에너지",
   "location": "Changzhou, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203415"
+  "external_id": "wikicfp:203415",
+  "wikicfp_checked": true
+ },
+ {
+  "type": "conf",
+  "field": "energy",
+  "title": "IEEE-PSGEC 2027",
+  "org": "2027 7th Power System and Green Energy Conference (PSGEC 2027)",
+  "start_date": "2027-08-25",
+  "end_date": "2027-08-28",
+  "date": "2027-02-05",
+  "content": "2027 7th Power System and Green Energy Conference (PSGEC 2027)",
+  "url": "http://www.psgec.org",
+  "tags": "해외,신재생에너지",
+  "location": "Beijing, China",
+  "source": "wikicfp",
+  "external_id": "wikicfp:203992",
+  "wikicfp_checked": true
+ },
+ {
+  "type": "conf",
+  "field": "energy",
+  "title": "ACEEE 2027",
+  "org": "IEEE--2027 10th Asia Conference on Energy and Electrical Engineering (ACEEE 2027)",
+  "start_date": "2027-08-13",
+  "end_date": "2027-08-15",
+  "date": "2027-03-05",
+  "content": "IEEE--2027 10th Asia Conference on Energy and Electrical Engineering (ACEEE 2027)",
+  "url": "https://aceee.net/",
+  "tags": "해외,신재생에너지",
+  "location": "Tianjin, China",
+  "source": "wikicfp",
+  "external_id": "wikicfp:203934",
+  "wikicfp_checked": true
+ },
+ {
+  "type": "conf",
+  "field": "energy",
+  "title": "ICPET 2027",
+  "org": "IEEE--2027 The 9th International Conference on Power and Energy Technology (ICPET 2027)",
+  "start_date": "2027-07-16",
+  "end_date": "2027-07-19",
+  "date": "2027-02-25",
+  "content": "IEEE--2027 The 9th International Conference on Power and Energy Technology (ICPET 2027)",
+  "url": "http://www.icpet.org",
+  "tags": "해외,신재생에너지",
+  "location": "Changsha, Hunan, China",
+  "source": "wikicfp",
+  "external_id": "wikicfp:203826",
+  "wikicfp_checked": true
+ },
+ {
+  "type": "conf",
+  "field": "energy",
+  "title": "ICSciEnTec 2027",
+  "org": "International Conference on Science, Engineering and Technology",
+  "start_date": "2027-05-05",
+  "end_date": "2027-05-07",
+  "date": "2027-01-31",
+  "content": "International Conference on Science, Engineering and Technology",
+  "url": "https://icscientec.cst.edu.bt",
+  "tags": "해외,신재생에너지",
+  "location": "OVC, RUB, Thimphu, BHUTAN",
+  "source": "wikicfp",
+  "external_id": "wikicfp:203570",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9193,13 +9357,14 @@
   "org": "2026 6th International Conference on New Energy and Power Engineering",
   "start_date": "2026-11-20",
   "end_date": "2026-11-22",
-  "date": null,
+  "date": "2026-11-06",
   "content": "2026 6th International Conference on New Energy and Power Engineering",
-  "url": "",
+  "url": "https://ais.cn/u/VV3MFb",
   "tags": "해외,신재생에너지",
   "location": "Guangzhou, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203277"
+  "external_id": "wikicfp:203277",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9208,13 +9373,14 @@
   "org": "2027 International Conference on Clean Energy and Smart Grid",
   "start_date": "2027-12-03",
   "end_date": "2027-12-05",
-  "date": null,
+  "date": "2027-06-04",
   "content": "2027 International Conference on Clean Energy and Smart Grid",
-  "url": "",
+  "url": "http://www.ccesg.org",
   "tags": "해외,신재생에너지",
   "location": "China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203272"
+  "external_id": "wikicfp:203272",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9223,13 +9389,14 @@
   "org": "IEEE--2027 the 3rd World Symposium on Electrical Systems (WSES 2027)",
   "start_date": "2027-06-11",
   "end_date": "2027-06-13",
-  "date": null,
+  "date": "2027-01-15",
   "content": "IEEE--2027 the 3rd World Symposium on Electrical Systems (WSES 2027)",
-  "url": "",
+  "url": "https://wses.net/",
   "tags": "해외,신재생에너지",
   "location": "Nanjing, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203231"
+  "external_id": "wikicfp:203231",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9238,13 +9405,14 @@
   "org": "2027 IEEE 5th International Conference on Power Science and Technology (ICPST 2027)",
   "start_date": "2027-05-14",
   "end_date": "2027-05-17",
-  "date": null,
+  "date": "2026-12-20",
   "content": "2027 IEEE 5th International Conference on Power Science and Technology (ICPST 2027)",
-  "url": "",
+  "url": "http://www.icpst.org",
   "tags": "해외,신재생에너지",
   "location": "Zhengzhou, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203228"
+  "external_id": "wikicfp:203228",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9253,13 +9421,14 @@
   "org": "5th International Summit on Non-Renewable, Renewable and Energy Transition Technologies (ISNRE2027)",
   "start_date": "2027-08-16",
   "end_date": "2027-08-17",
-  "date": null,
+  "date": "2027-07-12",
   "content": "5th International Summit on Non-Renewable, Renewable and Energy Transition Technologies (ISNRE2027)",
-  "url": "",
+  "url": "https://renewableenergy2027.spectrumconferences.com/",
   "tags": "해외,신재생에너지",
   "location": "Edinburgh, UK",
   "source": "wikicfp",
-  "external_id": "wikicfp:203164"
+  "external_id": "wikicfp:203164",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9268,43 +9437,30 @@
   "org": "2027 9th International Conference on Resources and Environment Sciences (ICRES 2027)",
   "start_date": "2027-06-10",
   "end_date": "2027-06-12",
-  "date": null,
+  "date": "2027-01-25",
   "content": "2027 9th International Conference on Resources and Environment Sciences (ICRES 2027)",
-  "url": "",
+  "url": "https://www.icres.org/",
   "tags": "해외,신재생에너지",
   "location": "Bangkok, Thailand",
   "source": "wikicfp",
-  "external_id": "wikicfp:202892"
+  "external_id": "wikicfp:202892",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "quantum",
-  "title": "ICHCSC 2027",
-  "org": "5th International Conference on Human-Centric Smart Computing",
-  "start_date": "2027-02-12",
-  "end_date": "2027-02-13",
-  "date": null,
-  "content": "5th International Conference on Human-Centric Smart Computing",
-  "url": "",
-  "tags": "해외,양자컴퓨팅",
-  "location": "UEM, Jaipur",
+  "field": "energy",
+  "title": "ICSREE 2027",
+  "org": "2027 12th International Conference on Sustainable and Renewable Energy Engineering (ICSREE 2027)",
+  "start_date": "2027-05-25",
+  "end_date": "2027-05-28",
+  "date": "2027-01-05",
+  "content": "2027 12th International Conference on Sustainable and Renewable Energy Engineering (ICSREE 2027)",
+  "url": "http://www.icsree.com",
+  "tags": "해외,신재생에너지",
+  "location": "Madrid, Spain",
   "source": "wikicfp",
-  "external_id": "wikicfp:204102"
- },
- {
-  "type": "conf",
-  "field": "quantum",
-  "title": "Cross-AI FINI 2026",
-  "org": "Cross-AI Frontier Session on Finance and Insurance in the Intelligence Era",
-  "start_date": "2026-12-14",
-  "end_date": "2026-12-16",
-  "date": null,
-  "content": "Cross-AI Frontier Session on Finance and Insurance in the Intelligence Era",
-  "url": "",
-  "tags": "해외,양자컴퓨팅",
-  "location": "Online",
-  "source": "wikicfp",
-  "external_id": "wikicfp:204094"
+  "external_id": "wikicfp:202885",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9313,28 +9469,31 @@
   "org": "ISC High Performance 2027",
   "start_date": "2027-06-07",
   "end_date": "2027-06-11",
-  "date": null,
+  "date": "2026-12-21",
   "content": "ISC High Performance 2027",
-  "url": "",
+  "url": "https://isc-hpc.com/submissions/research-paper/",
   "tags": "해외,양자컴퓨팅",
   "location": "Hamburg, Germany",
   "source": "wikicfp",
-  "external_id": "wikicfp:203803"
+  "external_id": "wikicfp:203803",
+  "wikicfp_checked": true,
+  "abstract_deadline": "2026-12-14"
  },
  {
   "type": "conf",
   "field": "quantum",
   "title": "Cross-AI QFI 2026",
-  "org": "Cross-AI Frontier Session on Quantum Foundations of Intelligence",
+  "org": "1st Frontier Workshop on Quantum Foundations of Intelligence",
   "start_date": "2026-12-14",
   "end_date": "2026-12-16",
-  "date": null,
-  "content": "Cross-AI Frontier Session on Quantum Foundations of Intelligence",
-  "url": "",
+  "date": "2026-10-26",
+  "content": "1st Frontier Workshop on Quantum Foundations of Intelligence",
+  "url": "https://cross-ai.io/conference/2027/preconf/qfi-2026/",
   "tags": "해외,양자컴퓨팅",
   "location": "Online",
   "source": "wikicfp",
-  "external_id": "wikicfp:203457"
+  "external_id": "wikicfp:203457",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9343,13 +9502,15 @@
   "org": "1st International Conference on Advances in Quantum Technologies and Information",
   "start_date": "2027-05-03",
   "end_date": "2027-05-05",
-  "date": null,
+  "date": "2027-02-15",
   "content": "1st International Conference on Advances in Quantum Technologies and Information",
-  "url": "",
+  "url": "https://aqti-conference.com/",
   "tags": "해외,양자컴퓨팅",
   "location": "Crowne Plaza hotel, Geneva, Switzerland",
   "source": "wikicfp",
-  "external_id": "wikicfp:203156"
+  "external_id": "wikicfp:203156",
+  "wikicfp_checked": true,
+  "abstract_deadline": "2027-03-30"
  },
  {
   "type": "conf",
@@ -9358,13 +9519,14 @@
   "org": "5th International Conference on Innovations in Computer Science",
   "start_date": "2026-12-23",
   "end_date": "2026-12-24",
-  "date": null,
+  "date": "2026-09-10",
   "content": "5th International Conference on Innovations in Computer Science",
-  "url": "",
+  "url": "https://iconics.neduet.edu.pk",
   "tags": "해외,양자컴퓨팅",
   "location": "Karachi, Pakistan",
   "source": "wikicfp",
-  "external_id": "wikicfp:203022"
+  "external_id": "wikicfp:203022",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9373,13 +9535,14 @@
   "org": "International Conference on Cybertechnology and Future Networks",
   "start_date": "2026-11-25",
   "end_date": "2026-11-26",
-  "date": null,
+  "date": "2026-11-10",
   "content": "International Conference on Cybertechnology and Future Networks",
-  "url": "",
+  "url": "https://cybertech.niu.edu/iccfn/",
   "tags": "해외,양자컴퓨팅",
   "location": "Prague, Czech Republic",
   "source": "wikicfp",
-  "external_id": "wikicfp:202820"
+  "external_id": "wikicfp:202820",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9388,13 +9551,14 @@
   "org": "International Conference on High Performance Computing in Asia-Pacific Region",
   "start_date": "2027-02-17",
   "end_date": "2027-02-19",
-  "date": null,
+  "date": "2026-09-27",
   "content": "International Conference on High Performance Computing in Asia-Pacific Region",
-  "url": "",
+  "url": "https://hpcasia2027.org/",
   "tags": "국내개최,양자컴퓨팅",
   "location": "Seoul, Korea",
   "source": "wikicfp",
-  "external_id": "wikicfp:201624"
+  "external_id": "wikicfp:201624",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9403,13 +9567,14 @@
   "org": "8th International Conference on Advances in Distributed Computing and Machine Learning",
   "start_date": "2027-01-28",
   "end_date": "2027-01-29",
-  "date": null,
+  "date": "2026-09-10",
   "content": "8th International Conference on Advances in Distributed Computing and Machine Learning",
-  "url": "",
+  "url": "https://icadcml.in/",
   "tags": "해외,양자컴퓨팅",
   "location": "NIT Puducherry",
   "source": "wikicfp",
-  "external_id": "wikicfp:201569"
+  "external_id": "wikicfp:201569",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9418,13 +9583,14 @@
   "org": "International Conference on Intelligent Computing Frontiers",
   "start_date": "2027-01-21",
   "end_date": "2027-01-23",
-  "date": null,
+  "date": "2026-09-30",
   "content": "International Conference on Intelligent Computing Frontiers",
-  "url": "",
+  "url": "https://set.jainuniversity.ac.in/icicf/",
   "tags": "해외,양자컴퓨팅",
   "location": "Bengaluru, India",
   "source": "wikicfp",
-  "external_id": "wikicfp:201312"
+  "external_id": "wikicfp:201312",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9433,13 +9599,14 @@
   "org": "5th International Conference on Applied Artificial Intelligence and Computing",
   "start_date": "2027-02-01",
   "end_date": "2027-02-03",
-  "date": null,
+  "date": "2026-11-09",
   "content": "5th International Conference on Applied Artificial Intelligence and Computing",
-  "url": "",
+  "url": "https://icaaic.com/2027/",
   "tags": "해외,양자컴퓨팅",
   "location": "Salem, Tamil Nadu, India",
   "source": "wikicfp",
-  "external_id": "wikicfp:201209"
+  "external_id": "wikicfp:201209",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9448,13 +9615,14 @@
   "org": "IEEE 2026 6th International Conference on Signal Processing and Communication Technology",
   "start_date": "2026-12-18",
   "end_date": "2026-12-20",
-  "date": null,
+  "date": "2026-11-18",
   "content": "IEEE 2026 6th International Conference on Signal Processing and Communication Technology",
-  "url": "",
+  "url": "https://ais.cn/u/Unu6zy",
   "tags": "해외,통신",
   "location": "Shenzhen, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203935"
+  "external_id": "wikicfp:203935",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9463,13 +9631,14 @@
   "org": "IEEE 2026 6th International Conference on High Performance Computing, Big Data and Communication Engineering",
   "start_date": "2026-12-18",
   "end_date": "2026-12-20",
-  "date": null,
+  "date": "2026-11-18",
   "content": "IEEE 2026 6th International Conference on High Performance Computing, Big Data and Communication Engineering",
-  "url": "",
+  "url": "https://ais.cn/u/reMN73",
   "tags": "해외,통신",
   "location": "Nanchang, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203927"
+  "external_id": "wikicfp:203927",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9478,13 +9647,14 @@
   "org": "IEEE 2026 8th International Conference on Communications, Information System and Software Engineering",
   "start_date": "2026-12-18",
   "end_date": "2026-12-20",
-  "date": null,
+  "date": "2026-10-30",
   "content": "IEEE 2026 8th International Conference on Communications, Information System and Software Engineering",
-  "url": "",
+  "url": "https://ais.cn/u/yiAnq2",
   "tags": "해외,통신",
   "location": "Guangzhou, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203864"
+  "external_id": "wikicfp:203864",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9493,13 +9663,14 @@
   "org": "Springer--2027 7th International Conference on Computer and Communication Engineering (CCCE 2027)",
   "start_date": "2027-08-21",
   "end_date": "2027-08-23",
-  "date": null,
+  "date": "2027-03-10",
   "content": "Springer--2027 7th International Conference on Computer and Communication Engineering (CCCE 2027)",
-  "url": "",
+  "url": "https://www.ccce.net/",
   "tags": "해외,통신",
   "location": "Zagreb, Croatia",
   "source": "wikicfp",
-  "external_id": "wikicfp:203837"
+  "external_id": "wikicfp:203837",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9508,13 +9679,14 @@
   "org": "2027 The 7th Asia Conference on Computers and Communications (ACCC 2027)",
   "start_date": "2027-08-05",
   "end_date": "2027-08-07",
-  "date": null,
+  "date": "2027-03-05",
   "content": "2027 The 7th Asia Conference on Computers and Communications (ACCC 2027)",
-  "url": "",
+  "url": "https://accc.net/",
   "tags": "해외,통신",
   "location": "Nagoya, Japan",
   "source": "wikicfp",
-  "external_id": "wikicfp:203829"
+  "external_id": "wikicfp:203829",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9523,13 +9695,14 @@
   "org": "2026 International Conference on Intelligent Traffic and Transportation Systems",
   "start_date": "2026-12-11",
   "end_date": "2026-12-13",
-  "date": null,
+  "date": "2026-10-30",
   "content": "2026 International Conference on Intelligent Traffic and Transportation Systems",
-  "url": "",
+  "url": "https://ais.cn/u/6Bvq2i",
   "tags": "해외,통신",
   "location": "Shanghai, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203822"
+  "external_id": "wikicfp:203822",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9538,13 +9711,14 @@
   "org": "2026 3rd International Conference on Intelligent Communication, Sensing and Electromagnetics",
   "start_date": "2026-12-11",
   "end_date": "2026-12-13",
-  "date": null,
+  "date": "2026-10-30",
   "content": "2026 3rd International Conference on Intelligent Communication, Sensing and Electromagnetics",
-  "url": "",
+  "url": "https://ais.cn/u/ZZNf2q",
   "tags": "해외,통신",
   "location": "Shenzhen, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203809"
+  "external_id": "wikicfp:203809",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9553,13 +9727,14 @@
   "org": "2027 The 8th International Conference on Telecommunications and Communication Engineering (ICTCE 2027)",
   "start_date": "2027-07-31",
   "end_date": "2027-08-02",
-  "date": null,
+  "date": "2027-03-05",
   "content": "2027 The 8th International Conference on Telecommunications and Communication Engineering (ICTCE 2027)",
-  "url": "",
+  "url": "https://www.ictce.org/",
   "tags": "해외,통신",
   "location": "Chengdu, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203768"
+  "external_id": "wikicfp:203768",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9568,13 +9743,14 @@
   "org": "IEEE 2026 6th International Conference on Electronic Communication, Computer Science and Technology",
   "start_date": "2026-12-11",
   "end_date": "2026-12-13",
-  "date": null,
+  "date": "2026-10-30",
   "content": "IEEE 2026 6th International Conference on Electronic Communication, Computer Science and Technology",
-  "url": "",
+  "url": "https://ais.cn/u/RrMVfm",
   "tags": "해외,통신",
   "location": "Xi'an, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203750"
+  "external_id": "wikicfp:203750",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9583,13 +9759,14 @@
   "org": "lEEE 2026 3rd International Conference on Image, Signal Processing and Communication Technology",
   "start_date": "2026-12-04",
   "end_date": "2026-12-06",
-  "date": null,
+  "date": "2026-10-30",
   "content": "lEEE 2026 3rd International Conference on Image, Signal Processing and Communication Technology",
-  "url": "",
+  "url": "https://ais.cn/u/Z7zUJb",
   "tags": "해외,통신",
   "location": "Dongguan, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203692"
+  "external_id": "wikicfp:203692",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9598,13 +9775,14 @@
   "org": "IEEE 2026 5th International Conference on Signal Processing, Computer Networks and Communications",
   "start_date": "2026-12-04",
   "end_date": "2026-12-06",
-  "date": null,
+  "date": "2026-10-30",
   "content": "IEEE 2026 5th International Conference on Signal Processing, Computer Networks and Communications",
-  "url": "",
+  "url": "https://ais.cn/u/qqQJBv",
   "tags": "해외,통신",
   "location": "Chongqing, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203671"
+  "external_id": "wikicfp:203671",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9613,13 +9791,14 @@
   "org": "2026 8th International Conference on Information Technology and Computer Application",
   "start_date": "2026-12-18",
   "end_date": "2026-12-20",
-  "date": null,
+  "date": "2026-10-30",
   "content": "2026 8th International Conference on Information Technology and Computer Application",
-  "url": "",
+  "url": "https://www.aischolar.com/u/bY36Jf",
   "tags": "해외,통신",
   "location": "Guangzhou, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203631"
+  "external_id": "wikicfp:203631",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9628,13 +9807,14 @@
   "org": "2027 The 19th International Conference on Future Computer and Communication (ICFCC 2027)",
   "start_date": "2027-06-25",
   "end_date": "2027-06-27",
-  "date": null,
+  "date": "2027-01-30",
   "content": "2027 The 19th International Conference on Future Computer and Communication (ICFCC 2027)",
-  "url": "",
+  "url": "http://icfcc.org/",
   "tags": "국내개최,통신",
   "location": "Seoul, South Korea",
   "source": "wikicfp",
-  "external_id": "wikicfp:203504"
+  "external_id": "wikicfp:203504",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9643,13 +9823,14 @@
   "org": "2027 11th International Conference on Imaging, Signal Processing and Communications (ICISPC 2027)",
   "start_date": "2027-07-10",
   "end_date": "2027-07-13",
-  "date": null,
+  "date": "2027-02-20",
   "content": "2027 11th International Conference on Imaging, Signal Processing and Communications (ICISPC 2027)",
-  "url": "",
+  "url": "http://www.icispc.org/",
   "tags": "해외,통신",
   "location": "Kobe, Japan",
   "source": "wikicfp",
-  "external_id": "wikicfp:203496"
+  "external_id": "wikicfp:203496",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9658,13 +9839,14 @@
   "org": "2026 3rd International Symposium on Electronic Information Engineering and Intelligent Communication",
   "start_date": "2026-11-27",
   "end_date": "2026-11-29",
-  "date": null,
+  "date": "2026-11-06",
   "content": "2026 3rd International Symposium on Electronic Information Engineering and Intelligent Communication",
-  "url": "",
+  "url": "https://ais.cn/u/y6ZjEj",
   "tags": "해외,통신",
   "location": "Guangzhou, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203403"
+  "external_id": "wikicfp:203403",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9673,13 +9855,14 @@
   "org": "IEEE 2026 7th International Symposium on Computer Engineering and Intelligent Communications",
   "start_date": "2026-11-27",
   "end_date": "2026-11-29",
-  "date": null,
+  "date": "2026-11-13",
   "content": "IEEE 2026 7th International Symposium on Computer Engineering and Intelligent Communications",
-  "url": "",
+  "url": "https://ais.cn/u/f2yeai",
   "tags": "해외,통신",
   "location": "Chongqing, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203400"
+  "external_id": "wikicfp:203400",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9688,13 +9871,14 @@
   "org": "2027 the 19th International Conference on Communication Software and Networks (ICCSN 2027)",
   "start_date": "2027-07-09",
   "end_date": "2027-07-11",
-  "date": null,
+  "date": "2027-02-10",
   "content": "2027 the 19th International Conference on Communication Software and Networks (ICCSN 2027)",
-  "url": "",
+  "url": "https://www.iccsn.org/",
   "tags": "해외,통신",
   "location": "Chengdu, China",
   "source": "wikicfp",
-  "external_id": "wikicfp:203387"
+  "external_id": "wikicfp:203387",
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
