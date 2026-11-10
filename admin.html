@@ -1284,7 +1284,7 @@ async function loadReports(status) {
   _reports = data || [];
   if(!_reports.length) { body.innerHTML = '<tr><td colspan="6"><div class="empty-state"><div class="emoji">✨</div>여기에 해당하는 신고가 없어요.</div></td></tr>'; refreshAdminBadges(); return; }
   body.innerHTML = _reports.map((r, i) => `<tr>
-    <td style="white-space:nowrap;"><span class="badge ${r.src === 'clover' ? 'badge-green' : 'badge-purple'}">${r.src === 'clover' ? '🍀 ' : '💬 '}${esc(r.kind)}</span></td>
+    <td style="white-space:nowrap;"><span class="badge ${r.src === 'clover' ? 'badge-green' : r.src === 'conf' ? 'badge-blue' : 'badge-purple'}">${r.src === 'clover' ? '🍀 ' : r.src === 'conf' ? '🎤 ' : '💬 '}${esc(r.kind)}</span></td>
     <td style="max-width:200px;font-size:13px;font-weight:600;">${esc(r.target || '(지워진 대상)')}</td>
     <td style="max-width:260px;font-size:12.5px;color:#475569;white-space:pre-wrap;">${esc((r.detail || '').slice(0, 200)) || '-'}</td>
     <td style="max-width:220px;font-size:12.5px;">${esc(r.reason || '-')}${r.contact ? `<div style="color:#94a3b8;font-size:11.5px;">연락처: ${esc(r.contact)}</div>` : ''}</td>
