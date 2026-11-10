@@ -260,15 +260,9 @@
   }
   .empty-state .emoji { font-size: 36px; margin-bottom: 12px; }
 
-  .tab-bar { display: flex; gap: 8px; margin-bottom: 20px; }
-  .tab-btn {
-    padding: 8px 18px; border-radius: 20px;
-    font-size: 14px; font-weight: 600;
-    border: 1.5px solid var(--border);
-    background: white; color: var(--text-sub); cursor: pointer;
-    transition: all 0.15s;
-  }
-  .tab-btn.active { background: var(--blue); border-color: var(--blue); color: white; }
+  
+  
+  
 
 /* ── Unified Button System ── */
 .btn-primary {
@@ -292,16 +286,6 @@
   font-family: 'Noto Sans KR', sans-serif;
 }
 .btn-secondary:hover { border-color: #2563eb; color: #2563eb; }
-.btn-ghost {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 7px 14px;
-  background: transparent; color: #64748b;
-  border: none; border-radius: 8px;
-  font-size: 13px; font-weight: 600;
-  cursor: pointer; transition: all 0.13s;
-  font-family: 'Noto Sans KR', sans-serif;
-}
-.btn-ghost:hover { background: #f1f5f9; color: #0f172a; }
 
 </style>
 </head>
@@ -969,6 +953,12 @@ function esc(str){
   return String(str ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 
+// 요약 숫자 칸 (회원·클로버·통계 화면에서 함께 씀)
+const chip = (label, v) => `<div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:10px 14px;font-size:12px;color:#64748b;">${label}<div style="font-size:20px;font-weight:800;color:#0f172a;">${v}</div></div>`;
+// 기능용 SQL 을 아직 실행하지 않아 생긴 오류면 어떤 파일을 실행할지 알려 준다
+const needSql = (e, file) => e.code === 'PGRST202' || /does not exist|schema cache/i.test(e.message || '')
+  ? `이 기능을 켜려면 Supabase에서 supabase/${file} 을 실행해주세요.` : '불러오지 못했어요: ' + esc(e.message);
+
 let adminUser = null;
 let newsData = [];
 let infoData = [];
@@ -1107,14 +1097,13 @@ async function loadMembers() {
   const body = document.getElementById('members-table-body');
   const { data, error } = await sbClient.rpc('admin_members');
   if(error) {
-    body.innerHTML = `<tr><td colspan="8"><div class="empty-state"><div class="emoji">⚠️</div>${error.code === 'PGRST202'
+    body.innerHTML = `<tr><td colspan="10"><div class="empty-state"><div class="emoji">⚠️</div>${error.code === 'PGRST202'
       ? '회원 목록 기능을 켜려면 Supabase에서 supabase/admin_members.sql 을 실행해주세요.'
       : '회원 목록을 불러오지 못했어요: ' + esc(error.message)}</div></td></tr>`;
     return;
   }
   _members = data || [];
   const n = f => _members.filter(f).length;
-  const chip = (label, v) => `<div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:10px 14px;font-size:12px;color:#64748b;">${label}<div style="font-size:20px;font-weight:800;color:#0f172a;">${v}</div></div>`;
   const weekAgo = Date.now() - 7*864e5;
   document.getElementById('mb-stats').innerHTML =
     chip('전체 회원', _members.length) +
@@ -1230,15 +1219,18 @@ async function mmDelete() {
 // ════════════════════════════════════
 async function refreshAdminBadges() {
   const setBadge = (id, n) => { const b = document.getElementById(id); if(b) { b.textContent = n; b.style.display = n ? '' : 'none'; } };
-  const r = await sbClient.rpc('admin_reports', { p_status: 'pending' });
+  // 다섯 가지를 한꺼번에 물어본다 (하나씩 기다리지 않음)
+  const [r, w, cs, cq, crq] = await Promise.all([
+    sbClient.rpc('admin_reports', { p_status: 'pending' }),
+    sbClient.from('withdraw_requests').select('user_id', { count: 'exact', head: true }),
+    sbClient.from('conference_suggestions').select('id', { count: 'exact', head: true }).eq('status', 'pending'),
+    sbClient.rpc('admin_clover_queue', { p_status: 'pending' }),
+    sbClient.rpc('admin_conf_review_queue', { p_status: 'pending' }),
+  ]);
   if(!r.error) setBadge('reports-badge', (r.data || []).length);
-  const w = await sbClient.from('withdraw_requests').select('user_id', { count: 'exact', head: true });
   if(!w.error) setBadge('withdraw-badge', w.count || 0);
-  const cs = await sbClient.from('conference_suggestions').select('id', { count: 'exact', head: true }).eq('status', 'pending');
   if(!cs.error) setBadge('suggest-badge', cs.count || 0);
-  const cq = await sbClient.rpc('admin_clover_queue', { p_status: 'pending' });
   if(!cq.error) setBadge('clover-review-badge', (cq.data || []).length);
-  const crq = await sbClient.rpc('admin_conf_review_queue', { p_status: 'pending' });
   if(!crq.error) setBadge('conf-review-badge', (crq.data || []).length);
 }
 
@@ -1252,7 +1244,7 @@ async function loadSuggestions(status) {
   const body = document.getElementById('suggest-table-body');
   const { data, error } = await sbClient.from('conference_suggestions').select('*').eq('status', _suggestStatus).order('created_at', { ascending: false }).limit(200);
   if(error) {
-    const msg = /does not exist|schema cache/i.test(error.message || '') ? '이 기능을 켜려면 Supabase에서 supabase/conference_suggestions.sql 을 실행해주세요.' : '불러오지 못했어요: ' + esc(error.message);
+    const msg = needSql(error, 'conference_suggestions.sql');
     body.innerHTML = `<tr><td colspan="3"><div class="empty-state"><div class="emoji">⚠️</div>${msg}</div></td></tr>`; return;
   }
   _suggestions = data || [];
@@ -1292,8 +1284,7 @@ async function rejectSuggestion(i) {
   showToast('반려했어요.');
   loadSuggestions();
 }
-const NEED_SQL = '이 기능을 켜려면 Supabase에서 supabase/admin_tools.sql 을 실행해주세요.';
-const rpcErr = e => e.code === 'PGRST202' || /does not exist|schema cache/i.test(e.message || '') ? NEED_SQL : '불러오지 못했어요: ' + esc(e.message);
+const rpcErr = e => needSql(e, 'admin_tools.sql');
 
 // ════════════════════════════════════
 // 신고함
@@ -1337,7 +1328,6 @@ async function loadCloverAdmin() {
   const { data, error } = await sbClient.rpc('admin_clover_labs');
   if(error) { body.innerHTML = `<tr><td colspan="7"><div class="empty-state"><div class="emoji">⚠️</div>${rpcErr(error)}</div></td></tr>`; return; }
   _labs = data || [];
-  const chip = (label, v) => `<div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:10px 14px;font-size:12px;color:#64748b;">${label}<div style="font-size:20px;font-weight:800;color:#0f172a;">${v}</div></div>`;
   document.getElementById('cl-stats').innerHTML =
     chip('등록된 연구실', _labs.length) +
     chip('공개됨 (6명+)', _labs.filter(l => l.cnt >= 6).length) +
@@ -1375,7 +1365,7 @@ async function loadCloverQueue(status) {
   const body = document.getElementById('clover-queue-body');
   const { data, error } = await sbClient.rpc('admin_clover_queue', { p_status: _cqStatus });
   if(error) {
-    const msg = error.code === 'PGRST202' || /does not exist|schema cache/i.test(error.message || '') ? '이 기능을 켜려면 Supabase에서 supabase/clover_my_lab.sql 을 실행해주세요.' : '불러오지 못했어요: ' + esc(error.message);
+    const msg = needSql(error, 'clover_my_lab.sql');
     body.innerHTML = `<tr><td colspan="5"><div class="empty-state"><div class="emoji">⚠️</div>${msg}</div></td></tr>`; return;
   }
   _cq = data || [];
@@ -1425,7 +1415,7 @@ async function loadConfReviewQueue(status) {
   const body = document.getElementById('conf-review-body');
   const { data, error } = await sbClient.rpc('admin_conf_review_queue', { p_status: _crqStatus });
   if(error) {
-    const msg = error.code === 'PGRST202' || /does not exist|schema cache/i.test(error.message || '') ? '이 기능을 켜려면 Supabase에서 supabase/conf_review_proof.sql 을 실행해주세요.' : '불러오지 못했어요: ' + esc(error.message);
+    const msg = needSql(error, 'conf_review_proof.sql');
     body.innerHTML = `<tr><td colspan="5"><div class="empty-state"><div class="emoji">⚠️</div>${msg}</div></td></tr>`; return;
   }
   _crq = data || [];
@@ -1540,7 +1530,6 @@ async function loadStats(days) {
   if(error) { document.getElementById('st-chart').innerHTML = `<div class="empty-state"><div class="emoji">⚠️</div>${rpcErr(error)}</div>`; body.innerHTML = ''; return; }
   const rows = data || [];
   const sum = k => rows.reduce((a, r) => a + r[k], 0);
-  const chip = (label, v) => `<div style="background:white;border:1px solid #e2e8f0;border-radius:10px;padding:10px 14px;font-size:12px;color:#64748b;">${label}<div style="font-size:20px;font-weight:800;color:#0f172a;">${v}</div></div>`;
   const today = rows[0] || { signups: 0, visitors: 0 };
   document.getElementById('st-stats').innerHTML =
     chip('오늘 가입', today.signups) + chip('오늘 방문자', today.visitors) +
@@ -1595,6 +1584,7 @@ function renderNewsTable() {
   }
   tbody.innerHTML = newsData.map(n => `
     <tr>
+      <td style="font-size:13px;color:var(--text-muted);max-width:140px;">${esc(n.org || '-')}</td>
       <td><span class="badge ${FIELD_BADGE[n.field] || 'badge-blue'}">${esc(FIELD_LABELS[n.field] || n.field)}</span></td>
       <td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(n.title)}</td>
       <td style="font-family:'DM Mono',monospace;font-size:13px;color:var(--text-muted)">${esc(n.date)}</td>
@@ -1649,7 +1639,7 @@ function resetImagePreview() {
 
 function showImagePreview(url) {
   document.getElementById('image-preview-wrap').innerHTML = `
-    <img src="${url}" style="max-height:160px;border-radius:8px;object-fit:cover;" onerror="resetImagePreview()">
+    <img src="${esc(url)}" style="max-height:160px;border-radius:8px;object-fit:cover;" onerror="resetImagePreview()">
     <div style="font-size:12px;color:var(--green);margin-top:8px;font-weight:600;">✅ 이미지 등록됨</div>
   `;
 }
@@ -1985,7 +1975,7 @@ function editBanner(id) {
   document.getElementById('banner-image-file').value = '';
   document.getElementById('banner-active').checked = b.is_active;
   document.getElementById('banner-modal-title').textContent = '배너 수정';
-  openModal('banner-modal'); document.getElementById('banner-modal').classList.add('open');
+  openModal('banner-modal');
 }
 
 async function saveBanner() {
@@ -2088,9 +2078,7 @@ async function loadVerifications(status = 'pending') {
     if(c) c.textContent = counts[s];
   }));
   const pendingCount = counts.pending;
-  const el_p = document.getElementById('vf-count-pending');
   const badge = document.getElementById('verify-badge');
-  if(el_p) el_p.textContent = pendingCount;
   if(badge) { badge.textContent = pendingCount; badge.style.display = pendingCount > 0 ? 'inline' : 'none'; }
 
   if(error || !data || data.length === 0) {
@@ -2155,12 +2143,14 @@ async function loadVerifications(status = 'pending') {
 
 // verification_requests.doc_url 에는 저장소 안의 경로(예: <user id>/verify_123.png)가 들어 있다.
 // 예전 방식의 공개 주소가 들어 있어도 경로만 뽑아 임시 주소로 바꾼다.
+function verifyDocPath(docUrl) {
+  let path = String(docUrl || '');
+  if(path.includes('/verify-docs/')) path = decodeURIComponent(path.split('/verify-docs/').pop().split('?')[0]);
+  return /^https?:/i.test(path) ? '' : path;
+}
 async function verifyDocLink(docUrl) {
-  if(!docUrl) return '';
-  let path = String(docUrl);
-  const marker = '/verify-docs/';
-  if(path.includes(marker)) path = decodeURIComponent(path.split(marker).pop().split('?')[0]);
-  if(/^https?:/i.test(path)) return '';
+  const path = verifyDocPath(docUrl);
+  if(!path) return '';
   const { data, error } = await sbClient.storage.from('verify-docs').createSignedUrl(path, 600);
   return error ? '' : data.signedUrl;
 }
@@ -2174,11 +2164,7 @@ async function exportVerificationsExcel() {
     const { data, error } = await sbClient.from('verification_requests').select('*').order('created_at', { ascending: false });
     if(error) throw error;
     if(!data || !data.length) { showToast('내보낼 인증 요청이 없습니다.'); return; }
-    const paths = data.map(r => {
-      let p = String(r.doc_url || '');
-      if(p.includes('/verify-docs/')) p = decodeURIComponent(p.split('/verify-docs/').pop().split('?')[0]);
-      return /^https?:/i.test(p) ? '' : p;
-    });
+    const paths = data.map(r => verifyDocPath(r.doc_url));
     // 서류 보기 링크는 7일 동안만 열린다 (비공개 저장소)
     const WEEK = 7 * 24 * 3600;
     const links = {};

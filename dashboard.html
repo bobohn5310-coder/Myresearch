@@ -274,75 +274,36 @@
 
   .content { padding: 28px 32px; }
 
-  /* ── STATS ── */
-  .stats-row {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin-bottom: 28px;
-  }
+  
 
-  .stat-card {
-    background: var(--white);
-    border: 1.5px solid var(--border);
-    border-radius: 16px;
-    padding: 22px 22px 18px;
-    box-shadow: var(--shadow-sm);
-    transition: all 0.2s;
-    cursor: default;
-  }
+  
 
-  .stat-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+  
 
-  .stat-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 14px;
-  }
+  
 
-  .stat-icon {
-    width: 38px; height: 38px;
-    border-radius: 11px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 21.6px;
-  }
+  
 
-  .stat-trend {
-    font-size: 13.2px;
-    font-weight: 600;
-    padding: 3px 8px;
-    border-radius: 20px;
-  }
+  
 
-  .stat-card.blue .stat-icon { background: var(--blue-light); }
-  .stat-card.green .stat-icon { background: var(--green-light); }
-  .stat-card.amber .stat-icon { background: var(--amber-light); }
-  .stat-card.red .stat-icon { background: var(--red-light); }
+  
+  
+  
+  
 
-  .stat-card.blue .stat-trend { background: var(--blue-light); color: var(--blue); }
-  .stat-card.green .stat-trend { background: var(--green-light); color: var(--green); }
-  .stat-card.amber .stat-trend { background: var(--amber-light); color: var(--amber); }
-  .stat-card.red .stat-trend { background: var(--red-light); color: var(--red); }
+  
+  
+  
+  
 
-  .stat-value {
-    font-family: 'DM Mono', monospace;
-    font-size: 38.4px;
-    font-weight: 500;
-    line-height: 1;
-    margin-bottom: 4px;
-  }
+  
 
-  .stat-card.blue .stat-value { color: var(--blue); }
-  .stat-card.green .stat-value { color: var(--green); }
-  .stat-card.amber .stat-value { color: var(--amber); }
-  .stat-card.red .stat-value { color: var(--red); }
+  
+  
+  
+  
 
-  .stat-label {
-    font-size: 14.4px;
-    font-weight: 500;
-    color: var(--text-sub);
-  }
+  
 
   /* ── PANEL GRID ── */
   .panel-grid {
@@ -767,16 +728,6 @@
   box-shadow: 0 2px 8px rgba(37,99,235,0.25);
 }
 .btn-primary:hover { background: #1d4ed8; transform: translateY(-1px); box-shadow: 0 4px 14px rgba(37,99,235,0.35); }
-.btn-secondary {
-  display: inline-flex; align-items: center; gap: 7px;
-  padding: 9px 20px;
-  background: white; color: #334155;
-  border: 1.5px solid #e2e8f0; border-radius: 9px;
-  font-size: 14px; font-weight: 600;
-  cursor: pointer; transition: all 0.15s;
-  font-family: 'Noto Sans KR', sans-serif;
-}
-.btn-secondary:hover { border-color: #2563eb; color: #2563eb; }
 .btn-ghost {
   display: inline-flex; align-items: center; gap: 6px;
   padding: 7px 14px;
@@ -851,48 +802,33 @@
     gap: 12px !important;
   }
 
-  /* ── STATS ROW 4→2 ── */
-  .stats-row {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
-  .stat-value { font-size: 28px; }
+  
+  
 
   /* ── PANEL GRID → 1컬럼 ── */
   .panel-grid {
     grid-template-columns: 1fr;
   }
 
-  /* ── CALENDAR ── */
-  .cal-header { padding: 14px 16px; }
-  .cal-grid-header,
-  .cal-grid { font-size: 12px; }
+  
+  
   .cal-day { min-height: 56px; padding: 6px 4px; }
-  .cal-day-num { font-size: 13px; }
+  
 
-  /* ── INFO PAGE ── */
-  .info-layout {
-    grid-template-columns: 1fr !important;
-  }
+  
   .filter-row { overflow-x: auto; padding-bottom: 4px; }
   .filter-btn { font-size: 12px; padding: 5px 12px; white-space: nowrap; }
 
   /* ── FORM ROW ── */
   .form-row { grid-template-columns: 1fr; }
 
-  /* ── 모달 ── */
-  .profile-modal-box,
-  .modal-box {
-    width: 95vw !important;
-    max-height: 92vh;
-    overflow-y: auto;
-  }
+  
 }
 
 @media (max-width: 480px) {
-  .stats-row { grid-template-columns: 1fr 1fr; gap: 8px; }
-  .stat-card { padding: 16px 14px 12px; }
-  .stat-value { font-size: 24px; }
+  
+  
+  
   .content { padding: 12px; }
   .topbar { height: 52px; }
 }
@@ -1057,12 +993,8 @@ textarea.cv-input { resize:vertical; line-height:1.55; }
 
   <div class="sidebar-bottom">
     <div class="hashtag-label">내 해시태그</div>
-    <div class="hashtags">
-      <span class="hashtag">#반도체</span>
-      <span class="hashtag">#플라즈마</span>
-      <span class="hashtag">#머신러닝</span>
-      <span class="hashtag">#양자점</span>
-      <span class="hashtag add">＋ 추가</span>
+    <div class="hashtags" id="sidebar-hashtags">
+      <span class="hashtag add" onclick="openProfileModal()">＋ 관심 키워드 추가</span>
     </div>
   </div>
 </nav>
@@ -1085,7 +1017,7 @@ textarea.cv-input { resize:vertical; line-height:1.55; }
     <div class="topbar-right">
       <div class="search-wrap">
         <span class="search-icon">🔎</span>
-        <input class="search-input" placeholder="학회, 장학금 검색...">
+        <input class="search-input" placeholder="학회 이름·장소 검색" oninput="searchInfo(this.value)">
       </div>
       <button class="topbar-cv" onclick="showPage('cv', document.getElementById('nav-cv'))">📝 내 CV</button>
       <button class="btn-primary" onclick="openModal()">＋ 일정 추가</button>
@@ -1207,9 +1139,11 @@ textarea.cv-input { resize:vertical; line-height:1.55; }
           </div>
           <div class="filter-row">
             <button class="filter-btn active" onclick="filterDash(this,'all')">전체</button>
-            <button class="filter-btn" onclick="filterDash(this,'conf')">학회</button>
-            <button class="filter-btn" onclick="filterDash(this,'scholar')">장학금</button>
-            <button class="filter-btn" onclick="filterDash(this,'project')">국가과제</button>
+            <button class="filter-btn" onclick="filterDash(this,'cs')">AI·컴퓨터</button>
+            <button class="filter-btn" onclick="filterDash(this,'eng')">공학·반도체</button>
+            <button class="filter-btn" onclick="filterDash(this,'bio')">생명·의학</button>
+            <button class="filter-btn" onclick="filterDash(this,'energy')">에너지</button>
+            <button class="filter-btn" onclick="filterDash(this,'quantum')">양자·통신</button>
           </div>
           <div class="info-list" id="list-dash"></div>
         </div>
@@ -1240,15 +1174,17 @@ textarea.cv-input { resize:vertical; line-height:1.55; }
   <div class="page" id="page-info">
     <div class="tab-bar">
       <div class="tab active" onclick="switchTab(this,'all')">전체</div>
-      <div class="tab" onclick="switchTab(this,'conf')">학회</div>
-      <div class="tab" onclick="switchTab(this,'scholar')">장학금</div>
-      <div class="tab" onclick="switchTab(this,'project')">국가과제</div>
+      <div class="tab" onclick="switchTab(this,'cs')">AI·컴퓨터</div>
+      <div class="tab" onclick="switchTab(this,'eng')">공학·반도체</div>
+      <div class="tab" onclick="switchTab(this,'bio')">생명·의학</div>
+      <div class="tab" onclick="switchTab(this,'energy')">에너지·이차전지</div>
+      <div class="tab" onclick="switchTab(this,'quantum')">양자·통신</div>
     </div>
     <div class="content">
       <div class="panel">
         <div class="panel-header">
-          <span class="panel-title">전체 학술정보</span>
-          <span style="font-size: 14.4px;color:var(--text-muted);">총 8건</span>
+          <span class="panel-title">다가오는 학회</span>
+          <span style="font-size: 14.4px;color:var(--text-muted);" id="info-total"></span>
         </div>
         <div class="info-list" id="list-all"></div>
       </div>
@@ -1324,7 +1260,7 @@ textarea.cv-input { resize:vertical; line-height:1.55; }
     <div class="modal-sub">학회, 장학금, 과제 마감일 등을 등록하세요</div>
     <div class="form-group">
       <label class="form-label">일정 제목</label>
-      <input type="text" class="form-input" id="f-title" placeholder="예: IEEE IEDM 2025 논문 제출">
+      <input type="text" class="form-input" id="f-title" placeholder="예: AAAI 2027 논문 제출">
     </div>
     <div class="form-row">
       <div class="form-group">
@@ -1394,16 +1330,59 @@ function esc(str){
   return String(str ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 
-const DATA = [
-  { id:1, type:'conf',    title:'IEEE IEDM 2025',               org:'IEEE',       deadline:'2025-04-15', tags:['반도체','소자'],      dday:45 },
-  { id:2, type:'scholar', title:'한국연구재단 박사과정생 연구장려금',    org:'NRF',        deadline:'2025-04-01', tags:['이공계','박사'],      dday:31 },
-  { id:3, type:'project', title:'차세대 반도체 소자 원천기술 개발',    org:'산업통상자원부', deadline:'2025-05-20', tags:['반도체','국가R&D'],   dday:80 },
-  { id:4, type:'conf',    title:'한국반도체학술대회 KSIA 2025',     org:'KSIA',       deadline:'2025-03-28', tags:['반도체','플라즈마'],   dday:7  },
-  { id:5, type:'scholar', title:'삼성 이건희 과학기술 장학금',        org:'삼성재단',     deadline:'2025-04-30', tags:['이공계'],            dday:60 },
-  { id:6, type:'conf',    title:'AVS 국제 학술대회',               org:'AVS',        deadline:'2025-06-10', tags:['플라즈마','박막'],    dday:100},
-  { id:7, type:'project', title:'AI 반도체 공정 최적화 연구',        org:'과학기술정보부', deadline:'2025-04-20', tags:['AI','반도체'],       dday:50 },
-  { id:8, type:'scholar', title:'포스코 청암재단 장학금',             org:'포스코',      deadline:'2025-05-01', tags:['이공계','박사'],      dday:61 },
-];
+// ── 학술정보: 메인 화면과 같은 실제 학회 데이터 (Supabase academic_info, 안 되면 data/conferences.json) ──
+let DATA = [];           // 아직 끝나지 않은 학회 (시작일 순)
+let DATA_READY = false;
+const FIELD_LABEL = { cs:'AI·컴퓨터', eng:'공학·반도체', bio:'생명·의학', energy:'에너지·이차전지', quantum:'양자·통신' };
+const NON_TOPIC_TAG = /^(해외|국내|국내개최|CCF-.*|CORE-.*)$/i;
+let _infoQuery = '';
+let _infoField = 'all';
+
+function dDay(d){ return d ? Math.round((d - todayStart()) / 86400000) : null; }
+function todayStart(){ const t = new Date(); t.setHours(0,0,0,0); return t; }
+function ymd(s){ const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(s || ''); return m ? new Date(+m[1], +m[2]-1, +m[3]) : null; }
+function md(d){ return d ? `${d.getMonth()+1}.${d.getDate()}` : ''; }
+function safeUrl(u){ const v = String(u ?? '').trim(); return /^https?:\/\//i.test(v) ? v : ''; }
+// 메인 화면과 같은 규칙: WikiCFP·국립중앙도서관 주소 대신 학회 이름 검색으로 연결
+function confLink(n){
+  const u = n.url || '';
+  if(u && u !== '#' && n.source !== 'rink' && !/nl\.go\.kr|wikicfp\.com/i.test(u)) return safeUrl(u);
+  const y = (n.start_date || '').slice(0,4);
+  let q = n.source === 'rink' ? n.title : (n.org || n.title);
+  if(y && !q.includes(y)) q += ' ' + y;
+  return 'https://www.google.com/search?q=' + encodeURIComponent(q);
+}
+
+async function loadInfoData(){
+  let rows = null;
+  if(typeof _sb !== 'undefined'){
+    rows = [];
+    for(let from = 0; ; from += 1000){
+      const { data, error } = await _sb.from('academic_info').select('*').eq('type', 'conf').range(from, from + 999);
+      if(error || !data){ if(!rows.length) rows = null; break; }
+      rows.push(...data);
+      if(data.length < 1000) break;
+    }
+  }
+  if(!rows || !rows.length){
+    try { const r = await fetch('data/conferences.json', { cache:'no-cache' }); if(r.ok) rows = await r.json(); } catch(e) {}
+  }
+  const today = todayStart();
+  DATA = (rows || []).filter(n => n.type === 'conf' && n.title).map((n, i) => {
+    const start = ymd(n.start_date) || ymd(n.date);
+    const end = ymd(n.end_date) || start;
+    const tags = (Array.isArray(n.tags) ? n.tags : String(n.tags || '').split(',')).map(t => String(t).trim()).filter(Boolean);
+    return { id: n.id || i, type:'conf', field: n.field, title: n.title, org: n.org || '', location: n.location || '',
+      start, end, cfp: ymd(n.date), url: confLink(n), tags: tags.filter(t => !NON_TOPIC_TAG.test(t)) };
+  }).filter(d => d.start && d.end >= today)
+    .sort((a, b) => a.start - b.start);
+  DATA_READY = true;
+  const cnt = document.getElementById('info-total');
+  if(cnt) cnt.textContent = `총 ${DATA.length.toLocaleString()}건`;
+  renderDashWithKeywords(_dashType);
+  renderList('list-all', _infoField);
+  renderCal();
+}
 
 let userEvents = [];
 let cy = new Date().getFullYear();
@@ -1423,26 +1402,45 @@ function getBadge(type) {
   return `<span class="info-badge badge-${type}">${map[type]||type}</span>`;
 }
 
-function renderList(id, filter='all') {
-  const el = document.getElementById(id);
-  const items = filter==='all' ? DATA : DATA.filter(d=>d.type===filter);
-  if (!items.length) {
-    el.innerHTML = `<div class="empty-state"><div class="empty-icon">🔍</div><div class="empty-text">해당하는 정보가 없습니다</div></div>`;
-    return;
-  }
-  el.innerHTML = items.map(item => `
-    <div class="info-item">
+// 학회 한 줄 (대시보드 추천·학술정보 탭에서 함께 씀)
+function infoItemHTML(item, keywords){
+  keywords = keywords || [];
+  const n = dDay(item.start);
+  const dd = n <= 0 ? '<span class="dday-badge dday-ok">진행중</span>' : `<span class="dday-badge ${ddayClass(n)}">D-${n}</span>`;
+  const cl = dDay(item.cfp);
+  const meta = [FIELD_LABEL[item.field], item.location, `학회 ${md(item.start)}${item.end && +item.end !== +item.start ? ' – ' + md(item.end) : ''}`,
+    cl !== null && cl >= 0 ? `✍️ 논문 마감 ${md(item.cfp)}` : ''].filter(Boolean);
+  return `<div class="info-item ${item._score > 0 ? 'matched' : ''}"${item.url ? ` data-url="${esc(item.url)}" onclick="window.open(this.dataset.url,'_blank','noopener')" style="cursor:pointer;"` : ''}>
       ${getBadge(item.type)}
       <div class="info-body">
-        <div class="info-title">${item.title}</div>
-        <div class="info-meta"><span>${item.org}</span><span>${item.deadline}</span></div>
-        <span class="dday-badge ${ddayClass(item.dday)}">D-${item.dday}</span>
-        <div class="info-tags">${item.tags.map(t=>`<span class="info-tag">#${t}</span>`).join('')}</div>
+        <div class="info-title">${esc(item.title)}${item._score > 0 ? ' <span style="font-size:10px;color:#059669;font-weight:700;">✦ 추천</span>' : ''}</div>
+        <div class="info-meta">${meta.map(m => `<span>${esc(m)}</span>`).join('')}</div>
+        ${dd}
+        <div class="info-tags">${item.tags.slice(0,4).map(t=>`<span class="info-tag" style="${keywords.includes(t.toLowerCase())?'background:#dcfce7;color:#16a34a;font-weight:700;':''}">#${esc(t)}</span>`).join('')}</div>
       </div>
-    </div>
-  `).join('');
+    </div>`;
+}
+const emptyHTML = msg => `<div class="empty-state"><div class="empty-icon">🔍</div><div class="empty-text">${msg}</div></div>`;
+
+// 학술정보 탭: 분야 + 위쪽 검색창
+function renderList(id, filter='all') {
+  const el = document.getElementById(id);
+  if(!el) return;
+  if(!DATA_READY){ el.innerHTML = emptyHTML('학회 정보를 불러오는 중이에요…'); return; }
+  const q = _infoQuery.toLowerCase().split(/\s+/).filter(Boolean);
+  const items = DATA.filter(d => (filter === 'all' || d.field === filter) &&
+    q.every(w => [d.title, d.org, d.location, d.tags.join(' ')].join(' ').toLowerCase().includes(w)));
+  if (!items.length) { el.innerHTML = emptyHTML('해당하는 학회가 없습니다'); return; }
+  el.innerHTML = items.slice(0, 100).map(it => infoItemHTML(it)).join('')
+    + (items.length > 100 ? `<div class="empty-state"><div class="empty-text">앞의 100건만 보여요. 검색어로 좁혀 보세요 (전체 ${items.length.toLocaleString()}건)</div></div>` : '');
+}
+function searchInfo(v){
+  _infoQuery = v.trim();
+  if(!document.getElementById('page-info').classList.contains('active')) showPage('info', document.querySelectorAll('.nav-item')[1]);
+  renderList('list-all', _infoField);
 }
 
+let _dashType = 'all';
 function filterDash(btn, type) {
   document.querySelectorAll('.filter-row .filter-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
@@ -1450,58 +1448,35 @@ function filterDash(btn, type) {
 }
 
 function renderDashWithKeywords(type='all') {
+  _dashType = type;
   const el = document.getElementById('list-dash');
   if(!el) return;
-
-  // 프로필 키워드 가져오기
-  let profileKeywords = [];
-  if(typeof _sb !== 'undefined' && typeof _currentUser !== 'undefined' && _currentUser) {
-    _sb.from('profiles').select('keywords').eq('id', _currentUser.id).single().then(({ data }) => {
-      profileKeywords = (data?.keywords || []).map(k => k.toLowerCase());
-      _renderDashList(el, type, profileKeywords);
-    });
-  } else {
-    _renderDashList(el, type, profileKeywords);
-  }
+  // 프로필 키워드는 프로필을 불러올 때 받아 둔 것을 쓴다 (따로 다시 묻지 않음)
+  _renderDashList(el, type, _dashKeywords);
 }
+let _dashKeywords = [];
 
 function _renderDashList(el, type, keywords) {
-  let items = type === 'all' ? DATA : DATA.filter(d => d.type === type);
-
-  // 키워드 매칭 점수 계산 후 정렬
+  if(!DATA_READY){ el.innerHTML = emptyHTML('학회 정보를 불러오는 중이에요…'); return; }
+  // 추천은 아직 시작하지 않은 학회만 (진행 중인 학회는 학술정보 탭에서 볼 수 있다)
+  const t0 = todayStart();
+  let items = DATA.filter(d => d.start > t0 && (type === 'all' || d.field === type));
+  // 키워드가 맞는 학회를 먼저, 그다음 가까운 순
   if(keywords.length > 0) {
     items = items.map(item => {
-      const itemTags = (item.tags || []).map(t => t.toLowerCase());
-      const titleLower = item.title.toLowerCase();
+      const itemTags = item.tags.map(t => t.toLowerCase());
+      const titleLower = (item.title + ' ' + item.org).toLowerCase();
       const score = keywords.reduce((acc, kw) => {
         if(itemTags.some(t => t.includes(kw) || kw.includes(t))) return acc + 2;
         if(titleLower.includes(kw)) return acc + 1;
         return acc;
       }, 0);
       return { ...item, _score: score };
-    }).sort((a, b) => b._score - a._score);
-
-    // 키워드 라벨 업데이트
+    }).sort((a, b) => b._score - a._score || a.start - b.start);
     const label = document.getElementById('dash-keyword-label');
     if(label) label.textContent = '— ' + keywords.slice(0,3).map(k=>'#'+k).join(' ') + ' 기반';
   }
-
-  if(!items.length) {
-    el.innerHTML = `<div class="empty-state"><div class="empty-icon">🔍</div><div class="empty-text">해당하는 정보가 없습니다</div></div>`;
-    return;
-  }
-
-  el.innerHTML = items.map(item => `
-    <div class="info-item ${item._score > 0 ? 'matched' : ''}">
-      ${getBadge(item.type)}
-      <div class="info-body">
-        <div class="info-title">${item.title}${item._score > 0 ? ' <span style="font-size:10px;color:#059669;font-weight:700;">✦ 추천</span>' : ''}</div>
-        <div class="info-meta"><span>${item.org}</span><span>${item.deadline}</span></div>
-        <span class="dday-badge ${ddayClass(item.dday)}">D-${item.dday}</span>
-        <div class="info-tags">${(item.tags||[]).map(t=>`<span class="info-tag" style="${keywords.includes(t.toLowerCase())?'background:#dcfce7;color:#16a34a;font-weight:700;':''}">#${t}</span>`).join('')}</div>
-      </div>
-    </div>
-  `).join('') + (items.length === 0 ? `<div class="empty-state"><div class="empty-icon">🔍</div><div class="empty-text">해당하는 정보가 없습니다</div></div>` : '');
+  el.innerHTML = items.length ? items.slice(0, 8).map(it => infoItemHTML(it, keywords)).join('') : emptyHTML('해당하는 학회가 없습니다');
 }
 
 function renderCal() {
@@ -1511,7 +1486,8 @@ function renderCal() {
   const today = new Date();
   const first = new Date(cy,cm,1).getDay();
   const total = new Date(cy,cm+1,0).getDate();
-  const deadlineDays = DATA.map(d=>{ const dt=new Date(d.deadline); return dt.getFullYear()===cy&&dt.getMonth()===cm?dt.getDate():null; }).filter(Boolean);
+  // 달력 점: 학회 논문 마감일 + 내 일정
+  const deadlineDays = DATA.map(d=>{ const dt=d.cfp; return dt&&dt.getFullYear()===cy&&dt.getMonth()===cm?dt.getDate():null; }).filter(Boolean);
   const userDays = userEvents.map(e=>{ const dt=new Date(e.date); return dt.getFullYear()===cy&&dt.getMonth()===cm?dt.getDate():null; }).filter(Boolean);
 
   ['cal-1','cal-2'].forEach(id=>{
@@ -1529,16 +1505,18 @@ function renderCal() {
   // upcoming
   const up=document.getElementById('upcoming');
   if(up){
-    const sorted=[...DATA].sort((a,b)=>a.dday-b.dday).slice(0,4);
-    up.innerHTML=sorted.map(item=>`
-      <div class="event-row">
+    // 논문 투고 마감이 가장 가까운 학회 4곳
+    const t0=todayStart();
+    const sorted=DATA.filter(d=>d.cfp && d.cfp>=t0).sort((a,b)=>a.cfp-b.cfp).slice(0,4);
+    up.innerHTML=sorted.length ? sorted.map(item=>`
+      <div class="event-row"${item.url ? ` data-url="${esc(item.url)}" onclick="window.open(this.dataset.url,'_blank','noopener')" style="cursor:pointer;"` : ''}>
         <div class="event-line" style="background:${COLORS[item.type]}"></div>
         <div class="event-info">
-          <div class="event-name">${item.title}</div>
-          <div class="event-date">${item.deadline} · D-${item.dday}</div>
+          <div class="event-name">${esc(item.title)}</div>
+          <div class="event-date">논문 마감 ${md(item.cfp)} · ${dDay(item.cfp)===0?'오늘':'D-'+dDay(item.cfp)}</div>
         </div>
       </div>
-    `).join('');
+    `).join('') : `<div class="event-date" style="padding:8px 0;">${DATA_READY ? '다가오는 논문 마감이 없어요' : '불러오는 중…'}</div>`;
   }
 
   // user events
@@ -1591,6 +1569,7 @@ function closeSidebar() {
 function switchTab(tab, type) {
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   tab.classList.add('active');
+  _infoField = type;
   renderList('list-all', type);
 }
 
@@ -1692,21 +1671,13 @@ const _sb = supabase.createClient(
 );
 
 let _currentUser = null;
+loadInfoData(); // 학회 정보 (로그인과 상관없이)
 
-// 인증 상태 감지
-_sb.auth.getSession().then(({ data: { session } }) => {
-  _currentUser = session?.user || null;
-  if(_currentUser) {
-    loadProfile();
-    loadMyData();
-    loadSchedules();
-    if(typeof loadCV==='function') loadCV();
-  }
-});
-
+// 인증 상태 감지: 페이지를 열 때(INITIAL_SESSION)와 로그인할 때만 내 데이터를 불러온다.
+// (로그인 유지용 토큰 갱신 때마다 전부 다시 불러오지 않도록)
 _sb.auth.onAuthStateChange((event, session) => {
   _currentUser = session?.user || null;
-  if(_currentUser) {
+  if(_currentUser && (event === 'INITIAL_SESSION' || event === 'SIGNED_IN')) {
     loadProfile();
     loadMyData();
     loadSchedules();
@@ -1724,7 +1695,8 @@ async function loadProfile() {
 // 프로필 카드 렌더링
 function renderProfileCard(p) {
   // 대시보드 추천도 키워드로 갱신
-  if(document.getElementById('list-dash')) renderDashWithKeywords();
+  _dashKeywords = (p.keywords || []).map(k => String(k).toLowerCase());
+  renderDashWithKeywords();
   const avatar = document.getElementById('profile-avatar');
   const name = document.getElementById('profile-name');
   const meta = document.getElementById('profile-meta');
@@ -1734,6 +1706,9 @@ function renderProfileCard(p) {
   if(name) name.textContent = p.nickname || '이름 없음';
   const metaParts = [p.degree, p.institution].filter(Boolean);
   if(meta) meta.textContent = metaParts.join(' · ') || p.major || '';
+  const side = document.getElementById('sidebar-hashtags');
+  if(side) side.innerHTML = (p.keywords || []).slice(0,8).map(k => `<span class="hashtag">#${esc(String(k).trim())}</span>`).join('')
+    + '<span class="hashtag add" onclick="openProfileModal()">＋ 추가</span>';
   if(kwWrap) kwWrap.innerHTML = (p.keywords || []).slice(0,4).map(k =>
     `<span class="profile-keyword">#${esc(k.trim())}</span>`).join('');
   if(btn) btn.textContent = '✏️ 프로필 수정';
