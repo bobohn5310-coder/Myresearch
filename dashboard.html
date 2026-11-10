@@ -1409,7 +1409,7 @@ function infoItemHTML(item, keywords){
   const dd = n <= 0 ? '<span class="dday-badge dday-ok">진행중</span>' : `<span class="dday-badge ${ddayClass(n)}">D-${n}</span>`;
   const cl = dDay(item.cfp);
   const meta = [FIELD_LABEL[item.field], item.location, `학회 ${md(item.start)}${item.end && +item.end !== +item.start ? ' – ' + md(item.end) : ''}`,
-    cl !== null && cl >= 0 ? `✍️ 논문 마감 ${md(item.cfp)}` : ''].filter(Boolean);
+    cl !== null && cl >= 0 ? `✍️ 초록 마감 ${md(item.cfp)}` : ''].filter(Boolean);
   return `<div class="info-item ${item._score > 0 ? 'matched' : ''}"${item.url ? ` data-url="${esc(item.url)}" onclick="window.open(this.dataset.url,'_blank','noopener')" style="cursor:pointer;"` : ''}>
       ${getBadge(item.type)}
       <div class="info-body">
@@ -1486,7 +1486,7 @@ function renderCal() {
   const today = new Date();
   const first = new Date(cy,cm,1).getDay();
   const total = new Date(cy,cm+1,0).getDate();
-  // 달력 점: 학회 논문 마감일 + 내 일정
+  // 달력 점: 학회 초록 마감일 + 내 일정
   const deadlineDays = DATA.map(d=>{ const dt=d.cfp; return dt&&dt.getFullYear()===cy&&dt.getMonth()===cm?dt.getDate():null; }).filter(Boolean);
   const userDays = userEvents.map(e=>{ const dt=new Date(e.date); return dt.getFullYear()===cy&&dt.getMonth()===cm?dt.getDate():null; }).filter(Boolean);
 
@@ -1513,10 +1513,10 @@ function renderCal() {
         <div class="event-line" style="background:${COLORS[item.type]}"></div>
         <div class="event-info">
           <div class="event-name">${esc(item.title)}</div>
-          <div class="event-date">논문 마감 ${md(item.cfp)} · ${dDay(item.cfp)===0?'오늘':'D-'+dDay(item.cfp)}</div>
+          <div class="event-date">초록 마감 ${md(item.cfp)} · ${dDay(item.cfp)===0?'오늘':'D-'+dDay(item.cfp)}</div>
         </div>
       </div>
-    `).join('') : `<div class="event-date" style="padding:8px 0;">${DATA_READY ? '다가오는 논문 마감이 없어요' : '불러오는 중…'}</div>`;
+    `).join('') : `<div class="event-date" style="padding:8px 0;">${DATA_READY ? '다가오는 초록 마감이 없어요' : '불러오는 중…'}</div>`;
   }
 
   // user events
