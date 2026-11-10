@@ -23,10 +23,10 @@
   "org": "International Conference on Autonomous Agents and Multiagent Systems",
   "start_date": "2027-05-03",
   "end_date": "2027-05-07",
-  "date": "2026-10-08",
-  "abstract_deadline": "2026-10-01",
+  "date": "2026-12-11",
+  "abstract_deadline": null,
   "registration_deadline": null,
-  "content": "International Conference on Autonomous Agents and Multiagent Systems",
+  "content": "International Conference on Autonomous Agents and Multiagent Systems · 투고 마감 2026-12-11",
   "url": "https://warwick.ac.uk/fac/sci/dcs/aamas2027/",
   "tags": "해외,인공지능,CCF-B,CORE-A*",
   "location": "Hanoi, Vietnam",
@@ -55,7 +55,7 @@
   "field": "cs",
   "title": "ACL 2027",
   "org": "Annual Meeting of the Association for Computational Linguistics",
-  "start_date": "2027-08-17",
+  "start_date": "2027-08-20",
   "end_date": "2027-08-22",
   "date": "2027-01-04",
   "abstract_deadline": null,
@@ -242,7 +242,7 @@
   "field": "cs",
   "title": "CVPR 2027",
   "org": "IEEE/CVF Conference on Computer Vision and Pattern Recognition",
-  "start_date": "2027-06-20",
+  "start_date": "2027-06-22",
   "end_date": "2027-06-25",
   "date": "2026-11-16",
   "abstract_deadline": "2026-11-10",
@@ -4897,7 +4897,7 @@
  },
  {
   "type": "conf",
-  "field": "eng",
+  "field": "energy",
   "title": "Climate and Energy Insight 2027 Trend Conference",
   "org": "위생, 도시, 환경공학",
   "start_date": "2026-11-16",
@@ -4965,7 +4965,7 @@
  },
  {
   "type": "conf",
-  "field": "eng",
+  "field": "energy",
   "title": "한국전기화학회 2026 추계학술발표회",
   "org": "한국전기화학회",
   "start_date": "2026-11-18",
@@ -4975,7 +4975,7 @@
   "registration_deadline": null,
   "content": "한국전기화학회 · 전기공학, 전자공학",
   "url": "https://www.kecs.or.kr/workshop/event/?code=26C2",
-  "tags": "국내개최,전기공학",
+  "tags": "국내개최,전기공학,이차전지,화학",
   "location": "제주",
   "source": "rink",
   "external_id": "rink:13765"
@@ -5101,41 +5101,7 @@
  },
  {
   "type": "conf",
-  "field": "eng",
-  "title": "한국주거학회 2026 추계학술발표대회",
-  "org": "한국주거학회",
-  "start_date": "2026-11-20",
-  "end_date": "2026-11-21",
-  "date": null,
-  "abstract_deadline": null,
-  "registration_deadline": null,
-  "content": "한국주거학회 · 건축공학",
-  "url": "https://www.khousing.or.kr/conferences/398/schedule/",
-  "tags": "국내개최,건축공학",
-  "location": "전북대학교",
-  "source": "rink",
-  "external_id": "rink:13781"
- },
- {
-  "type": "conf",
-  "field": "eng",
-  "title": "한국문화공간건축학회 2026 추계학술대회",
-  "org": "한국문화공간건축학회",
-  "start_date": "2026-11-20",
-  "end_date": "2026-11-20",
-  "date": null,
-  "abstract_deadline": null,
-  "registration_deadline": null,
-  "content": "한국문화공간건축학회 · 건축공학",
-  "url": "https://kicaspace.com/sms_new/?_0000_method=event_view&inum=6",
-  "tags": "해외,건축공학",
-  "location": "DDP",
-  "source": "rink",
-  "external_id": "rink:13786"
- },
- {
-  "type": "conf",
-  "field": "eng",
+  "field": "energy",
   "title": "대한전자공학회 2026 지능형 반도체·모빌리티·에너지 학술대회",
   "org": "대한전자공학회",
   "start_date": "2026-11-20",
@@ -5145,31 +5111,14 @@
   "registration_deadline": null,
   "content": "대한전자공학회 · 전기공학, 전자공학",
   "url": "https://www.theieie.org/events/?c_id=1013&part=99",
-  "tags": "국내개최,전기공학",
+  "tags": "국내개최,전기공학,반도체",
   "location": "전남대학교",
   "source": "rink",
   "external_id": "rink:13808"
  },
  {
   "type": "conf",
-  "field": "eng",
-  "title": "한국건축역사학회 2026 추계학술발표대회",
-  "org": "한국건축역사학회",
-  "start_date": "2026-11-21",
-  "end_date": "2026-11-21",
-  "date": null,
-  "abstract_deadline": null,
-  "registration_deadline": null,
-  "content": "한국건축역사학회 · 건축공학",
-  "url": "https://www.kaah.or.kr/html/sub06_1.jsp?ncode=a001&num=882",
-  "tags": "국내개최,건축공학",
-  "location": "수원대학교",
-  "source": "rink",
-  "external_id": "rink:13766"
- },
- {
-  "type": "conf",
-  "field": "eng",
+  "field": "energy",
   "title": "한국수소및신에너지학회 2026 추계학술대회",
   "org": "한국수소및신에너지학회",
   "start_date": "2026-11-25",
@@ -5234,40 +5183,6 @@
   "location": "김포대학교",
   "source": "rink",
   "external_id": "rink:13763"
- },
- {
-  "type": "conf",
-  "field": "cs",
-  "title": "한국과학기술학회 2026 학술대회",
-  "org": "한국과학기술학회",
-  "start_date": "2026-11-28",
-  "end_date": "2026-11-28",
-  "date": null,
-  "abstract_deadline": null,
-  "registration_deadline": null,
-  "content": "한국과학기술학회 · 프로그래밍, 프로그램, 데이터",
-  "url": "https://stskorea.org/boards/74/view?referer=%2F",
-  "tags": "국내개최,프로그래밍",
-  "location": "성공회대학교",
-  "source": "rink",
-  "external_id": "rink:13770"
- },
- {
-  "type": "conf",
-  "field": "cs",
-  "title": "한국디지털인문학협의회 2026 정기학술대회",
-  "org": "한국디지털인문학협의회",
-  "start_date": "2026-11-28",
-  "end_date": "2026-11-28",
-  "date": null,
-  "abstract_deadline": null,
-  "registration_deadline": null,
-  "content": "한국디지털인문학협의회 · 프로그래밍, 프로그램, 데이터",
-  "url": "https://www.kadh.org/kadh-2026-%ED%95%99%EC%88%A0%EB%8C%80%ED%9A%8C-%ED%8F%AC%EC%8A%A4%ED%84%B0-%EB%B0%9C%ED%91%9C-%EA%B3%B5%EB%AA%A8/",
-  "tags": "국내개최,프로그래밍",
-  "location": "인하대학교",
-  "source": "rink",
-  "external_id": "rink:13794"
  },
  {
   "type": "conf",
@@ -5366,7 +5281,7 @@
   "registration_deadline": null,
   "content": "한국임상개발협회 · 임상의학 일반",
   "url": "https://k-cda.org/web/course/courseView.do?category1=&eduCd=K000000001202610220001&eduCertifiedYn=N&schEduCategory=",
-  "tags": "국내개최,임상의학 일반",
+  "tags": "국내개최,임상의학 일반,의학",
   "location": "서울",
   "source": "rink",
   "external_id": "rink:14155"
@@ -5387,6 +5302,23 @@
   "location": "한국지질자원연구원",
   "source": "rink",
   "external_id": "rink:14182"
+ },
+ {
+  "type": "conf",
+  "field": "eng",
+  "title": "2026 공동학술대회 (BMB 2026)",
+  "org": "일본생화학회·일본분자생물학회",
+  "start_date": "2026-12-01",
+  "end_date": "2026-12-04",
+  "date": null,
+  "abstract_deadline": null,
+  "registration_deadline": null,
+  "content": "일본생화학회·일본분자생물학회 · 화학",
+  "url": "https://www.aeplan.co.jp/bmb2026/en/greeting/index.html",
+  "tags": "해외,화학",
+  "location": "Japan",
+  "source": "rink",
+  "external_id": "rink:14245"
  },
  {
   "type": "conf",
@@ -5458,7 +5390,7 @@
  },
  {
   "type": "conf",
-  "field": "eng",
+  "field": "energy",
   "title": "한국전기화학회 부산·울산·경남지부 추계 학술대회",
   "org": "한국전기화학회",
   "start_date": "2026-12-03",
@@ -5468,10 +5400,27 @@
   "registration_deadline": null,
   "content": "한국전기화학회 · 전기공학, 전자공학",
   "url": "https://www.kecs.or.kr/workshop/event/?code=26S13",
-  "tags": "국내개최,전기공학",
+  "tags": "국내개최,전기공학,이차전지,화학",
   "location": "국립부경대학교",
   "source": "rink",
   "external_id": "rink:14187"
+ },
+ {
+  "type": "conf",
+  "field": "cs",
+  "title": "한국정보보호학회 2026 양자보안연구회 하반기워크숍",
+  "org": "한국정보보호학회",
+  "start_date": "2026-12-03",
+  "end_date": "2026-12-04",
+  "date": null,
+  "abstract_deadline": null,
+  "registration_deadline": null,
+  "content": "한국정보보호학회 · 컴퓨터 과학",
+  "url": "https://kiisc.or.kr/bbs/pe/article/5212",
+  "tags": "국내개최,컴퓨터 과학",
+  "location": "강릉",
+  "source": "rink",
+  "external_id": "rink:14235"
  },
  {
   "type": "conf",
@@ -5553,7 +5502,7 @@
   "registration_deadline": null,
   "content": "대한전자공학회 · 전기공학, 전자공학",
   "url": "https://www.theieie.org/events/?part=02&c_id=1020",
-  "tags": "해외,전기공학",
+  "tags": "해외,전기공학,반도체",
   "location": "Hybrid",
   "source": "rink",
   "external_id": "rink:14191"
@@ -5574,6 +5523,74 @@
   "location": "중앙대학교",
   "source": "rink",
   "external_id": "rink:14210"
+ },
+ {
+  "type": "conf",
+  "field": "eng",
+  "title": "대한전기학회 2026 추계학술대회",
+  "org": "대한전기학회",
+  "start_date": "2026-12-04",
+  "end_date": "2026-12-04",
+  "date": null,
+  "abstract_deadline": null,
+  "registration_deadline": null,
+  "content": "대한전기학회 · 전기공학, 전자공학",
+  "url": "https://www.kiee.or.kr/board/?_0000_method=view&ncode=a002&num=2679&page=1",
+  "tags": "국내개최,전기공학",
+  "location": "부산",
+  "source": "rink",
+  "external_id": "rink:14233"
+ },
+ {
+  "type": "conf",
+  "field": "eng",
+  "title": "대한화학회 제254회 유기화학 세미나",
+  "org": "대한화학회",
+  "start_date": "2026-12-04",
+  "end_date": "2026-12-05",
+  "date": null,
+  "abstract_deadline": null,
+  "registration_deadline": null,
+  "content": "대한화학회 · 화학",
+  "url": "https://kcsorganic.org/event/",
+  "tags": "국내개최,화학,유기화학",
+  "location": "포항공과대학교",
+  "source": "rink",
+  "external_id": "rink:14239"
+ },
+ {
+  "type": "conf",
+  "field": "eng",
+  "title": "대한화학회 물리화학분과 겨울 심포지엄",
+  "org": "대한화학회",
+  "start_date": "2026-12-04",
+  "end_date": "2026-12-04",
+  "date": null,
+  "abstract_deadline": null,
+  "registration_deadline": null,
+  "content": "대한화학회 · 화학",
+  "url": "https://physchem.kcsnet.or.kr/",
+  "tags": "국내개최,화학",
+  "location": "경북대학교",
+  "source": "rink",
+  "external_id": "rink:14241"
+ },
+ {
+  "type": "conf",
+  "field": "eng",
+  "title": "한국수산해양교육학회 2026 추계학술발표대회",
+  "org": "한국수산해양교육학회",
+  "start_date": "2026-12-04",
+  "end_date": "2026-12-05",
+  "date": null,
+  "abstract_deadline": null,
+  "registration_deadline": null,
+  "content": "한국수산해양교육학회 · 해양학",
+  "url": "https://ksfme.or.kr/board/competition/article/285837",
+  "tags": "국내개최,해양학",
+  "location": "강원대학교",
+  "source": "rink",
+  "external_id": "rink:14244"
  },
  {
   "type": "conf",
@@ -5663,23 +5680,6 @@
  {
   "type": "conf",
   "field": "eng",
-  "title": "국제해양문제연구소 2026 한·일·중·러 북극항로 협력 국제학술대회",
-  "org": "국제해양문제연구소",
-  "start_date": "2026-12-08",
-  "end_date": "2026-12-08",
-  "date": null,
-  "abstract_deadline": null,
-  "registration_deadline": null,
-  "content": "국제해양문제연구소 · 해양학",
-  "url": "https://www.kmou.ac.kr/graduate/na/ntt/selectNttInfo.do?mi=5662&nttSn=10380695",
-  "tags": "국내개최,해양학",
-  "location": "국립한국해양대학교",
-  "source": "rink",
-  "external_id": "rink:14127"
- },
- {
-  "type": "conf",
-  "field": "eng",
   "title": "한국생산제조학회 2026 추계학술대회",
   "org": "한국생산제조학회",
   "start_date": "2026-12-09",
@@ -5696,7 +5696,7 @@
  },
  {
   "type": "conf",
-  "field": "eng",
+  "field": "energy",
   "title": "한국환경에너지공학회 2026 추계학술대회",
   "org": "한국환경에너지공학회",
   "start_date": "2026-12-09",
@@ -5765,19 +5765,19 @@
  {
   "type": "conf",
   "field": "eng",
-  "title": "한국지역학회 2026 후기학술대회",
-  "org": "한국지역학회",
-  "start_date": "2026-12-11",
-  "end_date": "2026-12-12",
+  "title": "한국동물생명공학회 제24회 발생공학 국제 심포지엄",
+  "org": "한국동물생명공학회",
+  "start_date": "2026-12-10",
+  "end_date": "2026-12-11",
   "date": null,
   "abstract_deadline": null,
   "registration_deadline": null,
-  "content": "한국지역학회 · 위생, 도시, 환경공학",
-  "url": "https://krsa83.or.kr/board/event/article/284214",
-  "tags": "국내개최,위생",
-  "location": "울산",
+  "content": "한국동물생명공학회 · 수의학",
+  "url": "https://www.ksarb.or.kr/53",
+  "tags": "국내개최,수의학",
+  "location": "가천대학교",
   "source": "rink",
-  "external_id": "rink:14100"
+  "external_id": "rink:14243"
  },
  {
   "type": "conf",
@@ -5850,6 +5850,40 @@
  {
   "type": "conf",
   "field": "bio",
+  "title": "2026 KSMCB-KMPC 마우스유전체분과 심포지엄",
+  "org": "한국분자·세포생물학회",
+  "start_date": "2026-12-11",
+  "end_date": "2026-12-11",
+  "date": null,
+  "abstract_deadline": null,
+  "registration_deadline": null,
+  "content": "한국분자·세포생물학회 · 세포학 (세포생물학)",
+  "url": "https://www.ksmcb.or.kr/board/list.html?code=bbs17&num=8673",
+  "tags": "국내개최,세포학 (세포생물학)",
+  "location": "서울대학교",
+  "source": "rink",
+  "external_id": "rink:14236"
+ },
+ {
+  "type": "conf",
+  "field": "eng",
+  "title": "한국화학공학회 2026 정기총회 및 학술대회",
+  "org": "한국화학공학회",
+  "start_date": "2026-12-11",
+  "end_date": "2026-12-11",
+  "date": null,
+  "abstract_deadline": null,
+  "registration_deadline": null,
+  "content": "한국화학공학회 · 화학",
+  "url": "https://www.kiche.or.kr/news/announce/6593a10d-cdc7-4d9a-8caf-653e5e2e12df",
+  "tags": "국내개최,화학",
+  "location": "부산대학교",
+  "source": "rink",
+  "external_id": "rink:14237"
+ },
+ {
+  "type": "conf",
+  "field": "bio",
   "title": "대한혈관학회 2026 동계학술대회",
   "org": "대한혈관학회",
   "start_date": "2026-12-12",
@@ -5883,6 +5917,23 @@
  },
  {
   "type": "conf",
+  "field": "eng",
+  "title": "한국환경교육학회 ] 2026 하반기 학술대회",
+  "org": "한국환경교육학회",
+  "start_date": "2026-12-12",
+  "end_date": "2026-12-12",
+  "date": null,
+  "abstract_deadline": null,
+  "registration_deadline": null,
+  "content": "한국환경교육학회 · 위생, 도시, 환경공학",
+  "url": "https://kosee.org/board/sboard/article/285843",
+  "tags": "국내개최,위생",
+  "location": "국립생물자원관",
+  "source": "rink",
+  "external_id": "rink:14231"
+ },
+ {
+  "type": "conf",
   "field": "bio",
   "title": "대한한의학회 2026 전국 한의학 학술대회",
   "org": "대한한의학회",
@@ -5893,14 +5944,14 @@
   "registration_deadline": null,
   "content": "대한한의학회 · 한의학",
   "url": "https://www.skom.or.kr/bbs/board.php?bo_table=01_01_con&wr_id=26164",
-  "tags": "해외,한의학",
+  "tags": "해외,한의학,의학",
   "location": "COEX",
   "source": "rink",
   "external_id": "rink:14130"
  },
  {
   "type": "conf",
-  "field": "eng",
+  "field": "energy",
   "title": "The 3rd Asia-Pacific Conference on Offshore Wind Technology",
   "org": "전기공학, 전자공학",
   "start_date": "2026-12-13",
@@ -6097,7 +6148,7 @@
   "registration_deadline": null,
   "content": "기계공학",
   "url": "https://www.icrai.org/",
-  "tags": "국내개최,기계공학",
+  "tags": "국내개최,기계공학,로봇",
   "location": "인천",
   "source": "rink",
   "external_id": "rink:14121"
@@ -6135,23 +6186,6 @@
   "location": "Online",
   "source": "rink",
   "external_id": "rink:14221"
- },
- {
-  "type": "conf",
-  "field": "bio",
-  "title": "한국현대정신분석학회 2026 하반기 학술대회",
-  "org": "한국현대정신분석학회",
-  "start_date": "2026-12-19",
-  "end_date": "2026-12-19",
-  "date": null,
-  "abstract_deadline": null,
-  "registration_deadline": null,
-  "content": "한국현대정신분석학회 · 의학",
-  "url": "https://korcp.kr/board/conf/article/285825",
-  "tags": "국내개최,의학",
-  "location": "고려대학교",
-  "source": "rink",
-  "external_id": "rink:14153"
  },
  {
   "type": "conf",
@@ -6233,7 +6267,7 @@
   "registration_deadline": null,
   "content": "대한전자공학회 · 전자공학",
   "url": "https://www.theieie.org/events/?c_id=1016&part=99",
-  "tags": "국내개최,전자공학",
+  "tags": "국내개최,전자공학,반도체",
   "location": "경북대학교",
   "source": "rink",
   "external_id": "rink:14132"
@@ -6292,6 +6326,23 @@
  {
   "type": "conf",
   "field": "eng",
+  "title": "대한전자공학회 2026 학술심포지움",
+  "org": "대한전자공학회",
+  "start_date": "2026-12-23",
+  "end_date": "2026-12-23",
+  "date": null,
+  "abstract_deadline": null,
+  "registration_deadline": null,
+  "content": "대한전자공학회 · 전기공학, 전자공학",
+  "url": "https://www.theieie.org/events/?c_id=1021&part=99",
+  "tags": "국내개최,전기공학",
+  "location": "국립한밭대학교",
+  "source": "rink",
+  "external_id": "rink:14238"
+ },
+ {
+  "type": "conf",
+  "field": "eng",
   "title": "SMAICT 2026",
   "org": "2026 International Conference on Semiconductor Materials and Advanced Integrated Circuit Technology",
   "start_date": "2026-11-27",
@@ -6303,6 +6354,8 @@
   "location": "Chongqing, China",
   "source": "wikicfp",
   "external_id": "wikicfp:192763",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -6319,6 +6372,8 @@
   "location": "Miyazaki, Japan",
   "source": "wikicfp",
   "external_id": "wikicfp:201200",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -6335,11 +6390,13 @@
   "location": "Zurich, Switzerland",
   "source": "wikicfp",
   "external_id": "wikicfp:194324",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "eng",
+  "field": "cs",
   "title": "SIPP 2026",
   "org": "14th International Conference on Signal, Image Processing and Pattern Recognition",
   "start_date": "2026-11-21",
@@ -6347,15 +6404,17 @@
   "date": "2026-10-31",
   "content": "14th International Conference on Signal, Image Processing and Pattern Recognition",
   "url": "https://ccsit2026.org/sipp/index",
-  "tags": "해외,반도체",
+  "tags": "해외",
   "location": "London, United Kingdom",
   "source": "wikicfp",
   "external_id": "wikicfp:192361",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "eng",
+  "field": "cs",
   "title": "BLKCA 2026",
   "org": "4th International Conference on Blockchain and Applications",
   "start_date": "2026-12-29",
@@ -6363,15 +6422,17 @@
   "date": "2026-10-31",
   "content": "4th International Conference on Blockchain and Applications",
   "url": "https://blkca2026.org/index",
-  "tags": "해외,반도체",
+  "tags": "해외",
   "location": "Virtual Conference",
   "source": "wikicfp",
   "external_id": "wikicfp:192038",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "eng",
+  "field": "cs",
   "title": "EDUAI 2026",
   "org": "3rd International Conference on Education and Artificial Intelligence",
   "start_date": "2026-12-30",
@@ -6379,10 +6440,12 @@
   "date": "2026-10-31",
   "content": "3rd International Conference on Education and Artificial Intelligence",
   "url": "https://eduai2026.org/",
-  "tags": "해외,반도체",
+  "tags": "해외",
   "location": "Virtual Conference",
   "source": "wikicfp",
   "external_id": "wikicfp:191434",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -6399,6 +6462,8 @@
   "location": "Liuzhou, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203860",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -6415,6 +6480,8 @@
   "location": "Jeju, South Korea",
   "source": "wikicfp",
   "external_id": "wikicfp:203831",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -6431,6 +6498,8 @@
   "location": "Urumqi, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203823",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -6447,6 +6516,8 @@
   "location": "Hong kong, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203777",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -6459,10 +6530,12 @@
   "date": "2027-03-25",
   "content": "Springer--2027 10th International Conference on Mechanical Manufacturing and Industrial Engineering (MMIE 2027)",
   "url": "http://www.mmie.org",
-  "tags": "해외,로봇",
+  "tags": "해외",
   "location": "Doshisha University, Kyoto, Japan",
   "source": "wikicfp",
   "external_id": "wikicfp:203775",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -6479,6 +6552,8 @@
   "location": "Milan, Italy",
   "source": "wikicfp",
   "external_id": "wikicfp:203772",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -6495,6 +6570,8 @@
   "location": "Shenzhen, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203755",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -6511,6 +6588,8 @@
   "location": "Hangzhou,China",
   "source": "wikicfp",
   "external_id": "wikicfp:203741",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -6527,22 +6606,26 @@
   "location": "Paris, France",
   "source": "wikicfp",
   "external_id": "wikicfp:203680",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
   "field": "eng",
-  "title": "RSAE 2027",
-  "org": "2027 8th International Conference on Robotics Systems and Automation Engineering (RSAE 2027)",
+  "title": "IEEE RSAE 2027",
+  "org": "IEEE--2027 8th International Conference on Robotics Systems and Automation Engineering (RSAE 2027)",
   "start_date": "2027-07-08",
   "end_date": "2027-07-10",
   "date": "2027-02-20",
-  "content": "2027 8th International Conference on Robotics Systems and Automation Engineering (RSAE 2027)",
+  "content": "IEEE--2027 8th International Conference on Robotics Systems and Automation Engineering (RSAE 2027)",
   "url": "https://www.rsae.org/",
   "tags": "해외,로봇",
   "location": "Bangkok, Thailand",
   "source": "wikicfp",
   "external_id": "wikicfp:203677",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -6559,11 +6642,13 @@
   "location": "Barcelona, Spain",
   "source": "wikicfp",
   "external_id": "wikicfp:203609",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "eng",
+  "field": "cs",
   "title": "Cross-AI 2026",
   "org": "International Symposium on Cross-Disciplinary Artificial Intelligence",
   "start_date": "2026-12-14",
@@ -6571,10 +6656,12 @@
   "date": "2026-10-26",
   "content": "International Symposium on Cross-Disciplinary Artificial Intelligence",
   "url": "https://cross-ai.io/conference/2027/preconf/",
-  "tags": "해외,로봇",
+  "tags": "해외",
   "location": "Online",
   "source": "wikicfp",
   "external_id": "wikicfp:203587",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -6591,6 +6678,8 @@
   "location": "Santa Clara, California",
   "source": "wikicfp",
   "external_id": "wikicfp:203526",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -6607,8 +6696,9 @@
   "location": "St. Pete Beach, Florida, USA",
   "source": "wikicfp",
   "external_id": "wikicfp:203402",
-  "wikicfp_checked": true,
-  "abstract_deadline": "2027-01-22"
+  "abstract_deadline": "2027-01-22",
+  "registration_deadline": null,
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6624,11 +6714,13 @@
   "location": "Shenzhen, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203297",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "eng",
+  "field": "cs",
   "title": "SPIE ICMVA 2027",
   "org": "SPIE--2027 The 10th International congress on Machine Vision and Applications (ICMVA 2027)",
   "start_date": "2027-06-03",
@@ -6636,15 +6728,17 @@
   "date": "2027-01-10",
   "content": "SPIE--2027 The 10th International congress on Machine Vision and Applications (ICMVA 2027)",
   "url": "https://icmva.org/",
-  "tags": "해외,로봇",
+  "tags": "해외",
   "location": "Singapore",
   "source": "wikicfp",
   "external_id": "wikicfp:203232",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "eng",
+  "field": "cs",
   "title": "ICIST 2027",
   "org": "2027 6th International Conference on Intelligent Science and Technology (ICIST 2027)",
   "start_date": "2027-08-06",
@@ -6652,15 +6746,17 @@
   "date": "2027-03-05",
   "content": "2027 6th International Conference on Intelligent Science and Technology (ICIST 2027)",
   "url": "http://icist.org/",
-  "tags": "해외,로봇",
+  "tags": "해외",
   "location": "Nanjing, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203227",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "eng",
+  "field": "cs",
   "title": "IEAI--EI 2027",
   "org": "2027 The 8th International Conference on Industrial Engineering and Artificial Intelligence (IEAI 2027)",
   "start_date": "2027-04-28",
@@ -6668,10 +6764,12 @@
   "date": "2026-11-30",
   "content": "2027 The 8th International Conference on Industrial Engineering and Artificial Intelligence (IEAI 2027)",
   "url": "https://ieai.net/",
-  "tags": "해외,로봇",
+  "tags": "해외",
   "location": "Chiang Mai, Thailand",
   "source": "wikicfp",
   "external_id": "wikicfp:203180",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -6688,6 +6786,8 @@
   "location": "Xiamen,China",
   "source": "wikicfp",
   "external_id": "wikicfp:203084",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -6704,6 +6804,8 @@
   "location": "",
   "source": "wikicfp",
   "external_id": "wikicfp:204070",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -6720,8 +6822,9 @@
   "location": "Amsterdam, the Netherlands",
   "source": "wikicfp",
   "external_id": "wikicfp:203986",
-  "wikicfp_checked": true,
-  "abstract_deadline": "2027-01-31"
+  "abstract_deadline": "2027-01-31",
+  "registration_deadline": null,
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -6737,6 +6840,8 @@
   "location": "Tokyo, Japan",
   "source": "wikicfp",
   "external_id": "wikicfp:202560",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -6753,6 +6858,8 @@
   "location": "Tokyo, Japan",
   "source": "wikicfp",
   "external_id": "wikicfp:202558",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -6769,6 +6876,8 @@
   "location": "Qingdao, China",
   "source": "wikicfp",
   "external_id": "wikicfp:201538",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -6776,7 +6885,7 @@
   "field": "bio",
   "title": "ACM ICMHI 2027",
   "org": "ACM--2027 11th International Conference on Medical and Health Informatics (ICMHI 2027)",
-  "start_date": "2027-05-28",
+  "start_date": "2027-05-27",
   "end_date": "2027-05-30",
   "date": "2026-12-10",
   "content": "ACM--2027 11th International Conference on Medical and Health Informatics (ICMHI 2027)",
@@ -6785,6 +6894,8 @@
   "location": "Kyoto, Japan",
   "source": "wikicfp",
   "external_id": "wikicfp:201231",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -6801,6 +6912,8 @@
   "location": "Seoul, South Korea",
   "source": "wikicfp",
   "external_id": "wikicfp:201222",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -6817,11 +6930,13 @@
   "location": "Xi'an, China",
   "source": "wikicfp",
   "external_id": "wikicfp:199498",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "bio",
+  "field": "eng",
   "title": "ICCCP 2027",
   "org": "2027 16th International Conference on Chemistry and Chemical Process (ICCCP 2027)",
   "start_date": "2027-03-03",
@@ -6829,10 +6944,12 @@
   "date": "2026-11-20",
   "content": "2027 16th International Conference on Chemistry and Chemical Process (ICCCP 2027)",
   "url": "https://www.icccp.org",
-  "tags": "해외,의학,화학",
+  "tags": "해외,화학",
   "location": "Sapporo, Japan",
   "source": "wikicfp",
   "external_id": "wikicfp:199495",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -6849,6 +6966,8 @@
   "location": "Bangkok, Thailand",
   "source": "wikicfp",
   "external_id": "wikicfp:194991",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -6865,6 +6984,8 @@
   "location": "Hokkaido, Japan",
   "source": "wikicfp",
   "external_id": "wikicfp:192954",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -6881,6 +7002,8 @@
   "location": "Sapporo, Japan",
   "source": "wikicfp",
   "external_id": "wikicfp:192952",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -6897,6 +7020,8 @@
   "location": "Jeju Island, South Korea",
   "source": "wikicfp",
   "external_id": "wikicfp:203762",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -6913,6 +7038,8 @@
   "location": "Oralndo, Florida, USA",
   "source": "wikicfp",
   "external_id": "wikicfp:203051",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -6929,6 +7056,8 @@
   "location": "Kuala Lumpur, Malaysia",
   "source": "wikicfp",
   "external_id": "wikicfp:202870",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -6945,6 +7074,8 @@
   "location": "Tokyo, Japan",
   "source": "wikicfp",
   "external_id": "wikicfp:202559",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -6961,6 +7092,8 @@
   "location": "Seoul, South Korea",
   "source": "wikicfp",
   "external_id": "wikicfp:201223",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -6977,11 +7110,13 @@
   "location": "Valletta, Malta",
   "source": "wikicfp",
   "external_id": "wikicfp:200097",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "bio",
+  "field": "cs",
   "title": "SPIE ICMIP 2027",
   "org": "SPIE--2027 12th International Conference on Multimedia and Image Processing (ICMIP 2027)",
   "start_date": "2027-03-27",
@@ -6989,10 +7124,12 @@
   "date": "2026-12-05",
   "content": "SPIE--2027 12th International Conference on Multimedia and Image Processing (ICMIP 2027)",
   "url": "http://www.icmip.org/",
-  "tags": "해외,의학",
+  "tags": "해외",
   "location": "Nagoya, Japan",
   "source": "wikicfp",
   "external_id": "wikicfp:199955",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7009,6 +7146,8 @@
   "location": "Xi'an, China",
   "source": "wikicfp",
   "external_id": "wikicfp:199499",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7025,6 +7164,8 @@
   "location": "Lima, Perú",
   "source": "wikicfp",
   "external_id": "wikicfp:195391",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7041,11 +7182,13 @@
   "location": "Bangkok, Thailand",
   "source": "wikicfp",
   "external_id": "wikicfp:194992",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "bio",
+  "field": "cs",
   "title": "ACIVS 2026",
   "org": "Advanced Concepts for Intelligent Vision Systems",
   "start_date": "2026-12-15",
@@ -7053,10 +7196,12 @@
   "date": "2026-06-22",
   "content": "Advanced Concepts for Intelligent Vision Systems",
   "url": "https://www.acivs2026.com/",
-  "tags": "해외,의학",
+  "tags": "해외",
   "location": "Okinawa, Japan",
   "source": "wikicfp",
   "external_id": "wikicfp:192279",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7073,6 +7218,8 @@
   "location": "Rome, Italy",
   "source": "wikicfp",
   "external_id": "wikicfp:203048",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7089,6 +7236,8 @@
   "location": "Rome, Italy",
   "source": "wikicfp",
   "external_id": "wikicfp:201737",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7096,7 +7245,7 @@
   "field": "bio",
   "title": "ICHSM 2027",
   "org": "2027 10th International Conference on Healthcare Service Management (ICHSM 2027)",
-  "start_date": "2027-01-08",
+  "start_date": "2027-01-07",
   "end_date": "2027-01-10",
   "date": "2026-11-15",
   "content": "2027 10th International Conference on Healthcare Service Management (ICHSM 2027)",
@@ -7105,6 +7254,8 @@
   "location": "Chiang Mai, Thailand",
   "source": "wikicfp",
   "external_id": "wikicfp:200165",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7121,6 +7272,8 @@
   "location": "Hangzhou, China",
   "source": "wikicfp",
   "external_id": "wikicfp:199881",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7137,11 +7290,13 @@
   "location": "Milan, Italy",
   "source": "wikicfp",
   "external_id": "wikicfp:199635",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "bio",
+  "field": "cs",
   "title": "SOEA 2027",
   "org": "11th International Conference on Software Engineering and Applications",
   "start_date": "2027-01-23",
@@ -7149,10 +7304,12 @@
   "date": "2026-10-31",
   "content": "11th International Conference on Software Engineering and Applications",
   "url": "https://net2027.org/soea/index",
-  "tags": "해외,의학",
+  "tags": "해외",
   "location": "Zurich, Switzerland",
   "source": "wikicfp",
   "external_id": "wikicfp:195388",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7169,6 +7326,24 @@
   "location": "Phoenix, Arizona, USA.",
   "source": "wikicfp",
   "external_id": "wikicfp:195266",
+  "abstract_deadline": null,
+  "registration_deadline": null,
+  "wikicfp_checked": true
+ },
+ {
+  "type": "conf",
+  "field": "bio",
+  "title": "ICHIH 2026",
+  "org": "2026 5th International Conference on Health Big Data and Intelligent Healthcare",
+  "start_date": "2026-12-25",
+  "end_date": "2026-12-27",
+  "date": "2026-11-20",
+  "content": "2026 5th International Conference on Health Big Data and Intelligent Healthcare",
+  "url": "https://www.aischolar.com/u/eiYFRn",
+  "tags": "해외,의학",
+  "location": "Hangzhou, China",
+  "source": "wikicfp",
+  "external_id": "wikicfp:193059",
   "wikicfp_checked": true
  },
  {
@@ -7185,11 +7360,13 @@
   "location": "Jeju Island, South Korea",
   "source": "wikicfp",
   "external_id": "wikicfp:203774",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "bio",
+  "field": "cs",
   "title": "ICICIP 2027",
   "org": "15th International Conference on Intelligent Control and Information Processing",
   "start_date": "2027-02-08",
@@ -7197,15 +7374,17 @@
   "date": "2026-10-20",
   "content": "15th International Conference on Intelligent Control and Information Processing",
   "url": "https://conference.cs.cityu.edu.hk/icicip/",
-  "tags": "해외,생물정보학",
+  "tags": "해외",
   "location": "Vientiane and Luang Prabang, Laos",
   "source": "wikicfp",
   "external_id": "wikicfp:203242",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "bio",
+  "field": "cs",
   "title": "AAIP--EI 2027",
   "org": "2027 5th Asia Conference on Advances in Image Processing (AAIP 2027)",
   "start_date": "2027-06-25",
@@ -7213,10 +7392,12 @@
   "date": "2027-01-20",
   "content": "2027 5th Asia Conference on Advances in Image Processing (AAIP 2027)",
   "url": "http://www.aaip.net/",
-  "tags": "해외,생물정보학",
+  "tags": "해외",
   "location": "Shanghai, China",
   "source": "wikicfp",
   "external_id": "wikicfp:202566",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7233,11 +7414,13 @@
   "location": "Zhengzhou, China",
   "source": "wikicfp",
   "external_id": "wikicfp:201417",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "bio",
+  "field": "cs",
   "title": "SOEN 2026",
   "org": "11th International Conference on Software Engineering",
   "start_date": "2026-11-21",
@@ -7245,26 +7428,12 @@
   "date": "2026-10-31",
   "content": "11th International Conference on Software Engineering",
   "url": "https://soen2026.org/index",
-  "tags": "해외,생물정보학",
+  "tags": "해외",
   "location": "London, United Kingdom",
   "source": "wikicfp",
   "external_id": "wikicfp:201306",
-  "wikicfp_checked": true
- },
- {
-  "type": "conf",
-  "field": "bio",
-  "title": "BIBM UGHS 2026",
-  "org": "IEEE BIBM 2026 Undergraduate and High School Symposium",
-  "start_date": "2026-12-01",
-  "end_date": "2026-12-04",
-  "date": "2026-08-31",
-  "content": "IEEE BIBM 2026 Undergraduate and High School Symposium",
-  "url": "https://bibm2026-hs.github.io/#dates",
-  "tags": "해외,생물정보학",
-  "location": "Dallas",
-  "source": "wikicfp",
-  "external_id": "wikicfp:201248",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7281,6 +7450,8 @@
   "location": "Valletta, Malta",
   "source": "wikicfp",
   "external_id": "wikicfp:200094",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7297,11 +7468,13 @@
   "location": "Xi'an, China",
   "source": "wikicfp",
   "external_id": "wikicfp:199496",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "bio",
+  "field": "cs",
   "title": "DSA 2026",
   "org": "7th International Conference on Data Science and Applications",
   "start_date": "2026-11-27",
@@ -7309,42 +7482,28 @@
   "date": "2026-10-31",
   "content": "7th International Conference on Data Science and Applications",
   "url": "https://aiaa2026.org/dsa/index",
-  "tags": "해외,생물정보학",
+  "tags": "해외",
   "location": "Zurich, Switzerland",
   "source": "wikicfp",
   "external_id": "wikicfp:195439",
-  "wikicfp_checked": true
- },
- {
-  "type": "conf",
-  "field": "bio",
-  "title": "Handbook of Transecology 2027",
-  "org": "Chapters Integrating Ecological and Transgender Issues",
-  "start_date": "2026-11-15",
-  "end_date": "2026-11-15",
-  "date": "2026-11-15",
-  "content": "Chapters Integrating Ecological and Transgender Issues",
-  "url": "",
-  "tags": "해외,생명과학",
-  "location": "",
-  "source": "wikicfp",
-  "external_id": "wikicfp:203637",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
   "field": "bio",
   "title": "Transecology 2026",
-  "org": "Chapters Integrating Transgender and Environmental Issues",
+  "org": "Transecology Handbook",
   "start_date": "2026-11-15",
   "end_date": "2026-11-15",
   "date": "2026-11-15",
-  "content": "Chapters Integrating Transgender and Environmental Issues",
+  "content": "Transecology Handbook",
   "url": "",
   "tags": "해외,생명과학",
   "location": "",
   "source": "wikicfp",
-  "external_id": "wikicfp:203567",
+  "external_id": "wikicfp:203512",
   "wikicfp_checked": true
  },
  {
@@ -7361,8 +7520,9 @@
   "location": "Paris france",
   "source": "wikicfp",
   "external_id": "wikicfp:199464",
-  "wikicfp_checked": true,
-  "abstract_deadline": "2026-12-31"
+  "abstract_deadline": "2026-12-31",
+  "registration_deadline": null,
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -7378,6 +7538,8 @@
   "location": "Fukuoka, Japan",
   "source": "wikicfp",
   "external_id": "wikicfp:195419",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7394,6 +7556,8 @@
   "location": "Kyoto University (Yoshida Campus), Japan",
   "source": "wikicfp",
   "external_id": "wikicfp:195281",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7410,6 +7574,8 @@
   "location": "Osaka, Japan",
   "source": "wikicfp",
   "external_id": "wikicfp:194947",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7426,22 +7592,8 @@
   "location": "Hokkaido, Japan",
   "source": "wikicfp",
   "external_id": "wikicfp:192955",
-  "wikicfp_checked": true
- },
- {
-  "type": "conf",
-  "field": "bio",
-  "title": "CCSEAI 2026",
-  "org": "3rd International Conference on Computer Science, Engineering and AI",
-  "start_date": "2026-12-30",
-  "end_date": "2026-12-31",
-  "date": "2026-10-31",
-  "content": "3rd International Conference on Computer Science, Engineering and AI",
-  "url": "https://ccseai2026.org/",
-  "tags": "해외,생명과학",
-  "location": "Virtual Conference",
-  "source": "wikicfp",
-  "external_id": "wikicfp:191506",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7458,6 +7610,8 @@
   "location": "Ontario Tech University, Oshawa, Canada",
   "source": "wikicfp",
   "external_id": "wikicfp:203931",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7474,6 +7628,8 @@
   "location": "Macau, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203836",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7490,6 +7646,8 @@
   "location": "Jeju, South Korea",
   "source": "wikicfp",
   "external_id": "wikicfp:203832",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7506,6 +7664,8 @@
   "location": "Chengdu, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203770",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7522,6 +7682,8 @@
   "location": "Paris, France",
   "source": "wikicfp",
   "external_id": "wikicfp:203681",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7538,6 +7700,8 @@
   "location": "Sapporo, Japan",
   "source": "wikicfp",
   "external_id": "wikicfp:203679",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7554,6 +7718,8 @@
   "location": "Seoul, South Korea",
   "source": "wikicfp",
   "external_id": "wikicfp:203674",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7570,11 +7736,13 @@
   "location": "London, United Kingdom",
   "source": "wikicfp",
   "external_id": "wikicfp:203625",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "eng",
+  "field": "cs",
   "title": "SYSAI 2027",
   "org": "The First International Conference on Building and Testing AI-supported Systems",
   "start_date": "2027-06-13",
@@ -7582,15 +7750,17 @@
   "date": "2027-03-04",
   "content": "The First International Conference on Building and Testing AI-supported Systems",
   "url": "https://www.dtrsociety.org/sysai2027/",
-  "tags": "해외,공학",
+  "tags": "해외",
   "location": "Nice, France",
   "source": "wikicfp",
   "external_id": "wikicfp:203601",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "eng",
+  "field": "cs",
   "title": "EPICAI 2027",
   "org": "The First International Conference on Experience, Practice, and Innovation in AI Professional Competencies",
   "start_date": "2027-06-13",
@@ -7598,10 +7768,12 @@
   "date": "2027-03-04",
   "content": "The First International Conference on Experience, Practice, and Innovation in AI Professional Competencies",
   "url": "https://www.dtrsociety.org/epicai2027/",
-  "tags": "해외,공학",
+  "tags": "해외",
   "location": "Nice, France",
   "source": "wikicfp",
   "external_id": "wikicfp:203597",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7618,6 +7790,8 @@
   "location": "Regensburg, Germany",
   "source": "wikicfp",
   "external_id": "wikicfp:203591",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7634,6 +7808,8 @@
   "location": "Kunming, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203470",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7650,6 +7826,8 @@
   "location": "Colombo, Sri Lanka",
   "source": "wikicfp",
   "external_id": "wikicfp:203386",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7666,6 +7844,8 @@
   "location": "Chiang Mai, Thailand",
   "source": "wikicfp",
   "external_id": "wikicfp:203179",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7682,6 +7862,8 @@
   "location": "Albuquerque, New Mexico",
   "source": "wikicfp",
   "external_id": "wikicfp:203052",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7698,22 +7880,26 @@
   "location": "Bristol, United Kingdom",
   "source": "wikicfp",
   "external_id": "wikicfp:202891",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
   "field": "eng",
-  "title": "Springer ICAMM 2027",
-  "org": "Springer--2027 11th International Conference on Advanced Manufacturing and Materials (ICAMM 2027)",
+  "title": "IOP ICAMM 2027",
+  "org": "IOP--2027 11th International Conference on Advanced Manufacturing and Materials (ICAMM 2027)",
   "start_date": "2027-07-20",
   "end_date": "2027-07-23",
   "date": "2027-03-01",
-  "content": "Springer--2027 11th International Conference on Advanced Manufacturing and Materials (ICAMM 2027)",
+  "content": "IOP--2027 11th International Conference on Advanced Manufacturing and Materials (ICAMM 2027)",
   "url": "https://icamm.org/",
   "tags": "해외,공학,재료",
   "location": "Bristol, United Kingdom",
   "source": "wikicfp",
   "external_id": "wikicfp:202889",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7730,6 +7916,8 @@
   "location": "Hong Kong",
   "source": "wikicfp",
   "external_id": "wikicfp:202887",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7742,10 +7930,12 @@
   "date": "2027-02-20",
   "content": "2027 the 10th International Conference on Nanoscience and Technology (ICNST 2027)",
   "url": "http://www.icnst.org",
-  "tags": "해외,재료,나노",
+  "tags": "해외,나노",
   "location": "Singapore",
   "source": "wikicfp",
   "external_id": "wikicfp:203672",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7762,6 +7952,8 @@
   "location": "Colombo, Sri Lanka",
   "source": "wikicfp",
   "external_id": "wikicfp:203385",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7778,6 +7970,8 @@
   "location": "Bangkok, Thailand",
   "source": "wikicfp",
   "external_id": "wikicfp:203015",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7790,26 +7984,30 @@
   "date": "2027-05-28",
   "content": "8th International Conference on Desalination Science and Technology 2027",
   "url": "https://www.elsevier.com/events/conferences/all/desalination-science-and-technology",
-  "tags": "해외,재료",
+  "tags": "해외",
   "location": "Shanghai",
   "source": "wikicfp",
   "external_id": "wikicfp:202968",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
   "field": "eng",
   "title": "ICMIM 2027",
-  "org": "2027 The 9th International Conference on Materials and Intelligent Manufacturing (ICMIM 2027)",
+  "org": "Springer--2027 The 9th International Conference on Materials and Intelligent Manufacturing (ICMIM 2027)",
   "start_date": "2027-06-10",
   "end_date": "2027-06-13",
   "date": "2027-01-20",
-  "content": "2027 The 9th International Conference on Materials and Intelligent Manufacturing (ICMIM 2027)",
+  "content": "Springer--2027 The 9th International Conference on Materials and Intelligent Manufacturing (ICMIM 2027)",
   "url": "http://www.icmim.org",
   "tags": "해외,재료",
   "location": "Hong Kong",
   "source": "wikicfp",
   "external_id": "wikicfp:202886",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7826,6 +8024,8 @@
   "location": "Montpellier, France",
   "source": "wikicfp",
   "external_id": "wikicfp:202817",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7842,6 +8042,8 @@
   "location": "Tianjin, China",
   "source": "wikicfp",
   "external_id": "wikicfp:202514",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7858,6 +8060,8 @@
   "location": "Tianjin, China",
   "source": "wikicfp",
   "external_id": "wikicfp:202513",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7874,6 +8078,8 @@
   "location": "Athens, Greece",
   "source": "wikicfp",
   "external_id": "wikicfp:201685",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7890,6 +8096,8 @@
   "location": "Jeju Island, South Korea",
   "source": "wikicfp",
   "external_id": "wikicfp:201684",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7906,6 +8114,8 @@
   "location": "Fukuoka, Japan",
   "source": "wikicfp",
   "external_id": "wikicfp:200256",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7922,6 +8132,8 @@
   "location": "Sapporo, Japan",
   "source": "wikicfp",
   "external_id": "wikicfp:200150",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7938,6 +8150,8 @@
   "location": "Sapporo, Japan",
   "source": "wikicfp",
   "external_id": "wikicfp:200149",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7954,6 +8168,8 @@
   "location": "Kraków, Poland",
   "source": "wikicfp",
   "external_id": "wikicfp:200080",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7970,6 +8186,8 @@
   "location": "Da Nang, Vietnam",
   "source": "wikicfp",
   "external_id": "wikicfp:195426",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -7986,6 +8204,8 @@
   "location": "Virtual Conference",
   "source": "wikicfp",
   "external_id": "wikicfp:195331",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8002,11 +8222,13 @@
   "location": "Phuket, Thailand",
   "source": "wikicfp",
   "external_id": "wikicfp:195285",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "eng",
+  "field": "energy",
   "title": "ICAESEE 2026",
   "org": "2026 12th International Conference on Advances in Energy Resources and Environment Engineering",
   "start_date": "2026-12-18",
@@ -8014,10 +8236,12 @@
   "date": "2026-11-22",
   "content": "2026 12th International Conference on Advances in Energy Resources and Environment Engineering",
   "url": "https://ais.cn/u/eeq2Ef",
-  "tags": "해외,재료",
+  "tags": "해외",
   "location": "Dali, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203972",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8034,6 +8258,8 @@
   "location": "Xi'an, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203798",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8050,6 +8276,8 @@
   "location": "Shenzhen, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203410",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8066,6 +8294,8 @@
   "location": "Sydney, Australia",
   "source": "wikicfp",
   "external_id": "wikicfp:203035",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8082,22 +8312,26 @@
   "location": "Johor Bahru, Malaysia",
   "source": "wikicfp",
   "external_id": "wikicfp:202953",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
   "field": "eng",
   "title": "ICAMM 2027",
-  "org": "Springer--2027 11th International Conference on Advanced Manufacturing and Materials (ICAMM 2027)",
+  "org": "IOP--2027 11th International Conference on Advanced Manufacturing and Materials (ICAMM 2027)",
   "start_date": "2027-07-20",
   "end_date": "2027-07-23",
   "date": "2027-03-01",
-  "content": "Springer--2027 11th International Conference on Advanced Manufacturing and Materials (ICAMM 2027)",
+  "content": "IOP--2027 11th International Conference on Advanced Manufacturing and Materials (ICAMM 2027)",
   "url": "https://icamm.org/",
   "tags": "해외,재료",
   "location": "Bristol, United Kingdom",
   "source": "wikicfp",
   "external_id": "wikicfp:202890",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8114,6 +8348,24 @@
   "location": "Western Sydney University, Australia",
   "source": "wikicfp",
   "external_id": "wikicfp:202883",
+  "abstract_deadline": null,
+  "registration_deadline": null,
+  "wikicfp_checked": true
+ },
+ {
+  "type": "conf",
+  "field": "cs",
+  "title": "ICAEI 2026",
+  "org": "2026 2nd International Conference on Aerospace and Electronic Information",
+  "start_date": "2026-12-18",
+  "end_date": "2026-12-20",
+  "date": "2026-11-19",
+  "content": "2026 2nd International Conference on Aerospace and Electronic Information",
+  "url": "https://www.aischolar.com/u/FfmUf2",
+  "tags": "해외",
+  "location": "Nanchang,China",
+  "source": "wikicfp",
+  "external_id": "wikicfp:201724",
   "wikicfp_checked": true
  },
  {
@@ -8130,6 +8382,8 @@
   "location": "Jeju Island, South Korea",
   "source": "wikicfp",
   "external_id": "wikicfp:201683",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8146,11 +8400,13 @@
   "location": "Guangzhou",
   "source": "wikicfp",
   "external_id": "wikicfp:202967",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "eng",
+  "field": "energy",
   "title": "ICACER 2027",
   "org": "Springer--2027 12th International Conference on Advances on Clean Energy Research (ICACER 2027)",
   "start_date": "2027-04-09",
@@ -8158,15 +8414,17 @@
   "date": "2026-11-10",
   "content": "Springer--2027 12th International Conference on Advances on Clean Energy Research (ICACER 2027)",
   "url": "http://www.icacer.com/",
-  "tags": "해외,화학",
+  "tags": "해외",
   "location": "Porto, Portugal",
   "source": "wikicfp",
   "external_id": "wikicfp:199958",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "eng",
+  "field": "quantum",
   "title": "NET 2027",
   "org": "11th International Conference on Networks and Communications",
   "start_date": "2027-01-23",
@@ -8174,15 +8432,17 @@
   "date": "2026-10-31",
   "content": "11th International Conference on Networks and Communications",
   "url": "https://net2027.org/index",
-  "tags": "해외,화학",
+  "tags": "해외",
   "location": "Zurich, Switzerland",
   "source": "wikicfp",
   "external_id": "wikicfp:195089",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "eng",
+  "field": "cs",
   "title": "ACITY 2026",
   "org": "16thInternational Conference on Advances in Computing and Information Technology",
   "start_date": "2026-11-27",
@@ -8190,10 +8450,12 @@
   "date": "2026-10-31",
   "content": "16thInternational Conference on Advances in Computing and Information Technology",
   "url": "https://acity2026.org/index",
-  "tags": "해외,화학",
+  "tags": "해외",
   "location": "Zurich, Switzerland",
   "source": "wikicfp",
   "external_id": "wikicfp:194359",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8210,6 +8472,8 @@
   "location": "Osaka, Japan",
   "source": "wikicfp",
   "external_id": "wikicfp:192960",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8222,12 +8486,13 @@
   "date": "2027-07-22",
   "content": "7th Unite Scientific Chemistry Conference (USCC-2027)",
   "url": "https://chemistry.uniteexplores.com/",
-  "tags": "해외,유기화학,화학",
+  "tags": "해외,화학",
   "location": "Hotel Acca Sporting Milano",
   "source": "wikicfp",
   "external_id": "wikicfp:204103",
-  "wikicfp_checked": true,
-  "abstract_deadline": "2027-07-20"
+  "abstract_deadline": "2027-07-20",
+  "registration_deadline": null,
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8243,6 +8508,8 @@
   "location": "NH Villa Carpegna Via Pio IV, 6, 00165 R",
   "source": "wikicfp",
   "external_id": "wikicfp:202574",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8259,6 +8526,8 @@
   "location": "Oklahoma City, OK",
   "source": "wikicfp",
   "external_id": "wikicfp:200276",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8275,6 +8544,8 @@
   "location": "Minneapolis, MN",
   "source": "wikicfp",
   "external_id": "wikicfp:192043",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8291,6 +8562,8 @@
   "location": "Milan, Italy",
   "source": "wikicfp",
   "external_id": "wikicfp:179430",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8307,6 +8580,8 @@
   "location": "Hsinchu, Taiwan",
   "source": "wikicfp",
   "external_id": "wikicfp:203863",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8323,6 +8598,8 @@
   "location": "Krakow, Poland",
   "source": "wikicfp",
   "external_id": "wikicfp:203751",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8335,10 +8612,12 @@
   "date": "2027-04-01",
   "content": "2027 9th International Conference on Functional Materials and Chemical Engineering",
   "url": "http://www.icfmce.org",
-  "tags": "해외,나노,화학,재료",
+  "tags": "해외,화학,재료",
   "location": "China",
   "source": "wikicfp",
   "external_id": "wikicfp:203346",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8351,10 +8630,12 @@
   "date": "2027-02-28",
   "content": "Springer--2027 11th International Conference on Civil Engineering (ICOCE 2027)",
   "url": "https://www.icoce.org/",
-  "tags": "해외,나노",
+  "tags": "해외",
   "location": "Singapore",
   "source": "wikicfp",
   "external_id": "wikicfp:201541",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8367,15 +8648,17 @@
   "date": "2027-01-15",
   "content": "2027 The 10th International Conference on Circuits, Systems and Simulation (ICCSS 2027)",
   "url": "https://iccss.org/",
-  "tags": "해외,나노",
+  "tags": "해외",
   "location": "Da Nang, Vietnam",
   "source": "wikicfp",
   "external_id": "wikicfp:201531",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "eng",
+  "field": "energy",
   "title": "ENERGY 2026",
   "org": "4th International Conference on Energy",
   "start_date": "2026-11-14",
@@ -8383,10 +8666,12 @@
   "date": "2026-10-31",
   "content": "4th International Conference on Energy",
   "url": "https://coraj2026.org/energy/index",
-  "tags": "해외,나노",
+  "tags": "해외",
   "location": "Melbourne, Australia",
   "source": "wikicfp",
   "external_id": "wikicfp:200313",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8399,10 +8684,12 @@
   "date": "2026-11-20",
   "content": "2027 10th International Conference on Materials Design and Applications (ICMDA 2027)",
   "url": "http://www.icmda.org",
-  "tags": "해외,나노,재료",
+  "tags": "해외,재료",
   "location": "Hiroshima, Japan",
   "source": "wikicfp",
   "external_id": "wikicfp:200260",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8415,10 +8702,12 @@
   "date": "2026-11-20",
   "content": "Springer--2027 18th International Conference on Materials and Manufacturing Technologies (ICMMT 2027)",
   "url": "http://www.icmmt.org",
-  "tags": "해외,나노,재료",
+  "tags": "해외,재료",
   "location": "Fukuoka, Japan",
   "source": "wikicfp",
   "external_id": "wikicfp:200257",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8431,15 +8720,17 @@
   "date": "2026-11-29",
   "content": "15th International Conference on Photonics, Optics and Laser Technology",
   "url": "https://photoptics.scitevents.org",
-  "tags": "해외,나노,디스플레이",
+  "tags": "해외,디스플레이",
   "location": "Valletta, Malta",
   "source": "wikicfp",
   "external_id": "wikicfp:200099",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "eng",
+  "field": "cs",
   "title": "CSTY 2026",
   "org": "12th International Conference on Computer Science and Information Technology",
   "start_date": "2026-12-26",
@@ -8447,10 +8738,12 @@
   "date": "2026-10-31",
   "content": "12th International Conference on Computer Science and Information Technology",
   "url": "https://csty2026.org/",
-  "tags": "해외,나노",
+  "tags": "해외",
   "location": "Dubai, UAE",
   "source": "wikicfp",
   "external_id": "wikicfp:192130",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8463,15 +8756,17 @@
   "date": "2026-10-10",
   "content": "2026 2nd International Conference on Advanced Materials, Mechanical Engineering, and Manufacturing",
   "url": "https://ammem.site/",
-  "tags": "해외,나노,재료",
+  "tags": "해외,재료",
   "location": "Kota Kinabalu, Malaysia",
   "source": "wikicfp",
   "external_id": "wikicfp:184899",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "eng",
+  "field": "quantum",
   "title": "AES 2027",
   "org": "AES 2027, 13th International Conference on Antennas & Electromagnetic Systems",
   "start_date": "2027-03-16",
@@ -8479,10 +8774,12 @@
   "date": "2027-01-20",
   "content": "AES 2027, 13th International Conference on Antennas & Electromagnetic Systems",
   "url": "https://aesconference.org/",
-  "tags": "해외,메타물질",
+  "tags": "해외",
   "location": "Athens, Greece",
   "source": "wikicfp",
   "external_id": "wikicfp:203439",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8499,11 +8796,13 @@
   "location": "Hangzhou, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203816",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "eng",
+  "field": "quantum",
   "title": "EEICE 2026",
   "org": "2026 7th International Conference on Electrical, Electronic Information and Communication Engineering",
   "start_date": "2026-12-04",
@@ -8511,10 +8810,12 @@
   "date": "2026-10-30",
   "content": "2026 7th International Conference on Electrical, Electronic Information and Communication Engineering",
   "url": "https://ais.cn/u/QjA3If",
-  "tags": "해외,광학",
+  "tags": "해외",
   "location": "Xinxiang, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203702",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8531,8 +8832,9 @@
   "location": "Crowne Plaza hotel, Geneva, Switzerland",
   "source": "wikicfp",
   "external_id": "wikicfp:203154",
-  "wikicfp_checked": true,
-  "abstract_deadline": "2027-03-30"
+  "abstract_deadline": "2027-03-30",
+  "registration_deadline": null,
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -8548,22 +8850,8 @@
   "location": "Foshan, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203989",
-  "wikicfp_checked": true
- },
- {
-  "type": "conf",
-  "field": "eng",
-  "title": "smart-homes 2027",
-  "org": "Smart Homes Devroom FOSDEM 2027",
-  "start_date": "2027-01-30",
-  "end_date": "2027-01-31",
-  "date": "2026-11-24",
-  "content": "Smart Homes Devroom FOSDEM 2027",
-  "url": "https://raeymeister.github.io/FOSDEM_2027_SmartHomes_Devroom_cfp/",
-  "tags": "해외,로봇",
-  "location": "Brussels",
-  "source": "wikicfp",
-  "external_id": "wikicfp:203978",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8580,6 +8868,8 @@
   "location": "Urumqi, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203824",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8592,10 +8882,12 @@
   "date": "2027-03-25",
   "content": "Springer--2027 10th International Conference on Mechanical Manufacturing and Industrial Engineering (MMIE 2027)",
   "url": "http://www.mmie.org",
-  "tags": "해외,로봇",
+  "tags": "해외",
   "location": "Doshisha University, Kyoto, Japan",
   "source": "wikicfp",
   "external_id": "wikicfp:203780",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8612,6 +8904,8 @@
   "location": "Hong kong, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203778",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8628,6 +8922,8 @@
   "location": "Milan, Italy",
   "source": "wikicfp",
   "external_id": "wikicfp:203773",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8644,6 +8940,8 @@
   "location": "Guangzhou, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203640",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8656,10 +8954,12 @@
   "date": "2027-01-31",
   "content": "2027 11th IEEE/IFAC/DBLP International Conference on Control, Automation and Diagnosis",
   "url": "https://www.iccad-conf.com/",
-  "tags": "해외,로봇,반도체",
+  "tags": "해외,로봇",
   "location": "Paris",
   "source": "wikicfp",
   "external_id": "wikicfp:203534",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8676,11 +8976,13 @@
   "location": "Huai'an, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203452",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "eng",
+  "field": "cs",
   "title": "AIIM 2026",
   "org": "2026 6th International Symposium on Artificial Intelligence and Intelligent Manufacturing",
   "start_date": "2026-11-27",
@@ -8688,10 +8990,12 @@
   "date": "2026-11-13",
   "content": "2026 6th International Symposium on Artificial Intelligence and Intelligent Manufacturing",
   "url": "https://ais.cn/u/7RNRny",
-  "tags": "해외,로봇",
+  "tags": "해외",
   "location": "Guangzhou, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203424",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8708,6 +9012,8 @@
   "location": "Stuttgart, Germany",
   "source": "wikicfp",
   "external_id": "wikicfp:203311",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8724,6 +9030,8 @@
   "location": "Wuhan, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203222",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8736,10 +9044,12 @@
   "date": "2026-11-30",
   "content": "2027 9th International Conference on Management Science and Industrial Engineering (MSIE 2027)",
   "url": "https://www.msie.org/",
-  "tags": "해외,로봇",
+  "tags": "해외",
   "location": "Chiang Mai, Thailand",
   "source": "wikicfp",
   "external_id": "wikicfp:203182",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8756,6 +9066,8 @@
   "location": "Changchun, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203131",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8772,6 +9084,8 @@
   "location": "Beijing, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203993",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8788,6 +9102,8 @@
   "location": "Tianjin, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203933",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8804,6 +9120,8 @@
   "location": "Ontario Tech University, Oshawa, Canada",
   "source": "wikicfp",
   "external_id": "wikicfp:203930",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8820,6 +9138,8 @@
   "location": "Guangzhou, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203919",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8836,6 +9156,8 @@
   "location": "Urumqi, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203852",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8852,6 +9174,8 @@
   "location": "Changsha, Hunan, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203825",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8868,6 +9192,8 @@
   "location": "Chengdu, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203771",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8884,6 +9210,8 @@
   "location": "Guangzhou, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203675",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8900,6 +9228,8 @@
   "location": "Wuxi, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203465",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8916,6 +9246,8 @@
   "location": "Nanjing, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203230",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8932,6 +9264,8 @@
   "location": "Zhengzhou, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203229",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8948,6 +9282,8 @@
   "location": "Chengdu, China",
   "source": "wikicfp",
   "external_id": "wikicfp:202894",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8964,6 +9300,8 @@
   "location": "Nuremberg, Germany",
   "source": "wikicfp",
   "external_id": "wikicfp:202784",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8980,6 +9318,8 @@
   "location": "Hangzhou, China",
   "source": "wikicfp",
   "external_id": "wikicfp:202770",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8996,6 +9336,8 @@
   "location": "Osaka, Japan",
   "source": "wikicfp",
   "external_id": "wikicfp:202766",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9012,6 +9354,8 @@
   "location": "Osaka, Japan",
   "source": "wikicfp",
   "external_id": "wikicfp:202763",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9028,22 +9372,26 @@
   "location": "Xi'an, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203754",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
   "field": "eng",
-  "title": "RSAE--EI 2027",
-  "org": "2027 8th International Conference on Robotics Systems and Automation Engineering (RSAE 2027)",
+  "title": "RSAE 2027",
+  "org": "IEEE--2027 8th International Conference on Robotics Systems and Automation Engineering (RSAE 2027)",
   "start_date": "2027-07-08",
   "end_date": "2027-07-10",
   "date": "2027-02-20",
-  "content": "2027 8th International Conference on Robotics Systems and Automation Engineering (RSAE 2027)",
+  "content": "IEEE--2027 8th International Conference on Robotics Systems and Automation Engineering (RSAE 2027)",
   "url": "https://www.rsae.org/",
-  "tags": "해외,기계,로봇",
+  "tags": "해외,로봇",
   "location": "Bangkok, Thailand",
   "source": "wikicfp",
   "external_id": "wikicfp:203678",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9060,6 +9408,8 @@
   "location": "Jiangmen, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203116",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9076,6 +9426,8 @@
   "location": "Hong Kong",
   "source": "wikicfp",
   "external_id": "wikicfp:202888",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9088,10 +9440,12 @@
   "date": "2026-10-16",
   "content": "10th International Symposium on Advanced Engineering Days",
   "url": "https://conferences.yakarm.com/AED",
-  "tags": "해외,기계",
+  "tags": "해외",
   "location": "Online",
   "source": "wikicfp",
   "external_id": "wikicfp:202792",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9108,11 +9462,13 @@
   "location": "Osaka, Japan",
   "source": "wikicfp",
   "external_id": "wikicfp:202764",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "eng",
+  "field": "cs",
   "title": "Springer ISDEA 2027",
   "org": "Springer--2027 6th International Conference on Intelligent Systems Design and Engineering Applications (ISDEA 2027)",
   "start_date": "2027-04-24",
@@ -9120,10 +9476,12 @@
   "date": "2026-11-20",
   "content": "Springer--2027 6th International Conference on Intelligent Systems Design and Engineering Applications (ISDEA 2027)",
   "url": "https://www.isdea.org/",
-  "tags": "해외,기계",
+  "tags": "해외",
   "location": "Okinawa, Japan",
   "source": "wikicfp",
   "external_id": "wikicfp:202551",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9136,10 +9494,28 @@
   "date": "2027-01-20",
   "content": "IEEE--2027 11th International Conference on Robotics and Automation Sciences (ICRAS 2027)",
   "url": "http://www.icras.org/",
-  "tags": "해외,기계,로봇",
+  "tags": "해외,로봇",
   "location": "Nagoya, Japan",
   "source": "wikicfp",
   "external_id": "wikicfp:201693",
+  "abstract_deadline": null,
+  "registration_deadline": null,
+  "wikicfp_checked": true
+ },
+ {
+  "type": "conf",
+  "field": "energy",
+  "title": "ETEP 2026",
+  "org": "2026 3rd International Conference on Energy Technology and Electrical Power",
+  "start_date": "2026-12-25",
+  "end_date": "2026-12-27",
+  "date": "2026-11-18",
+  "content": "2026 3rd International Conference on Energy Technology and Electrical Power",
+  "url": "https://www.aischolar.com/u/mMB7Jr",
+  "tags": "해외,에너지",
+  "location": "Hengyang, China",
+  "source": "wikicfp",
+  "external_id": "wikicfp:204135",
   "wikicfp_checked": true
  },
  {
@@ -9156,6 +9532,8 @@
   "location": "Azenes street 12/1, Riga, Latvia,LV-1048",
   "source": "wikicfp",
   "external_id": "wikicfp:203998",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9172,6 +9550,8 @@
   "location": "Chengdu, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203942",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9188,6 +9568,8 @@
   "location": "Munich, Germany",
   "source": "wikicfp",
   "external_id": "wikicfp:203932",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9204,11 +9586,13 @@
   "location": "Seoul, South Korea",
   "source": "wikicfp",
   "external_id": "wikicfp:203673",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "energy",
+  "field": "quantum",
   "title": "ICECT--EI 2027",
   "org": "2027 The 9th International Conference on Electronics and Communication Technologies (ICECT 2027)",
   "start_date": "2027-06-25",
@@ -9216,10 +9600,12 @@
   "date": "2027-01-30",
   "content": "2027 The 9th International Conference on Electronics and Communication Technologies (ICECT 2027)",
   "url": "https://icect.org/",
-  "tags": "국내개최,에너지",
+  "tags": "국내개최",
   "location": "Seoul, South Korea",
   "source": "wikicfp",
   "external_id": "wikicfp:203502",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9236,6 +9622,8 @@
   "location": "Urumqi, Xinjiang, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203491",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9252,6 +9640,8 @@
   "location": "Almaty, Kazakhstan",
   "source": "wikicfp",
   "external_id": "wikicfp:203490",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9268,22 +9658,8 @@
   "location": "Qingdao,China",
   "source": "wikicfp",
   "external_id": "wikicfp:203471",
-  "wikicfp_checked": true
- },
- {
-  "type": "conf",
-  "field": "energy",
-  "title": "SGEE 2026",
-  "org": "IEEE 2026 7th International Conference on Smart Grid and Energy Engineering",
-  "start_date": "2026-11-27",
-  "end_date": "2026-11-29",
-  "date": "2026-10-30",
-  "content": "IEEE 2026 7th International Conference on Smart Grid and Energy Engineering",
-  "url": "https://ais.cn/u/mym6na",
-  "tags": "해외,에너지",
-  "location": "Changzhou, China",
-  "source": "wikicfp",
-  "external_id": "wikicfp:203415",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9300,6 +9676,8 @@
   "location": "Beijing, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203992",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9316,6 +9694,8 @@
   "location": "Tianjin, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203934",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9332,11 +9712,13 @@
   "location": "Changsha, Hunan, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203826",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "energy",
+  "field": "eng",
   "title": "ICSciEnTec 2027",
   "org": "International Conference on Science, Engineering and Technology",
   "start_date": "2027-05-05",
@@ -9344,10 +9726,30 @@
   "date": "2027-01-31",
   "content": "International Conference on Science, Engineering and Technology",
   "url": "https://icscientec.cst.edu.bt",
-  "tags": "해외,신재생에너지",
+  "tags": "해외",
   "location": "OVC, RUB, Thimphu, BHUTAN",
   "source": "wikicfp",
   "external_id": "wikicfp:203570",
+  "abstract_deadline": null,
+  "registration_deadline": null,
+  "wikicfp_checked": true
+ },
+ {
+  "type": "conf",
+  "field": "energy",
+  "title": "SGEE 2026",
+  "org": "IEEE 2026 7th International Conference on Smart Grid and Energy Engineering",
+  "start_date": "2026-11-27",
+  "end_date": "2026-11-29",
+  "date": "2026-10-30",
+  "content": "IEEE 2026 7th International Conference on Smart Grid and Energy Engineering",
+  "url": "https://ais.cn/u/mym6na",
+  "tags": "해외,신재생에너지",
+  "location": "Changzhou, China",
+  "source": "wikicfp",
+  "external_id": "wikicfp:203415",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9364,6 +9766,8 @@
   "location": "Guangzhou, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203277",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9380,6 +9784,8 @@
   "location": "China",
   "source": "wikicfp",
   "external_id": "wikicfp:203272",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9396,6 +9802,8 @@
   "location": "Nanjing, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203231",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9412,6 +9820,8 @@
   "location": "Zhengzhou, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203228",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9428,11 +9838,13 @@
   "location": "Edinburgh, UK",
   "source": "wikicfp",
   "external_id": "wikicfp:203164",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "energy",
+  "field": "eng",
   "title": "ICRES 2027",
   "org": "2027 9th International Conference on Resources and Environment Sciences (ICRES 2027)",
   "start_date": "2027-06-10",
@@ -9440,31 +9852,17 @@
   "date": "2027-01-25",
   "content": "2027 9th International Conference on Resources and Environment Sciences (ICRES 2027)",
   "url": "https://www.icres.org/",
-  "tags": "해외,신재생에너지",
+  "tags": "해외",
   "location": "Bangkok, Thailand",
   "source": "wikicfp",
   "external_id": "wikicfp:202892",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "energy",
-  "title": "ICSREE 2027",
-  "org": "2027 12th International Conference on Sustainable and Renewable Energy Engineering (ICSREE 2027)",
-  "start_date": "2027-05-25",
-  "end_date": "2027-05-28",
-  "date": "2027-01-05",
-  "content": "2027 12th International Conference on Sustainable and Renewable Energy Engineering (ICSREE 2027)",
-  "url": "http://www.icsree.com",
-  "tags": "해외,신재생에너지",
-  "location": "Madrid, Spain",
-  "source": "wikicfp",
-  "external_id": "wikicfp:202885",
-  "wikicfp_checked": true
- },
- {
-  "type": "conf",
-  "field": "quantum",
+  "field": "cs",
   "title": "ISC 2027",
   "org": "ISC High Performance 2027",
   "start_date": "2027-06-07",
@@ -9472,12 +9870,13 @@
   "date": "2026-12-21",
   "content": "ISC High Performance 2027",
   "url": "https://isc-hpc.com/submissions/research-paper/",
-  "tags": "해외,양자컴퓨팅",
+  "tags": "해외",
   "location": "Hamburg, Germany",
   "source": "wikicfp",
   "external_id": "wikicfp:203803",
-  "wikicfp_checked": true,
-  "abstract_deadline": "2026-12-14"
+  "abstract_deadline": "2026-12-14",
+  "registration_deadline": null,
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
@@ -9493,6 +9892,8 @@
   "location": "Online",
   "source": "wikicfp",
   "external_id": "wikicfp:203457",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9509,12 +9910,13 @@
   "location": "Crowne Plaza hotel, Geneva, Switzerland",
   "source": "wikicfp",
   "external_id": "wikicfp:203156",
-  "wikicfp_checked": true,
-  "abstract_deadline": "2027-03-30"
+  "abstract_deadline": "2027-03-30",
+  "registration_deadline": null,
+  "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "quantum",
+  "field": "cs",
   "title": "ICONICS 2026",
   "org": "5th International Conference on Innovations in Computer Science",
   "start_date": "2026-12-23",
@@ -9522,15 +9924,17 @@
   "date": "2026-09-10",
   "content": "5th International Conference on Innovations in Computer Science",
   "url": "https://iconics.neduet.edu.pk",
-  "tags": "해외,양자컴퓨팅",
+  "tags": "해외",
   "location": "Karachi, Pakistan",
   "source": "wikicfp",
   "external_id": "wikicfp:203022",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "quantum",
+  "field": "cs",
   "title": "ICCFN 2026",
   "org": "International Conference on Cybertechnology and Future Networks",
   "start_date": "2026-11-25",
@@ -9538,15 +9942,17 @@
   "date": "2026-11-10",
   "content": "International Conference on Cybertechnology and Future Networks",
   "url": "https://cybertech.niu.edu/iccfn/",
-  "tags": "해외,양자컴퓨팅",
+  "tags": "해외",
   "location": "Prague, Czech Republic",
   "source": "wikicfp",
   "external_id": "wikicfp:202820",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "quantum",
+  "field": "cs",
   "title": "HPC Asia 2027",
   "org": "International Conference on High Performance Computing in Asia-Pacific Region",
   "start_date": "2027-02-17",
@@ -9554,15 +9960,17 @@
   "date": "2026-09-27",
   "content": "International Conference on High Performance Computing in Asia-Pacific Region",
   "url": "https://hpcasia2027.org/",
-  "tags": "국내개최,양자컴퓨팅",
+  "tags": "국내개최",
   "location": "Seoul, Korea",
   "source": "wikicfp",
   "external_id": "wikicfp:201624",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "quantum",
+  "field": "cs",
   "title": "ICADCML 2027",
   "org": "8th International Conference on Advances in Distributed Computing and Machine Learning",
   "start_date": "2027-01-28",
@@ -9570,15 +9978,17 @@
   "date": "2026-09-10",
   "content": "8th International Conference on Advances in Distributed Computing and Machine Learning",
   "url": "https://icadcml.in/",
-  "tags": "해외,양자컴퓨팅",
+  "tags": "해외",
   "location": "NIT Puducherry",
   "source": "wikicfp",
   "external_id": "wikicfp:201569",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "quantum",
+  "field": "cs",
   "title": "ICICF 2027",
   "org": "International Conference on Intelligent Computing Frontiers",
   "start_date": "2027-01-21",
@@ -9586,15 +9996,17 @@
   "date": "2026-09-30",
   "content": "International Conference on Intelligent Computing Frontiers",
   "url": "https://set.jainuniversity.ac.in/icicf/",
-  "tags": "해외,양자컴퓨팅",
+  "tags": "해외",
   "location": "Bengaluru, India",
   "source": "wikicfp",
   "external_id": "wikicfp:201312",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "quantum",
+  "field": "cs",
   "title": "ICAAIC 2027",
   "org": "5th International Conference on Applied Artificial Intelligence and Computing",
   "start_date": "2027-02-01",
@@ -9602,10 +10014,12 @@
   "date": "2026-11-09",
   "content": "5th International Conference on Applied Artificial Intelligence and Computing",
   "url": "https://icaaic.com/2027/",
-  "tags": "해외,양자컴퓨팅",
+  "tags": "해외",
   "location": "Salem, Tamil Nadu, India",
   "source": "wikicfp",
   "external_id": "wikicfp:201209",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9622,6 +10036,8 @@
   "location": "Shenzhen, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203935",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9638,6 +10054,8 @@
   "location": "Nanchang, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203927",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9654,6 +10072,8 @@
   "location": "Guangzhou, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203864",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9670,6 +10090,8 @@
   "location": "Zagreb, Croatia",
   "source": "wikicfp",
   "external_id": "wikicfp:203837",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9686,11 +10108,13 @@
   "location": "Nagoya, Japan",
   "source": "wikicfp",
   "external_id": "wikicfp:203829",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "quantum",
+  "field": "cs",
   "title": "ITTS 2026",
   "org": "2026 International Conference on Intelligent Traffic and Transportation Systems",
   "start_date": "2026-12-11",
@@ -9698,10 +10122,12 @@
   "date": "2026-10-30",
   "content": "2026 International Conference on Intelligent Traffic and Transportation Systems",
   "url": "https://ais.cn/u/6Bvq2i",
-  "tags": "해외,통신",
+  "tags": "해외",
   "location": "Shanghai, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203822",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9718,6 +10144,8 @@
   "location": "Shenzhen, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203809",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9734,6 +10162,8 @@
   "location": "Chengdu, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203768",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9750,6 +10180,8 @@
   "location": "Xi'an, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203750",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9766,6 +10198,8 @@
   "location": "Dongguan, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203692",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9782,11 +10216,13 @@
   "location": "Chongqing, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203671",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
   "type": "conf",
-  "field": "quantum",
+  "field": "cs",
   "title": "ITCA 2026",
   "org": "2026 8th International Conference on Information Technology and Computer Application",
   "start_date": "2026-12-18",
@@ -9794,10 +10230,12 @@
   "date": "2026-10-30",
   "content": "2026 8th International Conference on Information Technology and Computer Application",
   "url": "https://www.aischolar.com/u/bY36Jf",
-  "tags": "해외,통신",
+  "tags": "해외",
   "location": "Guangzhou, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203631",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9814,6 +10252,8 @@
   "location": "Seoul, South Korea",
   "source": "wikicfp",
   "external_id": "wikicfp:203504",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9830,6 +10270,8 @@
   "location": "Kobe, Japan",
   "source": "wikicfp",
   "external_id": "wikicfp:203496",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9846,6 +10288,8 @@
   "location": "Guangzhou, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203403",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9862,6 +10306,8 @@
   "location": "Chongqing, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203400",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9878,6 +10324,8 @@
   "location": "Chengdu, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203387",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
