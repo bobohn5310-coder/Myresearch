@@ -2926,9 +2926,11 @@ a { text-decoration: none; color: inherit; }
         <button type="button" class="auth-select-btn" onclick="selectMemberType(this,'박사과정')">박사과정</button>
         <button type="button" class="auth-select-btn" onclick="selectMemberType(this,'석박통합')">석박통합</button>
         <button type="button" class="auth-select-btn" onclick="selectMemberType(this,'박사후연구원')">박사후연구원</button>
+        <button type="button" class="auth-select-btn" onclick="selectMemberType(this,'졸업생')">졸업생</button>
         <button type="button" class="auth-select-btn" onclick="selectMemberType(this,'기타')">기타</button>
       </div>
       <div id="signup-type-note" style="display:none;font-size:12px;color:var(--text-muted);line-height:1.6;background:var(--bg);padding:10px 12px;border-radius:10px;">🌱 예비대학원생은 학회·장학 정보와 커뮤니티를 모두 쓸 수 있어요. 다만 <b>연구실 클로버 남기기</b>는 실제로 연구실에 있는 분들만 할 수 있어서, 입학 후 학교 인증을 하면 열려요.</div>
+      <div id="signup-alumni-note" style="display:none;font-size:12px;color:var(--text-muted);line-height:1.6;background:var(--bg);padding:10px 12px;border-radius:10px;">🎓 졸업생은 <b>졸업 후 10년 이내</b>라면 가입 뒤 학교 인증(졸업증명서 또는 학위증명서)을 받아 졸업한 연구실에 클로버를 남길 수 있어요.</div>
       <div class="auth-consent" id="signup-consent">
         <label class="all"><input type="checkbox" id="consent-all" onchange="toggleAllConsent(this)"> 아래 내용에 모두 동의해요</label>
         <label><input type="checkbox" class="consent-req" id="consent-age"> <span><span class="req">[필수]</span> 만 14세 이상이에요</span></label>
@@ -2945,7 +2947,7 @@ a { text-decoration: none; color: inherit; }
       <div id="verify-fields" style="display:flex;flex-direction:column;gap:14px;">
         <div style="font-size:13px;color:var(--text-muted);line-height:1.6;background:var(--bg);padding:12px 14px;border-radius:10px;">
           🪪 <b style="color:var(--text);">학교 인증</b>을 하면 대학원생 인증 배지가 붙어요.<br>
-          학생증·재학증명서는 <b>운영자만 볼 수 있는 비공개 저장소</b>에 6개월간 보관 후 삭제돼요.
+          학생증·재학증명서(졸업생은 졸업증명서)는 <b>운영자만 볼 수 있는 비공개 저장소</b>에 6개월간 보관 후 삭제돼요.
         </div>
         <div class="auth-field-label">소속 대학원</div>
         <input class="auth-input" id="verify-school" type="text" maxlength="80" placeholder="예: 성균관대 반도체">
@@ -2959,12 +2961,18 @@ a { text-decoration: none; color: inherit; }
           <button type="button" class="auth-select-btn" onclick="selectGrade(this,'박사과정')">박사과정</button>
           <button type="button" class="auth-select-btn" onclick="selectGrade(this,'석박통합')">석박통합</button>
           <button type="button" class="auth-select-btn" onclick="selectGrade(this,'박사후연구원')">박사후연구원</button>
+          <button type="button" class="auth-select-btn" id="verify-grade-alumni" onclick="selectGrade(this,'졸업생')">졸업생</button>
+        </div>
+        <div id="verify-grad-wrap" style="display:none;flex-direction:column;gap:8px;">
+          <div class="auth-field-label">졸업 연도</div>
+          <input class="auth-input" id="verify-grad-year" type="number" inputmode="numeric" min="1950" max="2100" placeholder="예: 2022">
+          <div style="font-size:12px;color:var(--text-muted);line-height:1.6;">🎓 졸업 후 10년 이내라면 졸업한 연구실에 클로버를 남길 수 있어요. 졸업증명서나 학위증명서로 확인해요.</div>
         </div>
         <div class="auth-consent">
           <label><input type="checkbox" id="consent-verify"> <span><span class="req">[필수]</span> 학교 인증 서류 수집·이용에 동의해요</span></label>
-          <div class="note">소속·전공·과정과 학생증 또는 재학증명서를 대학원생 확인에만 써요. 서류 파일은 <b>제출일로부터 6개월</b> 뒤 삭제되고 인증 여부만 남아요. 학번·생년월일 등은 가리고 올려 주세요. 동의하지 않으면 인증을 받을 수 없어요. <a href="privacy.html" target="_blank" rel="noopener">자세히</a></div>
+          <div class="note">소속·전공·과정(졸업생은 졸업 연도)과 학생증·재학증명서 또는 졸업증명서·학위증명서를 대학원생·졸업생 확인에만 써요. 서류 파일은 <b>제출일로부터 6개월</b> 뒤 삭제되고 인증 여부만 남아요. 학번·생년월일 등은 가리고 올려 주세요. 동의하지 않으면 인증을 받을 수 없어요. <a href="privacy.html" target="_blank" rel="noopener">자세히</a></div>
         </div>
-        <div class="auth-field-label">학생증 또는 재학증명서</div>
+        <div class="auth-field-label" id="verify-doc-label">학생증 또는 재학증명서</div>
         <label id="verify-upload-area" ondragover="event.preventDefault()" ondrop="handleVerifyDrop(event)"
           style="display:block;border:2px dashed var(--border);border-radius:12px;padding:18px;text-align:center;cursor:pointer;background:var(--bg);">
           <input type="file" id="verify-file" accept="image/jpeg,image/png,image/webp,image/heic,application/pdf" style="display:none;" onchange="handleVerifySelect(event)">
@@ -4729,12 +4737,18 @@ function selectMemberType(el, value) {
   document.getElementById('signup-type').value = value;
   const note = document.getElementById('signup-type-note');
   if(note) note.style.display = value === '예비대학원생' ? 'block' : 'none';
+  const an = document.getElementById('signup-alumni-note');
+  if(an) an.style.display = value === '졸업생' ? 'block' : 'none';
+  if(value === '졸업생') document.getElementById('verify-grade-alumni')?.click();
 }
 
 function selectGrade(el, value) {
   document.querySelectorAll('#grade-select-group .auth-select-btn').forEach(b => b.classList.remove('selected'));
   el.classList.add('selected');
   document.getElementById('verify-grade').value = value;
+  const alumni = value === '졸업생';
+  const gw = document.getElementById('verify-grad-wrap'); if(gw) gw.style.display = alumni ? 'flex' : 'none';
+  const dl = document.getElementById('verify-doc-label'); if(dl) dl.textContent = alumni ? '졸업증명서 또는 학위증명서' : '학생증 또는 재학증명서';
 }
 
 // 내 최신 인증 요청과 인증 여부
@@ -4786,21 +4800,28 @@ async function submitVerification() {
   if(!school) return showAuthMessage('소속 대학원을 입력해주세요.', true);
   if(!major)  return showAuthMessage('전공/연구분야를 입력해주세요.', true);
   if(!grade)  return showAuthMessage('과정을 선택해주세요.', true);
+  const alumni = grade === '졸업생';
+  const gradYear = Number(document.getElementById('verify-grad-year')?.value || 0);
+  const thisYear = new Date().getFullYear();
+  if(alumni && !(gradYear >= 1950 && gradYear <= thisYear)) return showAuthMessage('졸업 연도를 4자리로 적어주세요. (예: 2022)', true);
   if(!document.getElementById('consent-verify').checked) return showAuthMessage('학교 인증 서류 수집·이용에 동의해주세요.', true);
-  if(!docUrl) return showAuthMessage('학생증 또는 재학증명서를 올려주세요.', true);
+  if(!docUrl) return showAuthMessage(alumni ? '졸업증명서 또는 학위증명서를 올려주세요.' : '학생증 또는 재학증명서를 올려주세요.', true);
 
   const { data: { user } } = await sbClient.auth.getUser();
   if(!user) return showAuthMessage('로그인이 필요해요.', true);
   const btn = document.getElementById('verify-submit-btn');
   btn.disabled = true; btn.textContent = '보내는 중...';
-  const { error } = await sbClient.from('verification_requests').insert({
+  const row = {
     user_id: user.id,
     email: user.email,
     name: user.user_metadata?.name || '',
     school, major, grade,
     doc_url: docUrl,
     status: 'pending'
-  });
+  };
+  let { error } = await sbClient.from('verification_requests').insert(alumni ? { ...row, grad_year: gradYear } : row);
+  // 졸업 연도 칸(clover_alumni.sql)이 아직 없으면 연도 없이 보낸다
+  if(error && alumni && /grad_year/.test(error.message || '')) ({ error } = await sbClient.from('verification_requests').insert(row));
   btn.disabled = false; btn.textContent = '인증 요청하기';
   if(error) return showAuthMessage('요청을 보내지 못했어요. 잠시 후 다시 시도해주세요.', true);
   showAuthMessage('✅ 인증 요청을 보냈어요! 확인되면 인증 배지가 붙어요.');
@@ -5603,6 +5624,17 @@ async function clvOpenVote(labId){
   if(!ok && prof?.member_type === '예비대학원생'){
     body.innerHTML = `<div class="clv-info clv-warn">🌱 예비대학원생은 아직 클로버를 남길 수 없어요. 클로버는 지금 연구실에 있는 분들(학부연구생 포함)의 목소리만 모으고 있어요. 입학 후 학교 인증을 받으면 남길 수 있어요.</div>
       <button class="clv-btn" onclick="clvClose('clv-vote-modal')">확인</button>`;
+    return;
+  }
+  if(!ok && prof?.member_type === '졸업생'){
+    const st = await sbClient.rpc('clover_alumni_status');
+    const a = (!st.error && st.data && st.data[0]) || {};
+    const yrs = a.years || 10;
+    const why = !a.is_verified || !a.grad_year
+      ? `졸업생은 <b>학교 인증</b>(졸업증명서 또는 학위증명서와 졸업 연도)을 받으면 졸업 후 ${yrs}년 이내의 연구실 경험을 남길 수 있어요.`
+      : `졸업 후 ${yrs}년이 지나서(${a.grad_year}년 졸업) 클로버를 남길 수 없어요. 최근 연구실 분위기를 담기 위해서예요.`;
+    body.innerHTML = `<div class="clv-info clv-warn"><span>🎓</span><div>${why}</div></div>
+      ${!a.is_verified || !a.grad_year ? `<button class="clv-btn" onclick="clvClose('clv-vote-modal');openVerify()">학교 인증하러 가기</button>` : `<button class="clv-btn" onclick="clvClose('clv-vote-modal')">확인</button>`}`;
     return;
   }
   if(!ok){

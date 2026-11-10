@@ -794,10 +794,19 @@
       <div style="display:flex;gap:8px;">
         <select class="form-select" id="mm-type" style="flex:1;">
           <option value="">(없음)</option><option>예비대학원생</option><option>학부연구생</option><option>석사과정</option>
-          <option>박사과정</option><option>석박통합</option><option>박사후연구원</option><option>기타</option>
+          <option>박사과정</option><option>석박통합</option><option>박사후연구원</option><option>졸업생</option><option>기타</option>
         </select>
+        <input class="form-input" id="mm-grad" type="number" min="1950" max="2100" placeholder="졸업 연도" title="졸업생만: 졸업 연도 (비워 두면 그대로)" style="width:110px;">
         <button class="btn btn-primary" onclick="mmSaveType()">유형 저장</button>
       </div>
+    </div>
+    <div class="form-group" style="margin-bottom:14px;">
+      <label class="form-label">🪪 학교 인증 <span style="font-weight:400;color:var(--text-muted)">(서류 없이 운영자가 직접 확인한 경우)</span></label>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <span id="mm-verified" style="font-size:13px;flex:1;min-width:140px;"></span>
+        <button class="btn btn-secondary" id="mm-verify-btn" onclick="mmToggleVerified()">인증 처리</button>
+      </div>
+      <div style="font-size:12px;color:#94a3b8;margin-top:6px;">졸업생이면 위에서 유형을 '졸업생'으로, 졸업 연도를 함께 저장해 주세요. 서류가 없으면 메일로 학교가 확인되지 않아 클로버 승인함에 '학교 미확인'으로 보여요.</div>
     </div>
     <div class="form-group" style="margin-bottom:14px;">
       <label class="form-label">활동 정지 <span style="font-weight:400;color:var(--text-muted)">(정지 중에는 글·댓글·클로버를 남길 수 없어요)</span></label>
@@ -1165,6 +1174,9 @@ function openMemberModal(id) {
   _mmId = id;
   document.getElementById('mm-who').innerHTML = `<b>${esc(m.name || '(이름 없음)')}</b> · ${esc(m.email || '')}<br><span style="color:#64748b;font-size:13px;">가입 ${mbDate(m.created_at)}${mbSuspended(m) ? ` · <b style="color:#dc2626;">${mbDate(m.suspended_until)}까지 정지</b> (${esc(m.suspend_reason || '사유 없음')})` : ''}</span>`;
   document.getElementById('mm-type').value = m.member_type || '';
+  document.getElementById('mm-grad').value = '';
+  document.getElementById('mm-verified').innerHTML = m.is_verified ? '<b style="color:#059669;">✅ 인증된 회원</b>' : '<span style="color:#64748b;">인증 안 됨</span>';
+  document.getElementById('mm-verify-btn').textContent = m.is_verified ? '인증 해제' : '✅ 인증 처리';
   document.getElementById('mm-reason').value = '';
   document.getElementById('mm-unsuspend').style.display = mbSuspended(m) ? '' : 'none';
   document.getElementById('mm-withdraw').innerHTML = m.withdraw_at
@@ -1198,7 +1210,16 @@ async function mmUpsert(patch, okMsg) {
   if(error) { showToast('❌ 저장 실패: ' + error.message); return; }
   showToast(okMsg); closeModal('member-modal'); loadMembers();
 }
-function mmSaveType() { mmUpsert({ member_type: document.getElementById('mm-type').value || null }, '✅ 회원 유형을 바꿨어요.'); }
+function mmToggleVerified() {
+  const m = _members.find(x => x.id === _mmId); if(!m) return;
+  const on = !m.is_verified;
+  if(!confirm(on ? '서류 없이 이 회원을 학교 인증 회원으로 처리할까요?\n직접 소속을 확인한 경우에만 해 주세요.' : '이 회원의 학교 인증을 해제할까요?')) return;
+  mmUpsert({ is_verified: on }, on ? '✅ 학교 인증 회원으로 처리했어요.' : '학교 인증을 해제했어요.');
+}
+function mmSaveType() {
+  const g = Number(document.getElementById('mm-grad').value || 0);
+  mmUpsert({ member_type: document.getElementById('mm-type').value || null, ...(g >= 1950 && g <= 2100 ? { grad_year: g } : {}) }, '✅ 회원 유형을 바꿨어요.');
+}
 function mmSuspend(on) {
   if(!on) return mmUpsert({ suspended_until: null, suspend_reason: null }, '✅ 정지를 풀었어요.');
   const days = Number(document.getElementById('mm-days').value);
@@ -1374,7 +1395,7 @@ async function loadCloverQueue(status) {
   const leaf = n => '🍀'.repeat(n) + '<span style="opacity:.25">' + '🍀'.repeat(4 - n) + '</span>';
   body.innerHTML = _cq.map((r, i) => `<tr>
     <td style="font-size:13px;"><b>${esc(r.name || '(이름 없음)')}</b><br><span style="color:#64748b;">${esc(r.email || '')}</span>
-      <div style="font-size:12px;color:#94a3b8;">${esc(r.member_type || '유형 없음')}${r.is_verified ? ' · 🪪 인증' : ''} · ${mbDate(r.created_at)}</div></td>
+      <div style="font-size:12px;color:#94a3b8;">${esc(r.member_type || '유형 없음')}${r.grad_year ? ` (${esc(r.grad_year)}년 졸업)` : ''}${r.is_verified ? ' · 🪪 인증' : ''} · ${mbDate(r.created_at)}</div></td>
     <td style="font-size:13px;">${esc(r.univ)} ${esc(r.dept)}<br><b>${esc(r.lab_name)}</b> <span style="color:#64748b;">(${esc(r.prof || '-')})</span>
       <div style="font-size:12px;color:#94a3b8;">승인된 참여 ${r.lab_approved}명${r.lab_hidden ? ' · <b style="color:#dc2626;">가려진 연구실</b>' : ''}</div></td>
     <td style="font-size:12.5px;line-height:1.6;">
@@ -2121,12 +2142,12 @@ async function loadVerifications(status = 'pending') {
             <div style="font-size:13px;color:#475569;"><span style="font-weight:700;color:#64748b;width:72px;display:inline-block;">이메일</span>${esc(req.email||'-')}</div>
             <div style="font-size:13px;color:#475569;"><span style="font-weight:700;color:#64748b;width:72px;display:inline-block;">소속</span>${esc(req.school||'-')}</div>
             <div style="font-size:13px;color:#475569;"><span style="font-weight:700;color:#64748b;width:72px;display:inline-block;">전공</span>${esc(req.major||'-')}</div>
-            <div style="font-size:13px;color:#475569;"><span style="font-weight:700;color:#64748b;width:72px;display:inline-block;">과정</span>${esc(req.grade||'-')}</div>
+            <div style="font-size:13px;color:#475569;"><span style="font-weight:700;color:#64748b;width:72px;display:inline-block;">과정</span>${esc(req.grade||'-')}${req.grad_year ? ` · <b>${esc(req.grad_year)}년 졸업</b>` : ''}</div>
           </div>
           ${req.reject_reason ? `<div style="font-size:12px;background:#fef2f2;color:#dc2626;padding:8px 12px;border-radius:8px;border:1px solid #fecaca;">반려 사유: ${esc(req.reject_reason)}</div>` : ''}
           ${req.status === 'pending' ? `
           <div style="display:flex;gap:8px;margin-top:auto;">
-            <button onclick="approveVerification('${esc(req.id)}','${esc(req.user_id)}','${esc(req.grade||'')}')"
+            <button onclick="approveVerification('${esc(req.id)}','${esc(req.user_id)}','${esc(req.grade||'')}',${Number(req.grad_year) || 'null'})"
               style="flex:1;padding:9px;background:#2563eb;color:white;border:none;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Noto Sans KR',sans-serif;">
               ✅ 승인
             </button>
@@ -2208,11 +2229,11 @@ async function exportVerificationsExcel() {
 }
 
 // 학교 인증 승인 시 회원 유형을 인증된 과정으로 갱신 (예: 예비대학원생 → 석사과정이면 클로버가 열림)
-const MEMBER_TYPES = ['예비대학원생','학부연구생','석사과정','박사과정','석박통합','박사후연구원','기타'];
-async function approveVerification(reqId, userId, grade) {
-  if(!confirm('이 회원을 승인하시겠습니까?')) return;
+const MEMBER_TYPES = ['예비대학원생','학부연구생','석사과정','박사과정','석박통합','박사후연구원','졸업생','기타'];
+async function approveVerification(reqId, userId, grade, gradYear) {
+  if(!confirm(grade === '졸업생' ? `이 회원을 ${gradYear || '(연도 없음)'}년 졸업생으로 승인하시겠습니까?\n서류의 졸업 연도와 같은지 확인해 주세요.` : '이 회원을 승인하시겠습니까?')) return;
   const { error: e1 } = await sbClient.from('verification_requests').update({ status:'approved', reviewed_at: new Date().toISOString() }).eq('id', reqId);
-  const { error: e2 } = await sbClient.from('profiles').upsert({ id: userId, is_verified: true, ...(MEMBER_TYPES.includes(grade) ? { member_type: grade } : {}) }, { onConflict: 'id' });
+  const { error: e2 } = await sbClient.from('profiles').upsert({ id: userId, is_verified: true, ...(MEMBER_TYPES.includes(grade) ? { member_type: grade } : {}), ...(grade === '졸업생' && gradYear ? { grad_year: gradYear } : {}) }, { onConflict: 'id' });
   if(e1 || e2) { showToast('❌ 승인 실패: ' + (e1||e2).message); return; }
   showToast('✅ 승인 완료!');
   loadVerifications(currentVerifyStatus);
