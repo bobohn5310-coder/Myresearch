@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-09T07:19+09:00",
+ "updated": "2026-11-10T10:42+09:00",
  "issues": {
   "Nature": {
    "url": "https://www.nature.com/nature/volumes/659/issues/8139",
@@ -16,6 +16,17 @@
   }
  },
  "papers": [
+  {
+   "journal": "Science",
+   "field": "earth",
+   "tag": "지구/환경",
+   "title": "Melting and resistivity of iron at Earth core conditions using pulsed Joule heating",
+   "summary": "",
+   "url": "https://www.science.org/doi/10.1126/science.aeh5267",
+   "doi": "10.1126/science.aeh5267",
+   "date": "2026-11-09",
+   "external_id": "paper:372f7dc4c422d2eed399"
+  },
   {
    "journal": "Nature",
    "field": "etc",
@@ -431,126 +442,6 @@
    "date": "2026-11-04",
    "external_id": "paper:df5a9dc79edbb6038093",
    "image": "https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41586-026-11229-5/MediaObjects/41586_2026_11229_Fig1_HTML.png"
-  },
-  {
-   "journal": "Nature",
-   "field": "bio",
-   "tag": "생명/의학",
-   "title": "Nectin-4 mediates rubella virus entry in airway and placental cells",
-   "summary": "Nectin-4 is identified as a pivotal host entry receptor for respiratory transmission and early placental infection of rubella virus.",
-   "url": "https://www.nature.com/articles/s41586-026-11248-2",
-   "doi": "10.1038/s41586-026-11248-2",
-   "date": "2026-11-04",
-   "external_id": "paper:60be262c82ae22a322cc",
-   "image": "https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41586-026-11248-2/MediaObjects/41586_2026_11248_Fig1_HTML.png"
-  },
-  {
-   "journal": "Nature",
-   "field": "bio",
-   "tag": "생명/의학",
-   "title": "Aggression experience and observation drive shared behavioural and neural changes",
-   "summary": "Aggression experience and observation recruit a brain-wide network of excitatory, inhibitory and valence signals, and changes to this activation pattern predict a shared adaptive behaviour-control…",
-   "url": "https://www.nature.com/articles/s41586-026-11217-9",
-   "doi": "10.1038/s41586-026-11217-9",
-   "date": "2026-11-04",
-   "external_id": "paper:f3d0219d86082ef08e82",
-   "image": "https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41586-026-11217-9/MediaObjects/41586_2026_11217_Fig1_HTML.png"
-  },
-  {
-   "journal": "Nature",
-   "field": "bio",
-   "tag": "생명/의학",
-   "title": "Transcriptomic convergence and the female protective effect in autism",
-   "summary": "Gene network analysis shows how mutations in diverse genes associated with autism spectrum disorder can converge to exert shared effects, with X-linked transcription factor ZFX emerging as a key…",
-   "url": "https://www.nature.com/articles/s41586-026-11236-6",
-   "doi": "10.1038/s41586-026-11236-6",
-   "date": "2026-11-04",
-   "external_id": "paper:9045e44b722130329eba",
-   "image": "https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41586-026-11236-6/MediaObjects/41586_2026_11236_Fig1_HTML.png"
-  },
-  {
-   "journal": "Nature",
-   "field": "earth",
-   "tag": "지구/환경",
-   "title": "The deep Earth origin of the Great Unconformity",
-   "summary": "Continental-scale uplift and subsidence associated with long-wavelength dynamic topography due to mantle convection drove the formation and preservation of the Great Unconformity.",
-   "url": "https://www.nature.com/articles/s41586-026-11156-5",
-   "doi": "10.1038/s41586-026-11156-5",
-   "date": "2026-11-04",
-   "external_id": "paper:9f26896976bf7b4a6577",
-   "image": "https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41586-026-11156-5/MediaObjects/41586_2026_11156_Fig1_HTML.png"
-  },
-  {
-   "journal": "Nature",
-   "field": "quantum",
-   "tag": "양자/물리",
-   "title": "Twist-angle-dependent quantum phase diagrams in moiré bilayer MoTe 2",
-   "summary": "Twist-angle-dependent studies of moiré bilayer MoTe2 reveal a transition from fractional topological states to correlated insulators and superconductivity, linking topology, symmetry breaking and…",
-   "url": "https://www.nature.com/articles/s41586-026-11274-0",
-   "doi": "10.1038/s41586-026-11274-0",
-   "date": "2026-11-04",
-   "external_id": "paper:655cf2ccdc9dc77a9d11",
-   "image": "https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41586-026-11274-0/MediaObjects/41586_2026_11274_Fig1_HTML.png"
-  },
-  {
-   "journal": "Nature",
-   "field": "bio",
-   "tag": "생명/의학",
-   "title": "An open structure-guided RNA foundation model for generalizable prediction",
-   "summary": "structRFM, a structure-guided RNA foundation model pre-trained on 21 million sequence–structure pairs, learns multimodal representations that improve secondary and tertiary structure prediction…",
-   "url": "https://www.nature.com/articles/s41586-026-11210-2",
-   "doi": "10.1038/s41586-026-11210-2",
-   "date": "2026-11-04",
-   "external_id": "paper:054d87a19fefc0106904",
-   "image": "https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41586-026-11210-2/MediaObjects/41586_2026_11210_Fig1_HTML.png"
-  },
-  {
-   "journal": "Nature",
-   "field": "bio",
-   "tag": "생명/의학",
-   "title": "Synergy in viral–bacterial co-infection expedites algal bloom demise",
-   "summary": "Viral–bacterial synergy accelerates algal bloom collapse by enhancing virus-induced mortality, driven by Alteromonas chemoattraction and co-infection, revealing a previously unrecognized mortality…",
-   "url": "https://www.nature.com/articles/s41586-026-11243-7",
-   "doi": "10.1038/s41586-026-11243-7",
-   "date": "2026-11-04",
-   "external_id": "paper:ce9c742422c12e1669df",
-   "image": "https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41586-026-11243-7/MediaObjects/41586_2026_11243_Fig1_HTML.png"
-  },
-  {
-   "journal": "Nature",
-   "field": "bio",
-   "tag": "생명/의학",
-   "title": "A conserved flowering-time module underlies double-season cropping",
-   "summary": "The genomic footprints of 80 years of modern breeding in China are traced using representative cultivars, demonstrating how precision genome editing can be used to reconstruct adaptive modules for…",
-   "url": "https://www.nature.com/articles/s41586-026-11187-y",
-   "doi": "10.1038/s41586-026-11187-y",
-   "date": "2026-11-04",
-   "external_id": "paper:b41576f5a7799d6c0bd0",
-   "image": "https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41586-026-11187-y/MediaObjects/41586_2026_11187_Fig1_HTML.png"
-  },
-  {
-   "journal": "Nature",
-   "field": "bio",
-   "tag": "생명/의학",
-   "title": "Microbiome-wide PheWAS links gut microbial SNVs to health and exposures",
-   "summary": "Gut microbial single-nucleotide variants across 10,781 individuals reveal 940 associations that link strain-level genetic variation to 69 host traits, with structural analyses pinpointing host…",
-   "url": "https://www.nature.com/articles/s41586-026-11220-0",
-   "doi": "10.1038/s41586-026-11220-0",
-   "date": "2026-11-04",
-   "external_id": "paper:8f302ea78c0816f81e49",
-   "image": "https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41586-026-11220-0/MediaObjects/41586_2026_11220_Fig1_HTML.png"
-  },
-  {
-   "journal": "Nature",
-   "field": "bio",
-   "tag": "생명/의학",
-   "title": "A spatiotemporal cancer cell trajectory underlies glioblastoma heterogeneity",
-   "summary": "A deep single-cell and spatial multi-omic atlas of human glioblastoma is generated, pairing transcriptomic, epigenomic and genomic profiling, and tracing glioblastoma tumour heterogeneity to a…",
-   "url": "https://www.nature.com/articles/s41586-026-11234-8",
-   "doi": "10.1038/s41586-026-11234-8",
-   "date": "2026-11-04",
-   "external_id": "paper:c4b1f1c2b8369666a44a",
-   "image": "https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41586-026-11234-8/MediaObjects/41586_2026_11234_Fig1_HTML.png"
   },
   {
    "journal": "Science",
