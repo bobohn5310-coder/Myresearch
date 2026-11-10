@@ -274,75 +274,36 @@
 
   .content { padding: 28px 32px; }
 
-  /* ── STATS ── */
-  .stats-row {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin-bottom: 28px;
-  }
+  
 
-  .stat-card {
-    background: var(--white);
-    border: 1.5px solid var(--border);
-    border-radius: 16px;
-    padding: 22px 22px 18px;
-    box-shadow: var(--shadow-sm);
-    transition: all 0.2s;
-    cursor: default;
-  }
+  
 
-  .stat-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+  
 
-  .stat-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 14px;
-  }
+  
 
-  .stat-icon {
-    width: 38px; height: 38px;
-    border-radius: 11px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 21.6px;
-  }
+  
 
-  .stat-trend {
-    font-size: 13.2px;
-    font-weight: 600;
-    padding: 3px 8px;
-    border-radius: 20px;
-  }
+  
 
-  .stat-card.blue .stat-icon { background: var(--blue-light); }
-  .stat-card.green .stat-icon { background: var(--green-light); }
-  .stat-card.amber .stat-icon { background: var(--amber-light); }
-  .stat-card.red .stat-icon { background: var(--red-light); }
+  
+  
+  
+  
 
-  .stat-card.blue .stat-trend { background: var(--blue-light); color: var(--blue); }
-  .stat-card.green .stat-trend { background: var(--green-light); color: var(--green); }
-  .stat-card.amber .stat-trend { background: var(--amber-light); color: var(--amber); }
-  .stat-card.red .stat-trend { background: var(--red-light); color: var(--red); }
+  
+  
+  
+  
 
-  .stat-value {
-    font-family: 'DM Mono', monospace;
-    font-size: 38.4px;
-    font-weight: 500;
-    line-height: 1;
-    margin-bottom: 4px;
-  }
+  
 
-  .stat-card.blue .stat-value { color: var(--blue); }
-  .stat-card.green .stat-value { color: var(--green); }
-  .stat-card.amber .stat-value { color: var(--amber); }
-  .stat-card.red .stat-value { color: var(--red); }
+  
+  
+  
+  
 
-  .stat-label {
-    font-size: 14.4px;
-    font-weight: 500;
-    color: var(--text-sub);
-  }
+  
 
   /* ── PANEL GRID ── */
   .panel-grid {
@@ -767,16 +728,6 @@
   box-shadow: 0 2px 8px rgba(37,99,235,0.25);
 }
 .btn-primary:hover { background: #1d4ed8; transform: translateY(-1px); box-shadow: 0 4px 14px rgba(37,99,235,0.35); }
-.btn-secondary {
-  display: inline-flex; align-items: center; gap: 7px;
-  padding: 9px 20px;
-  background: white; color: #334155;
-  border: 1.5px solid #e2e8f0; border-radius: 9px;
-  font-size: 14px; font-weight: 600;
-  cursor: pointer; transition: all 0.15s;
-  font-family: 'Noto Sans KR', sans-serif;
-}
-.btn-secondary:hover { border-color: #2563eb; color: #2563eb; }
 .btn-ghost {
   display: inline-flex; align-items: center; gap: 6px;
   padding: 7px 14px;
@@ -851,48 +802,33 @@
     gap: 12px !important;
   }
 
-  /* ── STATS ROW 4→2 ── */
-  .stats-row {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
-  .stat-value { font-size: 28px; }
+  
+  
 
   /* ── PANEL GRID → 1컬럼 ── */
   .panel-grid {
     grid-template-columns: 1fr;
   }
 
-  /* ── CALENDAR ── */
-  .cal-header { padding: 14px 16px; }
-  .cal-grid-header,
-  .cal-grid { font-size: 12px; }
+  
+  
   .cal-day { min-height: 56px; padding: 6px 4px; }
-  .cal-day-num { font-size: 13px; }
+  
 
-  /* ── INFO PAGE ── */
-  .info-layout {
-    grid-template-columns: 1fr !important;
-  }
+  
   .filter-row { overflow-x: auto; padding-bottom: 4px; }
   .filter-btn { font-size: 12px; padding: 5px 12px; white-space: nowrap; }
 
   /* ── FORM ROW ── */
   .form-row { grid-template-columns: 1fr; }
 
-  /* ── 모달 ── */
-  .profile-modal-box,
-  .modal-box {
-    width: 95vw !important;
-    max-height: 92vh;
-    overflow-y: auto;
-  }
+  
 }
 
 @media (max-width: 480px) {
-  .stats-row { grid-template-columns: 1fr 1fr; gap: 8px; }
-  .stat-card { padding: 16px 14px 12px; }
-  .stat-value { font-size: 24px; }
+  
+  
+  
   .content { padding: 12px; }
   .topbar { height: 52px; }
 }
@@ -1453,17 +1389,10 @@ function renderDashWithKeywords(type='all') {
   const el = document.getElementById('list-dash');
   if(!el) return;
 
-  // 프로필 키워드 가져오기
-  let profileKeywords = [];
-  if(typeof _sb !== 'undefined' && typeof _currentUser !== 'undefined' && _currentUser) {
-    _sb.from('profiles').select('keywords').eq('id', _currentUser.id).single().then(({ data }) => {
-      profileKeywords = (data?.keywords || []).map(k => k.toLowerCase());
-      _renderDashList(el, type, profileKeywords);
-    });
-  } else {
-    _renderDashList(el, type, profileKeywords);
-  }
+  // 프로필 키워드는 프로필을 불러올 때 받아 둔 것을 쓴다 (따로 다시 묻지 않음)
+  _renderDashList(el, type, _dashKeywords);
 }
+let _dashKeywords = [];
 
 function _renderDashList(el, type, keywords) {
   let items = type === 'all' ? DATA : DATA.filter(d => d.type === type);
@@ -1693,20 +1622,11 @@ const _sb = supabase.createClient(
 
 let _currentUser = null;
 
-// 인증 상태 감지
-_sb.auth.getSession().then(({ data: { session } }) => {
-  _currentUser = session?.user || null;
-  if(_currentUser) {
-    loadProfile();
-    loadMyData();
-    loadSchedules();
-    if(typeof loadCV==='function') loadCV();
-  }
-});
-
+// 인증 상태 감지: 페이지를 열 때(INITIAL_SESSION)와 로그인할 때만 내 데이터를 불러온다.
+// (로그인 유지용 토큰 갱신 때마다 전부 다시 불러오지 않도록)
 _sb.auth.onAuthStateChange((event, session) => {
   _currentUser = session?.user || null;
-  if(_currentUser) {
+  if(_currentUser && (event === 'INITIAL_SESSION' || event === 'SIGNED_IN')) {
     loadProfile();
     loadMyData();
     loadSchedules();
@@ -1724,7 +1644,8 @@ async function loadProfile() {
 // 프로필 카드 렌더링
 function renderProfileCard(p) {
   // 대시보드 추천도 키워드로 갱신
-  if(document.getElementById('list-dash')) renderDashWithKeywords();
+  _dashKeywords = (p.keywords || []).map(k => String(k).toLowerCase());
+  renderDashWithKeywords();
   const avatar = document.getElementById('profile-avatar');
   const name = document.getElementById('profile-name');
   const meta = document.getElementById('profile-meta');
