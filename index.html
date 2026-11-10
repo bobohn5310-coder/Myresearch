@@ -2300,6 +2300,13 @@ a { text-decoration: none; color: inherit; }
 .cr-ud.on { border-color:var(--blue); background:var(--blue-light); }
 .cr-form .cm-input { margin-bottom:8px; background:#fff; }
 .cr-hint { font-size:12px; color:#94a3b8; }
+.cr-proof { display:block; border:1.5px dashed #cbd5e1; border-radius:10px; padding:10px 12px; font-size:13px; color:#475569; cursor:pointer; background:#fff; margin-bottom:8px; }
+.cr-proof small { color:#94a3b8; }
+.cr-proof.on { border-style:solid; border-color:#10b981; background:#f0fdf4; color:#047857; font-weight:700; }
+.cr-lock { font-size:13.5px; color:#475569; line-height:1.6; }
+.cr-row.mine-wait .tx { color:#64748b; }
+.cr-st { display:block; font-size:12px; color:#c2410c; margin-top:2px; }
+.cr-st.no { color:#dc2626; }
 
 .cf-month { display: flex; align-items: baseline; gap: 8px; margin: 6px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
 .cf-month-t { font-size: 17px; font-weight: 800; color: var(--text); }
@@ -4417,7 +4424,7 @@ function confSeriesName(title){
   return (title||'').replace(/--\s*[A-Za-z]+/g,'').replace(/['’]\d{2}\b/g,'').replace(/\s*(19|20)\d{2}\s*/g,' ').replace(/\s+/g,' ').trim() || title;
 }
 let CONF_REVIEWS = null;   // 이름표 → 후기 목록. null 이면 아직 못 불러왔거나 기능이 꺼져 있음
-let _crCur = null, _crGood = null;
+let _crCur = null, _crGood = null, _crCan = null, _crFile = null;
 async function loadConfReviews(){
   if(!sbClient) return;
   const { data, error } = await sbClient.rpc('conf_reviews_public');
@@ -4427,16 +4434,17 @@ async function loadConfReviews(){
   CONF_REVIEWS = m;
   refreshConfReviewChips();
 }
+const crApproved = r => !r.status || r.status==='approved';
 function confReviewChipHtml(k){
-  const list = (CONF_REVIEWS && CONF_REVIEWS[k]) || [];
+  const list = ((CONF_REVIEWS && CONF_REVIEWS[k]) || []).filter(crApproved);
   if(!list.length) return { cls:'cf-rv empty', html:'💬 첫 후기 남기기' };
   const good = list.filter(r=>r.good).length;
   return { cls:'cf-rv', html:`💬 후기 ${list.length} · 👍 ${good}` };
 }
 function confReviewChip(d){
-  if(!CONF_REVIEWS || d.type!=='conf' || !d.title) return `<span class="cf-rv-slot" data-k="${escHtml(confSeriesKey(d.title))}" data-t="${escHtml(d.title)}" data-y="${escHtml((d.start_date||d.date||'').slice(0,4))}"></span>`;
+  if(!CONF_REVIEWS || d.type!=='conf' || !d.title) return `<span class="cf-rv-slot" data-k="${escHtml(confSeriesKey(d.title))}" data-t="${escHtml(d.title)}" data-s="${escHtml(d.start_date||d.date||'')}"></span>`;
   const k = confSeriesKey(d.title); const c = confReviewChipHtml(k);
-  return `<button type="button" class="${c.cls}" data-k="${escHtml(k)}" data-t="${escHtml(d.title)}" data-y="${escHtml((d.start_date||d.date||'').slice(0,4))}" onclick="event.stopPropagation();openConfReviews(this)">${c.html}</button>`;
+  return `<button type="button" class="${c.cls}" data-k="${escHtml(k)}" data-t="${escHtml(d.title)}" data-s="${escHtml(d.start_date||d.date||'')}" onclick="event.stopPropagation();openConfReviews(this)">${c.html}</button>`;
 }
 // 후기를 늦게 불러왔을 때, 이미 그려진 학회 카드의 후기 표시를 채운다
 function refreshConfReviewChips(){
@@ -4446,62 +4454,90 @@ function refreshConfReviewChips(){
     const c = confReviewChipHtml(k);
     if(el.tagName!=='BUTTON'){
       const b=document.createElement('button'); b.type='button';
-      b.dataset.k=k; b.dataset.t=el.dataset.t; b.dataset.y=el.dataset.y;
+      b.dataset.k=k; b.dataset.t=el.dataset.t; b.dataset.s=el.dataset.s;
       b.setAttribute('onclick','event.stopPropagation();openConfReviews(this)');
       el.replaceWith(b); el=b;
     }
     el.className=c.cls; el.innerHTML=c.html;
   });
 }
+// 고를 수 있는 '다녀온 해': 이 카드의 학회가 아직 시작 전이면 그 해는 빼고, 최근 4년
+function confReviewYears(startStr){
+  const today=new Date(); today.setHours(0,0,0,0);
+  const thisYear=today.getFullYear();
+  const s=parseYMD(startStr);
+  let max = s ? s.getFullYear() : thisYear;
+  if(s && s>today) max -= 1;
+  max = Math.min(max, thisYear);
+  return [0,1,2,3].map(i=>max-i);
+}
 async function openConfReviews(el){
-  const thisYear = new Date().getFullYear();
-  let y = parseInt(el.dataset.y,10) || thisYear;
-  // 아직 열리지 않은 학회라면 지난해에 다녀온 걸로 기본값을 잡는다
-  if(y > thisYear) y = thisYear;
-  _crCur = { k:el.dataset.k, title:el.dataset.t, name:confSeriesName(el.dataset.t), year:y };
-  _crGood = null;
+  _crCur = { k:el.dataset.k, title:el.dataset.t, name:confSeriesName(el.dataset.t), years:confReviewYears(el.dataset.s) };
+  _crGood = null; _crFile = null; _crCan = null;
   document.getElementById('cr-title').textContent = '💬 ' + _crCur.name + ' 후기';
   document.getElementById('conf-review-modal').style.display='flex';
   renderConfReviews();
-  await loadConfReviews();
+  const jobs=[loadConfReviews()];
+  if(currentUser) jobs.push(sbClient.rpc('can_clover').then(({data,error})=>{ _crCan = error ? false : !!data; }));
+  await Promise.all(jobs);
   renderConfReviews();
 }
 function closeConfReviews(){ document.getElementById('conf-review-modal').style.display='none'; }
-function renderConfReviews(){
-  if(!_crCur) return;
-  const box = document.getElementById('cr-body');
-  if(!CONF_REVIEWS){ box.innerHTML='<div class="cr-empty">후기를 불러오지 못했어요. 잠시 후 다시 열어 주세요.</div>'; return; }
-  const list = CONF_REVIEWS[_crCur.k] || [];
-  const good = list.filter(r=>r.good).length;
-  let html = list.length
-    ? `<div class="cr-sum">다녀온 사람 ${list.length}명 중 <b>${good}명이 추천</b>했어요</div>`
-    : `<div class="cr-empty">아직 후기가 없어요.<br>다녀오셨다면 첫 후기를 남겨 주세요 🙌</div>`;
-  const years = [...new Set(list.map(r=>r.conf_year))].sort((a,b)=>b-a);
-  years.forEach(yy=>{
-    html += `<div class="cr-yr">${yy}년</div>` + list.filter(r=>r.conf_year===yy).map(r=>
-      `<div class="cr-row"><span class="ic">${r.good?'👍':'👎'}</span><span class="tx">${escHtml(r.body)}</span>${
-        r.mine ? `<button class="act" onclick="deleteConfReview(${r.id})">지우기</button>` : `<button class="act" onclick="reportConfReview(${r.id})">신고</button>`}</div>`).join('');
-  });
-  const thisYear = new Date().getFullYear();
-  if(currentUser){
-    const opts=[0,1,2,3].map(i=>thisYear-i).map(yy=>`<option value="${yy}"${yy===_crCur.year?' selected':''}>${yy}년에 다녀왔어요</option>`).join('');
-    html += `<div class="cr-form">
+function crFormHtml(){
+  if(!currentUser)
+    return `<div class="cr-form" style="text-align:center"><button class="cm-btn" onclick="closeConfReviews();openAuth('login');showAuthMessage('로그인하면 학회 후기를 남길 수 있어요')">로그인하고 후기 남기기</button></div>`;
+  if(_crCan===null) return `<div class="cr-form"><span class="cr-hint">확인 중...</span></div>`;
+  if(!_crCan)
+    return `<div class="cr-form cr-lock">🎓 학회 후기는 <b>학교 메일(ac.kr, edu)로 가입했거나 학교 인증을 받은 회원</b>만 남길 수 있어요. 실제로 다녀온 연구자의 이야기만 모으기 위해서예요.</div>`;
+  const opts=_crCur.years.map(yy=>`<option value="${yy}">${yy}년에 다녀왔어요</option>`).join('');
+  return `<div class="cr-form">
       <div class="cr-form-top">
         <button type="button" class="cr-ud${_crGood===true?' on':''}" onclick="setConfReviewGood(true)" aria-label="추천">👍</button>
         <button type="button" class="cr-ud${_crGood===false?' on':''}" onclick="setConfReviewGood(false)" aria-label="비추천">👎</button>
         <select id="cr-year" class="cm-mini-select" aria-label="다녀온 해">${opts}</select>
       </div>
-      <input id="cr-text" type="text" class="cm-input" maxlength="80" placeholder="다음에 갈 사람에게 한 줄" onkeydown="if(event.key==='Enter'&&!event.isComposing)submitConfReview()">
-      <div class="cm-composer-bar"><span class="cr-hint">익명으로 올라가요 · 80자까지</span><span class="cm-spacer"></span><button class="cm-btn" id="cr-submit" onclick="submitConfReview()">남기기</button></div>
+      <input id="cr-text" type="text" class="cm-input" maxlength="80" placeholder="다음에 갈 사람에게 한 줄">
+      <label class="cr-proof" id="cr-proof">
+        <input type="file" accept="image/jpeg,image/png,image/webp,image/heic" onchange="pickConfProof(this)" hidden>
+        <span id="cr-proof-t">📎 참석 증빙 사진 올리기 <small>(명찰, 등록 확인 메일, 영수증 등)</small></span>
+      </label>
+      <div class="cm-composer-bar"><span class="cr-hint">관리자가 사진을 확인한 뒤 익명으로 공개돼요.<br>사진은 확인이 끝나면 바로 지워요.</span><span class="cm-spacer"></span><button class="cm-btn" id="cr-submit" onclick="submitConfReview()">남기기</button></div>
     </div>`;
-  } else {
-    html += `<div class="cr-form" style="text-align:center"><button class="cm-btn" onclick="closeConfReviews();openAuth('login');showAuthMessage('로그인하면 학회 후기를 남길 수 있어요')">로그인하고 후기 남기기</button></div>`;
-  }
-  box.innerHTML = html;
+}
+function renderConfReviews(){
+  if(!_crCur) return;
+  const box = document.getElementById('cr-body');
+  if(!CONF_REVIEWS){ box.innerHTML='<div class="cr-empty">후기를 불러오지 못했어요. 잠시 후 다시 열어 주세요.</div>'; return; }
+  const all = CONF_REVIEWS[_crCur.k] || [];
+  const list = all.filter(crApproved);
+  const good = list.filter(r=>r.good).length;
+  let html = list.length
+    ? `<div class="cr-sum">다녀온 사람 ${list.length}명 중 <b>${good}명이 추천</b>했어요</div>`
+    : `<div class="cr-empty">아직 후기가 없어요.<br>다녀오셨다면 첫 후기를 남겨 주세요 🙌</div>`;
+  const years = [...new Set(all.map(r=>r.conf_year))].sort((a,b)=>b-a);
+  years.forEach(yy=>{
+    const rows = all.filter(r=>r.conf_year===yy);
+    html += `<div class="cr-yr">${yy}년</div>` + rows.map(r=>{
+      const tag = r.status==='pending' ? '<span class="cr-st">⏳ 확인 중 · 나만 보여요</span>'
+        : r.status==='rejected' ? `<span class="cr-st no">반려됨${r.reject_reason?' · '+escHtml(r.reject_reason):''} · 지우고 다시 남길 수 있어요</span>` : '';
+      return `<div class="cr-row${crApproved(r)?'':' mine-wait'}"><span class="ic">${r.good?'👍':'👎'}</span><span class="tx">${escHtml(r.body)}${tag}</span>${
+        r.mine ? `<button class="act" onclick="deleteConfReview(${r.id})">지우기</button>` : `<button class="act" onclick="reportConfReview(${r.id})">신고</button>`}</div>`;
+    }).join('');
+  });
+  box.innerHTML = html + crFormHtml();
 }
 function setConfReviewGood(v){
   _crGood = v;
   document.querySelectorAll('.cr-ud').forEach((b,i)=>b.classList.toggle('on', (i===0)===v));
+}
+function pickConfProof(inp){
+  const f = inp.files && inp.files[0];
+  const box = document.getElementById('cr-proof'), t = document.getElementById('cr-proof-t');
+  if(!f) return;
+  if(!/^image\//.test(f.type)){ cmToast('사진 파일만 올릴 수 있어요'); inp.value=''; return; }
+  if(f.size > 10*1024*1024){ cmToast('10MB 이하 사진만 올릴 수 있어요'); inp.value=''; return; }
+  _crFile = f;
+  box.classList.add('on'); t.textContent = '✅ ' + f.name;
 }
 async function submitConfReview(){
   if(!_crCur || !currentUser) return;
@@ -4509,25 +4545,35 @@ async function submitConfReview(){
   const year = parseInt(document.getElementById('cr-year').value,10);
   if(_crGood===null){ cmToast('👍 또는 👎 를 먼저 골라 주세요'); return; }
   if(body.length<2){ cmToast('한 줄을 두 글자 이상 적어 주세요'); return; }
-  const btn=document.getElementById('cr-submit'); btn.disabled=true;
+  if(!_crFile){ cmToast('참석 증빙 사진을 올려 주세요'); return; }
+  const btn=document.getElementById('cr-submit'); btn.disabled=true; btn.textContent='올리는 중...';
+  const ext = (_crFile.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'').slice(0,5) || 'jpg';
+  // 증빙 사진은 비공개 저장소의 '내 폴더'에만 올라가고 관리자만 볼 수 있다
+  const path = `${currentUser.id}/conf_${Date.now()}.${ext}`;
+  const up = await sbClient.storage.from('conf-proofs').upload(path, _crFile, { upsert:false, contentType:_crFile.type });
+  if(up.error){ btn.disabled=false; btn.textContent='남기기'; cmToast('사진을 올리지 못했어요. 잠시 후 다시 시도해 주세요'); return; }
   const { error } = await sbClient.from('conf_reviews').insert({
-    series_key:_crCur.k, conf_year:year, conf_name:_crCur.name, good:_crGood, body });
-  btn.disabled=false;
+    series_key:_crCur.k, conf_year:year, conf_name:_crCur.name, good:_crGood, body, proof_path:path });
+  btn.disabled=false; btn.textContent='남기기';
   if(error){
+    sbClient.storage.from('conf-proofs').remove([path]);
     const m = error.code==='23505' ? '이 해에는 이미 후기를 남겼어요'
       : /bad word/.test(error.message) ? '고운 말로 다시 적어 주세요'
       : /contact info/.test(error.message) ? '연락처나 링크는 넣을 수 없어요'
+      : /row-level security/i.test(error.message) ? '학교 메일 가입자나 학교 인증 회원만 남길 수 있어요'
       : '저장하지 못했어요. 잠시 후 다시 시도해 주세요';
     cmToast(m); return;
   }
-  _crGood = null;
-  cmToast('후기를 남겼어요. 고마워요! 🙌');
+  _crGood = null; _crFile = null;
+  cmToast('고마워요! 관리자가 확인한 뒤 공개돼요 🙌');
   await loadConfReviews(); renderConfReviews();
 }
 async function deleteConfReview(id){
   if(!confirm('내 후기를 지울까요?')) return;
+  const mine = Object.values(CONF_REVIEWS||{}).flat().find(r=>r.id===id);
   const { error } = await sbClient.from('conf_reviews').delete().eq('id', id);
   if(error){ cmToast('지우지 못했어요'); return; }
+  if(mine && mine.proof_path) sbClient.storage.from('conf-proofs').remove([mine.proof_path]);
   await loadConfReviews(); renderConfReviews();
 }
 async function reportConfReview(id){
