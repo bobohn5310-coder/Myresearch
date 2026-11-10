@@ -6072,10 +6072,14 @@ async function clvLoad(force){
   CLV.comments = {};
   const cm = await sbClient.rpc('clover_comments_public');
   if(!cm.error) (cm.data || []).forEach(c => (CLV.comments[c.lab_id] = CLV.comments[c.lab_id] || []).push(c));
-  CLV.mine = new Set();
+  CLV.mine = new Map(); CLV.myLab = null;
   if(currentUser){
-    const { data } = await sbClient.from('clover_votes').select('lab_id').eq('user_id', currentUser.id);
-    (data || []).forEach(v => CLV.mine.add(v.lab_id));
+    // status 칸(관리자 승인)이 아직 없는 예전 설정이면 lab_id 만 받아 온다
+    let r = await sbClient.from('clover_votes').select('lab_id,status').eq('user_id', currentUser.id);
+    if(r.error) r = await sbClient.from('clover_votes').select('lab_id').eq('user_id', currentUser.id);
+    (r.data || []).forEach(v => CLV.mine.set(v.lab_id, v.status || 'approved'));
+    const my = await sbClient.rpc('clover_my_lab');
+    CLV.myLab = (!my.error && my.data && my.data[0]) ? my.data[0] : null;
   }
   CLV.loaded = true;
   clvRender();
@@ -6112,9 +6116,13 @@ function clvRender(){
     const head = l.name
       ? `<div class="clv-dept">${escHtml(l.univ)} ${escHtml(l.dept)}</div><h3>${escHtml(l.name)}</h3><div class="clv-topic">${escHtml(l.topic||'')}</div>`
       : `<div class="clv-dept">${escHtml(l.univ)}</div><h3>${escHtml(l.dept)}</h3><div class="clv-topic">🔒 연구실 이름은 ${CLV_MIN_LABEL}이 모이면 공개돼요</div>`;
-    const mine = CLV.mine.has(l.id);
+    const mine = CLV.mine.get(l.id);
+    const lockedElsewhere = CLV.myLab?.lab_id && CLV.myLab.lab_id !== l.id;
     const foot = `<div class="clv-foot-wrap"></div><div class="clv-foot">
-        ${mine ? '<span style="color:#15803d;font-weight:600">✓ 내 클로버를 남겼어요</span>' : `<button class="clv-link" onclick="clvOpenVote(${l.id})">🍀 클로버 남기기</button>`}
+        ${mine === 'pending' ? '<span style="color:#b45309;font-weight:600">⏳ 내 클로버 검토 중</span>'
+          : mine === 'approved' ? '<span style="color:#15803d;font-weight:600">✓ 내 클로버를 남겼어요</span>'
+          : lockedElsewhere ? '<span></span>'
+          : `<button class="clv-link" onclick="clvOpenVote(${l.id})">🍀 클로버 남기기</button>`}
         <button class="clv-report" onclick="clvOpenReport(${l.id})">신고·삭제 요청</button></div>`;
     if(s.total == null){
       return `<div class="clv-card">${head}
@@ -6196,9 +6204,29 @@ async function clvOpenVote(labId){
       <button class="clv-btn" onclick="clvClose('clv-vote-modal')">확인</button>`;
     return;
   }
-  CLV.vote = {}; CLV.lab = labId ? CLV.labs.find(l => l.id === labId) : null;
+  // 내 연구실 (clover_my_lab.sql 을 실행하기 전이면 없음 → 예전처럼 동작)
+  const myRes = await sbClient.rpc('clover_my_lab');
+  const my = (!myRes.error && myRes.data && myRes.data[0]) ? myRes.data[0] : null;
+  CLV.myLab = my;
+  CLV.locked = !!my?.lab_id;
+  if(my?.lab_id && my.status){
+    const st = my.status === 'pending' ? '⏳ 운영자가 확인하고 있어요. 확인이 끝나면 클로버 지수에 반영돼요.'
+      : my.status === 'approved' ? '✅ 확인을 마치고 클로버 지수에 반영됐어요.'
+      : '❌ 운영자 확인에서 반려됐어요.';
+    body.innerHTML = `<div class="clv-info"><span>🏠</span><div><b>내 연구실</b> · ${escHtml(my.univ||'')} ${escHtml(my.dept||'')} ${escHtml(my.name||'')}<br>${st}</div></div>
+      <div class="clv-rules">클로버는 내 연구실 한 곳에만 남길 수 있어요. 졸업이나 연구실 이동으로 바꿔야 하면 운영자에게 문의해 주세요.</div>
+      <button class="clv-btn" onclick="clvClose('clv-vote-modal')">확인</button>`;
+    return;
+  }
+  CLV.vote = {}; CLV.lab = CLV.locked ? { univ: my.univ, dept: my.dept, name: my.name } : (labId ? CLV.labs.find(l => l.id === labId) : null);
+  if(!CLV.lab && my?.my_univs?.length) CLV.lab = { univ: my.my_univs[0] };
+  const myUnivs = (my?.my_univs || []).map(escHtml).join(', ');
+  const lockNote = !my ? '' : CLV.locked
+    ? `<div class="clv-info"><span>🏠</span><div>내 연구실(${escHtml(my.univ)} ${escHtml(my.dept)} ${escHtml(my.name)})에 다시 남기는 거예요.</div></div>`
+    : `<div class="clv-info clv-warn"><span>🏠</span><div><b>처음 남기는 연구실이 '내 연구실'로 고정</b>되고, 다른 연구실에는 남길 수 없어요.${myUnivs ? ` 가입 메일·학교 인증 기준으로 <b>${myUnivs}</b> 연구실만 남길 수 있어요.` : ''}${my.reject_reason ? `<br>❌ 지난번 클로버가 반려됐어요. 사유: ${escHtml(my.reject_reason)}` : ''}</div></div>`;
   body.innerHTML = `
-    <div class="clv-info">✅ 인증된 계정이에요 · 한 연구실에 한 번만 남길 수 있어요</div>
+    <div class="clv-info">✅ 인증된 계정이에요 · 내 연구실에 한 번만 남길 수 있어요</div>
+    ${lockNote}
     <div class="clv-q"><div class="lb">어떤 연구실인가요?</div><div id="clv-lab-pick"></div></div>
     ${CLV_ITEMS.map(it => `<div class="clv-q"><div class="lb">${it.label}</div><div class="hn">${it.q}</div>
       <div class="clv-opts">${[1,2,3,4].map(n => `<button class="clv-opt" data-k="${it.k}" data-n="${n}" onclick="clvPick(this)">${clvClover(n,26)}${CLV_WORDS[n-1]}</button>`).join('')}</div></div>`).join('')}
@@ -6206,7 +6234,7 @@ async function clvOpenVote(labId){
       <div class="hn">연구실 생활을 한 줄로 알려 주세요. 예: 실험 장비가 잘 갖춰져 있고 선배들이 친절해요</div>
       <textarea class="clv-input" id="clv-comment" rows="2" maxlength="80" placeholder="80자 이내" oninput="document.getElementById('clv-comment-n').textContent=this.value.length"></textarea>
       <div class="clv-cnt"><span id="clv-comment-n">0</span>/80</div></div>
-    <div class="clv-rules">🔒 누가 남겼는지는 공개되지 않아요. 클로버와 한줄평은 ${CLV_MIN_LABEL} 이상 모인 뒤에만 보여요.<br>👤 교수님 성함은 같은 연구실을 묶는 데만 쓰이고 화면에 공개되지 않아요.<br>🙏 한줄평에는 욕설, 확인되지 않은 사실, 다른 사람의 신상을 적지 말아 주세요. 신고된 한줄평은 운영자가 확인한 뒤 가려져요.</div>
+    <div class="clv-rules">🔒 누가 남겼는지는 공개되지 않아요. 클로버와 한줄평은 ${CLV_MIN_LABEL} 이상 모인 뒤에만 보여요.<br>🛡️ 남긴 클로버는 운영자가 소속과 내용을 확인한 뒤에 반영돼요.<br>👤 교수님 성함은 같은 연구실을 묶는 데만 쓰이고 화면에 공개되지 않아요.<br>🙏 한줄평에는 욕설, 확인되지 않은 사실, 다른 사람의 신상을 적지 말아 주세요. 신고된 한줄평은 운영자가 확인한 뒤 가려져요.</div>
     <button class="clv-btn" id="clv-vote-btn" onclick="clvSubmitVote()">클로버 남기기</button>
     <div class="clv-msg" id="clv-vote-msg"></div>`;
   clvRenderLabPick();
@@ -6219,6 +6247,10 @@ function clvRenderLabPick(){
   if(!el) return;
   const l = CLV.lab || {};
   const val = x => x ? ` value="${escHtml(x)}"` : '';
+  if(CLV.locked){
+    el.innerHTML = `<div class="hn">🏠 ${escHtml(l.univ||'')} ${escHtml(l.dept||'')} · ${escHtml(l.name||'')}</div>`;
+    return;
+  }
   el.innerHTML = `
       <input class="clv-input" id="clv-new-univ" maxlength="40" placeholder="학교 (예: 한국대학교)"${val(l.univ)}>
       <input class="clv-input" id="clv-new-dept" maxlength="40" placeholder="학과 (예: 신소재공학과)"${val(l.dept)}>
@@ -6244,7 +6276,8 @@ async function clvSubmitVote(){
   const nl = { univ:v('clv-new-univ'), dept:v('clv-new-dept'), name:v('clv-new-name'), topic:v('clv-new-topic') || null };
   const profName = v('clv-new-prof');
   const comment = v('clv-comment');
-  if(nl.univ.length < 2 || nl.dept.length < 2 || nl.name.length < 2 || profName.length < 2){ btn.disabled = false; return say('학교·학과·연구실 이름·지도교수님 성함을 모두 적어 주세요.', true); }
+  if(CLV.locked){ Object.assign(nl, { univ: CLV.myLab.univ, dept: CLV.myLab.dept, name: CLV.myLab.name }); }
+  else if(nl.univ.length < 2 || nl.dept.length < 2 || nl.name.length < 2 || profName.length < 2){ btn.disabled = false; return say('학교·학과·연구실 이름·지도교수님 성함을 모두 적어 주세요.', true); }
   if(comment){
     const bad = clvCommentProblem(comment);
     if(bad){ btn.disabled = false; return say(bad, true); }
@@ -6261,9 +6294,9 @@ async function clvSubmitVote(){
       added = f.data ? { data: f.data.id } : { error: ins.error };
     }
   }
-  if(added.error){ btn.disabled = false; return say(/hidden/.test(added.error.message||'') ? '이 연구실은 지금 검토 중이라 클로버를 남길 수 없어요.' : '연구실을 등록하지 못했어요. 잠시 뒤 다시 시도해 주세요.', true); }
+  if(added.error){ btn.disabled = false; return say(clvVoteErr(added.error) || (/hidden/.test(added.error.message||'') ? '이 연구실은 지금 검토 중이라 클로버를 남길 수 없어요.' : '연구실을 등록하지 못했어요. 잠시 뒤 다시 시도해 주세요.'), true); }
   const { error } = await sbClient.from('clover_votes').insert({ lab_id: added.data, ...CLV.vote });
-  if(error){ btn.disabled = false; return say(error.code === '23505' ? '이 연구실에는 이미 클로버를 남기셨어요.' : '저장하지 못했어요. 잠시 뒤 다시 시도해 주세요.', true); }
+  if(error){ btn.disabled = false; return say(clvVoteErr(error) || (error.code === '23505' ? '이 연구실에는 이미 클로버를 남기셨어요.' : '저장하지 못했어요. 잠시 뒤 다시 시도해 주세요.'), true); }
   if(comment){
     const c = await sbClient.from('clover_comments').insert({ lab_id: added.data, body: comment });
     if(c.error && c.error.code !== '42P01' && c.error.code !== 'PGRST205'){
@@ -6272,8 +6305,15 @@ async function clvSubmitVote(){
       return;
     }
   }
-  say('🍀 클로버를 남겼어요. 고마워요!');
-  setTimeout(() => { clvClose('clv-vote-modal'); clvLoad(true); }, 1000);
+  say(CLV.myLab ? '🍀 클로버를 남겼어요. 운영자 확인 후 반영돼요. 고마워요!' : '🍀 클로버를 남겼어요. 고마워요!');
+  setTimeout(() => { clvClose('clv-vote-modal'); clvLoad(true); }, CLV.myLab ? 1800 : 1000);
+}
+// 내 연구실·학교 검사(clover_my_lab.sql)에서 거절된 경우
+function clvVoteErr(e){
+  const m = e?.message || '';
+  if(/not my lab/.test(m)) return '클로버는 내 연구실 한 곳에만 남길 수 있어요. 연구실을 옮겼다면 운영자에게 문의해 주세요.';
+  if(/other school/.test(m)) return '가입 메일이나 학교 인증의 학교와 연구실의 학교가 달라요. 내 학교 연구실에만 남길 수 있어요.';
+  return '';
 }
 
 // 한줄평: 저장 전에 화면에서 한 번 거르고, 서버(clover_comment_guard)에서 한 번 더 거른다
