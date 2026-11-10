@@ -801,6 +801,14 @@
       </div>
     </div>
     <div class="form-group" style="margin-bottom:14px;">
+      <label class="form-label">🪪 학교 인증 <span style="font-weight:400;color:var(--text-muted)">(서류 없이 운영자가 직접 확인한 경우)</span></label>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <span id="mm-verified" style="font-size:13px;flex:1;min-width:140px;"></span>
+        <button class="btn btn-secondary" id="mm-verify-btn" onclick="mmToggleVerified()">인증 처리</button>
+      </div>
+      <div style="font-size:12px;color:#94a3b8;margin-top:6px;">졸업생이면 위에서 유형을 '졸업생'으로, 졸업 연도를 함께 저장해 주세요. 서류가 없으면 메일로 학교가 확인되지 않아 클로버 승인함에 '학교 미확인'으로 보여요.</div>
+    </div>
+    <div class="form-group" style="margin-bottom:14px;">
       <label class="form-label">활동 정지 <span style="font-weight:400;color:var(--text-muted)">(정지 중에는 글·댓글·클로버를 남길 수 없어요)</span></label>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <select class="form-select" id="mm-days" style="width:120px;">
@@ -1167,6 +1175,8 @@ function openMemberModal(id) {
   document.getElementById('mm-who').innerHTML = `<b>${esc(m.name || '(이름 없음)')}</b> · ${esc(m.email || '')}<br><span style="color:#64748b;font-size:13px;">가입 ${mbDate(m.created_at)}${mbSuspended(m) ? ` · <b style="color:#dc2626;">${mbDate(m.suspended_until)}까지 정지</b> (${esc(m.suspend_reason || '사유 없음')})` : ''}</span>`;
   document.getElementById('mm-type').value = m.member_type || '';
   document.getElementById('mm-grad').value = '';
+  document.getElementById('mm-verified').innerHTML = m.is_verified ? '<b style="color:#059669;">✅ 인증된 회원</b>' : '<span style="color:#64748b;">인증 안 됨</span>';
+  document.getElementById('mm-verify-btn').textContent = m.is_verified ? '인증 해제' : '✅ 인증 처리';
   document.getElementById('mm-reason').value = '';
   document.getElementById('mm-unsuspend').style.display = mbSuspended(m) ? '' : 'none';
   document.getElementById('mm-withdraw').innerHTML = m.withdraw_at
@@ -1199,6 +1209,12 @@ async function mmUpsert(patch, okMsg) {
   const { error } = await sbClient.from('profiles').upsert({ id: _mmId, ...patch }, { onConflict: 'id' });
   if(error) { showToast('❌ 저장 실패: ' + error.message); return; }
   showToast(okMsg); closeModal('member-modal'); loadMembers();
+}
+function mmToggleVerified() {
+  const m = _members.find(x => x.id === _mmId); if(!m) return;
+  const on = !m.is_verified;
+  if(!confirm(on ? '서류 없이 이 회원을 학교 인증 회원으로 처리할까요?\n직접 소속을 확인한 경우에만 해 주세요.' : '이 회원의 학교 인증을 해제할까요?')) return;
+  mmUpsert({ is_verified: on }, on ? '✅ 학교 인증 회원으로 처리했어요.' : '학교 인증을 해제했어요.');
 }
 function mmSaveType() {
   const g = Number(document.getElementById('mm-grad').value || 0);
