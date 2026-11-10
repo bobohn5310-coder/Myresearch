@@ -357,6 +357,10 @@
         <span id="verify-badge" style="display:none;margin-left:auto;background:#ef4444;color:white;font-size:11px;font-weight:800;padding:2px 7px;border-radius:20px;">0</span>
       </div>
       <div class="sidebar-section" style="margin-top:8px;">운영</div>
+      <div class="sidebar-item" onclick="showAdminPage('clover-review', this); loadCloverQueue();">
+        <span class="icon">🛡️</span> 클로버 승인
+        <span id="clover-review-badge" style="display:none;margin-left:auto;background:#ef4444;color:white;font-size:11px;font-weight:800;padding:2px 7px;border-radius:20px;">0</span>
+      </div>
       <div class="sidebar-item" onclick="showAdminPage('clover', this); loadCloverAdmin();">
         <span class="icon">🍀</span> 클로버 현황
       </div>
@@ -518,6 +522,25 @@
           <tbody id="clover-table-body"><tr><td colspan="7"><div class="empty-state"><div class="emoji">🍀</div>불러오는 중...</div></td></tr></tbody>
         </table></div>
       </div>
+    </div>
+
+    <!-- 클로버 승인 -->
+    <div class="admin-page" id="page-clover-review">
+      <div class="page-header">
+        <div class="page-title">🛡️ 클로버 승인</div>
+        <div class="page-sub">새로 들어온 클로버와 한줄평이에요. <b>승인</b>한 것만 사이트의 참여 인원·평균·한줄평에 들어가요.<br>
+          회원마다 '내 연구실' 한 곳에만 남길 수 있고, 학교 메일·학교 인증의 학교와 연구실 학교가 다르면 서버가 미리 막아요.
+          <b>학교 미확인</b>은 학교를 알 수 없는 메일이라 직접 확인이 필요한 경우예요. 반려하면 그 회원의 '내 연구실' 고정이 풀려서 맞는 연구실로 다시 남길 수 있어요.</div>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+        <button class="btn btn-secondary cq-tab" data-s="pending" onclick="loadCloverQueue('pending')">⏳ 검토 대기</button>
+        <button class="btn btn-secondary cq-tab" data-s="approved" onclick="loadCloverQueue('approved')">✅ 승인됨</button>
+        <button class="btn btn-secondary cq-tab" data-s="rejected" onclick="loadCloverQueue('rejected')">❌ 반려됨</button>
+      </div>
+      <div class="card"><div class="table-wrap"><table>
+        <thead><tr><th>작성자</th><th>연구실</th><th>소속 확인</th><th>클로버 · 한줄평</th><th>처리</th></tr></thead>
+        <tbody id="clover-queue-body"><tr><td colspan="5"><div class="empty-state"><div class="emoji">🛡️</div>불러오는 중...</div></td></tr></tbody>
+      </table></div></div>
     </div>
 
     <!-- 공지사항 -->
@@ -778,6 +801,10 @@
         <button class="btn btn-danger" onclick="mmSuspend(true)">정지</button>
         <button class="btn btn-secondary" id="mm-unsuspend" onclick="mmSuspend(false)">정지 풀기</button>
       </div>
+    </div>
+    <div class="form-group" style="margin-bottom:14px;">
+      <label class="form-label">🍀 내 연구실 <span style="font-weight:400;color:var(--text-muted)">(클로버는 이 연구실에만 남길 수 있어요)</span></label>
+      <div id="mm-lab" style="font-size:13px;color:#64748b;line-height:1.6;">불러오는 중...</div>
     </div>
     <div style="border-top:1px solid #fee2e2;padding-top:14px;">
       <div id="mm-withdraw" style="font-size:13px;color:#64748b;margin-bottom:8px;"></div>
@@ -1130,6 +1157,28 @@ function openMemberModal(id) {
   document.getElementById('mm-withdraw').innerHTML = m.withdraw_at
     ? `📩 <b>${mbDate(m.withdraw_at)}</b>에 탈퇴를 요청했어요. 사유: ${esc(m.withdraw_reason || '없음')}` : '탈퇴 요청은 없어요. 회원이 메일 등으로 요청한 경우에만 처리해 주세요.';
   openModal('member-modal');
+  mmLoadLab();
+}
+async function mmLoadLab() {
+  const box = document.getElementById('mm-lab');
+  const { data, error } = await sbClient.rpc('admin_clover_member', { p_user: _mmId });
+  if(error) { box.textContent = 'supabase/clover_my_lab.sql 을 실행하면 보여요.'; return; }
+  const l = (data || [])[0];
+  if(!l) { box.textContent = '아직 고정된 연구실이 없어요. 처음 클로버를 남긴 연구실로 고정돼요.'; return; }
+  box.innerHTML = `<b style="color:#0f172a;">${esc(l.univ)} ${esc(l.dept)} · ${esc(l.name)}</b>
+    ${l.univ_ok === true ? '<span class="badge badge-blue">학교 일치</span>' : '<span class="badge" style="background:#fff7ed;color:#c2410c;">학교 미확인</span>'}
+    <div style="margin-top:6px;">${mbDate(l.created_at)} 고정 · ${l.voted ? '클로버 남김' : '클로버 없음'}</div>
+    <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
+      <button class="btn btn-secondary btn-sm" onclick="mmReleaseLab(false)">고정 풀기 (클로버는 그대로)</button>
+      <button class="btn btn-danger btn-sm" onclick="mmReleaseLab(true)">고정 풀고 클로버·한줄평 지우기</button>
+    </div>
+    <div style="font-size:12px;color:#94a3b8;margin-top:6px;">졸업·연구실 이동·잘못 고른 경우에만 풀어 주세요. 풀면 회원이 다른 연구실에 새로 남길 수 있어요.</div>`;
+}
+async function mmReleaseLab(dropVote) {
+  if(!confirm(dropVote ? '내 연구실 고정을 풀고, 그 연구실에 남긴 클로버·한줄평도 지울까요?' : '내 연구실 고정을 풀까요? 남긴 클로버는 그대로 남아요.')) return;
+  const { error } = await sbClient.rpc('admin_clover_release', { p_user: _mmId, p_drop_vote: dropVote });
+  if(error) { showToast('❌ 실패: ' + error.message); return; }
+  showToast('✅ 내 연구실 고정을 풀었어요.'); mmLoadLab();
 }
 async function mmUpsert(patch, okMsg) {
   const { error } = await sbClient.from('profiles').upsert({ id: _mmId, ...patch }, { onConflict: 'id' });
@@ -1163,6 +1212,8 @@ async function refreshAdminBadges() {
   if(!w.error) setBadge('withdraw-badge', w.count || 0);
   const cs = await sbClient.from('conference_suggestions').select('id', { count: 'exact', head: true }).eq('status', 'pending');
   if(!cs.error) setBadge('suggest-badge', cs.count || 0);
+  const cq = await sbClient.rpc('admin_clover_queue', { p_status: 'pending' });
+  if(!cq.error) setBadge('clover-review-badge', (cq.data || []).length);
 }
 
 // ════════════════════════════════════
@@ -1284,10 +1335,60 @@ function renderCloverAdmin() {
     <td style="white-space:nowrap;"><b style="font-size:15px;">${l.cnt}</b><span style="color:#94a3b8;font-size:12px;"> / 6</span>
       <div style="height:5px;width:70px;background:#f1f5f9;border-radius:4px;margin-top:4px;"><div style="height:5px;width:${Math.min(100, l.cnt / 6 * 100)}%;background:${l.cnt >= 6 ? '#059669' : l.cnt >= 4 ? '#f59e0b' : '#cbd5e1'};border-radius:4px;"></div></div></td>
     <td style="font-size:13px;">${l.comments}</td>
-    <td style="white-space:nowrap;">${l.hidden ? '<span class="badge" style="background:#fef2f2;color:#dc2626;">가려짐</span>' : l.cnt >= 6 ? '<span class="badge badge-blue">공개</span>' : '<span style="font-size:12px;color:#94a3b8;">모으는 중</span>'}${l.pending_reports ? ` <span class="badge" style="background:#fff7ed;color:#c2410c;">신고 ${l.pending_reports}</span>` : ''}</td>
+    <td style="white-space:nowrap;">${l.hidden ? '<span class="badge" style="background:#fef2f2;color:#dc2626;">가려짐</span>' : l.cnt >= 6 ? '<span class="badge badge-blue">공개</span>' : '<span style="font-size:12px;color:#94a3b8;">모으는 중</span>'}${l.pending_reports ? ` <span class="badge" style="background:#fff7ed;color:#c2410c;">신고 ${l.pending_reports}</span>` : ''}${l.pending ? ` <span class="badge" style="background:#fef9c3;color:#a16207;">승인 대기 ${l.pending}</span>` : ''}${l.unchecked ? ` <span class="badge" style="background:#f1f5f9;color:#475569;">학교 미확인 ${l.unchecked}</span>` : ''}</td>
     <td><button class="btn btn-secondary btn-sm" onclick="toggleLabHidden(${l.id}, ${!l.hidden})">${l.hidden ? '다시 보이기' : '가리기'}</button></td>
   </tr>`).join('');
 }
+// ════════════════════════════════════
+// 클로버 승인
+// ════════════════════════════════════
+let _cq = [], _cqStatus = 'pending';
+async function loadCloverQueue(status) {
+  if(status) _cqStatus = status;
+  document.querySelectorAll('.cq-tab').forEach(b => b.className = 'btn cq-tab ' + (b.dataset.s === _cqStatus ? 'btn-primary' : 'btn-secondary'));
+  const body = document.getElementById('clover-queue-body');
+  const { data, error } = await sbClient.rpc('admin_clover_queue', { p_status: _cqStatus });
+  if(error) {
+    const msg = error.code === 'PGRST202' || /does not exist|schema cache/i.test(error.message || '') ? '이 기능을 켜려면 Supabase에서 supabase/clover_my_lab.sql 을 실행해주세요.' : '불러오지 못했어요: ' + esc(error.message);
+    body.innerHTML = `<tr><td colspan="5"><div class="empty-state"><div class="emoji">⚠️</div>${msg}</div></td></tr>`; return;
+  }
+  _cq = data || [];
+  refreshAdminBadges();
+  if(!_cq.length) { body.innerHTML = '<tr><td colspan="5"><div class="empty-state"><div class="emoji">✨</div>여기에 해당하는 클로버가 없어요.</div></td></tr>'; return; }
+  const leaf = n => '🍀'.repeat(n) + '<span style="opacity:.25">' + '🍀'.repeat(4 - n) + '</span>';
+  body.innerHTML = _cq.map((r, i) => `<tr>
+    <td style="font-size:13px;"><b>${esc(r.name || '(이름 없음)')}</b><br><span style="color:#64748b;">${esc(r.email || '')}</span>
+      <div style="font-size:12px;color:#94a3b8;">${esc(r.member_type || '유형 없음')}${r.is_verified ? ' · 🪪 인증' : ''} · ${mbDate(r.created_at)}</div></td>
+    <td style="font-size:13px;">${esc(r.univ)} ${esc(r.dept)}<br><b>${esc(r.lab_name)}</b> <span style="color:#64748b;">(${esc(r.prof || '-')})</span>
+      <div style="font-size:12px;color:#94a3b8;">승인된 참여 ${r.lab_approved}명${r.lab_hidden ? ' · <b style="color:#dc2626;">가려진 연구실</b>' : ''}</div></td>
+    <td style="font-size:12.5px;line-height:1.6;">
+      ${r.univ_ok === true ? '<span class="badge badge-blue">학교 일치</span>' : r.univ_ok === false ? '<span class="badge" style="background:#fef2f2;color:#dc2626;">학교 불일치</span>' : '<span class="badge" style="background:#fff7ed;color:#c2410c;">학교 미확인</span>'}
+      <div style="color:#64748b;">메일·인증 학교: ${esc((r.user_univs || []).join(', ') || '알 수 없음')}</div>
+      ${r.verify_school ? `<div style="color:#64748b;">인증 때 적은 소속: ${esc(r.verify_school)}</div>` : ''}
+      ${r.other_votes ? `<div style="color:#dc2626;">다른 연구실 클로버 ${r.other_votes}개</div>` : ''}</td>
+    <td style="font-size:12.5px;line-height:1.7;white-space:nowrap;">인건비 ${leaf(r.pay)}<br>지도 ${leaf(r.guide)}<br>분위기 ${leaf(r.mood)}<br>워라밸 ${leaf(r.balance)}
+      ${r.comment ? `<div style="white-space:normal;max-width:260px;margin-top:6px;padding:6px 8px;background:#f8fafc;border-radius:6px;color:#0f172a;">💬 ${esc(r.comment)}${r.comment_status === 'rejected' ? ' <span style="color:#dc2626;">(숨김)</span>' : ''}</div>` : ''}</td>
+    <td style="white-space:nowrap;">${r.status === 'pending' ? `
+      <button class="btn btn-primary btn-sm" onclick="reviewClover(${i}, 'approve')">승인</button>
+      ${r.comment ? `<button class="btn btn-secondary btn-sm" onclick="reviewClover(${i}, 'approve_no_comment')">클로버만 승인</button>` : ''}
+      <button class="btn btn-danger btn-sm" onclick="reviewClover(${i}, 'reject')">반려</button>`
+      : `<span style="font-size:12px;color:#94a3b8;">${r.status === 'approved' ? '승인됨' : '반려됨' + (r.reject_reason ? '<br>' + esc(r.reject_reason) : '')}</span>
+         ${r.status === 'approved' ? `<br><button class="btn btn-secondary btn-sm" style="margin-top:4px;" onclick="reviewClover(${i}, 'reject')">승인 취소(반려)</button>` : ''}`}</td>
+  </tr>`).join('');
+}
+async function reviewClover(i, action) {
+  const r = _cq[i]; if(!r) return;
+  let reason = null;
+  if(action === 'reject') {
+    reason = prompt('반려 사유 (회원에게 보여요, 선택)\n예: 소속 연구실이 확인되지 않아요', '');
+    if(reason === null) return;
+  }
+  const { error } = await sbClient.rpc('admin_clover_review', { p_lab: r.lab_id, p_user: r.user_id, p_action: action, p_reason: reason });
+  if(error) { showToast('❌ 실패: ' + error.message); return; }
+  showToast(action === 'reject' ? '❌ 반려했어요. 회원의 내 연구실 고정도 풀렸어요.' : '✅ 승인했어요. 사이트에 반영돼요.');
+  loadCloverQueue();
+}
+
 async function toggleLabHidden(id, hide) {
   const { error } = await sbClient.rpc('admin_set_lab_hidden', { p_lab: id, p_hidden: hide });
   if(error) { showToast('❌ 실패: ' + error.message); return; }
