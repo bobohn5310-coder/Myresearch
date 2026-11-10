@@ -363,6 +363,10 @@
         <span class="icon">🛡️</span> 클로버 승인
         <span id="clover-review-badge" style="display:none;margin-left:auto;background:#ef4444;color:white;font-size:11px;font-weight:800;padding:2px 7px;border-radius:20px;">0</span>
       </div>
+      <div class="sidebar-item" onclick="showAdminPage('conf-review', this); loadConfReviewQueue();">
+        <span class="icon">🎤</span> 학회 후기 승인
+        <span id="conf-review-badge" style="display:none;margin-left:auto;background:#ef4444;color:white;font-size:11px;font-weight:800;padding:2px 7px;border-radius:20px;">0</span>
+      </div>
       <div class="sidebar-item" onclick="showAdminPage('clover', this); loadCloverAdmin();">
         <span class="icon">🍀</span> 클로버 현황
       </div>
@@ -542,6 +546,24 @@
       <div class="card"><div class="table-wrap"><table>
         <thead><tr><th>작성자</th><th>연구실</th><th>소속 확인</th><th>클로버 · 한줄평</th><th>처리</th></tr></thead>
         <tbody id="clover-queue-body"><tr><td colspan="5"><div class="empty-state"><div class="emoji">🛡️</div>불러오는 중...</div></td></tr></tbody>
+      </table></div></div>
+    </div>
+
+    <!-- 학회 후기 승인 -->
+    <div class="admin-page" id="page-conf-review">
+      <div class="page-header">
+        <div class="page-title">🎤 학회 후기 승인</div>
+        <div class="page-sub">새로 들어온 학회 한 줄 후기예요. 참석 증빙 사진을 보고 <b>승인</b>한 것만 사이트에 익명으로 보여요.<br>
+          승인하거나 반려하면 증빙 사진은 저장소에서 바로 지워져요. 반려 사유는 작성자에게만 보여요.</div>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+        <button class="btn btn-secondary crq-tab" data-s="pending" onclick="loadConfReviewQueue('pending')">⏳ 검토 대기</button>
+        <button class="btn btn-secondary crq-tab" data-s="approved" onclick="loadConfReviewQueue('approved')">✅ 승인됨</button>
+        <button class="btn btn-secondary crq-tab" data-s="rejected" onclick="loadConfReviewQueue('rejected')">❌ 반려됨</button>
+      </div>
+      <div class="card"><div class="table-wrap"><table>
+        <thead><tr><th>작성자</th><th>학회</th><th>후기</th><th>참석 증빙</th><th>처리</th></tr></thead>
+        <tbody id="conf-review-body"><tr><td colspan="5"><div class="empty-state"><div class="emoji">🎤</div>불러오는 중...</div></td></tr></tbody>
       </table></div></div>
     </div>
 
@@ -1216,6 +1238,8 @@ async function refreshAdminBadges() {
   if(!cs.error) setBadge('suggest-badge', cs.count || 0);
   const cq = await sbClient.rpc('admin_clover_queue', { p_status: 'pending' });
   if(!cq.error) setBadge('clover-review-badge', (cq.data || []).length);
+  const crq = await sbClient.rpc('admin_conf_review_queue', { p_status: 'pending' });
+  if(!crq.error) setBadge('conf-review-badge', (crq.data || []).length);
 }
 
 // ════════════════════════════════════
@@ -1389,6 +1413,57 @@ async function reviewClover(i, action) {
   if(error) { showToast('❌ 실패: ' + error.message); return; }
   showToast(action === 'reject' ? '❌ 반려했어요. 회원의 내 연구실 고정도 풀렸어요.' : '✅ 승인했어요. 사이트에 반영돼요.');
   loadCloverQueue();
+}
+
+// ════════════════════════════════════
+// 학회 후기 승인
+// ════════════════════════════════════
+let _crq = [], _crqStatus = 'pending';
+async function loadConfReviewQueue(status) {
+  if(status) _crqStatus = status;
+  document.querySelectorAll('.crq-tab').forEach(b => b.className = 'btn crq-tab ' + (b.dataset.s === _crqStatus ? 'btn-primary' : 'btn-secondary'));
+  const body = document.getElementById('conf-review-body');
+  const { data, error } = await sbClient.rpc('admin_conf_review_queue', { p_status: _crqStatus });
+  if(error) {
+    const msg = error.code === 'PGRST202' || /does not exist|schema cache/i.test(error.message || '') ? '이 기능을 켜려면 Supabase에서 supabase/conf_review_proof.sql 을 실행해주세요.' : '불러오지 못했어요: ' + esc(error.message);
+    body.innerHTML = `<tr><td colspan="5"><div class="empty-state"><div class="emoji">⚠️</div>${msg}</div></td></tr>`; return;
+  }
+  _crq = data || [];
+  refreshAdminBadges();
+  if(!_crq.length) { body.innerHTML = '<tr><td colspan="5"><div class="empty-state"><div class="emoji">✨</div>여기에 해당하는 후기가 없어요.</div></td></tr>'; return; }
+  body.innerHTML = _crq.map((r, i) => `<tr>
+    <td style="font-size:13px;"><b>${esc(r.name || '(이름 없음)')}</b><br><span style="color:#64748b;">${esc(r.email || '')}</span>
+      <div style="font-size:12px;color:#94a3b8;">${r.is_verified ? '🪪 학교 인증 · ' : ''}${mbDate(r.created_at)}</div></td>
+    <td style="font-size:13px;"><b>${esc(r.conf_name || r.series_key)}</b><br><span style="color:#64748b;">${r.conf_year}년에 다녀옴</span></td>
+    <td style="font-size:13px;max-width:280px;">${r.good ? '👍' : '👎'} ${esc(r.body)}</td>
+    <td style="white-space:nowrap;">${r.proof_path ? `<button class="btn btn-secondary btn-sm" onclick="openConfProof(${i})">🖼️ 사진 보기</button>` : '<span style="font-size:12px;color:#94a3b8;">처리 후 삭제됨</span>'}</td>
+    <td style="white-space:nowrap;">${r.status === 'pending' ? `
+      <button class="btn btn-primary btn-sm" onclick="decideConfReview(${i}, 'approve')">승인</button>
+      <button class="btn btn-danger btn-sm" onclick="decideConfReview(${i}, 'reject')">반려</button>`
+      : `<span style="font-size:12px;color:#94a3b8;">${r.status === 'approved' ? '승인됨' : '반려됨' + (r.reject_reason ? '<br>' + esc(r.reject_reason) : '')}</span>
+         ${r.status === 'approved' ? `<br><button class="btn btn-secondary btn-sm" style="margin-top:4px;" onclick="decideConfReview(${i}, 'reject')">승인 취소(반려)</button>` : ''}`}</td>
+  </tr>`).join('');
+}
+async function openConfProof(i) {
+  const r = _crq[i]; if(!r || !r.proof_path) return;
+  const w = window.open('', '_blank');
+  const { data, error } = await sbClient.storage.from('conf-proofs').createSignedUrl(r.proof_path, 600);
+  if(error) { if(w) w.close(); showToast('❌ 사진을 열지 못했어요: ' + error.message); return; }
+  if(w) w.location = data.signedUrl; else window.location.href = data.signedUrl;
+}
+async function decideConfReview(i, action) {
+  const r = _crq[i]; if(!r) return;
+  let reason = null;
+  if(action === 'reject') {
+    reason = prompt('반려 사유 (작성자에게만 보여요, 선택)\n예: 사진으로 참석이 확인되지 않아요', '');
+    if(reason === null) return;
+  }
+  const { data: oldPath, error } = await sbClient.rpc('admin_conf_review_decide', { p_id: r.id, p_action: action, p_reason: reason });
+  if(error) { showToast('❌ 실패: ' + error.message); return; }
+  // 확인이 끝난 증빙 사진은 바로 지운다
+  if(oldPath) await sbClient.storage.from('conf-proofs').remove([oldPath]);
+  showToast(action === 'reject' ? '❌ 반려했어요. 증빙 사진은 지웠어요.' : '✅ 승인했어요. 사이트에 보여요. 증빙 사진은 지웠어요.');
+  loadConfReviewQueue();
 }
 
 async function toggleLabHidden(id, hide) {
