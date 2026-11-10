@@ -3886,7 +3886,7 @@ function renderNews(){
       const preview = txt.length > 120 ? txt.slice(0,120)+'…' : txt;
       const emoji = fp.emoji || '📰';
       featuredEl.innerHTML = `
-        <div class="news-featured-card" onclick="openNews(${NEWS.indexOf(f)})">
+        <div class="news-featured-card" onclick="goNews(${NEWS.indexOf(f)})">
           <div class="news-featured-header" data-emoji="${emoji}">
             <div class="news-featured-field">${escHtml(fp.label||f.field||'뉴스')}</div>
             <div class="news-featured-title">${escHtml(f.title)}</div>
@@ -3898,7 +3898,7 @@ function renderNews(){
                 ${f.org ? `<strong>${escHtml(f.org)}</strong>` : ''}
                 <span>${escHtml(f.date)}</span>
               </div>
-              <div class="news-featured-cta">자세히 보기 →</div>
+              <div class="news-featured-cta">${safeUrl(f.url) ? '원문 보기 ↗' : '자세히 보기 →'}</div>
             </div>
           </div>
         </div>`;
@@ -3918,7 +3918,7 @@ function renderNews(){
       const fp = getFC(n.field);
       const card = document.createElement('div');
       card.className = n.image_url ? 'news-card has-thumb' : 'news-card';
-      card.onclick = (()=>{ const i=NEWS.indexOf(n); return ()=>openNews(i); })();
+      card.onclick = (()=>{ const i=NEWS.indexOf(n); return ()=>goNews(i); })();
       card.innerHTML = `
         ${n.image_url ? `<img class="news-card-thumb" src="${escHtml(safeUrl(n.image_url))}" alt="" loading="lazy">` : ''}
         <div style="padding:${n.image_url ? '14px 16px 12px' : '0'};">
@@ -3932,7 +3932,7 @@ function renderNews(){
           <div class="news-card-title">${escHtml(n.title)}</div>
           ${n.org ? `<div class="news-card-org">📌 ${escHtml(n.org)}</div>` : ''}
           ${(n.content||n.desc) ? `<div class="news-card-desc">${escHtml((n.content||n.desc).slice(0,80))}…</div>` : ''}
-          <div class="news-card-footer">자세히 보기 →</div>
+          <div class="news-card-footer">${safeUrl(n.url) ? '원문 보기 ↗' : '자세히 보기 →'}</div>
         </div>`;
       gridEl.appendChild(card);
     });
@@ -3942,7 +3942,7 @@ function renderNews(){
   if(sideEl) {
     const top5 = NEWS.slice(0,5);
     sideEl.innerHTML = top5.map((n, i) => `
-      <div class="news-side-item" onclick="openNews(${NEWS.indexOf(n)})">
+      <div class="news-side-item" onclick="goNews(${NEWS.indexOf(n)})">
         <div class="news-side-num ${i<3?'top'+(i+1):''}">${i+1}</div>
         <div>
           <div class="news-side-title">${escHtml(n.title)}</div>
@@ -4062,14 +4062,14 @@ function renderFeaturedBanner(){
     const div=document.createElement('div');
     div.className='info-highlight-card'+(i===0?' featured':'');
     div.style.cssText='cursor:pointer;position:relative;overflow:hidden;background:'+bg+';min-height:120px;display:flex;flex-direction:column;justify-content:flex-end;';
-    div.onclick=(()=>{const ni=NEWS.indexOf(n);return()=>openNews(ni);})();
+    div.onclick=(()=>{const ni=NEWS.indexOf(n);return()=>goNews(ni);})();
     const grad=document.createElement('div');
     grad.style.cssText='position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.65) 0%,transparent 55%);';
     div.appendChild(grad);
     const body=document.createElement('div');
     body.style.cssText='position:relative;padding:12px 14px;';
-    body.innerHTML='<div style="font-size:'+(i===0?'13.5':'12.5')+'px;font-weight:700;color:#fff;line-height:1.4;">'+n.title+'</div>'
-      +'<div style="font-size:11px;color:rgba(255,255,255,0.65);margin-top:3px;">'+(n.org||'')+'</div>';
+    body.innerHTML='<div style="font-size:'+(i===0?'13.5':'12.5')+'px;font-weight:700;color:#fff;line-height:1.4;">'+escHtml(n.title)+'</div>'
+      +'<div style="font-size:11px;color:rgba(255,255,255,0.65);margin-top:3px;">'+escHtml(n.org||'')+'</div>';
     div.appendChild(body);
     el.appendChild(div);
   });
@@ -4670,6 +4670,15 @@ function openConfList(field){
 }
 
 
+// 연구소식 목록에서 클릭하면 원문 기사를 새 탭으로 바로 연다. 원문 주소가 없을 때만 상세 화면을 보여준다.
+function goNews(idx){
+  const n=NEWS[idx];
+  if(!n) return;
+  const u=safeUrl(n.url);
+  if(u){ window.open(u,'_blank','noopener'); return; }
+  openNews(idx);
+}
+
 function openNews(idx, fromHistory){
   const n=NEWS[idx];
   if(!n) return;
@@ -4868,7 +4877,7 @@ function renderHomeNews(){
   el.innerHTML=list.map((n,i)=>{
     const fm=fieldMeta(n.field);
     const big=i===0;
-    return `<div class="hn-card${big?' big':''}" style="--cf-c:${fm.c};--cf-bg:${fm.bg};${big?'background:'+(GRAD[n.field]||'linear-gradient(135deg,#1e293b,#334155)'):''}" data-emoji="${fm.emoji}" onclick="openNews(${NEWS.indexOf(n)})">
+    return `<div class="hn-card${big?' big':''}" style="--cf-c:${fm.c};--cf-bg:${fm.bg};${big?'background:'+(GRAD[n.field]||'linear-gradient(135deg,#1e293b,#334155)'):''}" data-emoji="${fm.emoji}" onclick="goNews(${NEWS.indexOf(n)})">
       <span class="hn-chip">${fm.emoji} ${escHtml(n.tag||fm.label)}</span>
       <div class="hn-title">${escHtml(n.title)}</div>
       <div class="hn-meta">${escHtml(n.org||'')}${n.org&&n.date?' · ':''}${escHtml(n.date||'')}</div>
