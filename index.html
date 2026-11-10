@@ -2646,10 +2646,11 @@ a { text-decoration: none; color: inherit; }
       <select class="ufb-select" id="info-field-filter" onchange="filterInfoSearch()" aria-label="분야">
         <option value="all">전체 분야</option>
         <option value="cs">AI·컴퓨터</option>
-        <option value="eng">공학·반도체</option>
+        <option value="eng">공학·자연과학</option>
         <option value="bio">생명·의학</option>
         <option value="energy">에너지·이차전지</option>
         <option value="quantum">양자·통신</option>
+        <option value="semi">반도체</option>
         <option value="nanomat">나노·재료</option>
       </select>
       <select class="ufb-select" id="info-region-filter" onchange="filterInfoSearch()" aria-label="개최지">
@@ -3502,7 +3503,7 @@ function infoLink(n){
 // ── 분야 정보 (DB의 field 값 기준) ──
 const FIELD_META = {
   cs:      { label:'AI·컴퓨터',     emoji:'🤖', c:'#7c3aed', bg:'#f5f3ff' },
-  eng:     { label:'공학·반도체',   emoji:'⚙️', c:'#2563eb', bg:'#eff6ff' },
+  eng:     { label:'공학·자연과학', emoji:'⚙️', c:'#2563eb', bg:'#eff6ff' },
   bio:     { label:'생명·의학',     emoji:'🧬', c:'#059669', bg:'#ecfdf5' },
   energy:  { label:'에너지·이차전지', emoji:'⚡', c:'#d97706', bg:'#fffbeb' },
   quantum: { label:'양자·통신',     emoji:'🔮', c:'#0891b2', bg:'#ecfeff' },
@@ -3510,6 +3511,7 @@ const FIELD_META = {
 const FIELD_ORDER = ['cs','eng','bio','energy','quantum'];
 // 학회정보 분야 칩에만 쓰는 태그 기반 분야 (DB field가 아니라 태그로 고른다)
 const TAG_FIELDS = {
+  semi:    { label:'반도체', emoji:'💾', c:'#4f46e5', bg:'#eef2ff', tags:['반도체'] },
   nanomat: { label:'나노·재료', emoji:'🔬', c:'#db2777', bg:'#fdf2f8', tags:['나노','재료'] },
 };
 const INFO_FIELD_ORDER = [...FIELD_ORDER, ...Object.keys(TAG_FIELDS)];

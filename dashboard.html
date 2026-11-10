@@ -1140,7 +1140,7 @@ textarea.cv-input { resize:vertical; line-height:1.55; }
           <div class="filter-row">
             <button class="filter-btn active" onclick="filterDash(this,'all')">전체</button>
             <button class="filter-btn" onclick="filterDash(this,'cs')">AI·컴퓨터</button>
-            <button class="filter-btn" onclick="filterDash(this,'eng')">공학·반도체</button>
+            <button class="filter-btn" onclick="filterDash(this,'eng')">공학·자연과학</button>
             <button class="filter-btn" onclick="filterDash(this,'bio')">생명·의학</button>
             <button class="filter-btn" onclick="filterDash(this,'energy')">에너지</button>
             <button class="filter-btn" onclick="filterDash(this,'quantum')">양자·통신</button>
@@ -1175,7 +1175,7 @@ textarea.cv-input { resize:vertical; line-height:1.55; }
     <div class="tab-bar">
       <div class="tab active" onclick="switchTab(this,'all')">전체</div>
       <div class="tab" onclick="switchTab(this,'cs')">AI·컴퓨터</div>
-      <div class="tab" onclick="switchTab(this,'eng')">공학·반도체</div>
+      <div class="tab" onclick="switchTab(this,'eng')">공학·자연과학</div>
       <div class="tab" onclick="switchTab(this,'bio')">생명·의학</div>
       <div class="tab" onclick="switchTab(this,'energy')">에너지·이차전지</div>
       <div class="tab" onclick="switchTab(this,'quantum')">양자·통신</div>
@@ -1333,7 +1333,7 @@ function esc(str){
 // ── 학술정보: 메인 화면과 같은 실제 학회 데이터 (Supabase academic_info, 안 되면 data/conferences.json) ──
 let DATA = [];           // 아직 끝나지 않은 학회 (시작일 순)
 let DATA_READY = false;
-const FIELD_LABEL = { cs:'AI·컴퓨터', eng:'공학·반도체', bio:'생명·의학', energy:'에너지·이차전지', quantum:'양자·통신' };
+const FIELD_LABEL = { cs:'AI·컴퓨터', eng:'공학·자연과학', bio:'생명·의학', energy:'에너지·이차전지', quantum:'양자·통신' };
 const NON_TOPIC_TAG = /^(해외|국내|국내개최|CCF-.*|CORE-.*)$/i;
 let _infoQuery = '';
 let _infoField = 'all';

@@ -295,6 +295,7 @@ def collect_wikicfp(categories=WIKICFP_CATEGORIES, delay=3.0):
         items = list(root.iter("item"))
         for item in items:
             row = parse_wikicfp_item(item, field, tag)
+            row = check_wikicfp_category(row, tag) if row else None
             if row:
                 rows.append(row)
                 n += 1
@@ -515,19 +516,73 @@ def upload(rows):
 
 # 학회 이름에 들어간 단어로 관심 분야 태그를 더 붙인다 (검색창에서 '반도체' 등으로 찾을 수 있게)
 TOPIC_KEYWORDS = [
-    ("반도체", r"semiconductor|vlsi|integrated circuit|circuits? and systems|chip|design automation|nanoelectronic|microelectronic|\bDAC\b|\bICCAD\b|\bDATE\b"),
-    ("이차전지", r"batter|lithium|energy storage|electrochem|supercapacitor"),
-    ("디스플레이", r"display|oled|\bled\b|optoelectronic|photonic"),
-    ("로봇", r"robot|autonomous system|mechatronic"),
-    ("의학", r"medic|health|clinical|biomedical|surgery|disease"),
-    ("고분자", r"polymer|macromolecul|plastic|elastomer|rubber"),
-    ("유기화학", r"organic chem|organic synthesis|synthetic chem|catalysis|organometallic"),
-    ("화학", r"chemi"),
-    ("그래핀", r"graphene|2d material|two-dimensional material|carbon nano"),
-    ("메타물질", r"metamaterial|metasurface"),
-    ("나노", r"\bnano"),
-    ("재료", r"material"),
+    # 약어(DAC·ICCAD·DATE)는 이름이 같은 다른 학회와 겹쳐서 쓰지 않고, 정식 명칭의 단어로만 판단한다
+    ("반도체", r"semiconductor|vlsi|integrated circuit|circuits? and systems|\bchips?\b|design automation|design, automation"
+               r"|computer[- ]aided design|nanoelectronic|microelectronic|(?-i:\bSEMICON\b)|반도체|집적회로"),
+    ("이차전지", r"batter|lithium|energy storage|electrochem|supercapacitor|이차전지|배터리|전기화학"),
+    ("디스플레이", r"display|oled|(?-i:\bLEDs?\b)|optoelectronic|photonic|디스플레이"),
+    ("로봇", r"robot|autonomous system|mechatronic|로봇|로보틱스"),
+    ("의학", r"medic|health|clinical|biomedical|surgery|disease|pharm|의학|의료|임상|간호|병원"),
+    ("고분자", r"polymer|macromolecul|plastic|elastomer|rubber|고분자"),
+    ("유기화학", r"organic chem|organic synthesis|synthetic chem|catalysis|organometallic|유기화학"),
+    ("화학", r"chemi|화학"),
+    ("그래핀", r"graphene|2d material|two-dimensional material|carbon nano|그래핀"),
+    ("메타물질", r"metamaterial|metasurface|메타물질"),
+    ("나노", r"\bnano|나노"),
+    ("재료", r"material|재료|소재"),
 ]
+
+# WikiCFP 카테고리는 주최 측이 아무 분류나 붙일 수 있어서 (블록체인 학회가 '반도체'에 올라오는 식)
+# 정식 명칭에 그 분야 단어가 있을 때만 카테고리를 믿는다. 여기 없는 태그는 TOPIC_KEYWORDS 로 확인한다.
+CATEGORY_CHECK = {
+    "반도체": TOPIC_KEYWORDS[0][1] + r"|electron devices?|(?-i:\bSASIMI\b)",
+    "로봇": r"robot|humanoid|mechatron|automation|autonomous|control",
+    "의학": r"medic|health|clinical|\bbio|surgery|disease|pharm|neuro|patholog",
+    "공학": r"engineer|manufactur|mechani|mechatron|robot|control|electr|civil|industrial|technolog|simulation|structur|material|\bnano",
+    "기계": r"mechani|manufactur|aerospace|automotive|machine design|design engineering|thermal|fluid",
+    "전기전자": r"electr|power|circuit|energy|signal",
+    "광학": r"optic|photon|laser|electromagnet|light",
+    "화학공학": r"chemi|process engineering|(?-i:\bAIChE\b)",
+    "생명과학": r"biolog|bio[a-z]|life science|plant|agricultur|animal|genom|protein|food|chemi",
+    "생물정보학": r"bioinformat|biolog|biomed|bio[a-z]|genom|medic|health",
+    "에너지": r"energy|power|electric|climate|environment|green|sustainab|fuel|grid",
+    "신재생에너지": r"energy|power|electric|solar|photovolt|perovskite|wind|hydrogen|green|sustainab|grid|renewable",
+    "양자컴퓨팅": r"quantum",
+    "통신": r"communicat|wireless|network|telecom|signal|antenna|5g|6g|electromagnet|sensing",
+}
+# 카테고리가 맞지 않을 때 정식 명칭으로 다시 고르는 분야 (위에서부터 먼저 맞는 것)
+FIELD_GUESS = [
+    ("energy", r"energy|batter|photovolt|solar|renewable|hydrogen|smart grid|power system"),
+    ("bio", r"medic|health|clinical|biolog|bioinformat|biomed|pharm|genom|plant science|agricultur"),
+    ("quantum", r"quantum|communicat|wireless|telecom|antenna"),
+    ("cs", r"comput|software|data|artificial intelligence|machine learning|deep learning|blockchain|information"
+           r"|image|signal|vision|intelligen|cyber|network|internet|high performance|(?-i:\bAI\b)|\bIoT\b"),
+    ("eng", r"semiconductor|circuit|material|chemi|mechani|robot|automation|electr|optic|photon|\bnano|engineer|manufactur"
+            r"|technolog|scienc"),
+]
+TOPIC_PATTERN = dict(TOPIC_KEYWORDS)
+
+
+def check_wikicfp_category(row, tag):
+    """카테고리 태그가 정식 명칭과 맞지 않으면 분야를 다시 고른다. 어느 분야도 아니면 None (버린다)."""
+    text = f"{row['title']} {row['org']}"
+    pattern = CATEGORY_CHECK.get(tag) or TOPIC_PATTERN.get(tag)
+    if not pattern or re.search(pattern, text, re.I):
+        return row
+    for field, pat in FIELD_GUESS:
+        if re.search(pat, text, re.I):
+            row["field"] = field
+            row["tags"] = ",".join(t for t in row["tags"].split(",") if t != tag)
+            return row
+    # 정식 명칭이 약어뿐이라 판단할 단어가 없으면 (예: 'EuroSimE 2027') 카테고리를 그대로 둔다
+    acronym = re.sub(r"\s*\d{4}$", "", row["title"]).strip().lower()
+    if acronym and row["org"].lower().startswith(acronym):
+        return row
+    return None
+
+
+# 국내 학회(RINK)는 도서 분류 코드만으로 '공학'에 들어오므로, 이름으로 에너지 분야를 가려낸다
+RINK_ENERGY_RE = re.compile(r"에너지|수소|전지|전기화학|배터리|풍력|태양광|offshore wind|energy", re.I)
 
 
 def add_topic_tags(row):
@@ -546,6 +601,8 @@ RINK_URL = "https://www.nl.go.kr/rink/contents/R11101000000.do"
 RINK_ROW_RE = re.compile(r'<li class="board_tr board_td">(.*?)</li>', re.S)
 HANGUL_RE = re.compile(r"[가-힣]")
 RINK_NOT_CONF_RE = re.compile(r"(교육|강좌|강의|과정)\s*$|페스티벌|박람회|전시회")
+# 도서 분류로는 공학·컴퓨터에 들어 있지만 이공계 연구 학회가 아닌 것 (주거학·건축사·인문사회 등)
+RINK_NOT_STEM_RE = re.compile(r"주거|건축역사|문화공간|인문|과학기술학회|지역학회|정신분석|북극항로")
 
 
 def rink_field(code):
@@ -620,6 +677,11 @@ def collect_rink(cache_path=None, page_size=100, max_pages=10, delay=1.0):
             if RINK_NOT_CONF_RE.search(title):
                 skipped["교육·강좌"] += 1
                 continue
+            if RINK_NOT_STEM_RE.search(f"{org} {title}"):
+                skipped["이공계 아님"] += 1
+                continue
+            if field == "eng" and RINK_ENERGY_RE.search(f"{org} {title}"):
+                field = "energy"
             # '2026 추계학술대회'처럼 학회 이름이 빠진 제목은 앞에 학회 이름을 붙인다
             if org and org not in title and not re.search(r"[A-Z]{2,}", title):
                 title = f"{org} {title}"
