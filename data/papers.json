@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-12T09:54+09:00",
+ "updated": "2026-11-13T08:43+09:00",
  "issues": {
   "Nature": {
    "url": "https://www.nature.com/nature/volumes/659/issues/8140",
@@ -11,11 +11,242 @@
   "Science": {
    "url": "https://www.science.org/toc/science/current",
    "volume": "394",
-   "issue": "6824",
-   "date": "2026-11-05"
+   "issue": "6825",
+   "date": "2026-11-12"
   }
  },
  "papers": [
+  {
+   "journal": "Science",
+   "field": "bio",
+   "tag": "생명/의학",
+   "title": "Differentiation of stem-like CD4+ T cells modulates early effector responses in colorectal cancer",
+   "summary": "",
+   "url": "https://www.science.org/doi/10.1126/science.ady7788",
+   "doi": "10.1126/science.ady7788",
+   "date": "2026-11-12",
+   "external_id": "paper:8b0c7d9a182780cfbb4a"
+  },
+  {
+   "journal": "Science",
+   "field": "quantum",
+   "tag": "양자/물리",
+   "title": "Giant elastoresistance in magic-angle twisted bilayer graphene",
+   "summary": "",
+   "url": "https://www.science.org/doi/10.1126/science.adz0597",
+   "doi": "10.1126/science.adz0597",
+   "date": "2026-11-12",
+   "external_id": "paper:433c8e155adbeaceabc2"
+  },
+  {
+   "journal": "Science",
+   "field": "cs",
+   "tag": "AI/컴퓨터",
+   "title": "AI-monitored bioadhesive for sutureless microvascular anastomosis",
+   "summary": "",
+   "url": "https://www.science.org/doi/10.1126/science.aed8712",
+   "doi": "10.1126/science.aed8712",
+   "date": "2026-11-12",
+   "external_id": "paper:992136ba28094a71e2ec"
+  },
+  {
+   "journal": "Science",
+   "field": "earth",
+   "tag": "지구/환경",
+   "title": "Atmospheric O2 reveals a strengthening ocean carbon sink and a stagnant net land sink since 1990",
+   "summary": "",
+   "url": "https://www.science.org/doi/10.1126/science.aed9544",
+   "doi": "10.1126/science.aed9544",
+   "date": "2026-11-12",
+   "external_id": "paper:bb1db8ada333b3451691"
+  },
+  {
+   "journal": "Science",
+   "field": "bio",
+   "tag": "생명/의학",
+   "title": "Limited genomic predictability of complex trait evolution despite genotype-phenotype stability",
+   "summary": "",
+   "url": "https://www.science.org/doi/10.1126/science.aee0342",
+   "doi": "10.1126/science.aee0342",
+   "date": "2026-11-12",
+   "external_id": "paper:fcb21033b26000e9b439"
+  },
+  {
+   "journal": "Science",
+   "field": "bio",
+   "tag": "생명/의학",
+   "title": "A trapped catalytic product acts as molecular glue for innate immune signalosome assembly",
+   "summary": "",
+   "url": "https://www.science.org/doi/10.1126/science.aef3150",
+   "doi": "10.1126/science.aef3150",
+   "date": "2026-11-12",
+   "external_id": "paper:7b8924ba97f3ca7c901f"
+  },
+  {
+   "journal": "Science",
+   "field": "etc",
+   "tag": "기초과학",
+   "title": "Increased demographic turnover and isolation precede social fragmentation in Asian elephants",
+   "summary": "",
+   "url": "https://www.science.org/doi/10.1126/science.aef6714",
+   "doi": "10.1126/science.aef6714",
+   "date": "2026-11-12",
+   "external_id": "paper:d96fc74823bcc72caf16"
+  },
+  {
+   "journal": "Science",
+   "field": "etc",
+   "tag": "기초과학",
+   "title": "Direct monitoring of breaching in deltaic submarine landslides",
+   "summary": "",
+   "url": "https://www.science.org/doi/10.1126/science.aef8444",
+   "doi": "10.1126/science.aef8444",
+   "date": "2026-11-12",
+   "external_id": "paper:4f4adb1e414cdc6762b6"
+  },
+  {
+   "journal": "Science",
+   "field": "bio",
+   "tag": "생명/의학",
+   "title": "Poisoned hunting weapons, megafauna, and plant use at a 125,000-year-old Arabian paleolakeshore",
+   "summary": "",
+   "url": "https://www.science.org/doi/10.1126/science.aef9342",
+   "doi": "10.1126/science.aef9342",
+   "date": "2026-11-12",
+   "external_id": "paper:96ed7e377924bd64dab0"
+  },
+  {
+   "journal": "Science",
+   "field": "bio",
+   "tag": "생명/의학",
+   "title": "Climate aridity amplifies global riverine nitrate beyond human inputs",
+   "summary": "",
+   "url": "https://www.science.org/doi/10.1126/science.aeg2366",
+   "doi": "10.1126/science.aeg2366",
+   "date": "2026-11-12",
+   "external_id": "paper:b45c6fc75dc4da7c7b6f"
+  },
+  {
+   "journal": "Science",
+   "field": "bio",
+   "tag": "생명/의학",
+   "title": "The genetic landscape of canine tumors: Insights from the Canine Cancer Genome Atlas (CCGA)",
+   "summary": "",
+   "url": "https://www.science.org/doi/10.1126/science.aeg8777",
+   "doi": "10.1126/science.aeg8777",
+   "date": "2026-11-12",
+   "external_id": "paper:6d09200cf0467d93aede"
+  },
+  {
+   "journal": "Science",
+   "field": "bio",
+   "tag": "생명/의학",
+   "title": "TMEM184 proteins are Ca2+ uptake transporters in lysosomes",
+   "summary": "",
+   "url": "https://www.science.org/doi/10.1126/science.aeh3996",
+   "doi": "10.1126/science.aeh3996",
+   "date": "2026-11-12",
+   "external_id": "paper:9e5bddf918e97ee91f80"
+  },
+  {
+   "journal": "Science",
+   "field": "earth",
+   "tag": "지구/환경",
+   "title": "Geodetic observations in West Antarctica reveal geodynamically consistent 3D mantle viscosity",
+   "summary": "",
+   "url": "https://www.science.org/doi/10.1126/science.aeh5525",
+   "doi": "10.1126/science.aeh5525",
+   "date": "2026-11-12",
+   "external_id": "paper:ecac9d3a8f672ae7d2e7"
+  },
+  {
+   "journal": "Science",
+   "field": "etc",
+   "tag": "기초과학",
+   "title": "ESCRT-0 condensation and cargo clustering drive extracellular vesicle budding from cilia",
+   "summary": "",
+   "url": "https://www.science.org/doi/10.1126/science.aej7530",
+   "doi": "10.1126/science.aej7530",
+   "date": "2026-11-12",
+   "external_id": "paper:b888b9565d24df2190e9"
+  },
+  {
+   "journal": "Science",
+   "field": "quantum",
+   "tag": "양자/물리",
+   "title": "Quantitative measurement of viscosity in two-dimensional electron fluids",
+   "summary": "",
+   "url": "https://www.science.org/doi/10.1126/science.adr5469",
+   "doi": "10.1126/science.adr5469",
+   "date": "2026-11-12",
+   "external_id": "paper:dc4fb4b0e16fdaf5bc0b"
+  },
+  {
+   "journal": "Science",
+   "field": "earth",
+   "tag": "지구/환경",
+   "title": "Carbon dioxide and amorphous water ices in the debris disk around β Pictoris",
+   "summary": "",
+   "url": "https://www.science.org/doi/10.1126/science.adw7770",
+   "doi": "10.1126/science.adw7770",
+   "date": "2026-11-12",
+   "external_id": "paper:84549f0ee062d1bc575f"
+  },
+  {
+   "journal": "Science",
+   "field": "bio",
+   "tag": "생명/의학",
+   "title": "A cellular atlas of the preinvasive breast cancer microenvironment",
+   "summary": "",
+   "url": "https://www.science.org/doi/10.1126/science.aef4622",
+   "doi": "10.1126/science.aef4622",
+   "date": "2026-11-12",
+   "external_id": "paper:94498b238f17282bdeff"
+  },
+  {
+   "journal": "Science",
+   "field": "etc",
+   "tag": "기초과학",
+   "title": "Hantavirus pulmonary syndrome outbreak linked to cruise ship travel in April–May 2026",
+   "summary": "",
+   "url": "https://www.science.org/doi/10.1126/science.aej1376",
+   "doi": "10.1126/science.aej1376",
+   "date": "2026-11-12",
+   "external_id": "paper:afd2e199c04636eecc8d"
+  },
+  {
+   "journal": "Science",
+   "field": "bio",
+   "tag": "생명/의학",
+   "title": "Long-term local circulation of an Andes virus lineage in northern Patagonia is linked to the M/V Hondius outbreak",
+   "summary": "",
+   "url": "https://www.science.org/doi/10.1126/science.aej1679",
+   "doi": "10.1126/science.aej1679",
+   "date": "2026-11-12",
+   "external_id": "paper:b2c384b85a73dc151811"
+  },
+  {
+   "journal": "Science",
+   "field": "bio",
+   "tag": "생명/의학",
+   "title": "Early epidemiological and spatial assessment of the Bundibugyo virus outbreak 2026",
+   "summary": "",
+   "url": "https://www.science.org/doi/10.1126/science.aej4586",
+   "doi": "10.1126/science.aej4586",
+   "date": "2026-11-12",
+   "external_id": "paper:8f472878dcfef4e4e952"
+  },
+  {
+   "journal": "Science",
+   "field": "space",
+   "tag": "우주",
+   "title": "The cryosphere beyond a planetary safe operating space",
+   "summary": "",
+   "url": "https://www.science.org/doi/10.1126/science.aef5636",
+   "doi": "10.1126/science.aef5636",
+   "date": "2026-11-12",
+   "external_id": "paper:9df94f21a81ba7d707b7"
+  },
   {
    "journal": "Nature",
    "field": "bio",
@@ -114,6 +345,18 @@
   },
   {
    "journal": "Nature",
+   "field": "etc",
+   "tag": "기초과학",
+   "title": "Flexible rubber blades for tidal turbines",
+   "summary": "",
+   "url": "https://www.nature.com/articles/s41586-026-11278-w",
+   "doi": "10.1038/s41586-026-11278-w",
+   "date": "2026-11-11",
+   "external_id": "paper:dfc812f390d4d733c9ab",
+   "image": "https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41586-026-11278-w/MediaObjects/41586_2026_11278_Fig1_HTML.png"
+  },
+  {
+   "journal": "Nature",
    "field": "bio",
    "tag": "생명/의학",
    "title": "Human land use drives microplastic abundance in terrestrial wildlife",
@@ -140,13 +383,13 @@
    "journal": "Nature",
    "field": "etc",
    "tag": "기초과학",
-   "title": "Flexible rubber blades for tidal turbines",
+   "title": "Glycosylation and importins liquefy the FG barrier in live nuclear pores",
    "summary": "",
-   "url": "https://www.nature.com/articles/s41586-026-11278-w",
-   "doi": "10.1038/s41586-026-11278-w",
+   "url": "https://www.nature.com/articles/s41586-026-11258-0",
+   "doi": "10.1038/s41586-026-11258-0",
    "date": "2026-11-11",
-   "external_id": "paper:dfc812f390d4d733c9ab",
-   "image": "https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41586-026-11278-w/MediaObjects/41586_2026_11278_Fig1_HTML.png"
+   "external_id": "paper:c85273ff707a5480e79a",
+   "image": "https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41586-026-11258-0/MediaObjects/41586_2026_11258_Fig1_HTML.png"
   },
   {
    "journal": "Nature",
@@ -159,18 +402,6 @@
    "date": "2026-11-11",
    "external_id": "paper:5fe1746ad571883ddac6",
    "image": "https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41586-026-11265-1/MediaObjects/41586_2026_11265_Fig1_HTML.png"
-  },
-  {
-   "journal": "Nature",
-   "field": "etc",
-   "tag": "기초과학",
-   "title": "Glycosylation and importins liquefy the FG barrier in live nuclear pores",
-   "summary": "",
-   "url": "https://www.nature.com/articles/s41586-026-11258-0",
-   "doi": "10.1038/s41586-026-11258-0",
-   "date": "2026-11-11",
-   "external_id": "paper:c85273ff707a5480e79a",
-   "image": "https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41586-026-11258-0/MediaObjects/41586_2026_11258_Fig1_HTML.png"
   },
   {
    "journal": "Nature",
@@ -270,18 +501,6 @@
   },
   {
    "journal": "Nature",
-   "field": "space",
-   "tag": "우주",
-   "title": "Independent interferometric observable confirms black hole shadow in M87*",
-   "summary": "",
-   "url": "https://www.nature.com/articles/s41586-026-11241-9",
-   "doi": "10.1038/s41586-026-11241-9",
-   "date": "2026-11-11",
-   "external_id": "paper:b681b4dc8fd67bb298d1",
-   "image": "https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41586-026-11241-9/MediaObjects/41586_2026_11241_Fig1_HTML.png"
-  },
-  {
-   "journal": "Nature",
    "field": "etc",
    "tag": "기초과학",
    "title": "UNC13A splice correction rescues synaptic dysfunction induced by TDP-43 loss",
@@ -315,6 +534,18 @@
    "date": "2026-11-11",
    "external_id": "paper:d96747d62be7045f156e",
    "image": "https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41586-026-11264-2/MediaObjects/41586_2026_11264_Fig1_HTML.png"
+  },
+  {
+   "journal": "Nature",
+   "field": "space",
+   "tag": "우주",
+   "title": "Independent interferometric observable confirms black hole shadow in M87*",
+   "summary": "",
+   "url": "https://www.nature.com/articles/s41586-026-11241-9",
+   "doi": "10.1038/s41586-026-11241-9",
+   "date": "2026-11-11",
+   "external_id": "paper:b681b4dc8fd67bb298d1",
+   "image": "https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41586-026-11241-9/MediaObjects/41586_2026_11241_Fig1_HTML.png"
   },
   {
    "journal": "Science",
@@ -362,171 +593,6 @@
    "date": "2026-11-05",
    "external_id": "paper:4a79ca2c7ce8a809e2f0",
    "image": ""
-  },
-  {
-   "journal": "Science",
-   "field": "quantum",
-   "tag": "양자/물리",
-   "title": "Equivalence of pseudogap and pairing energy in a cuprate high-temperature superconductor",
-   "summary": "",
-   "url": "https://www.science.org/doi/10.1126/science.adt3444",
-   "doi": "10.1126/science.adt3444",
-   "date": "2026-11-05",
-   "external_id": "paper:5b6818c4b708a6c980f0"
-  },
-  {
-   "journal": "Science",
-   "field": "eng",
-   "tag": "소재/화학",
-   "title": "Discovering molecular modulators with nanoswitch screening",
-   "summary": "",
-   "url": "https://www.science.org/doi/10.1126/science.adt7185",
-   "doi": "10.1126/science.adt7185",
-   "date": "2026-11-05",
-   "external_id": "paper:506526057fd7b53b698e"
-  },
-  {
-   "journal": "Science",
-   "field": "bio",
-   "tag": "생명/의학",
-   "title": "Tumor metastasis co-opts liver hematopoiesis to promote immunosuppression",
-   "summary": "",
-   "url": "https://www.science.org/doi/10.1126/science.aea3046",
-   "doi": "10.1126/science.aea3046",
-   "date": "2026-11-05",
-   "external_id": "paper:978c72ace4db43a81e86"
-  },
-  {
-   "journal": "Science",
-   "field": "earth",
-   "tag": "지구/환경",
-   "title": "Glacial abrupt transitions in ocean circulation were much slower than ice-core records imply",
-   "summary": "",
-   "url": "https://www.science.org/doi/10.1126/science.aed4270",
-   "doi": "10.1126/science.aed4270",
-   "date": "2026-11-05",
-   "external_id": "paper:b03bac633aa60cc0e0a6"
-  },
-  {
-   "journal": "Science",
-   "field": "bio",
-   "tag": "생명/의학",
-   "title": "Targeting hormone conversion through dietary fiber improves polyendocrine metabolic ovarian syndrome",
-   "summary": "",
-   "url": "https://www.science.org/doi/10.1126/science.aed8952",
-   "doi": "10.1126/science.aed8952",
-   "date": "2026-11-05",
-   "external_id": "paper:95b5f8bc8b84e95df4ba"
-  },
-  {
-   "journal": "Science",
-   "field": "etc",
-   "tag": "기초과학",
-   "title": "Direct evidence for psychoactive cannabis use 2800 years ago",
-   "summary": "",
-   "url": "https://www.science.org/doi/10.1126/science.aeg3800",
-   "doi": "10.1126/science.aeg3800",
-   "date": "2026-11-05",
-   "external_id": "paper:d47684c796a4ec60c8ab"
-  },
-  {
-   "journal": "Science",
-   "field": "earth",
-   "tag": "지구/환경",
-   "title": "Seafloor geodesy delineates fast megathrust relocking after the giant 2011 Tohoku earthquake",
-   "summary": "",
-   "url": "https://www.science.org/doi/10.1126/science.aeg7301",
-   "doi": "10.1126/science.aeg7301",
-   "date": "2026-11-05",
-   "external_id": "paper:05547adc1599390c566e"
-  },
-  {
-   "journal": "Science",
-   "field": "etc",
-   "tag": "기초과학",
-   "title": "The first 1000 days: Modeling language learning from individual children’s everyday speech",
-   "summary": "",
-   "url": "https://www.science.org/doi/10.1126/science.aeh9311",
-   "doi": "10.1126/science.aeh9311",
-   "date": "2026-11-05",
-   "external_id": "paper:b51eb2bf9e9c6c0ab8dc"
-  },
-  {
-   "journal": "Science",
-   "field": "etc",
-   "tag": "기초과학",
-   "title": "Denoising the US Census: Succinct block hierarchical regression",
-   "summary": "",
-   "url": "https://www.science.org/doi/10.1126/science.aej1765",
-   "doi": "10.1126/science.aej1765",
-   "date": "2026-11-05",
-   "external_id": "paper:c3b0ae2b94052108a6c8"
-  },
-  {
-   "journal": "Science",
-   "field": "quantum",
-   "tag": "양자/물리",
-   "title": "Quantum gas microscopy of three-flavor Hubbard systems",
-   "summary": "",
-   "url": "https://www.science.org/doi/10.1126/science.adv1247",
-   "doi": "10.1126/science.adv1247",
-   "date": "2026-11-05",
-   "external_id": "paper:5005c46c8505c91a3073"
-  },
-  {
-   "journal": "Science",
-   "field": "etc",
-   "tag": "기초과학",
-   "title": "Echoes of the Anthropocene: Noise pollution as a global threat",
-   "summary": "",
-   "url": "https://www.science.org/doi/10.1126/science.adu9593",
-   "doi": "10.1126/science.adu9593",
-   "date": "2026-11-05",
-   "external_id": "paper:1c646044ff88e67f55f8"
-  },
-  {
-   "journal": "Science",
-   "field": "etc",
-   "tag": "기초과학",
-   "title": "Stacked porous NiTi structure with low cost and ultrahigh fatigue life for elastocaloric cooling",
-   "summary": "",
-   "url": "https://www.science.org/doi/10.1126/science.aeh7074",
-   "doi": "10.1126/science.aeh7074",
-   "date": "2026-11-05",
-   "external_id": "paper:3a2925439601e6494008"
-  },
-  {
-   "journal": "Science",
-   "field": "bio",
-   "tag": "생명/의학",
-   "title": "When fat adapts: From physiological remodeling to disease",
-   "summary": "",
-   "url": "https://www.science.org/doi/10.1126/science.aee9044",
-   "doi": "10.1126/science.aee9044",
-   "date": "2026-11-05",
-   "external_id": "paper:b0d33be4e7ba256cfb08"
-  },
-  {
-   "journal": "Science",
-   "field": "etc",
-   "tag": "기초과학",
-   "title": "Obesity pharmacotherapies and cognition",
-   "summary": "",
-   "url": "https://www.science.org/doi/10.1126/science.aek9987",
-   "doi": "10.1126/science.aek9987",
-   "date": "2026-11-05",
-   "external_id": "paper:aed9e737f1e75113ec57"
-  },
-  {
-   "journal": "Science",
-   "field": "etc",
-   "tag": "기초과학",
-   "title": "Obesity management medications: The way forward",
-   "summary": "",
-   "url": "https://www.science.org/doi/10.1126/science.aej1120",
-   "doi": "10.1126/science.aej1120",
-   "date": "2026-11-05",
-   "external_id": "paper:f60a65169558378aa5a7"
   },
   {
    "journal": "Science",
@@ -639,28 +705,6 @@
    "doi": "10.1126/science.ael0508",
    "date": "2026-10-08",
    "external_id": "paper:90ae413dab030da1ca20"
-  },
-  {
-   "journal": "Science",
-   "field": "bio",
-   "tag": "생명/의학",
-   "title": "Nutritional interventions’ impacts on human milk: Three trials in low-resource settings",
-   "summary": "",
-   "url": "https://www.science.org/doi/10.1126/science.aee9284",
-   "doi": "10.1126/science.aee9284",
-   "date": "2026-10-08",
-   "external_id": "paper:0aabfdbcc4d3db6d08d9"
-  },
-  {
-   "journal": "Science",
-   "field": "earth",
-   "tag": "지구/환경",
-   "title": "Snowball refrigeration of Earth’s crust mimics glacial erosion",
-   "summary": "",
-   "url": "https://www.science.org/doi/10.1126/science.aed3341",
-   "doi": "10.1126/science.aed3341",
-   "date": "2026-10-01",
-   "external_id": "paper:f5b2b8fdba4a9a08bb03"
   }
  ]
 }
