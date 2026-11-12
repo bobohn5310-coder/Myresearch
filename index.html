@@ -902,8 +902,6 @@ a { text-decoration: none; color: inherit; }
 .wl-btn{width:100%;padding:13px;border-radius:11px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all .15s}
 .wl-btn-main{background:linear-gradient(135deg,#059669 0%,#0aaf7a 100%);color:#fff;border:none;box-shadow:0 2px 8px rgba(5,150,105,.35)}
 .wl-btn-main:hover{background:linear-gradient(135deg,#047857 0%,#059669 100%)}
-.wl-btn-sub{background:#fff;color:var(--text-sub);border:1.5px solid var(--border)}
-.wl-btn-sub:hover{border-color:#059669;color:#047857}
 .wl-foot{text-align:center;margin-top:12px}
 .wl-foot button{background:none;border:0;font-family:inherit;font-size:12px;color:var(--text-light);cursor:pointer;text-decoration:underline}
 @media(max-width:600px){
@@ -2922,8 +2920,7 @@ a { text-decoration: none; color: inherit; }
         <li><span class="wl-ic">💬</span><div><b>대학원생 커뮤니티</b><span>학회 후기, 연구 고민을 함께 나눠요</span></div></li>
       </ul>
       <div class="wl-actions">
-        <button class="wl-btn wl-btn-main" onclick="welcomeSignup()">무료로 시작하기</button>
-        <button class="wl-btn wl-btn-sub" onclick="welcomeBrowse()">먼저 둘러볼게요</button>
+        <button class="wl-btn wl-btn-main" onclick="closeWelcome()">둘러보기 시작</button>
       </div>
       <div class="wl-foot"><button onclick="closeWelcome(true)">일주일 동안 보지 않기</button></div>
     </div>
@@ -4703,14 +4700,6 @@ function closeWelcome(long){
   if(m) m.classList.remove('open');
   welcomeHideFor(long ? 7 : 1);
 }
-function welcomeSignup(){
-  // 환영 창 자리에 가입 창을 바로 띄운다 (뒤로 가기 기록은 그대로 이어 씀)
-  const m = document.getElementById('welcome-modal');
-  if(m) m.classList.remove('open');
-  welcomeHideFor(7);
-  openAuth('signup');
-}
-function welcomeBrowse(){ closeWelcome(); }
 window.addEventListener('load', () => setTimeout(maybeShowWelcome, 1200));
 
 // 재설정 메일 링크로 들어온 경우 (주소에 type=recovery 가 붙어 옴)
