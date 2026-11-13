@@ -5,7 +5,7 @@
   {
    "univ": "서울대학교",
    "dept": "재료공학부",
-   "lab_name": "DTFL 연구실",
+   "lab_name": "황철성 연구실",
    "prof": "황철성",
    "field": "차세대 메모리(DRAM·FeRAM·ReRAM)·산화물 TFT 박막",
    "homepage": "http://dtfl.snu.ac.kr/",
@@ -26,12 +26,12 @@
      "verified_via": "openalex"
     }
    ],
-   "notes": "학과 페이지에 연구실 정식 이름이 없어 홈페이지 주소 약칭으로 표기"
+   "notes": "학과 페이지에 연구실 정식 이름이 없어 교수님 성함으로 표기"
   },
   {
    "univ": "서울대학교",
    "dept": "재료공학부",
-   "lab_name": "강유전체 소자 연구실(가칭)",
+   "lab_name": "박민혁 연구실",
    "prof": "박민혁",
    "field": "강유전체 HfO2 소자, 뉴로모픽·메모리",
    "homepage": "https://nano.snu.ac.kr/",
@@ -52,12 +52,12 @@
      "verified_via": "openalex"
     }
    ],
-   "notes": "연구실 정식 이름 미확인, 연구 분야로 가칭 표기"
+   "notes": "학과 페이지에 연구실 정식 이름이 없어 교수님 성함으로 표기"
   },
   {
    "univ": "서울대학교",
    "dept": "재료공학부",
-   "lab_name": "저차원 소재·소자 연구실(가칭)",
+   "lab_name": "이관형 연구실",
    "prof": "이관형",
    "field": "2D 반도체 소재(TMD·그래핀) 소자, 대면적 성장",
    "homepage": "https://gwangroup.snu.ac.kr",
@@ -78,12 +78,12 @@
      "verified_via": "openalex"
     }
    ],
-   "notes": "연구실 정식 이름 미확인, 연구 분야로 가칭 표기"
+   "notes": "학과 페이지에 연구실 정식 이름이 없어 교수님 성함으로 표기"
   },
   {
    "univ": "한국과학기술원",
    "dept": "전기및전자공학부",
-   "lab_name": "DSIL 연구실",
+   "lab_name": "권지민 연구실",
    "prof": "권지민",
    "field": "3D IC·첨단 패키징, 산화물 채널 DRAM 트랜지스터",
    "homepage": "https://dsil.kaist.ac.kr/",
@@ -104,12 +104,12 @@
      "verified_via": "openalex"
     }
    ],
-   "notes": "연구실 정식 이름 미확인, 홈페이지 주소 약칭으로 표기"
+   "notes": "학과 페이지에 연구실 정식 이름이 없어 교수님 성함으로 표기"
   },
   {
    "univ": "한국과학기술원",
    "dept": "전기및전자공학부",
-   "lab_name": "LESL 연구실",
+   "lab_name": "이가영 연구실",
    "prof": "이가영",
    "field": "저차원 반도체 소재·소자, 반도체 물리",
    "homepage": "https://lesl.kaist.ac.kr/",
@@ -130,7 +130,7 @@
      "verified_via": "openalex"
     }
    ],
-   "notes": "연구실 정식 이름 미확인, 홈페이지 주소 약칭으로 표기"
+   "notes": "학과 페이지에 연구실 정식 이름이 없어 교수님 성함으로 표기"
   },
   {
    "univ": "한국과학기술원",
@@ -161,7 +161,7 @@
   {
    "univ": "한국과학기술원",
    "dept": "전기및전자공학부",
-   "lab_name": "VLSI 회로 연구실(가칭)",
+   "lab_name": "김봉진 연구실",
    "prof": "김봉진",
    "field": "VLSI 회로·칩 설계, 저전력 가속기",
    "homepage": "http://bongjin.com",
@@ -189,7 +189,7 @@
      "verified_via": "openalex"
     }
    ],
-   "notes": "연구실 정식 이름 미확인, 연구 분야로 가칭 표기. 홈페이지는 학과 페이지에 적힌 개인 사이트"
+   "notes": "학과 페이지에 연구실 정식 이름이 없어 교수님 성함으로 표기. 홈페이지는 학과 페이지에 적힌 개인 사이트"
   },
   {
    "univ": "포항공과대학교",
@@ -478,7 +478,7 @@
   {
    "univ": "성균관대학교",
    "dept": "반도체시스템공학과",
-   "lab_name": "TEBL 연구실",
+   "lab_name": "권기원 연구실",
    "prof": "권기원",
    "field": "반도체 회로·소자 (메모리 회로, 3D IC)",
    "homepage": "https://sites.google.com/view/skku-tebl/home",
@@ -506,18 +506,18 @@
      "verified_via": "openalex"
     }
    ],
-   "notes": "학과 페이지에 연구실 이름이 없어 홈페이지 주소의 약칭으로 표기"
+   "notes": "학과 페이지에 연구실 정식 이름이 없어 교수님 성함으로 표기"
   },
   {
    "univ": "성균관대학교",
    "dept": "반도체시스템공학과",
-   "lab_name": "ISDL 연구실",
+   "lab_name": "공배선 연구실",
    "prof": "공배선",
    "field": "VLSI 시스템 설계 (혼합신호 IC)",
    "homepage": "https://sites.google.com/view/skkuisdl",
    "source_url": "https://semi.skku.edu/semi/intro/professor_concurrent.do",
    "papers": [],
-   "notes": "학과 페이지에 연구실 이름이 없어 홈페이지 주소의 약칭으로 표기. 2019년 이후 논문을 공개 서지정보로 확인하지 못해 논문 미포함"
+   "notes": "학과 페이지에 연구실 정식 이름이 없어 교수님 성함으로 표기. 2019년 이후 논문을 공개 서지정보로 확인하지 못해 논문 미포함"
   },
   {
    "univ": "성균관대학교",
@@ -547,7 +547,7 @@
   {
    "univ": "성균관대학교",
    "dept": "반도체시스템공학과",
-   "lab_name": "EEMIX 연구실",
+   "lab_name": "최재혁 연구실",
    "prof": "최재혁",
    "field": "CMOS 이미지·LiDAR 센서, 혼합신호 IC",
    "homepage": "https://sites.google.com/view/eemix",
@@ -568,12 +568,12 @@
      "verified_via": "openalex"
     }
    ],
-   "notes": "학과 페이지에 연구실 이름이 없어 홈페이지 주소의 약칭으로 표기"
+   "notes": "학과 페이지에 연구실 정식 이름이 없어 교수님 성함으로 표기"
   },
   {
    "univ": "성균관대학교",
    "dept": "반도체시스템공학과",
-   "lab_name": "ADND 연구실",
+   "lab_name": "최병덕 연구실",
    "prof": "최병덕",
    "field": "반도체·디스플레이 소자 신뢰성, TFT, 메모리",
    "homepage": "http://swb.skku.edu/adnd",
@@ -587,7 +587,7 @@
      "verified_via": "openalex"
     }
    ],
-   "notes": "학과 페이지에 연구실 이름이 없어 홈페이지 주소의 약칭으로 표기"
+   "notes": "학과 페이지에 연구실 정식 이름이 없어 교수님 성함으로 표기"
   }
  ]
 }
