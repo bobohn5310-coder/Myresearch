@@ -2053,6 +2053,28 @@ a { text-decoration: none; color: inherit; }
 .clv-cmt .clv-report{white-space:nowrap;flex-shrink:0}
 .clv-cnt{font-size:11px;color:var(--text-light);text-align:right;margin-top:2px}
 .clv-msg{font-size:13px;margin-top:10px;text-align:center;min-height:18px}
+.clv-click{cursor:pointer;transition:border-color .15s,box-shadow .15s}
+.clv-click:hover{border-color:#86efac;box-shadow:0 6px 18px rgba(22,163,74,.08)}
+.clv-src{display:inline-block;font-size:10.5px;font-weight:500;color:var(--text-light);border:1px solid var(--border);border-radius:999px;padding:2px 7px;background:#fff;vertical-align:middle}
+.clv-card>.clv-src{position:absolute;top:14px;right:14px}
+.clv-more{display:flex;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--text-muted);margin-top:6px}
+.clv-more a,.clv-more span{color:var(--text-muted);text-decoration:underline;text-underline-offset:2px}
+.clv-lab-box{max-width:640px;padding:26px}
+.clv-lab-name{font-size:22px!important;margin:4px 0 4px!important;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.clv-lab-meta{display:grid;grid-template-columns:76px 1fr;gap:8px 12px;font-size:13.5px;margin:16px 0 4px;padding:14px 16px;background:var(--bg);border-radius:12px;color:var(--text)}
+.clv-lab-meta b{color:var(--text-muted);font-weight:500}
+.clv-lab-meta a{color:#15803d;text-decoration:underline;word-break:break-all}
+.clv-lab-h{font-weight:700;font-size:14px;color:var(--text);margin:20px 0 8px}
+.clv-papers{padding-left:18px;margin:0;font-size:13.5px;line-height:1.5;color:var(--text)}
+.clv-papers li{margin-bottom:8px}
+.clv-papers small{display:block;color:var(--text-muted);font-size:12px}
+.clv-papers a{color:#15803d}
+.clv-lab-grow{display:flex;gap:14px;align-items:center;background:repeating-linear-gradient(45deg,#f8fafc,#f8fafc 10px,#f1f5f9 10px,#f1f5f9 20px);border-radius:12px;padding:16px;font-size:12.5px;color:var(--text-muted)}
+.clv-lab-grow b{display:block;color:var(--text-sub);font-size:14px}
+.clv-lab-ft{display:flex;flex-wrap:wrap;gap:6px 12px;justify-content:space-between;align-items:center;font-size:11.5px;color:var(--text-light);margin-top:14px}
+.clv-picked{border:1.5px solid #16a34a;background:#f0fdf4;border-radius:12px;padding:10px 14px;font-size:12px;color:#15803d;line-height:1.6;margin-top:6px}
+.clv-picked b{display:block;font-size:15px;color:var(--text)}
+.clv-picked small{color:var(--text-muted);font-size:12px}
 @media(max-width:900px){.clv-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.clv-wrap{padding:18px 16px 60px}.clv-grid{grid-template-columns:1fr}.clv-hero{flex-direction:column-reverse;align-items:flex-start;padding:20px}.clv-hero h1{font-size:22px}.clv-mascot{width:90px;height:90px;flex-basis:auto}.clv-opts{grid-template-columns:repeat(2,1fr)}.clv-tools .clv-btn{width:100%}}
 
@@ -2830,6 +2852,14 @@ a { text-decoration: none; color: inherit; }
     </div>
     <div class="clv-grid" id="clv-grid"></div>
     <div class="clv-note">🐞 클로버 지수는 연구실 구성원들이 남긴 <b>주관적인 의견을 모은 참고 정보</b>이며, My Research Calendar의 의견이 아니에요. 응답이 n명 이상 모인 연구실만 공개되고, 문제가 있는 내용은 각 카드의 '신고·삭제 요청'으로 알려 주시면 바로 가린 뒤 검토해요.</div>
+  </div>
+</div>
+
+<!-- 🔬 연구실 정보 창 -->
+<div class="clv-modal" id="clv-lab-modal" onclick="if(event.target===this)clvClose('clv-lab-modal')">
+  <div class="clv-box clv-lab-box">
+    <button class="clv-x" onclick="clvClose('clv-lab-modal')">×</button>
+    <div id="clv-lab-body"></div>
   </div>
 </div>
 
@@ -5495,7 +5525,8 @@ async function clvLoad(force){
     });
   }
   CLV.ready = true;
-  CLV.labs = rows.map(x => ({ id:x.id, univ:x.univ, dept:x.dept, name:x.name, topic:x.topic, created_at:x.created_at }));
+  CLV.labs = rows.map(x => ({ id:x.id, univ:x.univ, dept:x.dept, name:x.name, topic:x.topic, created_at:x.created_at,
+    admin: x.source === 'admin', homepage: x.homepage || null, papers: x.papers || 0 }));
   CLV.sum = {};
   rows.forEach(x => CLV.sum[x.id] = { cnt:x.cnt||0, pay:x.pay, guide:x.guide, mood:x.mood, balance:x.balance, total:x.total });
   CLV.comments = {};
@@ -5542,24 +5573,23 @@ function clvRender(){
   grid.innerHTML = list.map(l => {
     const s = CLV.sum[l.id] || { cnt:0 };
     // 자라는 중인 연구실은 학교·학과만, n명이 모이면 연구실 이름과 분야까지 보여 준다
-    const head = l.name
+    const head = (l.admin ? '<span class="clv-src">공개 정보로 등록</span>' : '') + (l.name
       ? `<div class="clv-dept">${escHtml(l.univ)} ${escHtml(l.dept)}</div><h3>${escHtml(l.name)}</h3><div class="clv-topic">${escHtml(l.topic||'')}</div>`
-      : `<div class="clv-dept">${escHtml(l.univ)}</div><h3>${escHtml(l.dept)}</h3><div class="clv-topic">🔒 연구실 이름은 ${CLV_MIN_LABEL}이 모이면 공개돼요</div>`;
+      : `<div class="clv-dept">${escHtml(l.univ)}</div><h3>${escHtml(l.dept)}</h3><div class="clv-topic">🔒 연구실 이름은 ${CLV_MIN_LABEL}이 모이면 공개돼요</div>`)
+      + (l.admin ? `<div class="clv-more">${clvSafeUrl(l.homepage) ? `<a href="${escHtml(clvSafeUrl(l.homepage))}" target="_blank" rel="noopener" onclick="event.stopPropagation()">🔗 홈페이지</a>` : ''}${l.papers ? `<span>📄 대표 논문 ${l.papers}편</span>` : ''}</div>` : '');
     const mine = CLV.mine.get(l.id);
-    const lockedElsewhere = CLV.myLab?.lab_id && CLV.myLab.lab_id !== l.id;
     const foot = `<div class="clv-foot-wrap"></div><div class="clv-foot">
         ${mine === 'pending' ? '<span style="color:#b45309;font-weight:600">⏳ 내 클로버 검토 중</span>'
           : mine === 'approved' ? '<span style="color:#15803d;font-weight:600">✓ 내 클로버를 남겼어요</span>'
-          : lockedElsewhere ? '<span></span>'
-          : `<button class="clv-link" onclick="clvOpenVote(${l.id})">🍀 클로버 남기기</button>`}
-        <button class="clv-report" onclick="clvOpenReport(${l.id})">신고·삭제 요청</button></div>`;
+          : `<button class="clv-link" onclick="event.stopPropagation();clvOpenLab(${l.id})">연구실 정보 보기 →</button>`}
+        <button class="clv-report" onclick="event.stopPropagation();clvOpenReport(${l.id})">신고·삭제 요청</button></div>`;
     if(s.total == null){
-      return `<div class="clv-card">${head}
+      return `<div class="clv-card clv-click" onclick="clvOpenLab(${l.id})">${head}
         <div class="clv-grow">${clvClover(2, 34)}<b>클로버가 자라는 중이에요</b>
         <span>${CLV_MIN_LABEL}이 모이면 공개돼요</span></div>${foot}</div>`;
     }
     const tot = Number(s.total);
-    return `<div class="clv-card">${tot >= 3.5 ? `<div class="clv-badge">${clvBug(18)}네잎 연구실</div>` : ''}${head}
+    return `<div class="clv-card clv-click" onclick="clvOpenLab(${l.id})">${tot >= 3.5 ? `<div class="clv-badge">${clvBug(18)}네잎 연구실</div>` : ''}${head}
       <div class="clv-total">${clvClover(Math.round(tot), 40)}<div><b>${tot.toFixed(1)}</b><span style="color:var(--text-muted);font-size:13px"> / 4</span><small>클로버 지수</small></div></div>
       ${CLV_ITEMS.map(it => `<div class="clv-row"><span>${it.label}</span>${clvClover(Math.round(Number(s[it.k])), 20)}</div>`).join('')}
       ${clvCommentsHtml(l.id)}
@@ -5658,8 +5688,9 @@ async function clvOpenVote(labId){
       <button class="clv-btn" onclick="clvClose('clv-vote-modal')">확인</button>`;
     return;
   }
-  CLV.vote = {}; CLV.lab = CLV.locked ? { univ: my.univ, dept: my.dept, name: my.name } : (labId ? CLV.labs.find(l => l.id === labId) : null);
+  CLV.vote = {}; CLV.pickId = null; CLV.lab = CLV.locked ? { univ: my.univ, dept: my.dept, name: my.name } : (labId ? CLV.labs.find(l => l.id === labId) : null);
   if(!CLV.lab && my?.my_univs?.length) CLV.lab = { univ: my.my_univs[0] };
+  if(!CLV.locked && CLV.lab?.admin && CLV.lab.id) CLV.pickId = CLV.lab.id;
   const myUnivs = (my?.my_univs || []).map(escHtml).join(', ');
   const lockNote = !my ? '' : CLV.locked
     ? `<div class="clv-info"><span>🏠</span><div>내 연구실(${escHtml(my.univ)} ${escHtml(my.dept)} ${escHtml(my.name)})에 다시 남기는 거예요.</div></div>`
@@ -5691,6 +5722,12 @@ function clvRenderLabPick(){
     el.innerHTML = `<div class="hn">🏠 ${escHtml(l.univ||'')} ${escHtml(l.dept||'')} · ${escHtml(l.name||'')}</div>`;
     return;
   }
+  if(CLV.pickId){
+    el.innerHTML = `<div class="clv-picked">🔬 고른 연구실<b>${escHtml(l.name||'')}</b><small>${escHtml(l.univ||'')} ${escHtml(l.dept||'')}${l.topic ? ' · ' + escHtml(l.topic) : ''}</small></div>
+      <button class="clv-report" style="margin-top:6px;font-size:12px" onclick="CLV.pickId=null;CLV.lab={univ:CLV.lab.univ};clvRenderLabPick()">내 연구실이 아니에요 · 직접 적기</button>
+      <div class="hn" style="margin-top:4px">공개 정보로 미리 등록된 연구실이라 교수님 성함을 다시 적지 않아도 돼요.</div>`;
+    return;
+  }
   el.innerHTML = `
       <input class="clv-input" id="clv-new-univ" maxlength="40" placeholder="학교 (예: 한국대학교)"${val(l.univ)}>
       <input class="clv-input" id="clv-new-dept" maxlength="40" placeholder="학과 (예: 신소재공학과)"${val(l.dept)}>
@@ -5717,12 +5754,15 @@ async function clvSubmitVote(){
   const profName = v('clv-new-prof');
   const comment = v('clv-comment');
   if(CLV.locked){ Object.assign(nl, { univ: CLV.myLab.univ, dept: CLV.myLab.dept, name: CLV.myLab.name }); }
+  else if(CLV.pickId){ /* 카드에서 고른 운영자 등록 연구실 */ }
   else if(nl.univ.length < 2 || nl.dept.length < 2 || nl.name.length < 2 || profName.length < 2){ btn.disabled = false; return say('학교·학과·연구실 이름·지도교수님 성함을 모두 적어 주세요.', true); }
   if(comment){
     const bad = clvCommentProblem(comment);
     if(bad){ btn.disabled = false; return say(bad, true); }
   }
-  let added = await sbClient.rpc('clover_add_lab', { p_univ:nl.univ, p_dept:nl.dept, p_name:nl.name, p_topic:nl.topic, p_prof:profName });
+  // 고른 운영자 등록 연구실이면 그 번호로 바로 남긴다 (내 연구실·학교 검사는 서버 clover_vote_guard 가 그대로 함)
+  let added = CLV.pickId ? { data: CLV.pickId }
+    : await sbClient.rpc('clover_add_lab', { p_univ:nl.univ, p_dept:nl.dept, p_name:nl.name, p_topic:nl.topic, p_prof:profName });
   if(added.error && added.error.code === 'PGRST202')
     added = await sbClient.rpc('clover_add_lab', { p_univ:nl.univ, p_dept:nl.dept, p_name:nl.name, p_topic:nl.topic });
   if(added.error && added.error.code === 'PGRST202'){
@@ -5764,6 +5804,49 @@ function clvCommentProblem(t){
   if(/(\d{2,3}[-\s]?\d{3,4}[-\s]?\d{4}|[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}|https?:\/\/)/.test(t)) return '한줄평에는 연락처나 링크를 적을 수 없어요.';
   return '';
 }
+// ── 연구실 정보 화면: 카드를 누르면 열림 → 여기서 클로버 남기기 ──
+function clvSafeUrl(u){ return /^https?:\/\//i.test(u || '') ? u : ''; }
+async function clvOpenLab(id){
+  const l = CLV.labs.find(x => x.id === id); if(!l) return;
+  const body = document.getElementById('clv-lab-body');
+  clvShow('clv-lab-modal');
+  body.innerHTML = clvLabHtml(l, null);
+  const r = await sbClient.rpc('clover_lab_detail', { p_lab: id });
+  if(!r.error && r.data && r.data[0] && document.getElementById('clv-lab-modal').classList.contains('open')) body.innerHTML = clvLabHtml(l, r.data[0]);
+}
+function clvLabHtml(l, d){
+  const s = CLV.sum[l.id] || {};
+  const name = d?.name || l.name, topic = d?.topic || l.topic;
+  const home = clvSafeUrl(d?.homepage || l.homepage);
+  const papers = d?.papers || [];
+  const row = (k, v) => v ? `<b>${k}</b><span>${v}</span>` : '';
+  const total = s.total != null ? Number(s.total) : null;
+  const clover = total != null
+    ? `<div class="clv-total">${clvClover(Math.round(total), 40)}<div><b>${total.toFixed(1)}</b><span style="color:var(--text-muted);font-size:13px"> / 4</span><small>클로버 지수</small></div></div>
+       ${CLV_ITEMS.map(it => `<div class="clv-row"><span>${it.label}</span>${clvClover(Math.round(Number(s[it.k])), 20)}</div>`).join('')}
+       ${clvCommentsHtml(l.id)}`
+    : `<div class="clv-lab-grow">${clvClover(2, 44)}<div><b>클로버가 자라는 중이에요</b><span>${CLV_MIN_LABEL}이 모이면 인건비·지도·분위기·워라밸 평균이 공개돼요</span></div></div>`;
+  const mine = CLV.mine.get(l.id);
+  const lockedElsewhere = CLV.myLab?.lab_id && CLV.myLab.lab_id !== l.id;
+  const cta = mine === 'pending' ? '<div class="clv-info clv-warn" style="margin-top:16px">⏳ 내 클로버를 운영자가 확인하고 있어요</div>'
+    : mine === 'approved' ? '<div class="clv-info" style="margin-top:16px">✓ 이 연구실에 내 클로버를 남겼어요</div>'
+    : lockedElsewhere ? '<div class="clv-rules">클로버는 내 연구실 한 곳에만 남길 수 있어요.</div>'
+    : `<button class="clv-btn" onclick="clvClose('clv-lab-modal');clvOpenVote(${l.id})">🍀 이 연구실에 클로버 남기기</button>`;
+  return `
+    <div class="clv-dept" style="padding-right:30px">${escHtml(l.univ)} · ${escHtml(l.dept)}</div>
+    <h2 class="clv-lab-name">${escHtml(name || l.dept)}${l.admin ? '<span class="clv-src">공개 정보로 등록</span>' : ''}</h2>
+    ${name ? (topic ? `<div class="clv-topic" style="font-size:13px">${escHtml(topic)}</div>` : '') : `<div class="clv-topic" style="font-size:13px">🔒 연구실 이름은 ${CLV_MIN_LABEL}이 모이면 공개돼요</div>`}
+    ${l.admin ? `<div class="clv-lab-meta">${row('학교', escHtml(l.univ))}${row('학과', escHtml(l.dept))}${row('지도교수', d?.prof ? escHtml(d.prof) + ' 교수' : '')}${row('연구 분야', escHtml(topic || ''))}${home ? row('홈페이지', `<a href="${escHtml(home)}" target="_blank" rel="noopener">${escHtml(home.replace(/^https?:\/\//i,'').replace(/\/$/,''))}</a>`) : ''}</div>` : ''}
+    ${l.admin ? `<div class="clv-lab-h">📄 대표 논문</div>${papers.length
+      ? `<ol class="clv-papers">${papers.map(p => `<li>${escHtml(p.title)}<small>${escHtml(p.venue || '')}${p.year ? ' · ' + p.year : ''}${clvSafeUrl(p.url) ? ` · <a href="${escHtml(p.url)}" target="_blank" rel="noopener">논문 보기 ↗</a>` : ''}</small></li>`).join('')}</ol>`
+      : `<div class="clv-topic">${d ? '아직 확인된 대표 논문이 없어요' : '불러오는 중…'}</div>`}` : ''}
+    <div class="clv-lab-h">🍀 클로버 지수</div>
+    ${clover}
+    ${cta}
+    <div class="clv-lab-ft"><span>${l.admin ? '학과·연구실 홈페이지의 공개 정보로 등록했어요' : '연구실 구성원이 남긴 클로버로 만들어졌어요'}</span>
+      <button class="clv-report" onclick="clvClose('clv-lab-modal');clvOpenReport(${l.id})">${l.admin ? '정보 수정·삭제 요청' : '신고·삭제 요청'}</button></div>`;
+}
+
 function clvCommentsHtml(labId){
   const list = (CLV.comments || {})[labId] || [];
   if(!list.length) return '';
@@ -5836,6 +5919,7 @@ const NAV_OVERLAYS = [
   { isOpen: () => document.getElementById('conf-review-modal')?.style.display === 'flex', close: () => closeConfReviews() },
   { isOpen: () => document.getElementById('post-modal')?.style.display === 'flex', close: () => closePostModal() },
   { isOpen: () => document.getElementById('clv-vote-modal')?.classList.contains('open'), close: () => clvClose('clv-vote-modal') },
+  { isOpen: () => document.getElementById('clv-lab-modal')?.classList.contains('open'), close: () => clvClose('clv-lab-modal') },
   { isOpen: () => document.getElementById('clv-report-modal')?.classList.contains('open'), close: () => clvClose('clv-report-modal') },
 ];
 function navAnyOverlay(){ return NAV_OVERLAYS.some(o => o.isOpen()); }
