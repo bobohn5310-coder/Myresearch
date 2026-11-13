@@ -1,0 +1,593 @@
+{
+ "collected_at": "2026-11-13",
+ "note": "운영자 시범 수집: 반도체 분야 연구실 공개 정보. 개인 연락처·학생 정보 없음.",
+ "labs": [
+  {
+   "univ": "서울대학교",
+   "dept": "재료공학부",
+   "lab_name": "DTFL 연구실",
+   "prof": "황철성",
+   "field": "차세대 메모리(DRAM·FeRAM·ReRAM)·산화물 TFT 박막",
+   "homepage": "http://dtfl.snu.ac.kr/",
+   "source_url": "https://mse.snu.ac.kr/hwang-cheol-seong/",
+   "papers": [
+    {
+     "title": "Resistive switching materials for information processing",
+     "venue": "Nature Reviews Materials",
+     "year": 2020,
+     "doi_or_url": "https://doi.org/10.1038/s41578-019-0159-3",
+     "verified_via": "openalex"
+    },
+    {
+     "title": "The fundamentals and applications of ferroelectric HfO2",
+     "venue": "Nature Reviews Materials",
+     "year": 2022,
+     "doi_or_url": "https://doi.org/10.1038/s41578-022-00431-2",
+     "verified_via": "openalex"
+    }
+   ],
+   "notes": "학과 페이지에 연구실 정식 이름이 없어 홈페이지 주소 약칭으로 표기"
+  },
+  {
+   "univ": "서울대학교",
+   "dept": "재료공학부",
+   "lab_name": "강유전체 소자 연구실(가칭)",
+   "prof": "박민혁",
+   "field": "강유전체 HfO2 소자, 뉴로모픽·메모리",
+   "homepage": "https://nano.snu.ac.kr/",
+   "source_url": "https://mse.snu.ac.kr/park-min-hyuk/",
+   "papers": [
+    {
+     "title": "The fundamentals and applications of ferroelectric HfO2",
+     "venue": "Nature Reviews Materials",
+     "year": 2022,
+     "doi_or_url": "https://doi.org/10.1038/s41578-022-00431-2",
+     "verified_via": "openalex"
+    },
+    {
+     "title": "Next generation ferroelectric materials for semiconductor process integration and their applications",
+     "venue": "Journal of Applied Physics",
+     "year": 2021,
+     "doi_or_url": "https://doi.org/10.1063/5.0037617",
+     "verified_via": "openalex"
+    }
+   ],
+   "notes": "연구실 정식 이름 미확인, 연구 분야로 가칭 표기"
+  },
+  {
+   "univ": "서울대학교",
+   "dept": "재료공학부",
+   "lab_name": "저차원 소재·소자 연구실(가칭)",
+   "prof": "이관형",
+   "field": "2D 반도체 소재(TMD·그래핀) 소자, 대면적 성장",
+   "homepage": "https://gwangroup.snu.ac.kr",
+   "source_url": "https://mse.snu.ac.kr/%ec%9d%b4%ea%b4%80%ed%98%95/",
+   "papers": [
+    {
+     "title": "2D semiconducting materials for electronic and optoelectronic applications: potential and challenge",
+     "venue": "2D Materials",
+     "year": 2019,
+     "doi_or_url": "https://doi.org/10.1088/2053-1583/ab6267",
+     "verified_via": "openalex"
+    },
+    {
+     "title": "Artificial Neuron and Synapse Devices Based on 2D Materials",
+     "venue": "Small",
+     "year": 2021,
+     "doi_or_url": "https://doi.org/10.1002/smll.202100640",
+     "verified_via": "openalex"
+    }
+   ],
+   "notes": "연구실 정식 이름 미확인, 연구 분야로 가칭 표기"
+  },
+  {
+   "univ": "한국과학기술원",
+   "dept": "전기및전자공학부",
+   "lab_name": "DSIL 연구실",
+   "prof": "권지민",
+   "field": "3D IC·첨단 패키징, 산화물 채널 DRAM 트랜지스터",
+   "homepage": "https://dsil.kaist.ac.kr/",
+   "source_url": "https://ee.kaist.ac.kr/professor-s1/",
+   "papers": [
+    {
+     "title": "Monolithic 3D-Integrated All-Solid Ion-Gated Carbon Nanotube Transistors With Tunable Ionic Conductance for Multi-Timescale Reservoir Computing",
+     "venue": "Advanced Materials",
+     "year": 2026,
+     "doi_or_url": "https://doi.org/10.1002/adma.202523703",
+     "verified_via": "openalex"
+    },
+    {
+     "title": "High-Bandwidth Interconnects Fabricated by Electrohydrodynamic Printing on Glass",
+     "venue": "IEEE FLEPS 2026",
+     "year": 2026,
+     "doi_or_url": "https://doi.org/10.1109/fleps69128.2026.11645041",
+     "verified_via": "openalex"
+    }
+   ],
+   "notes": "연구실 정식 이름 미확인, 홈페이지 주소 약칭으로 표기"
+  },
+  {
+   "univ": "한국과학기술원",
+   "dept": "전기및전자공학부",
+   "lab_name": "LESL 연구실",
+   "prof": "이가영",
+   "field": "저차원 반도체 소재·소자, 반도체 물리",
+   "homepage": "https://lesl.kaist.ac.kr/",
+   "source_url": "https://ee.kaist.ac.kr/professor-s1/?page=2",
+   "papers": [
+    {
+     "title": "Binary-to-Ternary Reconfigurable Transistors Using Plasma-Assisted MoS2",
+     "venue": "Advanced Functional Materials",
+     "year": 2026,
+     "doi_or_url": "https://doi.org/10.1002/adfm.77555",
+     "verified_via": "openalex"
+    },
+    {
+     "title": "Cryogenic Hole Transport in 2D Indium Selenide",
+     "venue": "ACS Nano",
+     "year": 2026,
+     "doi_or_url": "https://doi.org/10.1021/acsnano.6c07680",
+     "verified_via": "openalex"
+    }
+   ],
+   "notes": "연구실 정식 이름 미확인, 홈페이지 주소 약칭으로 표기"
+  },
+  {
+   "univ": "한국과학기술원",
+   "dept": "전기및전자공학부",
+   "lab_name": "고속나노전자 연구실(HSNL)",
+   "prof": "양경훈",
+   "field": "GaN HEMT·THz 소자, MMIC",
+   "homepage": "http://hsnl.kaist.ac.kr",
+   "source_url": "https://ee.kaist.ac.kr/professor-s1/?page=2",
+   "papers": [
+    {
+     "title": "Investigation of Gate Field-Plate Effects on fmax Improvement in GaN HEMTs for RF Applications",
+     "venue": "IEEE Transactions on Electron Devices",
+     "year": 2026,
+     "doi_or_url": "https://doi.org/10.1109/ted.2026.3705009",
+     "verified_via": "openalex"
+    },
+    {
+     "title": "fmax of 411 GHz in Al0.4Ga0.6N/GaN HEMTs with Al0.08Ga0.92N Back-barrier for Future RF Applications",
+     "venue": "APMC 2025",
+     "year": 2025,
+     "doi_or_url": "https://doi.org/10.1109/apmc65046.2025.11378567",
+     "verified_via": "openalex"
+    }
+   ],
+   "notes": "연구실 영문명(High Speed Nanoelectronics Lab)은 논문 소속 표기에서 확인"
+  },
+  {
+   "univ": "한국과학기술원",
+   "dept": "전기및전자공학부",
+   "lab_name": "VLSI 회로 연구실(가칭)",
+   "prof": "김봉진",
+   "field": "VLSI 회로·칩 설계, 저전력 가속기",
+   "homepage": "http://bongjin.com",
+   "source_url": "https://ee.kaist.ac.kr/professor-s1/",
+   "papers": [
+    {
+     "title": "Verifica: Near-Memory Symbolic Interval Computing Formal Neural Network Verification Accelerator",
+     "venue": "IEEE Journal of Solid-State Circuits",
+     "year": 2026,
+     "doi_or_url": "https://doi.org/10.1109/jssc.2026.3707324",
+     "verified_via": "openalex"
+    },
+    {
+     "title": "COBI: A Degree-of-56 Column-Bipartite Densely Connected Digital Ising Chip with 8b Spin Coefficients",
+     "venue": "IEEE ISSCC 2026",
+     "year": 2026,
+     "doi_or_url": "https://doi.org/10.1109/isscc49663.2026.11409141",
+     "verified_via": "openalex"
+    },
+    {
+     "title": "Verifica: A 65nm In-Memory Symbolic Interval Computing Accelerator for a Formal Neural Network Verification",
+     "venue": "IEEE A-SSCC 2025",
+     "year": 2025,
+     "doi_or_url": "https://doi.org/10.1109/a-sscc67472.2025.11349404",
+     "verified_via": "openalex"
+    }
+   ],
+   "notes": "연구실 정식 이름 미확인, 연구 분야로 가칭 표기. 홈페이지는 학과 페이지에 적힌 개인 사이트"
+  },
+  {
+   "univ": "포항공과대학교",
+   "dept": "전자전기공학과",
+   "lab_name": "나노소자 및 공정 연구실",
+   "prof": "이정수",
+   "field": "나노소자·공정, 3D NAND 신뢰성",
+   "homepage": "http://ndp.postech.ac.kr",
+   "source_url": "https://ee.postech.ac.kr/faculty-research/professor/view.php?id=310",
+   "papers": [],
+   "notes": "연구실 홈페이지의 논문은 공개 서지정보로 교차 확인이 안 돼 제외"
+  },
+  {
+   "univ": "포항공과대학교",
+   "dept": "전자전기공학과",
+   "lab_name": "미래소자및회로 연구실",
+   "prof": "백록현",
+   "field": "로직·메모리 소자(FinFET/GAA, 3D NAND, DRAM), 공정 최적화",
+   "homepage": "https://team.postech.ac.kr",
+   "source_url": "https://ee.postech.ac.kr/faculty-research/professor/view.php?id=303",
+   "papers": [
+    {
+     "title": "Tailored Local Dielectrics via Area-Selective ALD for Co-Optimizing Performance and Reliability in 3D NAND Flash Memory",
+     "venue": "ACS Applied Electronic Materials",
+     "year": 2026,
+     "doi_or_url": "https://doi.org/10.1021/acsaelm.6c01057",
+     "verified_via": "openalex+연구실 홈페이지"
+    },
+    {
+     "title": "Physical Analysis of Stress-Induced Multilevel and Fast Random Telegraph Noise in BCAT DRAM Devices",
+     "venue": "IEEE Transactions on Electron Devices",
+     "year": 2026,
+     "doi_or_url": "https://doi.org/10.1109/ted.2026.3735280",
+     "verified_via": "openalex"
+    },
+    {
+     "title": "Submelt continuous-wave laser annealing for diffusion-suppressed and highly activated boron ultra-shallow junction formation",
+     "venue": "Materials Science in Semiconductor Processing",
+     "year": 2026,
+     "doi_or_url": "https://doi.org/10.1016/j.mssp.2026.111325",
+     "verified_via": "openalex"
+    }
+   ]
+  },
+  {
+   "univ": "포항공과대학교",
+   "dept": "전자전기공학과",
+   "lab_name": "RF Circuit and System Lab",
+   "prof": "송호진",
+   "field": "THz·mmWave RFIC, InP/CMOS 회로, 레이더",
+   "homepage": "http://mad.postech.ac.kr/",
+   "source_url": "https://ee.postech.ac.kr/faculty-research/professor/view.php?id=320",
+   "papers": [
+    {
+     "title": "A D-Band 2-D Phased-Array Transceiver Module With Aperiodic Subarray Configuration in Fan-Out Wafer-Level Packaging",
+     "venue": "IEEE Transactions on Microwave Theory and Techniques",
+     "year": 2026,
+     "doi_or_url": "https://doi.org/10.1109/tmtt.2026.3712400",
+     "verified_via": "openalex+연구실 홈페이지"
+    },
+    {
+     "title": "An E-Band Radar Transceiver With Daisy-Chained Wireless Chirp Synchronization for Scalable Multistatic Radar Networks",
+     "venue": "IEEE Transactions on Microwave Theory and Techniques",
+     "year": 2026,
+     "doi_or_url": "https://doi.org/10.1109/tmtt.2026.3678366",
+     "verified_via": "openalex+연구실 홈페이지"
+    }
+   ]
+  },
+  {
+   "univ": "포항공과대학교",
+   "dept": "전자전기공학과",
+   "lab_name": "지능형 반도체 및 웨어러블 디바이스 연구실",
+   "prof": "정윤영",
+   "field": "산화물 반도체(IGZO) 소자, 메모리·시냅스 소자",
+   "homepage": "http://chunglab.postech.ac.kr",
+   "source_url": "https://ee.postech.ac.kr/faculty-research/professor/view.php?id=307",
+   "papers": [],
+   "notes": "연구실 홈페이지의 논문은 공개 서지정보로 교차 확인이 안 돼 제외"
+  },
+  {
+   "univ": "포항공과대학교",
+   "dept": "전자전기공학과",
+   "lab_name": "CAD 및 SoC 설계 연구실",
+   "prof": "강석형",
+   "field": "집적회로 CAD, SoC 설계 자동화",
+   "homepage": "http://soc.postech.ac.kr",
+   "source_url": "https://ee.postech.ac.kr/faculty-research/professor/view.php?id=5663",
+   "papers": [
+    {
+     "title": "Timing- and Power-Aware Differentiable Repair of Minimum Implant Area Violations",
+     "venue": "ISLPED 2026",
+     "year": 2026,
+     "doi_or_url": "https://doi.org/10.1145/3816440.3818572",
+     "verified_via": "openalex"
+    },
+    {
+     "title": "Differentiable Fill Insertion with Explicit Delay Optimization",
+     "venue": "DAC 2026",
+     "year": 2026,
+     "doi_or_url": "https://doi.org/10.1145/3770743.3804006",
+     "verified_via": "openalex"
+    },
+    {
+     "title": "GTX: Graph Transformer for Parasitic EXtraction on Analog Circuits",
+     "venue": "DAC 2026",
+     "year": 2026,
+     "doi_or_url": "https://doi.org/10.1145/3770743.3804289",
+     "verified_via": "openalex"
+    }
+   ]
+  },
+  {
+   "univ": "연세대학교",
+   "dept": "전기전자공학부",
+   "lab_name": "반도체 공학 연구실",
+   "prof": "윤일구",
+   "field": "반도체 소자·공정 (산화물 TFT, GaN 소자, TCAD)",
+   "homepage": "https://semicim.yonsei.ac.kr",
+   "source_url": "https://ee.yonsei.ac.kr/ee/research/lab.do",
+   "papers": [
+    {
+     "title": "Model Implementations and analysis of MIS-gated GaN light emitting transistor",
+     "venue": "Displays",
+     "year": 2026,
+     "doi_or_url": "https://doi.org/10.1016/j.displa.2026.103586",
+     "verified_via": "openalex"
+    },
+    {
+     "title": "High-performance oxide semiconductor TFT with a-IGZO/In-rich a-IGZO heterostructure using quantum confinement effects: Enhancing mobility and reliability",
+     "venue": "Journal of Alloys and Compounds",
+     "year": 2025,
+     "doi_or_url": "https://doi.org/10.1016/j.jallcom.2025.182035",
+     "verified_via": "openalex"
+    },
+    {
+     "title": "Comparative analysis of capacitorless DRAM performance according to stacked junctionless gate-all-around structures",
+     "venue": "Solid-State Electronics",
+     "year": 2024,
+     "doi_or_url": "https://doi.org/10.1016/j.sse.2024.109036",
+     "verified_via": "openalex"
+    }
+   ]
+  },
+  {
+   "univ": "연세대학교",
+   "dept": "전기전자공학부",
+   "lab_name": "차세대 반도체 소자 및 시스템 연구실",
+   "prof": "이명재",
+   "field": "차세대 반도체 소자 및 시스템",
+   "homepage": "https://sites.google.com/view/adslab",
+   "source_url": "https://ee.yonsei.ac.kr/ee/research/lab.do",
+   "papers": [],
+   "notes": "논문 교차 확인 실패(동명이인 구분 불가)로 논문 미포함"
+  },
+  {
+   "univ": "연세대학교",
+   "dept": "전기전자공학부",
+   "lab_name": "나노소자 연구실",
+   "prof": "김형준",
+   "field": "나노소자·원자층증착(ALD)·2D 반도체 박막",
+   "homepage": "http://nanodevice.yonsei.ac.kr",
+   "source_url": "https://ee.yonsei.ac.kr/ee/research/lab.do",
+   "papers": [
+    {
+     "title": "Surface-Reaction-Controlled Initial Growth of Ir-Rich IrTex Thin Films via ABC-Type Atomic Layer Deposition",
+     "venue": "Nano Letters",
+     "year": 2026,
+     "doi_or_url": "https://doi.org/10.1021/acs.nanolett.6c03219",
+     "verified_via": "openalex"
+    },
+    {
+     "title": "Regulating surface reaction pathways in Al2O3 atomic layer deposition through sequential oxidant exposure for MoS2 transistors",
+     "venue": "Surfaces and Interfaces",
+     "year": 2026,
+     "doi_or_url": "https://doi.org/10.1016/j.surfin.2026.110643",
+     "verified_via": "openalex"
+    }
+   ]
+  },
+  {
+   "univ": "연세대학교",
+   "dept": "전기전자공학부",
+   "lab_name": "IDC 시스템 설계 연구실",
+   "prof": "윤홍일",
+   "field": "집적 소자·회로 설계, 저전력 회로",
+   "homepage": "https://sites.google.com/yonsei.ac.kr/idclaboratory/%ED%99%88",
+   "source_url": "https://ee.yonsei.ac.kr/ee/research/lab.do",
+   "papers": [
+    {
+     "title": "A Compact Low-Voltage and Low-Power Flip-Flop with Static, Contention-Free, and Redundant-Transition-Free Operation",
+     "venue": "IEEE ISCAS 2026",
+     "year": 2026,
+     "doi_or_url": "https://doi.org/10.1109/iscas66217.2026.11562632",
+     "verified_via": "openalex"
+    },
+    {
+     "title": "A Low-Power Sense Amplifier-Based Flip-Flop Using a Conditional Capture Method",
+     "venue": "Electronics (MDPI)",
+     "year": 2026,
+     "doi_or_url": "https://doi.org/10.3390/electronics15091819",
+     "verified_via": "openalex"
+    }
+   ]
+  },
+  {
+   "univ": "연세대학교",
+   "dept": "전기전자공학부",
+   "lab_name": "컴퓨터 시스템 및 고신뢰성 SoC 연구실",
+   "prof": "강성호",
+   "field": "고신뢰성 SoC, VLSI 테스트·내결함성",
+   "homepage": "http://soc.yonsei.ac.kr/",
+   "source_url": "https://ee.yonsei.ac.kr/ee/research/lab.do",
+   "papers": [
+    {
+     "title": "PRAISE: Parallel Redundancy Analysis Using Isomorphism-Based Solution Encoding",
+     "venue": "IEEE Transactions on VLSI Systems",
+     "year": 2026,
+     "doi_or_url": "https://doi.org/10.1109/tvlsi.2026.3704618",
+     "verified_via": "openalex"
+    },
+    {
+     "title": "Deep-Learning-Based PRPG Configuration Inference for Efficient LBIST",
+     "venue": "IEEE Transactions on VLSI Systems",
+     "year": 2026,
+     "doi_or_url": "https://doi.org/10.1109/tvlsi.2026.3700112",
+     "verified_via": "openalex"
+    }
+   ]
+  },
+  {
+   "univ": "한양대학교",
+   "dept": "융합전자공학부",
+   "lab_name": "Advanced Reliable Component Lab",
+   "prof": "신상훈",
+   "field": "차세대 반도체 소자 신뢰성",
+   "homepage": "https://sites.google.com/view/semi-arclab/home",
+   "source_url": "https://eece.hanyang.ac.kr/-26",
+   "papers": [],
+   "notes": "논문은 공개 서지정보 확인을 끝내지 못해 미포함"
+  },
+  {
+   "univ": "한양대학교",
+   "dept": "융합전자공학부",
+   "lab_name": "나노전자소자 연구실(NDL)",
+   "prof": "이승백",
+   "field": "나노전자소자, 차세대 비휘발성 메모리",
+   "homepage": "https://sites.google.com/view/ndllab",
+   "source_url": "https://semi.hanyang.ac.kr/about/professor.php",
+   "papers": [],
+   "notes": "논문은 공개 서지정보 확인을 끝내지 못해 미포함"
+  },
+  {
+   "univ": "한양대학교",
+   "dept": "융합전자공학부",
+   "lab_name": "첨단반도체소재/소자개발 연구실",
+   "prof": "박재근",
+   "field": "반도체 소재·소자 (STT-MRAM, CBRAM, CMP)",
+   "homepage": "http://asmddc.hanyang.ac.kr",
+   "source_url": "https://semi.hanyang.ac.kr/about/professor.php",
+   "papers": [],
+   "notes": "논문은 공개 서지정보 확인을 끝내지 못해 미포함"
+  },
+  {
+   "univ": "한양대학교",
+   "dept": "융합전자공학부",
+   "lab_name": "Thin Films and Nano-Device Lab",
+   "prof": "박진석",
+   "field": "박막·나노소자, 유연 전자소자",
+   "homepage": "https://eece.hanyang.ac.kr/-26",
+   "source_url": "https://eece.hanyang.ac.kr/-26",
+   "papers": [],
+   "notes": "연구실 홈페이지가 없어 학과 교수 목록 링크로 대신함. 논문 미포함"
+  },
+  {
+   "univ": "한양대학교",
+   "dept": "융합전자공학부",
+   "lab_name": "인공지능 반도체 소자 및 센서 시스템 연구실",
+   "prof": "오세용",
+   "field": "인공지능 반도체 소자, 2D 소재, 뉴로모픽",
+   "homepage": "https://seyongoh89site.wixsite.com/profseyongoh",
+   "source_url": "https://eece.hanyang.ac.kr/-26",
+   "papers": [],
+   "notes": "논문은 공개 서지정보 확인을 끝내지 못해 미포함"
+  },
+  {
+   "univ": "성균관대학교",
+   "dept": "반도체시스템공학과",
+   "lab_name": "TEBL 연구실",
+   "prof": "권기원",
+   "field": "반도체 회로·소자 (메모리 회로, 3D IC)",
+   "homepage": "https://sites.google.com/view/skku-tebl/home",
+   "source_url": "https://semi.skku.edu/semi/intro/professor_concurrent.do",
+   "papers": [
+    {
+     "title": "Hybrid bonding base grounded thermal through silicone vias(G-TTSV) for 3D heterogenous integration",
+     "venue": "Materials Science in Semiconductor Processing",
+     "year": 2026,
+     "doi_or_url": "https://doi.org/10.1016/j.mssp.2026.110901",
+     "verified_via": "openalex"
+    },
+    {
+     "title": "Electro-thermal analysis of CFETs with a dual-substrate architecture",
+     "venue": "Semiconductor Science and Technology",
+     "year": 2026,
+     "doi_or_url": "https://doi.org/10.1088/1361-6641/ae6362",
+     "verified_via": "openalex"
+    },
+    {
+     "title": "A Balanced Shorted-Latch Sense Amplifier with PMOS Equalizer for Latency-Yield-Area Co-Optimization",
+     "venue": "ICEIC 2026",
+     "year": 2026,
+     "doi_or_url": "https://doi.org/10.1109/iceic69189.2026.11386330",
+     "verified_via": "openalex"
+    }
+   ],
+   "notes": "학과 페이지에 연구실 이름이 없어 홈페이지 주소의 약칭으로 표기"
+  },
+  {
+   "univ": "성균관대학교",
+   "dept": "반도체시스템공학과",
+   "lab_name": "ISDL 연구실",
+   "prof": "공배선",
+   "field": "VLSI 시스템 설계 (혼합신호 IC)",
+   "homepage": "https://sites.google.com/view/skkuisdl",
+   "source_url": "https://semi.skku.edu/semi/intro/professor_concurrent.do",
+   "papers": [],
+   "notes": "학과 페이지에 연구실 이름이 없어 홈페이지 주소의 약칭으로 표기. 2019년 이후 논문을 공개 서지정보로 확인하지 못해 논문 미포함"
+  },
+  {
+   "univ": "성균관대학교",
+   "dept": "반도체시스템공학과",
+   "lab_name": "전파공학연구실",
+   "prof": "김병성",
+   "field": "RFIC·밀리미터파 IC 설계, 레이더",
+   "homepage": "http://rfmd.skku.ac.kr",
+   "source_url": "https://semi.skku.edu/semi/intro/professor_concurrent.do",
+   "papers": [
+    {
+     "title": "A 0.04-mm2 59.3-to-66 GHz Continuously Tunable VCO Using a Class-F Push-Push Technique with Compact Double-Tuned Resonator",
+     "venue": "Journal of Electromagnetic Engineering and Science",
+     "year": 2026,
+     "doi_or_url": "https://doi.org/10.26866/jees.2026.6.l.33",
+     "verified_via": "openalex"
+    },
+    {
+     "title": "Compact Near-Field Calibration of Sparse MIMO Array Radar via Two-Range Interferometric Processing",
+     "venue": "EuRAD 2026",
+     "year": 2026,
+     "doi_or_url": "https://doi.org/10.23919/eurad69232.2026.11747789",
+     "verified_via": "openalex"
+    }
+   ]
+  },
+  {
+   "univ": "성균관대학교",
+   "dept": "반도체시스템공학과",
+   "lab_name": "EEMIX 연구실",
+   "prof": "최재혁",
+   "field": "CMOS 이미지·LiDAR 센서, 혼합신호 IC",
+   "homepage": "https://sites.google.com/view/eemix",
+   "source_url": "https://semi.skku.edu/semi/intro/professor_concurrent.do",
+   "papers": [
+    {
+     "title": "QVGA CMOS LiDAR Sensor With nMOS-Only SPAD Analog Front-End and Area-Efficient Priority Histogramming TDC",
+     "venue": "IEEE Journal of Solid-State Circuits",
+     "year": 2026,
+     "doi_or_url": "https://doi.org/10.1109/jssc.2026.3687569",
+     "verified_via": "openalex"
+    },
+    {
+     "title": "A Neural-Feedback-Driven Event Camera for Robust and Efficient Vision Processing",
+     "venue": "ISLPED 2026",
+     "year": 2026,
+     "doi_or_url": "https://doi.org/10.1145/3816440.3818514",
+     "verified_via": "openalex"
+    }
+   ],
+   "notes": "학과 페이지에 연구실 이름이 없어 홈페이지 주소의 약칭으로 표기"
+  },
+  {
+   "univ": "성균관대학교",
+   "dept": "반도체시스템공학과",
+   "lab_name": "ADND 연구실",
+   "prof": "최병덕",
+   "field": "반도체·디스플레이 소자 신뢰성, TFT, 메모리",
+   "homepage": "http://swb.skku.edu/adnd",
+   "source_url": "https://semi.skku.edu/semi/intro/professor_concurrent.do",
+   "papers": [
+    {
+     "title": "A Flexible Complementary Memristive Synapse for Convolutional Neural Network Applications",
+     "venue": "ACS Nano",
+     "year": 2026,
+     "doi_or_url": "https://doi.org/10.1021/acsnano.6c14396",
+     "verified_via": "openalex"
+    }
+   ],
+   "notes": "학과 페이지에 연구실 이름이 없어 홈페이지 주소의 약칭으로 표기"
+  }
+ ]
+}
