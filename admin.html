@@ -504,7 +504,7 @@
             style="flex:1;min-width:180px;padding:8px 12px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:13px;font-family:'Noto Sans KR',sans-serif;">
           <select id="cl-filter" onchange="renderCloverAdmin()" style="padding:8px 10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:13px;font-family:'Noto Sans KR',sans-serif;">
             <option value="">전체</option><option value="near">곧 공개 (4~5명)</option><option value="open">공개됨 (6명 이상)</option>
-            <option value="hidden">가려짐</option><option value="reported">신고 대기 있음</option>
+            <option value="hidden">가려짐</option><option value="reported">신고 대기 있음</option><option value="admin">운영자 등록</option><option value="member">회원 등록</option>
           </select>
         </div>
         <div class="table-wrap"><table>
@@ -1354,7 +1354,8 @@ async function loadCloverAdmin() {
     chip('공개됨 (6명+)', _labs.filter(l => l.cnt >= 6).length) +
     chip('곧 공개 (4~5명)', _labs.filter(l => l.cnt >= 4 && l.cnt < 6).length) +
     chip('전체 참여', _labs.reduce((a, l) => a + l.cnt, 0)) +
-    chip('가려진 연구실', _labs.filter(l => l.hidden).length);
+    chip('가려진 연구실', _labs.filter(l => l.hidden).length) +
+    chip('운영자 등록', _labs.filter(l => l.source === 'admin').length);
   renderCloverAdmin();
 }
 function renderCloverAdmin() {
@@ -1363,11 +1364,11 @@ function renderCloverAdmin() {
   const f = document.getElementById('cl-filter')?.value || '';
   const list = _labs.filter(l =>
     (!q || [l.univ, l.dept, l.name, l.topic].some(x => (x || '').toLowerCase().includes(q))) &&
-    (!f || (f === 'near' ? l.cnt >= 4 && l.cnt < 6 : f === 'open' ? l.cnt >= 6 : f === 'hidden' ? l.hidden : l.pending_reports > 0)));
+    (!f || (f === 'near' ? l.cnt >= 4 && l.cnt < 6 : f === 'open' ? l.cnt >= 6 : f === 'hidden' ? l.hidden : f === 'admin' ? l.source === 'admin' : f === 'member' ? l.source !== 'admin' : l.pending_reports > 0)));
   if(!list.length) { body.innerHTML = '<tr><td colspan="7"><div class="empty-state"><div class="emoji">🍀</div>해당하는 연구실이 없어요.</div></td></tr>'; return; }
   body.innerHTML = list.map(l => `<tr>
     <td style="font-size:13px;">${esc(l.univ)}<br><span style="color:#64748b;">${esc(l.dept)}</span></td>
-    <td style="font-size:13px;font-weight:700;">${esc(l.name)}${l.topic ? `<div style="font-weight:400;color:#94a3b8;font-size:12px;">${esc(l.topic)}</div>` : ''}</td>
+    <td style="font-size:13px;font-weight:700;">${esc(l.name)}${l.source === 'admin' ? ' <span class="badge" style="background:#ecfdf5;color:#047857;">운영자 등록</span>' : ''}${l.homepage && /^https?:\/\//.test(l.homepage) ? ` <a href="${esc(l.homepage)}" target="_blank" rel="noopener" style="font-weight:400;font-size:12px;">홈페이지</a>` : ''}${l.papers ? `<span style="font-weight:400;color:#64748b;font-size:12px;"> · 대표 논문 ${l.papers}편</span>` : ''}${l.topic ? `<div style="font-weight:400;color:#94a3b8;font-size:12px;">${esc(l.topic)}</div>` : ''}</td>
     <td style="font-size:13px;">${esc(l.prof || '-')}</td>
     <td style="white-space:nowrap;"><b style="font-size:15px;">${l.cnt}</b><span style="color:#94a3b8;font-size:12px;"> / 6</span>
       <div style="height:5px;width:70px;background:#f1f5f9;border-radius:4px;margin-top:4px;"><div style="height:5px;width:${Math.min(100, l.cnt / 6 * 100)}%;background:${l.cnt >= 6 ? '#059669' : l.cnt >= 4 ? '#f59e0b' : '#cbd5e1'};border-radius:4px;"></div></div></td>
