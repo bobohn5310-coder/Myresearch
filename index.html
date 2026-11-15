@@ -62,7 +62,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 <link rel="preconnect" href="https://ryikaxrcgfrgaczmmgnh.supabase.co">
-<link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js">
+<link rel="preload" as="script" href="/vendor/supabase-js-2.117.3.js">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -3335,7 +3335,7 @@ a { text-decoration: none; color: inherit; }
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.3/dist/umd/supabase.js"></script>
+<script src="/vendor/supabase-js-2.117.3.js"></script>
 <script>
 
 // ── 전역 변수 선언 ──
@@ -3699,23 +3699,53 @@ function bannerSlide(dir) {
 
 
 
+// 연구소식: 홈과 첫 화면에 필요한 최근 100건을 먼저 받아 바로 그리고,
+// 나머지는 페이지가 다 열린 뒤 한가할 때 이어서 받는다 (첫 로딩 데이터 약 450KB → 약 45KB)
+const NEWS_COLS = 'id,org,field,tag,title,date,content,url,image_url,source';
+const NEWS_FIRST = 100;
+let _newsSeq = 0;
+function newsRow(n){
+  return {
+    id: n.id, org: n.org, field: n.field, tag: n.tag || '',
+    title: n.title, date: n.date,
+    content: n.content || '',
+    url: infoLink(n),
+    image_url: n.image_url || ''
+  };
+}
+function whenPageIdle(){
+  return new Promise(res => {
+    const go = () => window.requestIdleCallback ? requestIdleCallback(() => res(), { timeout: 3000 }) : setTimeout(res, 300);
+    if(document.readyState === 'complete') go(); else window.addEventListener('load', go, { once: true });
+  });
+}
 async function fetchNewsFromDB() {
   if(!sbClient) return;
-  const { data, error } = await sbClient.from('news').select('id,org,field,tag,title,date,content,url,image_url,source').order('date', { ascending: false });
-  if(error || !data) return;
+  const seq = ++_newsSeq;   // 다시 불러오기가 겹치면 마지막 것만 반영
+  const q = () => sbClient.from('news').select(NEWS_COLS)
+    .order('date', { ascending: false }).order('id', { ascending: false });
+  const { data, error } = await q().range(0, NEWS_FIRST - 1);
+  if(seq !== _newsSeq || error || !data) return;
   // DB 데이터로 NEWS 배열 교체
   NEWS.length = 0;
-  data.forEach(n => {
-    NEWS.push({
-      id: n.id, org: n.org, field: n.field, tag: n.tag || '',
-      title: n.title, date: n.date,
-      content: n.content || '',
-      url: infoLink(n),
-      image_url: n.image_url || ''
-    });
-  });
+  data.forEach(n => NEWS.push(newsRow(n)));
   renderNews();
   renderHomeNews();
+  if(data.length < NEWS_FIRST) return;
+
+  await whenPageIdle();
+  const rest = [];
+  for(let from = NEWS_FIRST; ; from += 1000){
+    const { data: page, error: e2 } = await q().range(from, from + 999);
+    if(seq !== _newsSeq) return;
+    if(e2 || !page) break;
+    rest.push(...page);
+    if(page.length < 1000) break;
+  }
+  if(!rest.length) return;
+  // 앞의 100건 순서는 그대로 두고 뒤에 이어 붙인다 (이미 연 소식 번호가 바뀌지 않게)
+  rest.forEach(n => NEWS.push(newsRow(n)));
+  renderNews();
 }
 
 function switchInfoTab(el, type){
@@ -4423,7 +4453,8 @@ async function fetchInfoFromDB() {
   // Supabase 는 한 번에 최대 1000건을 돌려주므로 나눠서 모두 불러온다
   const data = [];
   for(let from = 0; ; from += 1000){
-    const { data: page, error } = await sbClient.from('academic_info').select('*')
+    const { data: page, error } = await sbClient.from('academic_info')
+      .select('type,field,title,org,date,content,url,start_date,end_date,tags,location,source,abstract_deadline,registration_deadline')
       .order('created_at', { ascending: false }).range(from, from + 999);
     if(error || !page) { if(!data.length) return; break; }
     data.push(...page);
@@ -4595,6 +4626,8 @@ async function loadPapers(){
   }
   renderHomePapers();
 }
+// Nature 그림은 원본(가로 685px) 대신 작은 크기(가로 240px)로 받는다. 작은 크기가 없으면 원본으로 다시 시도.
+function paperThumb(u){ return /^https:\/\/media\.springernature\.com\/lw685\//.test(u) ? u.replace('/lw685/', '/w240/') : u; }
 function morePapers(j){ PAPER_SHOW[j] += PAPER_STEP; renderHomePapers(); }
 function fmtPaperDate(d){
   const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || '');
@@ -4629,7 +4662,7 @@ function renderHomePapers(){
           ${p.summary ? `<div class="hp-s">${escHtml(p.summary)}</div>` : ''}
           <div class="hp-m"><em>${escHtml(p.tag || '')}</em>${p.tag ? ' · ' : ''}${escHtml(fmtPaperDate(p.date))}</div>
         </div>
-        ${safeUrl(p.image) ? `<img class="hp-img" src="${escHtml(safeUrl(p.image))}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.remove('has-img');this.remove()">` : ''}
+        ${safeUrl(p.image) ? `<img class="hp-img" src="${escHtml(paperThumb(safeUrl(p.image)))}" data-orig="${escHtml(safeUrl(p.image))}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="if(this.dataset.orig&&this.src!==this.dataset.orig){this.src=this.dataset.orig;this.dataset.orig='';}else{this.parentNode.classList.remove('has-img');this.remove()}">` : ''}
       </a>`).join('');
     return `<div class="hp-journal-col">
       <a class="hp-cover-wrap" href="${escHtml(home)}" target="_blank" rel="noopener noreferrer">
@@ -4685,8 +4718,8 @@ renderHomeHero();
 loadPapers();
 
 // DB에서 실제 데이터 불러오기
+fetchInfoFromDB();   // 홈 학회 목록이 먼저 그려지도록 학회부터 요청
 fetchNewsFromDB();
-fetchInfoFromDB();
 fetchPostsFromDB();
 fetchBannersFromDB();
 
