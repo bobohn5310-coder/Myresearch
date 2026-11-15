@@ -3769,7 +3769,13 @@ function isDomesticInfo(d){
 function matchInfoQuery(d, q){
   if(!q) return true;
   const hay = [d.title, d.org, d.tags, d.location, d.content].join(' ').toLowerCase();
-  return q.split(/\s+/).filter(Boolean).every(w => hay.includes(w));
+  // 'aldale', 'apcm' 처럼 기호(/ | - .)나 띄어쓰기를 빼고 쳐도 'ALD/ALE', 'APC|M' 이 찾아지게 한다
+  const flat = hay.replace(/[^0-9a-z가-힣]/g, '');
+  return q.split(/\s+/).filter(Boolean).every(w => {
+    if(hay.includes(w)) return true;
+    const fw = w.replace(/[^0-9a-z가-힣]/g, '');
+    return fw.length >= 2 && flat.includes(fw);
+  });
 }
 
 // 학회 링크: WikiCFP로는 보내지 않는다. 공식 주소가 없으면 학회 이름으로 검색한 결과를 연다.
