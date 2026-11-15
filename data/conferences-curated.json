@@ -150,7 +150,8 @@
     "tags": "해외,반도체,박막,ALD,재료",
     "url": "https://ald2027.avs.org/",
     "abstract_deadline": "2027-02-04",
-    "registration_deadline": "2027-05-07"
+    "registration_deadline": "2027-05-07",
+    "keywords": "원자층증착 원자층식각 박막 증착 식각 aldale"
   },
   {
     "id": "avs-73",
@@ -162,7 +163,8 @@
     "field": "eng",
     "tags": "해외,반도체,박막,진공,표면,재료",
     "url": "https://avs73.avs.org/",
-    "abstract_deadline": "2027-05-05"
+    "abstract_deadline": "2027-05-05",
+    "keywords": "미국진공학회 진공 박막 표면 플라즈마"
   },
   {
     "id": "apcm-europe-2027",
@@ -173,7 +175,8 @@
     "location": "Croke Park, Dublin, Ireland",
     "field": "eng",
     "tags": "해외,반도체,공정제어,제조",
-    "url": "https://www.apcm-europe.eu/"
+    "url": "https://www.apcm-europe.eu/",
+    "keywords": "APCM 공정제어 반도체 제조"
   },
   {
     "id": "iedm-2026",
@@ -184,7 +187,8 @@
     "location": "Hilton San Francisco Union Square, San Francisco, CA, USA",
     "field": "eng",
     "tags": "해외,반도체,소자",
-    "url": "https://ieee-iedm.org/"
+    "url": "https://ieee-iedm.org/",
+    "keywords": "반도체 소자"
   },
   {
     "id": "iedm-2027",
@@ -195,7 +199,8 @@
     "location": "Hilton San Francisco Union Square, San Francisco, CA, USA",
     "field": "eng",
     "tags": "해외,반도체,소자",
-    "url": "https://ieee-iedm.org/"
+    "url": "https://ieee-iedm.org/",
+    "keywords": "반도체 소자"
   },
   {
     "id": "vlsi-2027",
@@ -207,7 +212,8 @@
     "field": "eng",
     "tags": "해외,반도체,소자,회로",
     "url": "https://www.vlsisymposium.org/",
-    "abstract_deadline": "2027-01-25"
+    "abstract_deadline": "2027-01-25",
+    "keywords": "반도체 소자 회로"
   },
   {
     "id": "isscc-2027",
@@ -218,7 +224,8 @@
     "location": "San Francisco Marriott Marquis, San Francisco, CA, USA",
     "field": "eng",
     "tags": "해외,반도체,회로",
-    "url": "https://www.isscc.org/"
+    "url": "https://www.isscc.org/",
+    "keywords": "반도체 회로 설계"
   },
   {
     "id": "pcsi-52",
@@ -231,7 +238,8 @@
     "tags": "해외,반도체,표면,물리",
     "url": "https://pcsi2027.avs.org/",
     "abstract_deadline": "2026-11-20",
-    "registration_deadline": "2026-12-04"
+    "registration_deadline": "2026-12-04",
+    "keywords": "표면 계면"
   },
   {
     "id": "icmctf-2027",
@@ -244,7 +252,8 @@
     "tags": "해외,박막,코팅,재료",
     "url": "https://icmctf2027.avs.org/",
     "abstract_deadline": "2027-02-22",
-    "registration_deadline": "2027-03-01"
+    "registration_deadline": "2027-03-01",
+    "keywords": "박막 코팅"
   },
   {
     "id": "nambe-2027",
@@ -257,7 +266,8 @@
     "tags": "해외,반도체,박막,에피택시",
     "url": "https://nambe2027.avs.org/",
     "abstract_deadline": "2027-03-02",
-    "registration_deadline": "2027-05-25"
+    "registration_deadline": "2027-05-25",
+    "keywords": "분자선 에피택시 MBE"
   },
   {
     "id": "emrs-spring-2027",
@@ -269,7 +279,8 @@
     "field": "eng",
     "tags": "해외,재료,나노,반도체",
     "url": "https://www.european-mrs.com/meetings/2027-spring-meeting-exhibit",
-    "abstract_deadline": "2027-01-20"
+    "abstract_deadline": "2027-01-20",
+    "keywords": "유럽재료학회 EMRS"
   },
   {
     "id": "irps-2027",
@@ -280,7 +291,8 @@
     "location": "Town and Country Resort, San Diego, CA, USA",
     "field": "eng",
     "tags": "해외,반도체,신뢰성",
-    "url": "https://www.irps.org/"
+    "url": "https://www.irps.org/",
+    "keywords": "신뢰성"
   },
   {
     "id": "ssdm-2027",
@@ -304,5 +316,147 @@
     "tags": "해외,물리,재료",
     "url": "https://summit.aps.org/",
     "registration_deadline": "2027-02-25"
+  },
+  {
+    "id": "asd-2027",
+    "title": "ASD 2027 (Area Selective Deposition Workshop)",
+    "org": "AVS Sponsored Topical Conference",
+    "keywords": "영역선택증착 선택적증착 원자층증착 ALD 박막",
+    "start_date": "2027-04-04",
+    "end_date": "2027-04-07",
+    "location": "Sentinel Hotel, Portland, OR, USA",
+    "field": "eng",
+    "tags": "해외,반도체,박막,ALD",
+    "url": "https://asd2027.org/",
+    "abstract_deadline": "2026-12-18",
+    "registration_deadline": "2027-02-19"
+  },
+  {
+    "id": "dps-2026",
+    "title": "DPS2026 (47th International Symposium on Dry Process)",
+    "org": "International Symposium on Dry Process",
+    "keywords": "건식식각 플라즈마 식각 드라이프로세스",
+    "start_date": "2026-11-19",
+    "end_date": "2026-11-20",
+    "location": "Tokyo International Exchange Center (Plaza Heisei), Tokyo, Japan",
+    "field": "eng",
+    "tags": "해외,반도체,플라즈마,식각",
+    "url": "https://www.dry-process.org/2026/"
+  },
+  {
+    "id": "spie-al-2027",
+    "title": "SPIE Advanced Lithography + Patterning 2027",
+    "org": "SPIE",
+    "keywords": "리소그래피 노광 EUV 패터닝",
+    "start_date": "2027-02-21",
+    "end_date": "2027-02-25",
+    "location": "San Jose McEnery Convention Center, San Jose, CA, USA",
+    "field": "eng",
+    "tags": "해외,반도체,리소그래피",
+    "url": "https://spie.org/conferences-and-exhibitions/advanced-lithography-and-patterning"
+  },
+  {
+    "id": "imw-2027",
+    "title": "IEEE IMW 2027 (19th International Memory Workshop)",
+    "org": "IEEE Electron Devices Society",
+    "keywords": "메모리 낸드 디램 NAND DRAM",
+    "start_date": "2027-05-09",
+    "end_date": "2027-05-12",
+    "location": "Monterey, CA, USA",
+    "field": "eng",
+    "tags": "해외,반도체,메모리",
+    "url": "https://ewh.ieee.org/soc/eds/imw",
+    "abstract_deadline": "2027-02-01",
+    "registration_deadline": "2027-04-16"
+  },
+  {
+    "id": "ispsd-2027",
+    "title": "IEEE ISPSD 2027 (39th International Symposium on Power Semiconductor Devices and ICs)",
+    "org": "IEEE",
+    "keywords": "전력반도체 파워반도체 SiC GaN",
+    "start_date": "2027-06-13",
+    "end_date": "2027-06-17",
+    "location": "Taipei, Taiwan",
+    "field": "eng",
+    "tags": "해외,반도체,전력반도체",
+    "url": "https://ieee-pels.org/conferences/conference-schedule"
+  },
+  {
+    "id": "ectc-2027",
+    "title": "IEEE ECTC 2027 (77th Electronic Components and Technology Conference)",
+    "org": "IEEE Electronics Packaging Society",
+    "keywords": "패키징 반도체패키지 첨단패키징",
+    "start_date": "2027-06-01",
+    "end_date": "2027-06-04",
+    "location": "Gaylord Rockies Resort & Convention Center, Denver, CO, USA",
+    "field": "eng",
+    "tags": "해외,반도체,패키징",
+    "url": "https://www.ectc.net/"
+  },
+  {
+    "id": "cicc-2027",
+    "title": "IEEE CICC 2027 (Custom Integrated Circuits Conference)",
+    "org": "IEEE Solid-State Circuits Society",
+    "keywords": "회로 설계 집적회로",
+    "start_date": "2027-04-18",
+    "end_date": "2027-04-21",
+    "location": "Westin San Diego Bayview, San Diego, CA, USA",
+    "field": "eng",
+    "tags": "해외,반도체,회로",
+    "url": "https://www.ieee-cicc.org/",
+    "abstract_deadline": "2026-11-16"
+  },
+  {
+    "id": "esserc-2027",
+    "title": "ESSERC 2027 (53rd European Solid-State Electronics Research Conference)",
+    "org": "IEEE",
+    "keywords": "소자 회로 ESSCIRC ESSDERC",
+    "start_date": "2027-09-06",
+    "end_date": "2027-09-09",
+    "location": "Helsinki, Finland",
+    "field": "eng",
+    "tags": "해외,반도체,소자,회로",
+    "url": "https://www.esserc2027.org/"
+  },
+  {
+    "id": "sispad-2027",
+    "title": "SISPAD 2027 (Simulation of Semiconductor Processes and Devices)",
+    "org": "SISPAD",
+    "keywords": "소자 시뮬레이션 TCAD 공정시뮬레이션",
+    "start_date": "2027-09-19",
+    "end_date": "2027-09-22",
+    "location": "University of Utah Campus Marriott, Salt Lake City, UT, USA",
+    "field": "eng",
+    "tags": "해외,반도체,시뮬레이션",
+    "url": "https://sispad2027.wordpress.com/",
+    "abstract_deadline": "2027-04-05",
+    "registration_deadline": "2027-08-01"
+  },
+  {
+    "id": "isplasma-2027",
+    "title": "ISPlasma2027 / IC-PLANTS2027",
+    "org": "19th International Symposium on Advanced Plasma Science and its Applications for Nitrides and Nanomaterials",
+    "keywords": "플라즈마 질화물 나노소재",
+    "start_date": "2027-03-02",
+    "end_date": "2027-03-06",
+    "location": "Nagoya University, Nagoya, Japan",
+    "field": "eng",
+    "tags": "해외,반도체,플라즈마,나노",
+    "url": "https://www.isplasma.jp/",
+    "registration_deadline": "2027-01-31"
+  },
+  {
+    "id": "ecs-252",
+    "title": "252nd ECS Meeting",
+    "org": "The Electrochemical Society",
+    "keywords": "전기화학 반도체 이차전지",
+    "start_date": "2027-10-17",
+    "end_date": "2027-10-21",
+    "location": "Huntington Place Convention Center, Detroit, MI, USA",
+    "field": "energy",
+    "tags": "해외,이차전지,화학,반도체",
+    "url": "https://www.electrochem.org/252",
+    "abstract_deadline": "2027-04-02",
+    "registration_deadline": "2027-09-27"
   }
 ]

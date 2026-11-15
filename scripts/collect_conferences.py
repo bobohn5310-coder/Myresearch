@@ -413,7 +413,7 @@ def collect_curated(path=CURATED_PATH):
             "start_date": start.isoformat(), "end_date": end.isoformat(),
             "date": it.get("deadline"), "abstract_deadline": it.get("abstract_deadline"),
             "registration_deadline": it.get("registration_deadline"),
-            "content": clean(it.get("org"), 300),
+            "content": clean(" ".join(x for x in (it.get("org"), it.get("keywords")) if x), 300),
             "url": safe_url(it.get("url")), "tags": clean(it.get("tags"), 200),
             "location": clean(it.get("location"), 120),
             "source": "curated", "external_id": f"curated:{it['id']}",
