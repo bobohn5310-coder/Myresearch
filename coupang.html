@@ -17,7 +17,13 @@
 <!-- 쿠팡 파트너스 다이나믹 배너 (index.html 홈 화면에 끼워 넣어 보여 줍니다) -->
 <script src="https://ads-partners.coupang.com/g.js"></script>
 <script>
-  if (window.PartnersCoupang) new PartnersCoupang.G({"id":1047269,"template":"carousel","trackingCode":"AF4321736","width":"680","height":"140","tsource":""});
+  // 크기는 주소의 ?w=&h= 로 바꿀 수 있다 (포춘쿠키 창처럼 좁은 곳에 넣을 때). 없으면 홈 배너 크기 680×140.
+  (function () {
+    var q = new URLSearchParams(location.search);
+    var clamp = function (v, lo, hi, d) { v = parseInt(v, 10); return isNaN(v) ? d : Math.max(lo, Math.min(hi, v)); };
+    var w = clamp(q.get('w'), 240, 680, 680), h = clamp(q.get('h'), 100, 200, 140);
+    if (window.PartnersCoupang) new PartnersCoupang.G({"id":1047269,"template":"carousel","trackingCode":"AF4321736","width":String(w),"height":String(h),"tsource":""});
+  })();
 </script>
 </body>
 </html>
