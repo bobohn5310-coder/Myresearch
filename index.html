@@ -2310,7 +2310,8 @@ a { text-decoration: none; color: inherit; }
 .fc-paper em { font-style: normal; color: #059669; }
 .fc-paper.bad { background: #fffafa; border-color: #fbd5d5; box-shadow: 0 2px 0 #fde2e2; }
 .fc-paper.bad em { color: #dc2626; }
-.fc-warn { display: block; width: max-content; margin: 0 auto 6px; font-size: 11.5px; font-weight: 800; color: #b91c1c; background: #fee2e2; border-radius: 999px; padding: 2px 10px; }
+.fc-cat { display: block; width: max-content; margin: 0 auto 6px; font-size: 11.5px; font-weight: 800; color: #b45309; background: #fef3c7; border-radius: 999px; padding: 2px 10px; }
+.fc-paper.bad .fc-cat { color: #b91c1c; background: #fee2e2; }
 .fc-chips { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-top: 12px; animation: fcIn .4s .1s ease-out both; }
 .fc-chip { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 700; color: #334155; padding: 5px 10px; border-radius: 999px; background: #fff; border: 1px solid #e2e8f0; white-space: nowrap; }
 .fc-chip i { width: 11px; height: 11px; border-radius: 50%; display: inline-block; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08); }
@@ -2350,6 +2351,12 @@ a { text-decoration: none; color: inherit; }
   .hero-fc .hfc-text b { font-size: 15px; }
   .hero-fc .hfc-go { padding: 6px 10px; font-size: 12.5px; }
   .fc-top { white-space: nowrap; font-size: 12px; gap: 6px; padding: 4px 36px 0; }
+  .fc-overlay { align-items: flex-end; padding: 0; }
+  .fc-box, .fc-box.ad { border-radius: 22px 22px 0 0; max-height: 92vh; animation: atUp .3s ease-out; padding: 18px 16px calc(14px + env(safe-area-inset-bottom)); }
+  .fc-box .modal-close { top: 12px; right: 12px; width: 32px; height: 32px; }
+  .fc-stage .fc-ck { width: 160px; height: 123px; }
+  .fc-h { font-size: 18px; }
+  .fc-paper { font-size: 16px; padding: 14px 16px; }
 }
 @media (max-width: 380px) {
   /* 작은 폰: 쿠키 그림과 버튼을 줄이고, 제목은 잘리지 않게 두 줄까지 허용 */
@@ -2360,12 +2367,6 @@ a { text-decoration: none; color: inherit; }
   .hero-fc .hfc-go { padding: 6px 9px; font-size: 12px; }
   .fc-top { font-size: 11.5px; padding: 4px 34px 0; }
   .fc-chip { font-size: 11.5px; padding: 4px 8px; }
-  .fc-overlay { align-items: flex-end; padding: 0; }
-  .fc-box, .fc-box.ad { border-radius: 22px 22px 0 0; max-height: 92vh; animation: atUp .3s ease-out; padding: 18px 16px calc(14px + env(safe-area-inset-bottom)); }
-  .fc-box .modal-close { top: 12px; right: 12px; width: 32px; height: 32px; }
-  .fc-stage .fc-ck { width: 160px; height: 123px; }
-  .fc-h { font-size: 18px; }
-  .fc-paper { font-size: 16px; padding: 14px 16px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-fc.fresh .fc-ck, .fc-stage .fc-ck.idle, .fc-ck.shake { animation: none; }
@@ -6216,73 +6217,98 @@ function navFromHash(){
 
 // ── 오늘의 포춘쿠키 (홈 히어로 아래 위젯 + 창) ──
 // 하루에 쿠키 3개. 첫 쿠키는 바로 열 수 있고, 2·3번째는 쿠팡 추천 상품 창을 3초 보여 준 뒤 열린다.
-// 상품을 누르지 않아도 열린다 (누르게 유도하면 쿠팡 파트너스 부정 클릭이 될 수 있어서).
+// 상품을 누르지 않아도 열린다 (클릭을 조건으로 걸면 쿠팡 파트너스 부정 클릭이 될 수 있어서).
 // 기록은 이 브라우저에만 저장하고, 한국 시간 자정에 새로 3개가 생긴다.
 // 같은 날 같은 브라우저에서는 몇 번을 다시 열어도 같은 문구가 나온다.
 const FC_MAX = 3, FC_WAIT = 3;
-// [대괄호] 부분은 초록색으로 강조된다
-const FC_MSGS = [
-  '리뷰어 2도 결국은 사람이에요. 오늘 쓴 [한 문단]이 내일의 Accept가 됩니다.',
-  '마감은 다가오지만, [당신의 실험도 수렴하고] 있어요.',
-  '오늘 읽은 논문 한 편이 [다음 아이디어의 씨앗]이 돼요.',
-  '오늘은 [p < 0.05]의 기운이 함께합니다. 그래프를 한 번 더 그려 보세요.',
-  'Reject는 끝이 아니라 [다음 학회의 시작]이에요.',
-  '오늘의 행운은 백업에서 옵니다. [Ctrl+S]를 자주 눌러 주세요.',
-  "교수님의 '잠깐 얘기 좀 할까?'가 [칭찬일 확률]이 높은 날이에요.",
-  '커피 한 잔, 그리고 그래프 하나. [오늘은 그걸로 충분해요].',
-  '졸업은 반드시 옵니다. [조금 늦게] 올 수는 있어도요.',
-  '오늘은 실험이 [한 번에 돌아가는] 날이에요. 아마도요.',
-  '빈 화면이 무서운 날엔 [제목부터] 써 보세요. 나머지는 따라와요.',
-  '완벽한 초안보다 [끝낸 초안]이 더 강해요.',
-  '오늘 막힌 코드는 [내일 아침 5분] 만에 풀릴 거예요.',
-  '당신의 Figure 1이 [누군가의 영감]이 될 거예요.',
-  '오늘은 레퍼런스가 [술술 찾아지는] 날이에요.',
-  '랩미팅 발표가 [생각보다 잘 풀리는] 하루예요.',
-  '쉬는 것도 연구의 일부예요. [오늘은 일찍 퇴근]해도 괜찮아요.',
-  '지금 고민하는 그 문제, [당신만 풀 수 있는] 문제일지도 몰라요.',
-  '오늘 쓴 Related Work 한 줄이 [논문 전체를 단단하게] 해요.',
-  '데이터는 거짓말하지 않아요. [오늘은 데이터가 당신 편]이에요.',
-  '마감 전날의 집중력이 [오늘 미리] 찾아올 거예요.',
-  '오늘 받은 피드백은 [다음 버전의 설계도]예요.',
-  '학회장에서 만날 [좋은 인연]이 가까워지고 있어요.',
-  '어제보다 [한 걸음]이면 충분해요. 연구는 마라톤이니까요.',
-  '실패한 실험도 [논문의 한 문단]이 될 수 있어요.',
-  '오늘은 연구실 동료에게 [먼저 커피를 사면] 좋은 일이 생겨요.',
-  '논문 제출 버튼을 누르는 [그날의 당신]이 고마워할 거예요.',
-  '이번 주의 작은 진전이 [다음 달의 큰 결과]가 돼요.',
-  '오늘은 Abstract가 [한 번에 써지는] 날이에요.',
-  '지도교수님 메일함에 [좋은 소식]이 도착할 예감이에요.',
-  '오늘 정리한 실험 노트가 [미래의 나를 구해] 줄 거예요.',
-  '모르는 걸 물어보는 용기가 [오늘의 가장 큰 수확]이에요.',
-  '당신은 생각보다 [훨씬 많이] 해내고 있어요.',
-  'Rebuttal은 대화예요. [차분하게 쓴 한 줄]이 점수를 바꿔요.',
-  '오늘은 오래 미뤄 둔 [그 메일]을 보내기 좋은 날이에요.',
-  '좋은 질문 하나가 [좋은 논문 하나]를 만들어요.',
-];
-// 약 40% 확률로 나오는 '오늘은 조심' 문구. 상처 주는 말 대신 장난스러운 경고 + 작은 팁으로 쓴다.
+// 문구는 4갈래(논문·실험·연구실 생활·일상)로 나뉜다. 하루 3개 쿠키는 서로 다른 갈래에서 나온다.
+// good 은 응원, bad 는 약 40% 확률로 나오는 '오늘은 살짝 조심' 문구(상처 주는 말 대신 장난스러운 경고 + 작은 팁).
+// [대괄호] 부분은 강조된다 (good 은 초록, bad 는 빨강)
 const FC_BAD_RATE = 0.4;
-const FC_BAD = [
-  '오늘은 리뷰어 2가 깨어 있어요. [제출 버튼]은 내일 누르는 게 좋겠어요.',
-  '실험 결과가 [기대와 반대]로 나올 수 있는 날이에요. 그것도 결과예요.',
-  '오늘은 [저장 안 한 파일]이 날아가기 쉬운 날이에요. Ctrl+S를 잊지 마세요.',
-  '교수님의 \'잠깐 얘기 좀 할까?\'가 [칭찬이 아닐] 확률이 높아요. 마음의 준비를.',
-  '오늘 쓴 코드는 [내일의 내가 못 알아볼] 수 있어요. 주석을 남겨 두세요.',
-  '마감이 [생각보다 가까이] 와 있어요. 캘린더를 한 번 더 확인하세요.',
-  '오늘은 [컴파일 에러]와 친해지는 날이에요. 커피를 넉넉히 준비하세요.',
-  '참고문헌 형식이 [통째로 틀어질] 수 있는 날이에요. 제출 전에 한 번 더 보세요.',
-  '랩미팅에서 [예상 못 한 질문]이 날아올 수 있어요. 슬라이드 3장만 더 점검하세요.',
-  '오늘은 GPU가 [다 차 있을] 확률이 높아요. 논문 읽기 좋은 날이라고 생각해요.',
-  '[Major Revision]의 기운이 감돌아요. 하지만 Reject보다는 낫잖아요.',
-  '데이터 전처리에서 [한 줄 실수]가 숨어 있을지도 몰라요. 오늘은 검산의 날.',
-  '오늘은 의욕이 [로딩 중]이에요. 작은 일 하나만 끝내도 성공이에요.',
-  '이메일 답장이 [오지 않는] 날이에요. 기다리는 동안 다른 일을 해 두세요.',
-  '오늘 세운 계획의 [절반만] 끝날 거예요. 그래도 절반이면 꽤 많은 거예요.',
-  '노트북 배터리가 [가장 중요한 순간]에 꺼질 수 있어요. 충전기를 챙기세요.',
-  '오늘은 실험이 [재현되지 않는] 날이에요. 시드 값을 꼭 적어 두세요.',
-  '그림 해상도가 [제출 직전에] 깨져 보일 수 있어요. PDF로 미리 확인하세요.',
-  '오늘 읽은 논문이 [내 아이디어랑 똑같을] 수 있어요. 차별점을 찾을 기회예요.',
-  '야식의 유혹이 [평소의 두 배]예요. 내일의 컨디션을 생각해 주세요.',
-];
+const FC_POOLS = {
+  paper: { label: '📝 논문운', good: [
+    '리뷰어 2도 결국은 사람이에요. 오늘 쓴 [한 문단]이 내일의 Accept가 됩니다.',
+    '오늘 읽은 논문 한 편이 [다음 아이디어의 씨앗]이 돼요.',
+    'Reject는 끝이 아니라 [다음 학회의 시작]이에요.',
+    '빈 화면이 무서운 날엔 [제목부터] 써 보세요. 나머지는 따라와요.',
+    '완벽한 초안보다 [끝낸 초안]이 더 강해요.',
+    '오늘은 레퍼런스가 [술술 찾아지는] 날이에요.',
+    '오늘 쓴 Related Work 한 줄이 [논문 전체를 단단하게] 해요.',
+    '논문 제출 버튼을 누르는 [그날의 당신]이 고마워할 거예요.',
+    '오늘은 Abstract가 [한 번에 써지는] 날이에요.',
+    'Rebuttal은 대화예요. [차분하게 쓴 한 줄]이 점수를 바꿔요.',
+    '좋은 질문 하나가 [좋은 논문 하나]를 만들어요.',
+    '오늘 그린 Figure 1이 [리뷰어의 눈길]을 사로잡을 거예요.',
+  ], bad: [
+    '오늘은 리뷰어 2가 깨어 있어요. [제출 버튼]은 내일 누르는 게 좋겠어요.',
+    '참고문헌 형식이 [통째로 틀어질] 수 있는 날이에요. 제출 전에 한 번 더 보세요.',
+    '[Major Revision]의 기운이 감돌아요. 하지만 Reject보다는 낫잖아요.',
+    '그림 해상도가 [제출 직전에] 깨져 보일 수 있어요. PDF로 미리 확인하세요.',
+    '오늘 읽은 논문이 [내 아이디어랑 똑같을] 수 있어요. 차별점을 찾을 기회예요.',
+    '페이지 제한을 [반 줄] 넘길 수 있는 날이에요. 형용사부터 덜어 내세요.',
+  ] },
+  exp: { label: '🧪 실험운', good: [
+    '마감은 다가오지만, [당신의 실험도 수렴하고] 있어요.',
+    '오늘은 [p < 0.05]의 기운이 함께합니다. 그래프를 한 번 더 그려 보세요.',
+    '오늘은 실험이 [한 번에 돌아가는] 날이에요. 아마도요.',
+    '오늘 막힌 코드는 [내일 아침 5분] 만에 풀릴 거예요.',
+    '데이터는 거짓말하지 않아요. [오늘은 데이터가 당신 편]이에요.',
+    '실패한 실험도 [논문의 한 문단]이 될 수 있어요.',
+    '오늘 정리한 실험 노트가 [미래의 나를 구해] 줄 거예요.',
+    '오늘은 장비 예약이 [한 번에 잡히는] 날이에요.',
+    '세포도, 모델도 [오늘은 말을 잘 듣는] 날이에요.',
+    '오늘 바꾼 변수 하나가 [결과를 뒤집을] 거예요.',
+    '오늘은 [에러 메시지가 친절한] 날이에요. 읽어 보면 답이 있어요.',
+  ], bad: [
+    '실험 결과가 [기대와 반대]로 나올 수 있는 날이에요. 그것도 결과예요.',
+    '오늘은 [컴파일 에러]와 친해지는 날이에요. 커피를 넉넉히 준비하세요.',
+    '오늘은 GPU가 [다 차 있을] 확률이 높아요. 논문 읽기 좋은 날이라고 생각해요.',
+    '데이터 전처리에서 [한 줄 실수]가 숨어 있을지도 몰라요. 오늘은 검산의 날.',
+    '오늘은 실험이 [재현되지 않는] 날이에요. 시드 값을 꼭 적어 두세요.',
+    '오늘은 [저장 안 한 파일]이 날아가기 쉬운 날이에요. Ctrl+S를 잊지 마세요.',
+    '시약이든 서버든 [하필 오늘] 바닥날 수 있어요. 재고부터 확인하세요.',
+  ] },
+  lab: { label: '🏫 연구실운', good: [
+    "교수님의 '잠깐 얘기 좀 할까?'가 [칭찬일 확률]이 높은 날이에요.",
+    '랩미팅 발표가 [생각보다 잘 풀리는] 하루예요.',
+    '오늘은 연구실 동료에게 [먼저 커피를 사면] 좋은 일이 생겨요.',
+    '지도교수님 메일함에 [좋은 소식]이 도착할 예감이에요.',
+    '모르는 걸 물어보는 용기가 [오늘의 가장 큰 수확]이에요.',
+    '선배의 한마디가 [막힌 문제의 열쇠]가 될 거예요.',
+    '오늘은 연구실 간식 서랍이 [가득 찬] 날이에요.',
+    '후배에게 설명하다 보면 [내 연구가 더 선명해져요].',
+    '학회장에서 만날 [좋은 인연]이 가까워지고 있어요.',
+    '오늘은 랩실 자리에 [햇살이 잘 드는] 날이에요. 창문을 열어 보세요.',
+  ], bad: [
+    "교수님의 '잠깐 얘기 좀 할까?'가 [칭찬이 아닐] 확률이 높아요. 마음의 준비를.",
+    '랩미팅에서 [예상 못 한 질문]이 날아올 수 있어요. 슬라이드 3장만 더 점검하세요.',
+    '이메일 답장이 [오지 않는] 날이에요. 기다리는 동안 다른 일을 해 두세요.',
+    '오늘은 공용 프린터가 [하필 지금] 고장 날 수 있어요. PDF로 먼저 공유하세요.',
+    '연구실 회식이 [갑자기 잡힐] 수 있어요. 오늘 할 일은 오후 5시 전에.',
+    '오늘은 [잡무 요청]이 몰려오는 날이에요. 거절도 연습이에요.',
+  ] },
+  life: { label: '☕ 일상운', good: [
+    '커피 한 잔, 그리고 그래프 하나. [오늘은 그걸로 충분해요].',
+    '졸업은 반드시 옵니다. [조금 늦게] 올 수는 있어도요.',
+    '쉬는 것도 연구의 일부예요. [오늘은 일찍 퇴근]해도 괜찮아요.',
+    '어제보다 [한 걸음]이면 충분해요. 연구는 마라톤이니까요.',
+    '당신은 생각보다 [훨씬 많이] 해내고 있어요.',
+    '오늘 학식 메뉴가 [유난히 맛있을] 거예요.',
+    '오늘은 [10분 산책]이 좋은 아이디어를 데려와요.',
+    '오랜만에 [가족에게 전화] 한 통 해 보세요. 기운이 날 거예요.',
+    '오늘 밤은 [푹 잘 수 있는] 날이에요. 휴대폰은 일찍 내려놓아요.',
+    '이번 주의 작은 진전이 [다음 달의 큰 결과]가 돼요.',
+    '오늘은 오래 미뤄 둔 [그 메일]을 보내기 좋은 날이에요.',
+  ], bad: [
+    '오늘은 의욕이 [로딩 중]이에요. 작은 일 하나만 끝내도 성공이에요.',
+    '오늘 세운 계획의 [절반만] 끝날 거예요. 그래도 절반이면 꽤 많은 거예요.',
+    '노트북 배터리가 [가장 중요한 순간]에 꺼질 수 있어요. 충전기를 챙기세요.',
+    '야식의 유혹이 [평소의 두 배]예요. 내일의 컨디션을 생각해 주세요.',
+    '오늘은 커피를 [세 잔째] 마시고 싶어지는 날이에요. 두 잔에서 멈춰요.',
+    '통장 잔고가 [인건비 날짜]를 애타게 기다리는 날이에요. 오늘은 도시락!',
+    '마감이 [생각보다 가까이] 와 있어요. 캘린더를 한 번 더 확인하세요.',
+  ] },
+};
 const FC_COLORS = [['클로버 그린','#22c55e'],['리뷰어 블루','#3b82f6'],['형광펜 옐로','#facc15'],['아카데믹 네이비','#1e3a8a'],['라벤더 퍼플','#a78bfa'],['코랄 핑크','#fb7185'],['민트','#2dd4bf'],['커피 브라운','#92400e'],['논문 화이트','#f8fafc'],['선셋 오렌지','#f97316']];
 const FC_WORDS = ['Related Work','Ablation','Figure 1','Abstract','Baseline','Future Work','Appendix','Camera-ready','Limitation','서론 첫 문장','참고문헌 정리','실험 로그','랩미팅','코드 정리','데이터 백업'];
 
@@ -6308,14 +6334,17 @@ function fcRng(seed){ let a = seed; return () => { a = (a + 0x6D2B79F5) | 0; let
 function fcFortunes(day){
   const r = fcRng(fcHash(fcVid() + '|' + day));
   const shuffle = arr => { const o = arr.map((_, i) => i); for(let i = o.length - 1; i > 0; i--){ const j = Math.floor(r() * (i + 1)); [o[i], o[j]] = [o[j], o[i]]; } return o; };
-  const good = shuffle(FC_MSGS), bad = shuffle(FC_BAD);
+  // 하루 3개는 서로 다른 갈래(논문·실험·연구실·일상)에서 하나씩
+  const keys = Object.keys(FC_POOLS), cats = shuffle(keys).map(i => keys[i]);
   const out = [];
-  let gi = 0, bi = 0;
   for(let k = 0; k < FC_MAX; k++){
+    const cat = FC_POOLS[cats[k % cats.length]];
     const isBad = r() < FC_BAD_RATE;
+    const list = isBad ? cat.bad : cat.good;
+    const msg = list[Math.floor(r() * list.length)];
     const c = FC_COLORS[Math.floor(r() * FC_COLORS.length)];
     const sr = r();
-    out.push({ msg: isBad ? FC_BAD[bad[bi++]] : FC_MSGS[good[gi++]], bad: isBad, color: c[0], hex: c[1], num: 1 + Math.floor(r() * 99), word: FC_WORDS[Math.floor(r() * FC_WORDS.length)], stars: isBad ? (sr < .4 ? 1 : 2) : (sr < .25 ? 5 : sr < .75 ? 4 : 3) });
+    out.push({ msg, cat: cat.label, bad: isBad, color: c[0], hex: c[1], num: 1 + Math.floor(r() * 99), word: FC_WORDS[Math.floor(r() * FC_WORDS.length)], stars: isBad ? (sr < .4 ? 1 : 2) : (sr < .25 ? 5 : sr < .75 ? 4 : 3) });
   }
   return out;
 }
@@ -6359,7 +6388,7 @@ function fcRender(){
   if(_fcView === 'ad'){
     const n = _fcIdx + 1;
     stage = `<div class="fc-h" style="margin-top:12px">잠깐! 추천 상품 보는 동안<br>${n}번째 쿠키가 구워지고 있어요</div>
-      <div class="fc-s">상품은 궁금할 때만 눌러 보세요. 안 눌러도 쿠키는 열려요.</div>
+      <div class="fc-s">잠시만 기다려 주세요. 곧 쿠키가 나와요.</div>
       <div class="fc-ad" id="fc-ad"></div><div class="fc-ad-note">쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</div>`;
     act = `<button class="fc-btn wait" id="fc-wait-btn" disabled>⏳ ${FC_WAIT}초 뒤 쿠키가 열려요</button><div class="fc-bar" id="fc-bar"><i></i></div>`;
   } else if(_fcView === 'cookie'){
@@ -6367,7 +6396,7 @@ function fcRender(){
     act = `<button class="fc-btn" onclick="fcCrack()">🥠 쿠키 깨기</button>`;
   } else {
     const it = f[_fcIdx];
-    stage = `<div class="fc-stage">${fcSvg(true)}<div class="fc-paper${it.bad ? ' bad' : ''}">${it.bad ? '<span class="fc-warn">⚠️ 오늘은 살짝 조심</span>' : ''}${fcMsgHtml(it.msg)}</div>
+    stage = `<div class="fc-stage">${fcSvg(true)}<div class="fc-paper${it.bad ? ' bad' : ''}"><span class="fc-cat">${escHtml(it.cat)}${it.bad ? ' · ⚠️ 살짝 조심' : ''}</span>${fcMsgHtml(it.msg)}</div>
       <div class="fc-chips"><span class="fc-chip"><i style="background:${it.hex}"></i>행운의 색 <b>${escHtml(it.color)}</b></span><span class="fc-chip">🔢 행운의 숫자 <b>${it.num}</b></span><span class="fc-chip">📚 키워드 <b>${escHtml(it.word)}</b></span><span class="fc-chip">🔬 연구운 <span class="fc-star">${'★'.repeat(it.stars)}${'☆'.repeat(5 - it.stars)}</span></span></div></div>`;
     const share = `<button class="fc-btn sub" id="fc-share" onclick="fcShare()">📤 공유</button>`;
     if(s.o < FC_MAX) act = `<div class="fc-row">${share}<button class="fc-btn" onclick="fcNext()">🥠 ${s.o + 1}번째 쿠키 ${s.o < s.u ? '깨기' : '굽기'}</button></div>`;
