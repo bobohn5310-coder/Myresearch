@@ -410,6 +410,23 @@
  {
   "type": "conf",
   "field": "cs",
+  "title": "ICANN 2027",
+  "org": "International Conference on Artificial Neural Networks",
+  "start_date": "2027-08-24",
+  "end_date": "2027-08-27",
+  "date": null,
+  "abstract_deadline": null,
+  "registration_deadline": null,
+  "content": "International Conference on Artificial Neural Networks",
+  "url": "https://e-nns.org/icann2027/",
+  "tags": "해외,인공지능,CCF-C,CORE-C",
+  "location": "Linköping, Sweden",
+  "source": "ccfddl",
+  "external_id": "ccfddl:icann2027"
+ },
+ {
+  "type": "conf",
+  "field": "cs",
   "title": "ICAPS 2027",
   "org": "International Conference on Automated Planning and Scheduling",
   "start_date": "2027-06-27",
