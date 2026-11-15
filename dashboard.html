@@ -1675,20 +1675,29 @@ loadInfoData(); // 학회 정보 (로그인과 상관없이)
 
 // 인증 상태 감지: 페이지를 열 때(INITIAL_SESSION)와 로그인할 때만 내 데이터를 불러온다.
 // (로그인 유지용 토큰 갱신 때마다 전부 다시 불러오지 않도록)
+// 이미 로그인된 상태로 페이지를 열면 이 알림이 아래쪽 <script>(loadMyData 등)와 cv.js 가
+// 읽히기 전에 먼저 올 수 있다. 그래서 페이지를 다 읽은 뒤에 불러오도록 미룬다.
+function _afterPageReady(fn){
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn, { once:true });
+  else setTimeout(fn, 0);
+}
 _sb.auth.onAuthStateChange((event, session) => {
   _currentUser = session?.user || null;
   if(_currentUser && (event === 'INITIAL_SESSION' || event === 'SIGNED_IN')) {
-    loadProfile();
-    loadMyData();
-    loadSchedules();
-    if(typeof loadCV==='function') loadCV();
+    _afterPageReady(() => {
+      if(!_currentUser) return;
+      loadProfile();
+      loadMyData();
+      loadSchedules();
+      if(typeof loadCV==='function') loadCV();
+    });
   }
 });
 
 // 프로필 불러오기
 async function loadProfile() {
   if(!_currentUser) return;
-  const { data } = await _sb.from('profiles').select('*').eq('id', _currentUser.id).single();
+  const { data } = await _sb.from('profiles').select('*').eq('id', _currentUser.id).maybeSingle();
   if(data) renderProfileCard(data);
 }
 
@@ -1719,7 +1728,7 @@ function openProfileModal() {
   const overlay = document.getElementById('profile-modal-overlay');
   overlay.style.display = 'flex';
   if(_currentUser) {
-    _sb.from('profiles').select('*').eq('id', _currentUser.id).single().then(({ data }) => {
+    _sb.from('profiles').select('*').eq('id', _currentUser.id).maybeSingle().then(({ data }) => {
       if(!data) return;
       document.getElementById('p-nickname').value = data.nickname || '';
       document.getElementById('p-institution').value = data.institution || '';
