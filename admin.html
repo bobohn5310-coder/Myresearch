@@ -360,6 +360,9 @@
       <div class="sidebar-item" onclick="showAdminPage('stats', this); loadStats();">
         <span class="icon">📊</span> 통계
       </div>
+      <div class="sidebar-item" onclick="showAdminPage('attend', this); loadAttendance();">
+        <span class="icon">📅</span> 출석 이벤트
+      </div>
     </div>
     <div class="sidebar-footer">
       <div class="sidebar-user">
@@ -583,6 +586,26 @@
         <thead><tr><th>날짜</th><th>가입</th><th>방문자</th></tr></thead>
         <tbody id="stats-table-body"></tbody>
       </table></div></div>
+    </div>
+
+    <!-- 출석 이벤트 -->
+    <div class="admin-page" id="page-attend">
+      <div class="page-header">
+        <div class="page-title">📅 출석 이벤트</div>
+        <div class="page-sub">일주일 출석체크에 참여한 회원이에요. 많이 찍은 순서이고, 같은 수면 먼저 마지막 도장을 찍은 사람이 위에 와요. 보상을 보낼 때 참고하세요.</div>
+      </div>
+      <div id="at-stats" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;"></div>
+      <div class="card">
+        <div class="card-header" style="gap:8px;flex-wrap:wrap;">
+          <select id="at-filter" onchange="renderAttendance()" style="padding:8px 10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:13px;font-family:'Noto Sans KR',sans-serif;">
+            <option value="">모든 참여자</option><option value="done">7일 달성자만</option>
+          </select>
+        </div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>이름</th><th>이메일</th><th>출석</th><th>출석한 날</th><th>마지막 출석</th><th>달성</th></tr></thead>
+          <tbody id="attend-table-body"></tbody>
+        </table></div>
+      </div>
     </div>
 
     <!-- 회원 목록 -->
@@ -1572,6 +1595,36 @@ async function loadStats(days) {
       <span style="margin-left:auto;">최대 ${max}</span></div>
     <svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;">${bars}<line x1="${pad}" y1="${H - 20}" x2="${W - pad}" y2="${H - 20}" stroke="#e2e8f0"/></svg>`;
   body.innerHTML = rows.map(r => `<tr><td style="font-size:13px;">${r.day}</td><td>${r.signups}</td><td>${r.visitors}</td></tr>`).join('');
+}
+
+// ════════════════════════════════════
+// 출석 이벤트 (index.html 의 ATTEND_EVENT.id 와 같은 값)
+// ════════════════════════════════════
+const ATTEND_EVENT_ID = '2026-11-week';
+let _attend = [];
+async function loadAttendance() {
+  const body = document.getElementById('attend-table-body');
+  body.innerHTML = '<tr><td colspan="6"><div class="empty-state"><div class="emoji">📅</div>불러오는 중...</div></td></tr>';
+  const { data, error } = await sbClient.rpc('admin_attendance', { p_event: ATTEND_EVENT_ID });
+  if(error) { body.innerHTML = `<tr><td colspan="6"><div class="empty-state"><div class="emoji">⚠️</div>${needSql(error, 'attendance_event.sql')}</div></td></tr>`; return; }
+  _attend = data || [];
+  const today = new Date().toLocaleDateString('sv-SE', { timeZone:'Asia/Seoul' });
+  document.getElementById('at-stats').innerHTML =
+    chip('참여 회원', _attend.length) + chip('7일 달성', _attend.filter(r => r.completed).length) +
+    chip('오늘 출석', _attend.filter(r => (r.dates || []).includes(today)).length);
+  renderAttendance();
+}
+function renderAttendance() {
+  const only = document.getElementById('at-filter').value === 'done';
+  const rows = _attend.filter(r => !only || r.completed);
+  const body = document.getElementById('attend-table-body');
+  if(!rows.length) { body.innerHTML = '<tr><td colspan="6"><div class="empty-state"><div class="emoji">📅</div>아직 참여한 회원이 없어요.</div></td></tr>'; return; }
+  body.innerHTML = rows.map(r => `<tr>
+    <td>${esc(r.name || '-')}</td><td style="font-size:13px;">${esc(r.email || '')}</td>
+    <td><b>${r.days}</b>/7</td>
+    <td style="font-size:12px;color:#64748b;">${(r.dates || []).map(d => String(d).slice(5).replace('-', '/')).join(', ')}</td>
+    <td style="font-size:13px;">${r.last_day || ''}</td>
+    <td>${r.completed ? '<span class="badge badge-green">🎉 달성</span>' : ''}</td></tr>`).join('');
 }
 
 // ── 토스트 ──

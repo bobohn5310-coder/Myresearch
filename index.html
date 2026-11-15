@@ -773,6 +773,12 @@ a { text-decoration: none; color: inherit; }
 .at-msg{text-align:center;font-size:14px;font-weight:700;color:#b45309;margin-bottom:12px;min-height:20px}
 .at-btn{width:100%;padding:13px;border-radius:11px;font-size:15px;font-weight:800;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:all .15s;border:none;background:linear-gradient(135deg,#f59e0b 0%,#f97316 100%);color:#fff;box-shadow:0 2px 10px rgba(245,158,11,.4)}
 .at-btn:hover{filter:brightness(.95)}
+.at-btn:disabled{opacity:.7;cursor:default}
+.at-btn.login{background:linear-gradient(135deg,#059669 0%,#0aaf7a 100%);box-shadow:0 2px 8px rgba(5,150,105,.35)}
+.at-msg.muted{color:var(--text-muted)}
+.at-grid.locked{opacity:.55}
+.at-grid.locked .at-cell.goal{opacity:.9}
+.at-link{background:none;border:0;padding:0;font:inherit;font-weight:700;color:#059669;text-decoration:underline;cursor:pointer}
 .at-btn.sub{background:#fff;color:var(--text-sub);border:1.5px solid var(--border);box-shadow:none;font-weight:700}
 .at-foot{text-align:center;margin-top:10px;font-size:11.5px;color:var(--text-light);line-height:1.5}
 .at-fab{position:fixed;left:20px;bottom:20px;z-index:140;display:none;align-items:center;gap:6px;padding:10px 14px;border:1.5px solid #fcd34d;border-radius:999px;background:#fffbeb;color:#92400e;font-size:13.5px;font-weight:800;cursor:pointer;font-family:'Noto Sans KR',sans-serif;box-shadow:0 6px 20px rgba(245,158,11,.25)}
@@ -3082,7 +3088,7 @@ a { text-decoration: none; color: inherit; }
     <div class="at-head">
       <div><span class="at-eyebrow" id="at-eyebrow">🎁 출석체크 이벤트</span></div>
       <div class="at-title" id="at-title">일주일만 들러 주세요!<br><span class="accent">출석 도장 7개</span> 모으기</div>
-      <div class="at-sub" id="at-sub">하루에 한 번, 도장을 찍어 주세요.<br>꼭 연속이 아니어도 괜찮아요.</div>
+      <div class="at-sub" id="at-sub"></div>
       <div class="at-period" id="at-period"></div>
     </div>
     <div class="at-body">
@@ -3090,7 +3096,7 @@ a { text-decoration: none; color: inherit; }
       <div class="at-reward"><span class="at-ic">🎁</span><div><b id="at-reward-title"></b><span id="at-reward-desc"></span></div></div>
       <div class="at-msg" id="at-msg"></div>
       <button class="at-btn" id="at-btn" onclick="attendStamp()">오늘 출석 도장 찍기</button>
-      <div class="at-foot" id="at-foot">출석 기록은 지금 쓰는 브라우저에 저장돼요.</div>
+      <div class="at-foot" id="at-foot"></div>
     </div>
   </div>
 </div>
@@ -6033,90 +6039,134 @@ function navFromHash(){
   return { page: ['community', 'info', 'news', 'clover'].includes(h) ? h : 'home' };
 }
 
-// ── 일주일 출석체크 이벤트 ──
-// 이벤트 기간·보상 문구는 여기만 바꾸면 된다. id를 바꾸면 새 이벤트로 출석이 처음부터 다시 쌓인다.
+// ── 일주일 출석체크 이벤트 (회원 전용, 출석은 회원 계정에 저장) ──
+// 기간·목표 수는 supabase/attendance_event.sql 의 attendance_events 표가 진짜 기준이고(서버가 확인),
+// 여기 값은 화면 표시용이다. 보상 문구는 여기만 바꾸면 된다.
 const ATTEND_EVENT = {
-  id: '2026-11-week',
-  start: '2026-11-15',        // 시작일 (한국 시간, 이 날 포함)
-  end: '2026-12-31',          // 종료일 (이 날 포함)
-  goal: 7,                    // 모아야 하는 도장 수
+  id: '2026-11-week',          // attendance_events.id 와 같아야 한다
+  start: '2026-11-15',
+  end: '2026-12-31',
+  goal: 7,
   rewardTitle: '7일 출석하면 깜짝 선물!',
   rewardDesc: '선물 내용은 곧 공개할게요.',
   doneTitle: '🎉 7일 출석 완료!',
   doneDesc: '출석 도장을 모두 모았어요. 선물 안내는 곧 공지할게요.',
 };
+let _atDays = [], _atUid = null, _atBusy = false, _atErr = '', _atAfterLogin = false;
 function attendToday(){ return new Date().toLocaleDateString('sv-SE', { timeZone:'Asia/Seoul' }); }
-function attendKey(){ return 'mrc_attend_' + ATTEND_EVENT.id; }
 function attendActive(){ const t = attendToday(); return t >= ATTEND_EVENT.start && t <= ATTEND_EVENT.end; }
-function attendDays(){
-  try{ const v = JSON.parse(localStorage.getItem(attendKey()) || '[]'); return Array.isArray(v) ? v.filter(d => typeof d === 'string').sort() : []; }catch(e){ return []; }
+function attendMD(d){ const p = String(d).split('-'); return Number(p[1]) + '/' + Number(p[2]); }
+function attendName(){ return currentUser ? (currentUser.user_metadata?.name || (currentUser.email || '').split('@')[0] || '회원') : ''; }
+async function attendLoad(){
+  _atErr = '';
+  if(!currentUser){ _atDays = []; _atUid = null; return; }
+  if(_atUid === currentUser.id) return;
+  const { data, error } = await sbClient.from('attendance').select('day').eq('event_id', ATTEND_EVENT.id).eq('user_id', currentUser.id).order('day');
+  if(error){ _atErr = '출석 기록을 불러오지 못했어요. 잠시 뒤 다시 열어 주세요.'; _atDays = []; return; }
+  _atDays = (data || []).map(r => r.day); _atUid = currentUser.id;
 }
-function attendSave(days){ try{ localStorage.setItem(attendKey(), JSON.stringify(days)); return true; }catch(e){ return false; } }
-function attendMD(d){ const p = d.split('-'); return Number(p[1]) + '/' + Number(p[2]); }
 function attendRender(justStamped){
-  const days = attendDays(), goal = ATTEND_EVENT.goal, today = attendToday();
-  const n = Math.min(days.length, goal), doneToday = days.includes(today), complete = n >= goal;
   const grid = document.getElementById('at-grid'); if(!grid) return;
+  const member = !!currentUser, days = member ? _atDays : [], goal = ATTEND_EVENT.goal, today = attendToday();
+  const n = Math.min(days.length, goal), doneToday = days.includes(today), complete = n >= goal;
   let html = '';
   for(let i = 0; i < goal; i++){
     const done = i < n, isGoal = i === goal - 1;
-    const isToday = (doneToday && days[i] === today) || (!doneToday && !complete && i === n);
+    const isToday = member && ((doneToday && days[i] === today) || (!doneToday && !complete && i === n));
     const cls = ['at-cell', done ? 'done' : '', isToday ? 'today' : '', isGoal ? 'goal' : '', (justStamped && isToday && done) ? 'stamp' : ''].join(' ');
     html += `<div class="${cls}"><span class="at-day">${i + 1}일차</span>${(done || isGoal) ? `<span class="at-mark">${isGoal ? '🎁' : '✅'}</span>` : '<span class="at-empty"></span>'}<span class="at-date">${done ? attendMD(days[i]) : ''}</span></div>`;
   }
   grid.innerHTML = html;
+  grid.classList.toggle('locked', !member);
+  document.getElementById('at-sub').innerHTML = member ? '하루에 한 번, 도장을 찍어 주세요.<br>꼭 연속이 아니어도 괜찮아요.' : '회원이라면 누구나 참여할 수 있어요.<br>하루에 한 번, 연속이 아니어도 괜찮아요.';
   document.getElementById('at-period').textContent = '이벤트 기간 ' + attendMD(ATTEND_EVENT.start) + ' ~ ' + attendMD(ATTEND_EVENT.end);
   document.getElementById('at-reward-title').textContent = complete ? ATTEND_EVENT.doneTitle : ATTEND_EVENT.rewardTitle;
   document.getElementById('at-reward-desc').textContent = complete ? ATTEND_EVENT.doneDesc : ATTEND_EVENT.rewardDesc;
-  const msg = document.getElementById('at-msg'), btn = document.getElementById('at-btn');
-  if(complete){ msg.textContent = '모든 도장을 모았어요. 고마워요! 🙌'; btn.textContent = '닫기'; btn.className = 'at-btn sub'; btn.onclick = () => closeAttend(); }
-  else if(doneToday){ msg.textContent = `오늘 출석 완료! ${n}/${goal} · ${goal - n}번 더 오면 돼요`; btn.textContent = '내일 또 올게요'; btn.className = 'at-btn sub'; btn.onclick = () => closeAttend(); }
-  else { msg.textContent = n ? `지금까지 ${n}일 출석했어요` : ''; btn.textContent = '오늘 출석 도장 찍기'; btn.className = 'at-btn'; btn.onclick = () => attendStamp(); }
+  const msg = document.getElementById('at-msg'), btn = document.getElementById('at-btn'), foot = document.getElementById('at-foot');
+  msg.className = 'at-msg';
+  if(!member){
+    msg.textContent = '🔒 로그인하면 오늘 도장을 바로 찍을 수 있어요'; msg.className = 'at-msg muted';
+    btn.textContent = '로그인하고 참여하기'; btn.className = 'at-btn login'; btn.onclick = () => attendGoAuth('login');
+    foot.innerHTML = '아직 회원이 아니라면 <button class="at-link" onclick="attendGoAuth(\'signup\')">30초 만에 가입하기</button>';
+  } else {
+    foot.textContent = '출석 기록은 내 계정에 저장돼서 어느 기기에서든 이어져요.';
+    if(_atErr){ msg.textContent = _atErr; msg.className = 'at-msg muted'; btn.textContent = '닫기'; btn.className = 'at-btn sub'; btn.onclick = () => closeAttend(); }
+    else if(complete){ msg.textContent = '모든 도장을 모았어요. 고마워요! 🙌'; btn.textContent = '닫기'; btn.className = 'at-btn sub'; btn.onclick = () => closeAttend(); }
+    else if(doneToday){ msg.textContent = `오늘 출석 완료! ${n}/${goal} · ${goal - n}번 더 오면 돼요`; btn.textContent = '내일 또 올게요'; btn.className = 'at-btn sub'; btn.onclick = () => closeAttend(); }
+    else { msg.textContent = n ? `${attendName()}님, 지금까지 ${n}일 출석했어요` : `${attendName()}님, 첫 도장을 찍어 볼까요?`; btn.textContent = '오늘 출석 도장 찍기'; btn.className = 'at-btn'; btn.onclick = () => attendStamp(); }
+  }
   attendFab();
 }
 function attendFab(){
   const fab = document.getElementById('attend-fab'); if(!fab) return;
   if(!attendActive()){ fab.classList.remove('show'); return; }
-  const days = attendDays(), n = Math.min(days.length, ATTEND_EVENT.goal);
+  const n = currentUser ? Math.min(_atDays.length, ATTEND_EVENT.goal) : 0;
   fab.classList.add('show');
-  fab.classList.toggle('todo', !days.includes(attendToday()) && n < ATTEND_EVENT.goal);
-  document.getElementById('at-fab-count').textContent = n + '/' + ATTEND_EVENT.goal;
+  fab.classList.toggle('todo', !!currentUser && _atUid === currentUser.id && !_atDays.includes(attendToday()) && n < ATTEND_EVENT.goal);
+  document.getElementById('at-fab-count').textContent = currentUser && _atUid === currentUser.id ? n + '/' + ATTEND_EVENT.goal : '체크';
 }
-function attendStamp(){
-  if(!attendActive()) return;
-  const days = attendDays(), today = attendToday();
-  if(!days.includes(today) && days.length < ATTEND_EVENT.goal){
-    days.push(today);
-    if(!attendSave(days)){ document.getElementById('at-msg').textContent = '이 브라우저에서는 출석을 저장할 수 없어요 (비공개 창 등).'; return; }
+async function attendStamp(){
+  if(!currentUser || _atBusy) return;
+  const btn = document.getElementById('at-btn'), msg = document.getElementById('at-msg');
+  _atBusy = true; btn.disabled = true; btn.textContent = '도장 찍는 중...';
+  const { data, error } = await sbClient.rpc('attend_stamp', { p_event: ATTEND_EVENT.id });
+  _atBusy = false; btn.disabled = false;
+  if(error){
+    const m = error.message || '';
+    attendRender(false);
+    msg.className = 'at-msg muted';
+    msg.textContent = /closed/.test(m) ? '지금은 이벤트 기간이 아니에요.' : /suspended/.test(m) ? '이용이 정지된 계정은 참여할 수 없어요.' : /login/.test(m) ? '로그인이 풀렸어요. 다시 로그인해 주세요.' : '도장을 찍지 못했어요. 잠시 뒤 다시 눌러 주세요.';
+    return;
   }
+  _atDays = (data || []).map(r => typeof r === 'string' ? r : (r.attend_stamp || r.day || Object.values(r)[0])); _atUid = currentUser.id;
   attendRender(true);
 }
-function openAttend(){
+function attendGoAuth(type){
+  _atAfterLogin = true;
+  closeAttend();
+  openAuth(type);
+  try{ showAuthMessage(type === 'signup' ? '가입하고 로그인하면 출석 도장을 찍을 수 있어요' : '로그인하면 출석 도장을 찍을 수 있어요'); }catch(e){}
+}
+async function openAttend(){
   const m = document.getElementById('attend-modal'); if(!m) return;
+  await attendLoad();
   attendRender(false);
   if(!m.classList.contains('open')){ m.classList.add('open'); navOverlayOpened(); }
 }
+function attendMarkSeen(){ try{ localStorage.setItem('mrc_attend_seen', attendToday()); }catch(e){} }
 function closeAttend(){
   const m = document.getElementById('attend-modal'); if(!m) return;
-  m.classList.remove('open');
-  try{ localStorage.setItem('mrc_attend_seen', attendToday()); }catch(e){}
+  m.classList.remove('open'); attendMarkSeen();
   navOverlayClosed();
 }
-NAV_OVERLAYS.push({ isOpen: () => document.getElementById('attend-modal')?.classList.contains('open'), close: () => { document.getElementById('attend-modal').classList.remove('open'); try{ localStorage.setItem('mrc_attend_seen', attendToday()); }catch(e){} } });
+NAV_OVERLAYS.push({ isOpen: () => document.getElementById('attend-modal')?.classList.contains('open'), close: () => { document.getElementById('attend-modal').classList.remove('open'); attendMarkSeen(); } });
 // 하루 한 번, 홈 화면에서 자동으로 띄운다. 환영 창 같은 다른 창이 떠 있으면 닫힌 뒤에 띄운다.
-function maybeShowAttend(tries){
+async function maybeShowAttend(tries){
   if(!attendActive()) return;
-  const today = attendToday();
-  try{ if(localStorage.getItem('mrc_attend_seen') === today) return; }catch(e){ return; }
-  const days = attendDays();
-  if(days.includes(today) || days.length >= ATTEND_EVENT.goal) return;
+  try{ if(localStorage.getItem('mrc_attend_seen') === attendToday()) return; }catch(e){ return; }
   if(_cameForRecovery || navFromHash().page !== 'home') return;
   if(navAnyOverlay() || document.getElementById('welcome-modal')?.classList.contains('open')){
     if((tries || 0) < 300) setTimeout(() => maybeShowAttend((tries || 0) + 1), 1000);
     return;
   }
+  if(!currentUser){ try{ currentUser = (await sbClient.auth.getSession()).data.session?.user || null; }catch(e){} }
+  await attendLoad();
+  if(currentUser && !_atErr && (_atDays.includes(attendToday()) || _atDays.length >= ATTEND_EVENT.goal)){ attendFab(); return; }
   setTimeout(() => { if(!navAnyOverlay() && navFromHash().page === 'home') openAttend(); }, (tries ? 500 : 0));
 }
+// 로그인·로그아웃하면 버튼 숫자를 새로 맞추고, 출석하려고 로그인한 경우엔 창을 다시 연다
+sbClient.auth.onAuthStateChange((event, session) => {
+  setTimeout(async () => {
+    const u = session?.user || null;
+    if(!u || u.id !== _atUid){ _atUid = null; _atDays = []; }
+    if(u) await attendLoad();
+    attendFab();
+    if(event === 'SIGNED_IN' && _atAfterLogin && u){
+      _atAfterLogin = false;
+      setTimeout(() => { if(!navAnyOverlay()) openAttend(); }, 700);
+    }
+  }, 0);
+});
 attendFab();
 window.addEventListener('load', () => setTimeout(maybeShowAttend, 2000));
 function navRender(st){
