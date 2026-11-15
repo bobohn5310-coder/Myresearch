@@ -7,3 +7,4 @@ docs
 wrangler.jsonc
 .assetsignore
 .wrangler
+vendor/README.md
