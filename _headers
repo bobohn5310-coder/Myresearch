@@ -26,11 +26,15 @@
   Cache-Control: no-cache
 /index*
   Cache-Control: no-cache
+# 관리자·내 캘린더 페이지는 광고가 없으므로 더 엄격하게: 우리 사이트와 Supabase 밖의 스크립트·통신을 막습니다.
+# (혹시 누가 화면에 나쁜 코드를 끼워 넣어도 다른 서버로 정보를 보내거나 외부 스크립트를 불러올 수 없게)
 /dashboard*
   Cache-Control: no-cache
   X-Robots-Tag: noindex, nofollow
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://ryikaxrcgfrgaczmmgnh.supabase.co wss://ryikaxrcgfrgaczmmgnh.supabase.co; frame-src 'self' blob: data:; worker-src 'self' blob:; form-action 'self'
 /admin*
   Cache-Control: no-cache
   X-Robots-Tag: noindex, nofollow
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; connect-src 'self' https://ryikaxrcgfrgaczmmgnh.supabase.co wss://ryikaxrcgfrgaczmmgnh.supabase.co; frame-src 'self' blob: data:; worker-src 'self' blob:; form-action 'self'
 /cv.js
   Cache-Control: no-cache
