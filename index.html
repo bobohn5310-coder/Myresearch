@@ -2157,7 +2157,30 @@ a { text-decoration: none; color: inherit; }
 .clv-empty-open b{color:var(--text)}
 .clv-more-btn{display:block;margin:14px auto 0;border:1.5px solid var(--border);background:#fff;border-radius:12px;padding:11px 22px;font-weight:700;color:var(--text-sub);font-family:inherit;font-size:14px;cursor:pointer}
 .clv-more-btn:hover{border-color:#86efac;color:#15803d}
+/* 학교별 묶음 */
+.clv-schools{display:flex;gap:6px;flex-wrap:wrap;margin:-4px 0 16px}
+.clv-sc{border:1px solid var(--border);background:#fff;border-radius:999px;padding:6px 12px;font-size:12.5px;font-weight:600;color:var(--text-sub);cursor:pointer;font-family:inherit;white-space:nowrap}
+.clv-sc i{font-style:normal;color:var(--text-light);margin-left:4px;font-weight:500}
+.clv-sc.on{background:#f0fdf4;border-color:#16a34a;color:#15803d}.clv-sc.on i{color:#16a34a}
+.clv-sc.home{border-color:#bbf7d0}
+.clv-sc.more{border-style:dashed;color:var(--text-muted)}
+.clv-sec .clv-fold-all{margin-left:auto;background:none;border:0;font-family:inherit;font-size:12.5px;color:var(--text-muted);text-decoration:underline;text-underline-offset:2px;cursor:pointer;font-weight:500}
+.clv-grp{background:#fff;border:1px solid var(--border);border-radius:16px;margin-bottom:10px;overflow:hidden}
+.clv-gh{display:flex;align-items:center;gap:10px;width:100%;padding:14px 18px;background:none;border:0;cursor:pointer;font-family:inherit;text-align:left;color:var(--text)}
+.clv-gh:hover{background:#fcfdfc}
+.clv-gh .ar{color:var(--text-light);font-size:11px;width:12px;transition:transform .15s;flex-shrink:0}
+.clv-grp.open .clv-gh .ar{transform:rotate(90deg)}
+.clv-gh b{font-size:15.5px;font-weight:800;white-space:nowrap}
+.clv-gh .d{font-size:12.5px;color:var(--text-muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.clv-gh .c{margin-left:auto;display:flex;gap:6px;align-items:center;font-size:12px;color:var(--text-muted);white-space:nowrap;flex-shrink:0}
+.clv-gh .c em{font-style:normal;background:#f0fdf4;color:#15803d;border-radius:999px;padding:2px 8px;font-weight:700}
+.clv-gh .c span{background:#f1f5f9;border-radius:999px;padding:2px 8px}
+.clv-home{font-size:11px;font-weight:700;color:#15803d;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:999px;padding:1px 7px;white-space:nowrap}
+.clv-gb{padding:4px 14px 14px;border-top:1px solid #f1f5f9;background:#fcfdfc}
+.clv-gb .clv-mgrid{margin-top:12px}
+.clv-gb .clv-more-btn{margin-top:10px;padding:8px 18px;font-size:13px}
 @media(max-width:900px){.clv-grid{grid-template-columns:1fr 1fr}.clv-mgrid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.clv-schools{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-right:-16px;padding-right:16px}.clv-schools::-webkit-scrollbar{display:none}.clv-sc{flex-shrink:0}.clv-sc.more{display:none}.clv-gh{padding:12px 14px;gap:8px;flex-wrap:wrap}.clv-gh .d{order:5;flex-basis:100%;padding-left:20px;margin-top:-4px}.clv-gb{padding:2px 10px 12px}.clv-grp:not(.open) .clv-gh .d{display:none}}
 @media(max-width:600px){.clv-chips{flex-basis:100%;overflow-x:auto;scrollbar-width:none;margin-right:-16px;padding-right:16px}.clv-chips::-webkit-scrollbar{display:none}.clv-chip{flex-shrink:0}.clv-mgrid{grid-template-columns:1fr 1fr;gap:10px}.clv-mc{padding:12px;min-height:126px}.clv-mc-n{font-size:13.5px}.clv-mc-f .clv-link{display:none}}
 @media(max-width:600px){.clv-wrap{padding:18px 16px 60px}.clv-grid{grid-template-columns:1fr}.clv-hero{flex-direction:column-reverse;align-items:flex-start;padding:20px}.clv-hero h1{font-size:22px}.clv-mascot{width:90px;height:90px;flex-basis:auto}.clv-opts{grid-template-columns:repeat(2,1fr)}.clv-tools .clv-btn{width:100%}}
 
@@ -3046,10 +3069,10 @@ a { text-decoration: none; color: inherit; }
         <button class="clv-chip on" data-f="all" onclick="clvFilter(this)">전체 <span data-n="all"></span></button>
         <button class="clv-chip" data-f="open" onclick="clvFilter(this)">🍀 클로버 공개 <span data-n="open"></span></button>
         <button class="clv-chip" data-f="grow" onclick="clvFilter(this)">🌱 자라는 중 <span data-n="grow"></span></button>
-        <select class="clv-chip clv-univ" id="clv-univ" onchange="CLV.more={};clvRender()" aria-label="학교 고르기"><option value="">학교 전체</option></select>
       </div>
       <button class="clv-btn" onclick="clvOpenVote()">🍀 클로버 남기기</button>
     </div>
+    <div class="clv-schools" id="clv-schools" aria-label="학교 고르기"></div>
     <div class="clv-list" id="clv-grid"></div>
     <div class="clv-note">🐞 클로버 지수는 연구실 구성원들이 남긴 <b>주관적인 의견을 모은 참고 정보</b>이며, My Research Calendar의 의견이 아니에요. 응답이 n명 이상 모인 연구실만 공개되고, 문제가 있는 내용은 연구실 정보 창의 '신고·삭제 요청'으로 알려 주시면 바로 가린 뒤 검토해요.</div>
   </div>
@@ -5832,55 +5855,75 @@ function clvRender(){
     return;
   }
   const q = (document.getElementById('clv-search')?.value || '').trim().toLowerCase();
-  // 학교 고르기: 연구실이 많은 학교부터
-  const us = document.getElementById('clv-univ');
-  if(us){
-    const cnt = {}; CLV.labs.forEach(l => cnt[l.univ] = (cnt[l.univ] || 0) + 1);
-    const opts = Object.keys(cnt).sort((a,b) => cnt[b] - cnt[a] || a.localeCompare(b, 'ko'));
-    const key = opts.map(u => u + cnt[u]).join('|');
-    if(us.dataset.key !== key){
-      const cur = us.value;
-      us.innerHTML = '<option value="">학교 전체</option>' + opts.map(u => `<option value="${escHtml(u)}">${escHtml(u)} ${cnt[u]}</option>`).join('');
-      us.value = opts.includes(cur) ? cur : '';
-      us.dataset.key = key;
-    }
-  }
-  const univ = us?.value || '';
-  const base = CLV.labs.filter(l => (!univ || l.univ === univ) && (!q || [l.univ,l.dept,l.name,l.topic].filter(Boolean).join(' ').toLowerCase().includes(q)));
   const isOpen = l => CLV.sum[l.id]?.total != null;
-  const opened = base.filter(isOpen).sort((a,b) => Number(CLV.sum[b.id].total) - Number(CLV.sum[a.id].total) || (CLV.sum[b.id].cnt||0) - (CLV.sum[a.id].cnt||0));
-  const growing = base.filter(l => !isOpen(l)).sort((a,b) => (CLV.sum[b.id]?.cnt||0) - (CLV.sum[a.id]?.cnt||0));
-  const counts = { all: base.length, open: opened.length, grow: growing.length };
+  const hit = l => !q || [l.univ,l.dept,l.name,l.topic].filter(Boolean).join(' ').toLowerCase().includes(q);
+  const passF = l => CLV.filter === 'all' || (CLV.filter === 'open') === isOpen(l);
+  const myUnivs = CLV.myUnivs || CLV.myLab?.my_univs || [];
+  // 학교 칩: 검색·공개 상태에 맞는 연구실 수 (내 학교 → 연구실 많은 학교 순)
+  const sc = {}; CLV.labs.forEach(l => { if(hit(l) && passF(l)) sc[l.univ] = (sc[l.univ] || 0) + 1; });
+  const univOrder = (a, b) => myUnivs.includes(b) - myUnivs.includes(a) || (sc[b]||0) - (sc[a]||0) || a.localeCompare(b, 'ko');
+  const univs = Object.keys(sc).sort(univOrder);
+  if(CLV.univ && !sc[CLV.univ] && !CLV.labs.some(l => l.univ === CLV.univ)) CLV.univ = '';
+  const univ = CLV.univ || '';
+  const box = document.getElementById('clv-schools');
+  if(box){
+    const SHOW = 8, all = CLV.allSchools || univs.length <= SHOW + 1;
+    const shown = all ? univs : univs.slice(0, SHOW);
+    if(univ && !shown.includes(univ)) shown.push(univ);
+    box.innerHTML = `<button class="clv-sc${univ ? '' : ' on'}" onclick="clvUniv('')">전체 학교<i>${univs.length}</i></button>`
+      + shown.map(u => `<button class="clv-sc${u === univ ? ' on' : ''}${myUnivs.includes(u) ? ' home' : ''}" onclick="clvUniv(this.dataset.u)" data-u="${escHtml(u)}">${myUnivs.includes(u) ? '🏠 ' : ''}${escHtml(clvShort(u))}<i>${sc[u] || 0}</i></button>`).join('')
+      + (all ? '' : `<button class="clv-sc more" onclick="CLV.allSchools=true;clvRender()">+ 학교 ${univs.length - SHOW}곳 더</button>`);
+  }
+  const base = CLV.labs.filter(l => (!univ || l.univ === univ) && hit(l));
+  const counts = { all: base.length, open: base.filter(isOpen).length, grow: base.filter(l => !isOpen(l)).length };
   document.querySelectorAll('.clv-chip span[data-n]').forEach(x => x.textContent = counts[x.dataset.n]);
-  if(!base.length){
-    grid.innerHTML = `<div class="clv-empty">${CLV.labs.length ? '찾는 연구실이 아직 없어요.' : '아직 등록된 연구실이 없어요.'}<br>내 연구실의 첫 클로버를 남겨 주세요 🍀<br><br><button class="clv-btn" onclick="clvOpenVote()">🍀 클로버 남기기</button></div>`;
+  const list = base.filter(passF);
+  if(!list.length){
+    grid.innerHTML = CLV.filter === 'open' && !q && !univ
+      ? `<div class="clv-empty-open">${clvClover(2, 34)}<div><b>아직 ${CLV_MIN_LABEL}이 모인 연구실이 없어요.</b><br>내 연구실의 첫 클로버를 남기면 공개가 빨라져요.</div></div>`
+      : `<div class="clv-empty">${CLV.labs.length ? '찾는 연구실이 아직 없어요.' : '아직 등록된 연구실이 없어요.'}<br>내 연구실의 첫 클로버를 남겨 주세요 🍀<br><br><button class="clv-btn" onclick="clvOpenVote()">🍀 클로버 남기기</button></div>`;
     return;
   }
-  CLV.more = CLV.more || {};
-  const step = window.matchMedia('(max-width:600px)').matches ? 8 : 12;
-  const cards = (list, key) => {
-    const n = step + (CLV.more[key] || 0);
-    const left = list.length - n;
-    return `<div class="clv-mgrid">${list.slice(0, n).map(clvMiniCard).join('')}</div>`
-      + (left > 0 ? `<button class="clv-more-btn" onclick="CLV.more['${key}']=(CLV.more['${key}']||0)+${step * 2};clvRender()">연구실 ${left}곳 더 보기 ↓</button>` : '');
-  };
-  let html = '';
-  if(CLV.filter !== 'grow'){
-    html += `<div class="clv-sec">🍀 클로버가 공개된 연구실 <small>${opened.length}곳</small></div>`;
-    html += opened.length ? cards(opened, 'open')
-      : `<div class="clv-empty-open">${clvClover(2, 34)}<div><b>${q || univ ? '조건에 맞는 공개 연구실이 아직 없어요.' : `아직 ${CLV_MIN_LABEL}이 모인 연구실이 없어요.`}</b><br>내 연구실의 첫 클로버를 남기면 공개가 빨라져요.</div></div>`;
-  }
-  if(CLV.filter !== 'open' && growing.length){
-    html += `<div class="clv-sec">🌱 클로버가 자라는 중 <small>${growing.length}곳</small></div>` + cards(growing, 'grow');
-  }
+  // 학교별로 묶기: 학교 안에서는 공개된 연구실(점수 높은 순) → 자라는 중(클로버 많은 순)
+  const groups = {};
+  list.forEach(l => (groups[l.univ] = groups[l.univ] || []).push(l));
+  const gOrder = Object.keys(groups).sort((a, b) => myUnivs.includes(b) - myUnivs.includes(a) || groups[b].length - groups[a].length || a.localeCompare(b, 'ko'));
+  const rank = l => isOpen(l) ? 1e6 + Number(CLV.sum[l.id].total) * 1e3 + (CLV.sum[l.id].cnt||0) : (CLV.sum[l.id]?.cnt||0);
+  CLV.more = CLV.more || {}; CLV.fold = CLV.fold || {};
+  const step = window.matchMedia('(max-width:600px)').matches ? 4 : 8;
+  // 검색하거나 학교를 고르면 다 펼치고, 아니면 위의 3개 학교(+ 내 학교)만 펼쳐 둔다
+  const openAuto = (u, i) => !!(q || univ || CLV.filter !== 'all' && gOrder.length <= 3 || i < 3 || myUnivs.includes(u));
+  const isUnfold = (u, i) => CLV.fold[u] != null ? CLV.fold[u] : (CLV.foldAll != null ? CLV.foldAll : openAuto(u, i));
+  const anyFolded = gOrder.some((u, i) => !isUnfold(u, i));
+  let html = `<div class="clv-sec">🏫 학교별 연구실 <small>${gOrder.length}개 학교 · ${list.length}곳</small>${gOrder.length > 1 ? `<button class="clv-fold-all" onclick="CLV.fold={};CLV.foldAll=${anyFolded};clvRender()">${anyFolded ? '모두 펼치기' : '모두 접기'}</button>` : ''}</div>`;
+  html += gOrder.map((u, i) => {
+    const labs = groups[u].sort((a, b) => rank(b) - rank(a));
+    const nOpen = labs.filter(isOpen).length, nGrow = labs.length - nOpen;
+    const depts = [...new Set(labs.map(l => l.dept))];
+    const unfold = isUnfold(u, i);
+    const key = 'u:' + u, n = step + (CLV.more[key] || 0), left = labs.length - n;
+    const ue = escHtml(u);
+    return `<div class="clv-grp${unfold ? ' open' : ''}">
+      <button class="clv-gh" data-u="${ue}" onclick="clvFold(this.dataset.u, ${!unfold})" aria-expanded="${unfold}">
+        <span class="ar">▶</span><b>${ue}</b>${myUnivs.includes(u) ? '<span class="clv-home">🏠 내 학교</span>' : ''}
+        <span class="d">${escHtml(depts.slice(0, 3).join(' · '))}${depts.length > 3 ? ` 외 ${depts.length - 3}곳` : ''}</span>
+        <span class="c">${nOpen ? `<em>🍀 ${nOpen}</em>` : ''}${nGrow ? `<span>🌱 ${nGrow}</span>` : ''}연구실 ${labs.length}곳</span>
+      </button>
+      ${unfold ? `<div class="clv-gb"><div class="clv-mgrid">${labs.slice(0, n).map(l => clvMiniCard(l, true)).join('')}</div>
+        ${left > 0 ? `<button class="clv-more-btn" data-k="${ue}" onclick="CLV.more['u:'+this.dataset.k]=(CLV.more['u:'+this.dataset.k]||0)+${step * 2};clvRender()">${ue} 연구실 ${left}곳 더 보기 ↓</button>` : ''}</div>` : ''}
+    </div>`;
+  }).join('');
   grid.innerHTML = html;
 }
+function clvShort(u){ return (u || '').replace(/대학교$/, '대').replace(/과학기술원$/, '과기원'); }
+function clvUniv(u){ CLV.univ = u || ''; CLV.more = {}; clvRender(); }
+function clvFold(u, open){ CLV.fold = CLV.fold || {}; CLV.fold[u] = open; clvRender(); }
 // 작은 카드: 학교·학과 / 연구실 이름 / 분야 한 줄 / 클로버 상태
-function clvMiniCard(l){
+function clvMiniCard(l, inGroup){
   const s = CLV.sum[l.id] || { cnt:0 };
   const open = s.total != null, tot = open ? Number(s.total) : 0;
   const four = open && tot >= 3.5;
-  const u = l.name ? `${escHtml(l.univ)} · ${escHtml(l.dept)}` : escHtml(l.univ);
+  const u = inGroup ? (l.name ? escHtml(l.dept) : '🌱 새로 등록된 연구실') : l.name ? `${escHtml(l.univ)} · ${escHtml(l.dept)}` : escHtml(l.univ);
   const t = l.name ? escHtml(l.topic || '') : `🔒 ${CLV_MIN_LABEL}이 모이면 이름 공개`;
   const pill = open ? `<span class="clv-pill on">${clvClover(Math.round(tot), 16)}${tot.toFixed(1)}</span>`
     : `<span class="clv-pill">${clvClover(1, 16)}자라는 중</span>`;
