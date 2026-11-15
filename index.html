@@ -2304,6 +2304,9 @@ a { text-decoration: none; color: inherit; }
 .fc-paper::before, .fc-paper::after { content: ""; position: absolute; top: 50%; width: 10px; height: 10px; margin-top: -5px; border-radius: 50%; background: #fff7e6; border: 1px solid #f1e3c4; }
 .fc-paper::before { left: -6px; } .fc-paper::after { right: -6px; }
 .fc-paper em { font-style: normal; color: #059669; }
+.fc-paper.bad { background: #fffafa; border-color: #fbd5d5; box-shadow: 0 2px 0 #fde2e2; }
+.fc-paper.bad em { color: #dc2626; }
+.fc-warn { display: block; width: max-content; margin: 0 auto 6px; font-size: 11.5px; font-weight: 800; color: #b91c1c; background: #fee2e2; border-radius: 999px; padding: 2px 10px; }
 .fc-chips { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-top: 12px; animation: fcIn .4s .1s ease-out both; }
 .fc-chip { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 700; color: #334155; padding: 5px 10px; border-radius: 999px; background: #fff; border: 1px solid #e2e8f0; white-space: nowrap; }
 .fc-chip i { width: 11px; height: 11px; border-radius: 50%; display: inline-block; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08); }
@@ -6238,6 +6241,30 @@ const FC_MSGS = [
   '오늘은 오래 미뤄 둔 [그 메일]을 보내기 좋은 날이에요.',
   '좋은 질문 하나가 [좋은 논문 하나]를 만들어요.',
 ];
+// 약 40% 확률로 나오는 '오늘은 조심' 문구. 상처 주는 말 대신 장난스러운 경고 + 작은 팁으로 쓴다.
+const FC_BAD_RATE = 0.4;
+const FC_BAD = [
+  '오늘은 리뷰어 2가 깨어 있어요. [제출 버튼]은 내일 누르는 게 좋겠어요.',
+  '실험 결과가 [기대와 반대]로 나올 수 있는 날이에요. 그것도 결과예요.',
+  '오늘은 [저장 안 한 파일]이 날아가기 쉬운 날이에요. Ctrl+S를 잊지 마세요.',
+  '교수님의 \'잠깐 얘기 좀 할까?\'가 [칭찬이 아닐] 확률이 높아요. 마음의 준비를.',
+  '오늘 쓴 코드는 [내일의 내가 못 알아볼] 수 있어요. 주석을 남겨 두세요.',
+  '마감이 [생각보다 가까이] 와 있어요. 캘린더를 한 번 더 확인하세요.',
+  '오늘은 [컴파일 에러]와 친해지는 날이에요. 커피를 넉넉히 준비하세요.',
+  '참고문헌 형식이 [통째로 틀어질] 수 있는 날이에요. 제출 전에 한 번 더 보세요.',
+  '랩미팅에서 [예상 못 한 질문]이 날아올 수 있어요. 슬라이드 3장만 더 점검하세요.',
+  '오늘은 GPU가 [다 차 있을] 확률이 높아요. 논문 읽기 좋은 날이라고 생각해요.',
+  '[Major Revision]의 기운이 감돌아요. 하지만 Reject보다는 낫잖아요.',
+  '데이터 전처리에서 [한 줄 실수]가 숨어 있을지도 몰라요. 오늘은 검산의 날.',
+  '오늘은 의욕이 [로딩 중]이에요. 작은 일 하나만 끝내도 성공이에요.',
+  '이메일 답장이 [오지 않는] 날이에요. 기다리는 동안 다른 일을 해 두세요.',
+  '오늘 세운 계획의 [절반만] 끝날 거예요. 그래도 절반이면 꽤 많은 거예요.',
+  '노트북 배터리가 [가장 중요한 순간]에 꺼질 수 있어요. 충전기를 챙기세요.',
+  '오늘은 실험이 [재현되지 않는] 날이에요. 시드 값을 꼭 적어 두세요.',
+  '그림 해상도가 [제출 직전에] 깨져 보일 수 있어요. PDF로 미리 확인하세요.',
+  '오늘 읽은 논문이 [내 아이디어랑 똑같을] 수 있어요. 차별점을 찾을 기회예요.',
+  '야식의 유혹이 [평소의 두 배]예요. 내일의 컨디션을 생각해 주세요.',
+];
 const FC_COLORS = [['클로버 그린','#22c55e'],['리뷰어 블루','#3b82f6'],['형광펜 옐로','#facc15'],['아카데믹 네이비','#1e3a8a'],['라벤더 퍼플','#a78bfa'],['코랄 핑크','#fb7185'],['민트','#2dd4bf'],['커피 브라운','#92400e'],['논문 화이트','#f8fafc'],['선셋 오렌지','#f97316']];
 const FC_WORDS = ['Related Work','Ablation','Figure 1','Abstract','Baseline','Future Work','Appendix','Camera-ready','Limitation','서론 첫 문장','참고문헌 정리','실험 로그','랩미팅','코드 정리','데이터 백업'];
 
@@ -6262,13 +6289,15 @@ function fcRng(seed){ let a = seed; return () => { a = (a + 0x6D2B79F5) | 0; let
 // 그날 3개의 쿠키 내용 (같은 날에는 문구가 겹치지 않게)
 function fcFortunes(day){
   const r = fcRng(fcHash(fcVid() + '|' + day));
-  const order = FC_MSGS.map((_, i) => i);
-  for(let i = order.length - 1; i > 0; i--){ const j = Math.floor(r() * (i + 1)); [order[i], order[j]] = [order[j], order[i]]; }
+  const shuffle = arr => { const o = arr.map((_, i) => i); for(let i = o.length - 1; i > 0; i--){ const j = Math.floor(r() * (i + 1)); [o[i], o[j]] = [o[j], o[i]]; } return o; };
+  const good = shuffle(FC_MSGS), bad = shuffle(FC_BAD);
   const out = [];
+  let gi = 0, bi = 0;
   for(let k = 0; k < FC_MAX; k++){
+    const isBad = r() < FC_BAD_RATE;
     const c = FC_COLORS[Math.floor(r() * FC_COLORS.length)];
     const sr = r();
-    out.push({ msg: FC_MSGS[order[k]], color: c[0], hex: c[1], num: 1 + Math.floor(r() * 99), word: FC_WORDS[Math.floor(r() * FC_WORDS.length)], stars: sr < .25 ? 5 : sr < .75 ? 4 : 3 });
+    out.push({ msg: isBad ? FC_BAD[bad[bi++]] : FC_MSGS[good[gi++]], bad: isBad, color: c[0], hex: c[1], num: 1 + Math.floor(r() * 99), word: FC_WORDS[Math.floor(r() * FC_WORDS.length)], stars: isBad ? (sr < .4 ? 1 : 2) : (sr < .25 ? 5 : sr < .75 ? 4 : 3) });
   }
   return out;
 }
@@ -6320,7 +6349,7 @@ function fcRender(){
     act = `<button class="fc-btn" onclick="fcCrack()">🥠 쿠키 깨기</button>`;
   } else {
     const it = f[_fcIdx];
-    stage = `<div class="fc-stage">${fcSvg(true)}<div class="fc-paper">${fcMsgHtml(it.msg)}</div>
+    stage = `<div class="fc-stage">${fcSvg(true)}<div class="fc-paper${it.bad ? ' bad' : ''}">${it.bad ? '<span class="fc-warn">⚠️ 오늘은 살짝 조심</span>' : ''}${fcMsgHtml(it.msg)}</div>
       <div class="fc-chips"><span class="fc-chip"><i style="background:${it.hex}"></i>행운의 색 <b>${escHtml(it.color)}</b></span><span class="fc-chip">🔢 행운의 숫자 <b>${it.num}</b></span><span class="fc-chip">📚 키워드 <b>${escHtml(it.word)}</b></span><span class="fc-chip">🔬 연구운 <span class="fc-star">${'★'.repeat(it.stars)}${'☆'.repeat(5 - it.stars)}</span></span></div></div>`;
     const share = `<button class="fc-btn sub" id="fc-share" onclick="fcShare()">📤 공유</button>`;
     if(s.o < FC_MAX) act = `<div class="fc-row">${share}<button class="fc-btn" onclick="fcNext()">🥠 ${s.o + 1}번째 쿠키 ${s.o < s.u ? '깨기' : '굽기'}</button></div>`;
