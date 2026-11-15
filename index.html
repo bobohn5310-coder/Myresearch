@@ -2135,7 +2135,30 @@ a { text-decoration: none; color: inherit; }
 .clv-picked{border:1.5px solid #16a34a;background:#f0fdf4;border-radius:12px;padding:10px 14px;font-size:12px;color:#15803d;line-height:1.6;margin-top:6px}
 .clv-picked b{display:block;font-size:15px;color:var(--text)}
 .clv-picked small{color:var(--text-muted);font-size:12px}
-@media(max-width:900px){.clv-grid{grid-template-columns:1fr 1fr}}
+/* 작은 카드 목록 (연구실이 많아져도 한눈에 보이게) */
+.clv-chips{display:flex;gap:8px;align-items:center}
+.clv-chip span{opacity:.75;font-weight:700}
+.clv-univ{appearance:none;-webkit-appearance:none;padding-right:30px;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2364748b' stroke-width='1.6' fill='none'/%3E%3C/svg%3E") no-repeat right 12px center}
+.clv-sec{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:800;color:var(--text);margin:6px 0 10px}
+.clv-sec small{font-weight:500;color:var(--text-muted);font-size:12.5px}
+.clv-sec+.clv-mgrid,.clv-sec+.clv-empty-open{margin-bottom:24px}
+.clv-mgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.clv-mc{background:#fff;border:1px solid var(--border);border-radius:14px;padding:14px 14px 12px;display:flex;flex-direction:column;gap:3px;min-height:132px;position:relative;min-width:0}
+.clv-mc-u{font-size:11.5px;color:var(--text-muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.clv-mc-n{font-size:14.5px;font-weight:700;line-height:1.35;color:var(--text)}
+.clv-mc-t{font-size:12px;color:var(--text-muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.clv-mc-f{margin-top:auto;padding-top:8px;display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:12px}
+.clv-mc-f .clv-link{white-space:nowrap}
+.clv-mc .clv-badge{top:10px;right:10px;font-size:10.5px;padding:2px 7px 2px 3px}
+.clv-mc.four .clv-mc-u{padding-right:78px}
+.clv-pill{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;font-weight:600;border-radius:999px;padding:3px 9px 3px 5px;white-space:nowrap;background:#f1f5f9;color:var(--text-muted)}
+.clv-pill.on{background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;font-size:13px;font-weight:800;font-family:'Montserrat',sans-serif}
+.clv-empty-open{background:#fff;border:1px dashed #bbf7d0;border-radius:14px;padding:16px 18px;font-size:13px;color:var(--text-muted);display:flex;gap:12px;align-items:center;line-height:1.6}
+.clv-empty-open b{color:var(--text)}
+.clv-more-btn{display:block;margin:14px auto 0;border:1.5px solid var(--border);background:#fff;border-radius:12px;padding:11px 22px;font-weight:700;color:var(--text-sub);font-family:inherit;font-size:14px;cursor:pointer}
+.clv-more-btn:hover{border-color:#86efac;color:#15803d}
+@media(max-width:900px){.clv-grid{grid-template-columns:1fr 1fr}.clv-mgrid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.clv-chips{flex-basis:100%;overflow-x:auto;scrollbar-width:none;margin-right:-16px;padding-right:16px}.clv-chips::-webkit-scrollbar{display:none}.clv-chip{flex-shrink:0}.clv-mgrid{grid-template-columns:1fr 1fr;gap:10px}.clv-mc{padding:12px;min-height:126px}.clv-mc-n{font-size:13.5px}.clv-mc-f .clv-link{display:none}}
 @media(max-width:600px){.clv-wrap{padding:18px 16px 60px}.clv-grid{grid-template-columns:1fr}.clv-hero{flex-direction:column-reverse;align-items:flex-start;padding:20px}.clv-hero h1{font-size:22px}.clv-mascot{width:90px;height:90px;flex-basis:auto}.clv-opts{grid-template-columns:repeat(2,1fr)}.clv-tools .clv-btn{width:100%}}
 
 /* ══════════════════════════
@@ -2905,13 +2928,17 @@ a { text-decoration: none; color: inherit; }
       <svg class="clv-mascot" viewBox="0 0 100 100"><use href="#clv-bug"/></svg>
     </section>
     <div class="clv-tools">
-      <input class="clv-search" id="clv-search" placeholder="🔍 학교, 학과, 연구 분야로 찾기" oninput="clvRender()">
-      <button class="clv-chip on" data-f="all" onclick="clvFilter(this)">전체</button>
-      <button class="clv-chip" data-f="four" onclick="clvFilter(this)">🍀 네잎 연구실</button>
+      <input class="clv-search" id="clv-search" placeholder="🔍 학교, 학과, 연구 분야로 찾기" oninput="CLV.more={};clvRender()">
+      <div class="clv-chips">
+        <button class="clv-chip on" data-f="all" onclick="clvFilter(this)">전체 <span data-n="all"></span></button>
+        <button class="clv-chip" data-f="open" onclick="clvFilter(this)">🍀 클로버 공개 <span data-n="open"></span></button>
+        <button class="clv-chip" data-f="grow" onclick="clvFilter(this)">🌱 자라는 중 <span data-n="grow"></span></button>
+        <select class="clv-chip clv-univ" id="clv-univ" onchange="CLV.more={};clvRender()" aria-label="학교 고르기"><option value="">학교 전체</option></select>
+      </div>
       <button class="clv-btn" onclick="clvOpenVote()">🍀 클로버 남기기</button>
     </div>
-    <div class="clv-grid" id="clv-grid"></div>
-    <div class="clv-note">🐞 클로버 지수는 연구실 구성원들이 남긴 <b>주관적인 의견을 모은 참고 정보</b>이며, My Research Calendar의 의견이 아니에요. 응답이 n명 이상 모인 연구실만 공개되고, 문제가 있는 내용은 각 카드의 '신고·삭제 요청'으로 알려 주시면 바로 가린 뒤 검토해요.</div>
+    <div class="clv-list" id="clv-grid"></div>
+    <div class="clv-note">🐞 클로버 지수는 연구실 구성원들이 남긴 <b>주관적인 의견을 모은 참고 정보</b>이며, My Research Calendar의 의견이 아니에요. 응답이 n명 이상 모인 연구실만 공개되고, 문제가 있는 내용은 연구실 정보 창의 '신고·삭제 요청'으로 알려 주시면 바로 가린 뒤 검토해요.</div>
   </div>
 </div>
 
@@ -5630,6 +5657,7 @@ function clvFilter(el){
   document.querySelectorAll('.clv-chip').forEach(c => c.classList.remove('on'));
   el.classList.add('on');
   CLV.filter = el.dataset.f;
+  CLV.more = {};
   clvRender();
 }
 
@@ -5644,38 +5672,68 @@ function clvRender(){
     return;
   }
   const q = (document.getElementById('clv-search')?.value || '').trim().toLowerCase();
-  let list = CLV.labs.filter(l => !q || [l.univ,l.dept,l.name,l.topic].filter(Boolean).join(' ').toLowerCase().includes(q));
-  if(CLV.filter === 'four') list = list.filter(l => (CLV.sum[l.id]?.total || 0) >= 3.5);
-  list.sort((a,b) => (CLV.sum[b.id]?.cnt||0) - (CLV.sum[a.id]?.cnt||0));
-  if(!list.length){
+  // 학교 고르기: 연구실이 많은 학교부터
+  const us = document.getElementById('clv-univ');
+  if(us){
+    const cnt = {}; CLV.labs.forEach(l => cnt[l.univ] = (cnt[l.univ] || 0) + 1);
+    const opts = Object.keys(cnt).sort((a,b) => cnt[b] - cnt[a] || a.localeCompare(b, 'ko'));
+    const key = opts.map(u => u + cnt[u]).join('|');
+    if(us.dataset.key !== key){
+      const cur = us.value;
+      us.innerHTML = '<option value="">학교 전체</option>' + opts.map(u => `<option value="${escHtml(u)}">${escHtml(u)} ${cnt[u]}</option>`).join('');
+      us.value = opts.includes(cur) ? cur : '';
+      us.dataset.key = key;
+    }
+  }
+  const univ = us?.value || '';
+  const base = CLV.labs.filter(l => (!univ || l.univ === univ) && (!q || [l.univ,l.dept,l.name,l.topic].filter(Boolean).join(' ').toLowerCase().includes(q)));
+  const isOpen = l => CLV.sum[l.id]?.total != null;
+  const opened = base.filter(isOpen).sort((a,b) => Number(CLV.sum[b.id].total) - Number(CLV.sum[a.id].total) || (CLV.sum[b.id].cnt||0) - (CLV.sum[a.id].cnt||0));
+  const growing = base.filter(l => !isOpen(l)).sort((a,b) => (CLV.sum[b.id]?.cnt||0) - (CLV.sum[a.id]?.cnt||0));
+  const counts = { all: base.length, open: opened.length, grow: growing.length };
+  document.querySelectorAll('.clv-chip span[data-n]').forEach(x => x.textContent = counts[x.dataset.n]);
+  if(!base.length){
     grid.innerHTML = `<div class="clv-empty">${CLV.labs.length ? '찾는 연구실이 아직 없어요.' : '아직 등록된 연구실이 없어요.'}<br>내 연구실의 첫 클로버를 남겨 주세요 🍀<br><br><button class="clv-btn" onclick="clvOpenVote()">🍀 클로버 남기기</button></div>`;
     return;
   }
-  grid.innerHTML = list.map(l => {
-    const s = CLV.sum[l.id] || { cnt:0 };
-    // 자라는 중인 연구실은 학교·학과만, n명이 모이면 연구실 이름과 분야까지 보여 준다
-    const head = (l.admin ? '<span class="clv-src">공개 정보로 등록</span>' : '') + (l.name
-      ? `<div class="clv-dept">${escHtml(l.univ)} ${escHtml(l.dept)}</div><h3>${escHtml(l.name)}</h3><div class="clv-topic">${escHtml(l.topic||'')}</div>`
-      : `<div class="clv-dept">${escHtml(l.univ)}</div><h3>${escHtml(l.dept)}</h3><div class="clv-topic">🔒 연구실 이름은 ${CLV_MIN_LABEL}이 모이면 공개돼요</div>`)
-      + (l.admin ? `<div class="clv-more">${clvSafeUrl(l.homepage) ? `<a href="${escHtml(clvSafeUrl(l.homepage))}" target="_blank" rel="noopener" onclick="event.stopPropagation()">🔗 홈페이지</a>` : ''}${l.papers ? `<span>📄 대표 논문 ${l.papers}편</span>` : ''}</div>` : '');
-    const mine = CLV.mine.get(l.id);
-    const foot = `<div class="clv-foot-wrap"></div><div class="clv-foot">
-        ${mine === 'pending' ? '<span style="color:#b45309;font-weight:600">⏳ 내 클로버 검토 중</span>'
-          : mine === 'approved' ? '<span style="color:#15803d;font-weight:600">✓ 내 클로버를 남겼어요</span>'
-          : `<button class="clv-link" onclick="event.stopPropagation();clvOpenLab(${l.id})">연구실 정보 보기 →</button>`}
-        <button class="clv-report" onclick="event.stopPropagation();clvOpenReport(${l.id})">신고·삭제 요청</button></div>`;
-    if(s.total == null){
-      return `<div class="clv-card clv-click" onclick="clvOpenLab(${l.id})">${head}
-        <div class="clv-grow">${clvClover(2, 34)}<b>클로버가 자라는 중이에요</b>
-        <span>${CLV_MIN_LABEL}이 모이면 공개돼요</span></div>${foot}</div>`;
-    }
-    const tot = Number(s.total);
-    return `<div class="clv-card clv-click" onclick="clvOpenLab(${l.id})">${tot >= 3.5 ? `<div class="clv-badge">${clvBug(18)}네잎 연구실</div>` : ''}${head}
-      <div class="clv-total">${clvClover(Math.round(tot), 40)}<div><b>${tot.toFixed(1)}</b><span style="color:var(--text-muted);font-size:13px"> / 4</span><small>클로버 지수</small></div></div>
-      ${CLV_ITEMS.map(it => `<div class="clv-row"><span>${it.label}</span>${clvClover(Math.round(Number(s[it.k])), 20)}</div>`).join('')}
-      ${clvCommentsHtml(l.id)}
-      ${foot}</div>`;
-  }).join('');
+  CLV.more = CLV.more || {};
+  const step = window.matchMedia('(max-width:600px)').matches ? 8 : 12;
+  const cards = (list, key) => {
+    const n = step + (CLV.more[key] || 0);
+    const left = list.length - n;
+    return `<div class="clv-mgrid">${list.slice(0, n).map(clvMiniCard).join('')}</div>`
+      + (left > 0 ? `<button class="clv-more-btn" onclick="CLV.more['${key}']=(CLV.more['${key}']||0)+${step * 2};clvRender()">연구실 ${left}곳 더 보기 ↓</button>` : '');
+  };
+  let html = '';
+  if(CLV.filter !== 'grow'){
+    html += `<div class="clv-sec">🍀 클로버가 공개된 연구실 <small>${opened.length}곳</small></div>`;
+    html += opened.length ? cards(opened, 'open')
+      : `<div class="clv-empty-open">${clvClover(2, 34)}<div><b>${q || univ ? '조건에 맞는 공개 연구실이 아직 없어요.' : `아직 ${CLV_MIN_LABEL}이 모인 연구실이 없어요.`}</b><br>내 연구실의 첫 클로버를 남기면 공개가 빨라져요.</div></div>`;
+  }
+  if(CLV.filter !== 'open' && growing.length){
+    html += `<div class="clv-sec">🌱 클로버가 자라는 중 <small>${growing.length}곳</small></div>` + cards(growing, 'grow');
+  }
+  grid.innerHTML = html;
+}
+// 작은 카드: 학교·학과 / 연구실 이름 / 분야 한 줄 / 클로버 상태
+function clvMiniCard(l){
+  const s = CLV.sum[l.id] || { cnt:0 };
+  const open = s.total != null, tot = open ? Number(s.total) : 0;
+  const four = open && tot >= 3.5;
+  const u = l.name ? `${escHtml(l.univ)} · ${escHtml(l.dept)}` : escHtml(l.univ);
+  const t = l.name ? escHtml(l.topic || '') : `🔒 ${CLV_MIN_LABEL}이 모이면 이름 공개`;
+  const pill = open ? `<span class="clv-pill on">${clvClover(Math.round(tot), 16)}${tot.toFixed(1)}</span>`
+    : `<span class="clv-pill">${clvClover(1, 16)}자라는 중</span>`;
+  const mine = CLV.mine.get(l.id);
+  const lockedElsewhere = CLV.myLab?.lab_id && CLV.myLab.lab_id !== l.id;
+  const act = mine === 'pending' ? '<span style="color:#b45309;font-weight:600;white-space:nowrap">⏳ 검토 중</span>'
+    : mine === 'approved' ? '<span style="color:#15803d;font-weight:600;white-space:nowrap">✓ 남겼어요</span>'
+    : lockedElsewhere ? '<span class="clv-link">보기 →</span>'
+    : `<button class="clv-link" onclick="event.stopPropagation();clvOpenVote(${l.id})">남기기 →</button>`;
+  return `<div class="clv-mc clv-click${four ? ' four' : ''}" onclick="clvOpenLab(${l.id})" title="${escHtml([l.univ, l.dept, l.name, l.topic].filter(Boolean).join(' · '))}">
+    ${four ? `<div class="clv-badge">${clvBug(14)}네잎</div>` : ''}
+    <span class="clv-mc-u">${u}</span><b class="clv-mc-n">${escHtml(l.name || l.dept)}</b><span class="clv-mc-t">${t}</span>
+    <div class="clv-mc-f">${pill}${act}</div></div>`;
 }
 
 // ── 홈: 클로버 지수 소개 (연구실 데이터가 없을 때는 예시 + 첫 클로버 안내) ──
