@@ -5598,7 +5598,7 @@ const CLV_ITEMS = [
 const CLV_WORDS = ['아쉬워요','보통이에요','좋아요','최고예요'];
 const CLV_MIN = 6;            // 실제 공개 기준 (supabase clover_summary 와 같아야 함)
 const CLV_MIN_LABEL = 'n명';  // 이용자에게 보이는 표현
-const CLV = { labs:[], sum:{}, mine:new Set(), filter:'all', loaded:false, ready:true, vote:{}, lab:null, reportLab:null, reportKind:'report' };
+const CLV = { labs:[], sum:{}, mine:new Map(), filter:'all', loaded:false, ready:true, vote:{}, lab:null, reportLab:null, reportKind:'report' };
 
 function clvClover(n, size){
   size = size || 18;
@@ -6221,7 +6221,12 @@ sbClient.auth.onAuthStateChange((event, session) => {
     attendFab();
     if(event === 'SIGNED_IN' && _atAfterLogin && u){
       _atAfterLogin = false;
-      setTimeout(() => { if(!navAnyOverlay()) openAttend(); }, 700);
+      // 로그인 창은 '로그인 성공' 문구를 1.2초 보여 준 뒤 닫히므로, 닫힐 때까지 기다렸다가 연다
+      const reopen = (tries) => {
+        if(navAnyOverlay()){ if(tries < 20) setTimeout(() => reopen(tries + 1), 500); return; }
+        openAttend();
+      };
+      setTimeout(() => reopen(0), 700);
     }
   }, 0);
 });
