@@ -458,5 +458,30 @@
     "url": "https://www.electrochem.org/252",
     "abstract_deadline": "2027-04-02",
     "registration_deadline": "2027-09-27"
+  },
+  {
+    "id": "idw-26",
+    "title": "IDW '26 (33rd International Display Workshops)",
+    "org": "International Display Workshops (ITE·SID Japan Chapter)",
+    "keywords": "디스플레이 OLED LCD 마이크로LED microLED 국제디스플레이워크숍 idw26",
+    "start_date": "2026-12-02",
+    "end_date": "2026-12-04",
+    "location": "ACT CITY Hamamatsu, Hamamatsu, Japan",
+    "field": "eng",
+    "tags": "해외,디스플레이",
+    "url": "https://www.idw.or.jp/"
+  },
+  {
+    "id": "sid-displayweek-2027",
+    "title": "SID Displayweek 2027",
+    "org": "Society for Information Display (SID) Display Week 2027",
+    "keywords": "디스플레이 OLED LCD 마이크로LED microLED 디스플레이위크 SID",
+    "start_date": "2027-06-06",
+    "end_date": "2027-06-11",
+    "location": "San Jose, CA, USA",
+    "field": "eng",
+    "tags": "해외,디스플레이",
+    "url": "https://www.displayweek.org/",
+    "abstract_deadline": "2026-12-01"
   }
 ]
