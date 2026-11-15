@@ -11,6 +11,7 @@
 ## 넣는 순서 (Supabase → SQL Editor)
 1. `supabase/clover_admin_labs.sql` — 칸·표 추가 (한 번만)
 2. `supabase/seed_clover_labs_semiconductor_2026-11.sql` — 반도체 분야 시범 수집분
+3. `supabase/seed_clover_labs_hanyang_battery_display_2026-11.sql` — 한양대 이차전지·디스플레이 13곳 (2026-11-15)
 
 둘 다 여러 번 실행해도 안전합니다. 되돌리는 방법은 2번 파일 맨 위에 적어 두었어요.
 
@@ -23,3 +24,4 @@
 
 ## 원본 자료
 - `data/clover-labs/semiconductor-pilot-2026-11.json` — 연구실별 출처 페이지·논문·메모
+- `data/clover-labs/hanyang-battery-display-2026-11.json` — 한양대 배터리공학과·디스플레이융합공학과·융합전자공학부 공식 페이지 기준

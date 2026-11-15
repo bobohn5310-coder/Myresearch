@@ -1,0 +1,162 @@
+{
+ "collected_at": "2026-11-15",
+ "note": "운영자 수집: 한양대학교 이차전지·디스플레이 분야 연구실 공개 정보. 개인 연락처·학생 정보 없음. 대표 논문·과제는 이번에 넣지 않음.",
+ "labs": [
+  {
+   "univ": "한양대학교",
+   "dept": "대학원 배터리공학과",
+   "lab_name": "에너지저장 및 변환소재 연구실",
+   "prof": "선양국",
+   "field": "리튬이온전지 양극·음극 소재 합성과 전지 성능 분석",
+   "area": "이차전지",
+   "homepage": "http://escml.hanyang.ac.kr/",
+   "source_url": "https://battery.hanyang.ac.kr/lab1",
+   "papers": [],
+   "notes": ""
+  },
+  {
+   "univ": "한양대학교",
+   "dept": "대학원 배터리공학과",
+   "lab_name": "메소스케일 재료분석 합성 연구실",
+   "prof": "윤종승",
+   "field": "리튬이온전지 양극 소재 합성(단결정·도핑·미세구조)과 TEM 분석",
+   "area": "이차전지",
+   "homepage": "http://meso.hanyang.ac.kr/",
+   "source_url": "https://battery.hanyang.ac.kr/lab2",
+   "papers": [],
+   "notes": ""
+  },
+  {
+   "univ": "한양대학교",
+   "dept": "대학원 배터리공학과",
+   "lab_name": "전기화학소재연구실",
+   "prof": "김동원",
+   "field": "고분자·유무기 복합 전기화학 소재, 리튬금속·전고체·무음극 전지",
+   "area": "이차전지",
+   "homepage": "http://www.echemmat.com/",
+   "source_url": "https://battery.hanyang.ac.kr/lab3",
+   "papers": [],
+   "notes": ""
+  },
+  {
+   "univ": "한양대학교",
+   "dept": "대학원 배터리공학과",
+   "lab_name": "차세대 전기화학 연구실",
+   "prof": "김한수",
+   "field": "차세대 리튬전지 고용량 음극(실리콘·리튬금속), 무기 전해질 전지",
+   "area": "이차전지",
+   "homepage": "http://hkim.hanyang.ac.kr/aetl/main/",
+   "source_url": "https://battery.hanyang.ac.kr/lab4",
+   "papers": [],
+   "notes": ""
+  },
+  {
+   "univ": "한양대학교",
+   "dept": "대학원 배터리공학과",
+   "lab_name": "표면과학연구실",
+   "prof": "안희준",
+   "field": "리튬이온·수계 아연이온 전지 전극, 슈퍼커패시터, 신축성 에너지저장",
+   "area": "이차전지",
+   "homepage": "https://sites.google.com/view/surfacesciencelab",
+   "source_url": "https://battery.hanyang.ac.kr/lab6",
+   "papers": [],
+   "notes": ""
+  },
+  {
+   "univ": "한양대학교",
+   "dept": "대학원 배터리공학과",
+   "lab_name": "나노재료 에너지소자 연구실",
+   "prof": "송태섭",
+   "field": "리튬금속·전고체 고용량 저장 소재, 수전해 촉매, 신축성 소자",
+   "area": "이차전지",
+   "homepage": "https://hyunmed1.wixsite.com/nmedl",
+   "source_url": "https://battery.hanyang.ac.kr/lab7",
+   "papers": [],
+   "notes": ""
+  },
+  {
+   "univ": "한양대학교",
+   "dept": "융합전자공학부",
+   "lab_name": "디스플레이소자 연구실",
+   "prof": "김재훈",
+   "field": "LCD·OLED·전자종이 디스플레이 소자, 액정 물리, 유기전자소자",
+   "area": "디스플레이",
+   "homepage": "http://ddlab.hanyang.ac.kr",
+   "source_url": "http://electronic.hanyang.ac.kr/kor/professor/professor_view.php?idx=26&gubun=7&pNo=1",
+   "papers": [],
+   "notes": "디스플레이융합공학과 교수 목록에도 있음"
+  },
+  {
+   "univ": "한양대학교",
+   "dept": "융합전자공학부",
+   "lab_name": "정재경 연구실",
+   "prof": "정재경",
+   "field": "TFT, 센서, 신축성 전자소자",
+   "area": "디스플레이",
+   "homepage": "http://sndlab.hanyang.ac.kr/",
+   "source_url": "http://electronic.hanyang.ac.kr/eng/professor/professor_view.php?idx=34&gubun=7&pNo=1",
+   "papers": [],
+   "notes": "학과 영문 페이지의 연구실 이름 표기(Semconductor, Nano Device Laboratory)에 오타가 있어 교수님 성함으로 표기. 디스플레이융합공학과 교수 목록에도 있음"
+  },
+  {
+   "univ": "한양대학교",
+   "dept": "대학원 디스플레이융합공학과",
+   "lab_name": "유창재 연구실",
+   "prof": "유창재",
+   "field": "LCD, OLED, 디스플레이 광학",
+   "area": "디스플레이",
+   "homepage": "https://sites.google.com/view/noveldisplaylab",
+   "source_url": "https://displayeng.hanyang.ac.kr/index.php?hCode=MEMBERS_02_01",
+   "papers": [],
+   "notes": "학과 페이지에 연구실 이름이 없어 교수님 성함으로 표기"
+  },
+  {
+   "univ": "한양대학교",
+   "dept": "대학원 디스플레이융합공학과",
+   "lab_name": "박진성 연구실",
+   "prof": "박진성",
+   "field": "차세대 박막 공정, 차세대 TFT",
+   "area": "디스플레이",
+   "homepage": "http://hylime.kr",
+   "source_url": "https://displayeng.hanyang.ac.kr/index.php?hCode=MEMBERS_02_01",
+   "papers": [],
+   "notes": "학과 페이지에 연구실 이름이 없어 교수님 성함으로 표기"
+  },
+  {
+   "univ": "한양대학교",
+   "dept": "대학원 디스플레이융합공학과",
+   "lab_name": "한태희 연구실",
+   "prof": "한태희",
+   "field": "OLED, 페로브스카이트 LED, 태양전지",
+   "area": "디스플레이",
+   "homepage": "http://hanyang-aomd.com",
+   "source_url": "https://displayeng.hanyang.ac.kr/index.php?hCode=MEMBERS_02_01",
+   "papers": [],
+   "notes": "학과 페이지에 연구실 이름이 없어 교수님 성함으로 표기"
+  },
+  {
+   "univ": "한양대학교",
+   "dept": "대학원 디스플레이융합공학과",
+   "lab_name": "최병덕 연구실",
+   "prof": "최병덕",
+   "field": "아날로그 회로설계, 디스플레이 구동, 보안",
+   "area": "디스플레이",
+   "homepage": "http://siclab.hanyang.ac.kr",
+   "source_url": "https://displayeng.hanyang.ac.kr/index.php?hCode=MEMBERS_02_01",
+   "papers": [],
+   "notes": "학과 페이지에 연구실 이름이 없어 교수님 성함으로 표기"
+  },
+  {
+   "univ": "한양대학교",
+   "dept": "대학원 디스플레이융합공학과",
+   "lab_name": "임재명 연구실",
+   "prof": "임재명",
+   "field": "디스플레이 구동회로 및 백플레인 설계",
+   "area": "디스플레이",
+   "homepage": "https://sites.google.com/hanyang.ac.kr/isoclab",
+   "source_url": "https://displayeng.hanyang.ac.kr/index.php?hCode=MEMBERS_02_01",
+   "papers": [],
+   "notes": "학과 페이지에 연구실 이름이 없어 교수님 성함으로 표기"
+  }
+ ]
+}
