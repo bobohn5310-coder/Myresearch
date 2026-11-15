@@ -483,5 +483,17 @@
     "tags": "해외,디스플레이",
     "url": "https://www.displayweek.org/",
     "abstract_deadline": "2026-12-01"
+  },
+  {
+    "id": "kmid-2027",
+    "title": "KMID 2027 (한국정보디스플레이학회 학술대회)",
+    "org": "한국정보디스플레이학회 (KIDS)",
+    "keywords": "디스플레이 OLED LCD 마이크로LED microLED 정보디스플레이 kmid",
+    "start_date": "2027-01-18",
+    "end_date": "2027-01-20",
+    "location": "여수엑스포컨벤션센터, 여수, Korea",
+    "field": "eng",
+    "tags": "국내개최,디스플레이",
+    "url": "https://www.kids.or.kr/"
   }
 ]
