@@ -283,6 +283,113 @@
 }
 .btn-secondary:hover { border-color: #2563eb; color: #2563eb; }
 
+/* 배너 모달 상자(.modal-box)도 다른 모달과 같은 흰 상자로 보이게 */
+.modal-box {
+  background: white; border-radius: 20px;
+  padding: 32px; width: 600px; max-width: 95vw;
+  max-height: 90vh; overflow-y: auto;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.2);
+}
+
+/* ── 모바일 상단 바 (PC에서는 숨김) ── */
+.m-topbar, .sidebar-backdrop { display: none; }
+
+/* ── 모바일 화면 (폭 768px 이하) ── */
+@media (max-width: 768px) {
+  body { font-size: 14px; overflow-x: hidden; }
+
+  /* 로그인 */
+  #login-screen { padding: 16px; }
+  .login-box { width: 100%; max-width: 400px; padding: 32px 22px; }
+
+  /* 상단 바 + 햄버거 메뉴 */
+  .m-topbar {
+    display: flex; align-items: center; gap: 10px;
+    position: sticky; top: 0; z-index: 90;
+    height: 56px; padding: 0 12px;
+    background: #0f172a; color: white;
+  }
+  .m-menu-btn {
+    width: 44px; height: 44px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(255,255,255,0.08); color: white;
+    border: none; border-radius: 10px; font-size: 22px; cursor: pointer;
+  }
+  .m-topbar-title { font-size: 15px; font-weight: 700; flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  /* 사이드바는 왼쪽에서 밀려 나오는 서랍으로 */
+  .admin-sidebar {
+    width: 272px; max-width: 85vw;
+    height: 100%; height: 100dvh;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    z-index: 200; overflow-y: auto;
+  }
+  body.sidebar-open .admin-sidebar { transform: translateX(0); box-shadow: 8px 0 32px rgba(0,0,0,0.3); }
+  body.sidebar-open { overflow: hidden; }
+  .sidebar-backdrop {
+    position: fixed; inset: 0; z-index: 150;
+    background: rgba(15,23,42,0.5);
+  }
+  body.sidebar-open .sidebar-backdrop { display: block; }
+  .sidebar-menu { flex: none; }
+  .sidebar-item { padding: 12px; min-height: 44px; }
+
+  /* 본문 */
+  .admin-main { margin-left: 0; padding: 18px 14px 40px; min-height: auto; }
+  #banner-section { padding: 0 !important; }
+  #banner-section > div:first-child { flex-wrap: wrap; gap: 12px; }
+  .page-header { margin-bottom: 18px; }
+  .page-title { font-size: 19px; }
+  .page-sub { font-size: 13px; line-height: 1.6; }
+  .page-sub br { display: none; }
+
+  .card { padding: 14px; }
+  .card-header { flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+  .card-header > * { margin: 0 !important; }
+  .card-header input { flex: 1 1 100%; min-width: 0 !important; min-height: 40px; order: 5; }
+  .card-header select { flex: 1 1 120px; min-width: 0 !important; min-height: 40px; }
+
+  /* 탭·필터 줄은 줄바꿈 허용 */
+  .admin-page div[style*="display:flex"] { flex-wrap: wrap; }
+  .admin-page div[style*="display:flex"] > input[style*="flex:1"] { flex: 1 1 100% !important; min-width: 0 !important; min-height: 40px; }
+  .admin-page div[style*="display:flex"] > select { flex: 1 1 120px; min-height: 40px; }
+
+  /* 표는 카드 안에서 옆으로 밀어서 보기 */
+  .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -14px; padding: 0 14px; }
+  .table-wrap table { min-width: 640px; }
+  th { white-space: nowrap; padding: 9px 10px; }
+  td { padding: 10px; font-size: 13px; min-width: 84px; }
+
+  /* 버튼은 손가락으로 누르기 쉽게 */
+  .btn, .btn-primary, .btn-secondary { min-height: 40px; padding: 9px 14px; }
+  .btn-sm { min-height: 36px; padding: 6px 12px; }
+
+  /* 회원 인증 카드: 서류 사진을 위, 정보를 아래로 */
+  .vf-grid { grid-template-columns: 1fr !important; }
+  .vf-grid > div:first-child { border-right: none !important; border-bottom: 1px solid #f1f5f9; }
+  .vf-grid > div:last-child { padding: 16px !important; }
+  .vf-grid div[style*="display:flex"] { flex-wrap: wrap; }
+
+  /* 모달은 화면 아래에서 올라오는 시트처럼 */
+  .modal-overlay.open { align-items: flex-end; }
+  .modal, .modal-box {
+    width: 100% !important; max-width: 100% !important;
+    max-height: 92vh; max-height: 92dvh;
+    border-radius: 20px 20px 0 0; padding: 22px 16px calc(20px + env(safe-area-inset-bottom));
+  }
+  .modal-header { margin-bottom: 16px; }
+  .modal-close { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; margin-right: -10px; }
+  .form-grid { grid-template-columns: 1fr; gap: 12px; }
+  .form-input, .form-select, .form-textarea { font-size: 16px; min-height: 42px; }
+  .modal div[style*="display:flex"], .modal-box div[style*="display:flex"] { flex-wrap: wrap; }
+  .modal input[style*="flex:1"], .modal-box input[style*="flex:1"] { flex: 1 1 100% !important; min-width: 0 !important; }
+  .form-actions { position: sticky; bottom: -20px; background: white; padding: 12px 0 4px; margin-top: 16px; }
+  .form-actions > * { flex: 1; justify-content: center; }
+
+  #toast { left: 16px; right: 16px; bottom: 20px; text-align: center; }
+}
+
 </style>
 </head>
 <body>
@@ -303,6 +410,13 @@
 
 <!-- ── 관리자 화면 ── -->
 <div id="admin-screen">
+
+  <!-- 모바일 상단 바 (폭 768px 이하에서만 보여요) -->
+  <div class="m-topbar">
+    <button class="m-menu-btn" type="button" onclick="toggleSidebar()" aria-label="메뉴 열기">☰</button>
+    <div class="m-topbar-title" id="m-topbar-title">MyResearch Admin</div>
+  </div>
+  <div class="sidebar-backdrop" onclick="toggleSidebar(false)"></div>
 
   <!-- 사이드바 -->
   <div class="admin-sidebar">
@@ -1097,7 +1211,18 @@ async function doAdminLogout() {
 }
 
 // ── 페이지 전환 ──
+// 모바일: 사이드바 서랍 열고 닫기
+function toggleSidebar(open) {
+  const on = open === undefined ? !document.body.classList.contains('sidebar-open') : open;
+  document.body.classList.toggle('sidebar-open', on);
+}
+
 function showAdminPage(page, el) {
+  if (el && el.classList && el.classList.contains('sidebar-item')) {
+    const t = document.getElementById('m-topbar-title');
+    if (t) t.textContent = el.textContent.replace(/\s+/g, ' ').replace(/\s*\d+\s*$/, '').trim();
+  }
+  toggleSidebar(false);
   document.querySelectorAll('.admin-page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
   // 배너 섹션 처리
@@ -2173,7 +2298,7 @@ async function loadVerifications(status = 'pending') {
       : '<span style="background:#fef2f2;color:#dc2626;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;">❌ 반려됨</span>';
 
     card.innerHTML = `
-      <div style="display:grid;grid-template-columns:200px 1fr;gap:0;min-height:180px;">
+      <div class="vf-grid" style="display:grid;grid-template-columns:200px 1fr;gap:0;min-height:180px;">
         <!-- 서류 이미지 -->
         <div style="background:#f8fafc;border-right:1px solid #f1f5f9;display:flex;align-items:center;justify-content:center;cursor:pointer;" data-doc="${esc(docLink)}" onclick="if(this.dataset.doc) window.open(this.dataset.doc,'_blank','noopener')">
           ${docLink
