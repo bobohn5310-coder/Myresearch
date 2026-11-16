@@ -3166,6 +3166,7 @@ a { text-decoration: none; color: inherit; }
     <div class="auth-form" id="signup-form" style="display:none;">
       <input class="auth-input" id="signup-name" type="text" placeholder="이름">
       <input class="auth-input" id="signup-email" type="email" placeholder="이메일 (학교 이메일 권장)">
+      <div style="font-size:12px;color:var(--text-muted);line-height:1.6;margin-top:-4px;">🎓 <b>학교 메일(ac.kr, edu)</b>로 가입하면 바로 모든 기능을 쓸 수 있어요. 지메일·네이버 등으로 가입하면 학교 메일 확인이나 학교 인증 전까지는 <b>보기만</b> 돼요.</div>
       <input class="auth-input" id="signup-password" type="password" placeholder="비밀번호 (8자 이상)" autocomplete="new-password" oninput="checkSignupPw()">
       <input class="auth-input" id="signup-password2" type="password" placeholder="비밀번호 다시 입력" autocomplete="new-password" oninput="checkSignupPw()">
       <div id="signup-pw-hint" style="display:none;font-size:12px;font-weight:600;margin-top:-6px;"></div>
@@ -3198,6 +3199,15 @@ a { text-decoration: none; color: inherit; }
     <!-- 학교 인증: 가입 직후 또는 상단 '학교 인증' 버튼으로 열림 -->
     <div class="auth-form" id="verify-form" style="display:none;">
       <div id="verify-status-box" style="display:none;padding:12px 14px;border-radius:10px;font-size:13px;line-height:1.6;"></div>
+      <div id="verify-mail-box" style="display:none;flex-direction:column;gap:8px;background:#eff6ff;border:1px solid #bfdbfe;padding:12px 14px;border-radius:10px;">
+        <div style="font-size:13.5px;color:var(--text);line-height:1.6;">📧 <b>학교 메일로 바로 확인하기</b> <span style="color:var(--text-muted);font-size:12px;">(서류 없이 1분)</span></div>
+        <div style="font-size:12px;color:var(--text-muted);line-height:1.6;">ac.kr·edu 학교 메일로 확인 링크를 보내요. 링크를 누르면 <b>로그인 메일이 학교 메일로 바뀌고</b> 글쓰기·클로버 등 모든 기능이 바로 열려요.</div>
+        <div style="display:flex;gap:8px;">
+          <input class="auth-input" id="verify-mail" type="email" placeholder="예: id@snu.ac.kr" style="flex:1;min-width:0;">
+          <button type="button" class="auth-btn" id="verify-mail-btn" style="margin-top:0;width:auto;padding:0 14px;white-space:nowrap;" onclick="sendSchoolMail()">메일 보내기</button>
+        </div>
+        <div style="font-size:12px;color:var(--text-light);text-align:center;margin-top:4px;">학교 메일이 없다면 아래에서 서류로 인증해 주세요</div>
+      </div>
       <div id="verify-fields" style="display:flex;flex-direction:column;gap:14px;">
         <div style="font-size:13px;color:var(--text-muted);line-height:1.6;background:var(--bg);padding:12px 14px;border-radius:10px;">
           🪪 <b style="color:var(--text);">학교 인증</b>을 하면 대학원생 인증 배지가 붙어요.<br>
@@ -3374,6 +3384,8 @@ const sbClient = supabase.createClient(
   'https://ryikaxrcgfrgaczmmgnh.supabase.co',
   'sb_publishable_-WzxQGfWdMzjXDok_tBiNg_w5W11MMX'
 );
+// 학교 메일 확인 링크로 돌아온 경우 (Supabase 가 주소의 # 부분을 지우기 전에 읽어 둔다)
+const _mailChangeHash = decodeURIComponent((location.hash || '').replace(/\+/g, ' '));
 
 
 function setNavByName(name){
@@ -4757,6 +4769,8 @@ fetchBannersFromDB();
 sbClient.auth.onAuthStateChange((event, session) => {
   currentUser = session?.user || null;
   setTimeout(() => updateNavForAuth(session), 0);
+  // 마이페이지에서 '학교 인증하러 가기'로 넘어온 경우 (주소 끝 ?verify=1)
+  if(event === 'INITIAL_SESSION' && session && /[?&]verify=1/.test(location.search)) setTimeout(openVerify, 300);
 });
 
 // Supabase Realtime 구독
@@ -4794,16 +4808,17 @@ async function updateNavForAuth(knownSession) {
     if(userArea) {
       userArea.style.display = 'flex';
       const name = currentUser.user_metadata?.name || currentUser.email.split('@')[0];
-      const v = await getMyVerification();
+      const [v] = await Promise.all([getMyVerification(), loadCanWrite()]);
       const vBtn = v.verified
         ? `<span title="학교 인증 완료" style="font-size:12px;font-weight:700;color:#059669;background:#ecfdf5;padding:4px 9px;border-radius:20px;">✅ 인증</span>`
-        : `<button onclick="openVerify()" style="font-size:13px;padding:5px 12px;border-radius:8px;border:1.5px solid var(--blue);background:white;cursor:pointer;color:var(--blue);font-weight:700;">${v.last?.status==='pending' ? '⏳ 인증 확인중' : '🪪 학교 인증'}</button>`;
+        : `<button onclick="openVerify()" style="font-size:13px;padding:5px 12px;border-radius:8px;border:1.5px solid var(--blue);background:white;cursor:pointer;color:var(--blue);font-weight:700;">${v.last?.status==='pending' ? '⏳ 인증 확인중' : _canWrite===false ? '🔒 보기 전용 · 학교 인증' : '🪪 학교 인증'}</button>`;
       const dv = document.getElementById('nav-drawer-verify');
       if(dv) { dv.style.display = v.verified ? 'none' : ''; dv.textContent = v.last?.status==='pending' ? '⏳ 학교 인증 확인중' : '🪪 학교 인증'; }
       userArea.innerHTML = `<span style="font-size:14px;color:var(--text);font-weight:600;">👤 ${escHtml(name)}</span>${vBtn}
         <button onclick="handleLogout()" style="font-size:13px;padding:5px 12px;border-radius:8px;border:1.5px solid var(--border);background:white;cursor:pointer;color:var(--text-muted);">로그아웃</button>`;
     }
   } else {
+    _canWrite = null;
     loginBtns.forEach(b => b.style.display = '');
     if(userArea) userArea.innerHTML = '';
     const dv = document.getElementById('nav-drawer-verify');
@@ -4934,6 +4949,10 @@ setTimeout(() => { loadSiteNotice(); logVisit(); }, 0);
 
 // 재설정 메일 링크로 들어온 경우 (주소에 type=recovery 가 붙어 옴)
 const _cameForRecovery = /type=recovery/.test(location.hash + location.search);
+if(/message=Confirmation link accepted/i.test(_mailChangeHash))
+  setTimeout(() => cmToast('한쪽 메일 확인이 끝났어요. 다른 메일함에 온 확인 링크도 눌러 주세요'), 800);
+else if(/type=email_change/.test(_mailChangeHash))
+  setTimeout(() => cmToast('✅ 학교 메일 확인 완료! 이제 모든 기능을 쓸 수 있어요'), 800);
 sbClient.auth.onAuthStateChange((event) => {
   if(event === 'PASSWORD_RECOVERY') setTimeout(openResetPw, 0);
 });
@@ -4945,6 +4964,40 @@ function showAuthMessage(msg, isError=false) {
   el.style.display = 'block';
   el.style.background = isError ? '#fef2f2' : '#ecfdf5';
   el.style.color = isError ? '#dc2626' : '#059669';
+}
+
+// ── 학교 회원만 쓰기 (supabase/school_member_only.sql) ──
+// 학교 메일(ac.kr, edu)을 확인했거나 학교 인증을 받은 회원만 글·댓글·공감·저장을 할 수 있다. 나머지는 보기만.
+function isSchoolEmail(email) { return /@[^@\s]+\.(ac\.kr|edu)$/i.test(String(email || '').trim()); }
+let _canWrite = null;
+async function loadCanWrite() {
+  if(!currentUser) { _canWrite = null; return null; }
+  const { data, error } = await sbClient.rpc('is_school_member');
+  _canWrite = error ? true : !!data;   // SQL을 아직 실행하지 않았으면 막지 않는다
+  return _canWrite;
+}
+// 막혀 있으면 학교 인증 창을 띄우고 true 를 돌려준다
+async function needSchool(what) {
+  if(!currentUser) return false;
+  if(_canWrite === null) await loadCanWrite();
+  if(_canWrite !== false) return false;
+  await openVerify();
+  showAuthMessage(`🔒 ${what}는 학교 메일을 확인했거나 학교 인증을 받은 회원만 할 수 있어요. 아래에서 학교 메일을 확인하면 바로 열려요.`, true);
+  return true;
+}
+async function sendSchoolMail() {
+  const email = (document.getElementById('verify-mail')?.value || '').trim().toLowerCase();
+  if(!/^[^@\s]+@[^@\s]+\.(ac\.kr|edu)$/.test(email)) return showAuthMessage('학교 메일(ac.kr 또는 edu로 끝나는 주소)을 적어주세요.', true);
+  const btn = document.getElementById('verify-mail-btn');
+  if(btn) { btn.disabled = true; btn.textContent = '보내는 중...'; }
+  const { error } = await sbClient.auth.updateUser({ email }, { emailRedirectTo: location.origin + '/' });
+  if(btn) { btn.disabled = false; btn.textContent = '메일 보내기'; }
+  if(error) {
+    if(error.code === 'email_exists' || /already|registered|exists/i.test(error.message || ''))
+      return showAuthMessage('이 학교 메일로 가입된 계정이 이미 있어요. 그 계정으로 로그인해 주세요.', true);
+    return showAuthMessage(authErrorText(error, '메일을 보내지 못했어요. 잠시 뒤 다시 시도해주세요.'), true);
+  }
+  showAuthMessage(`📩 ${email} 로 확인 메일을 보냈어요. 메일 속 링크를 누르면 끝나요. 지금 쓰는 메일로도 확인 메일이 오면 그 링크도 눌러 주세요. (스팸함도 확인)`);
 }
 
 // ── 커뮤니티 ──
@@ -5101,6 +5154,8 @@ async function openVerify() {
   const major = document.getElementById('verify-major');
   if(major && !major.value) major.value = user.user_metadata?.dept || '';
   box.style.display = 'none'; fields.style.display = 'flex';
+  const mailBox = document.getElementById('verify-mail-box');
+  if(mailBox) mailBox.style.display = (verified || isSchoolEmail(user.email)) ? 'none' : 'flex';
   if(verified) {
     box.style.cssText += ';display:block;background:#ecfdf5;color:#059669;';
     box.innerHTML = '✅ <b>학교 인증이 완료된 계정</b>이에요.';
@@ -5506,9 +5561,10 @@ function cmPaintAuth(){
   const q=document.getElementById('cm-quick-text');
   if(q) q.placeholder=currentUser?'연구하면서 드는 생각, 편하게 적어보세요':'로그인하고 연구 이야기를 나눠보세요';
 }
-function cmOpenWrite(fromQuick){
+async function cmOpenWrite(fromQuick){
   const m=document.getElementById('write-modal'); if(!m) return;
   if(!cmNeedLogin('write','로그인하면 바로 글을 쓸 수 있어요')) return;
+  if(await needSchool('글쓰기')) return;
   if(fromQuick){
     const q=document.getElementById('cm-quick-text');
     const wc=document.getElementById('write-content');
@@ -5522,8 +5578,9 @@ function cmOpenWrite(fromQuick){
   setTimeout(()=>document.getElementById('write-content')?.focus(), 50);
 }
 // ── 학회 제보 ──
-function openSuggestModal(){
+async function openSuggestModal(){
   if(!currentUser){ cmToast('로그인하면 학회를 제보할 수 있어요'); openAuth('login'); return; }
+  if(await needSchool('학회 제보')) return;
   const m=document.getElementById('suggest-modal'); if(m) m.style.display='flex';
   setTimeout(()=>document.getElementById('cs-title')?.focus(), 50);
 }
@@ -5567,6 +5624,7 @@ async function cmSubmit(src){
     showAuthMessage('로그인하면 쓰던 글이 바로 올라가요');
     return;
   }
+  if(await needSchool('글쓰기')) return;
   await cmInsertPost(draft);
 }
 async function cmInsertPost(draft){
@@ -5603,6 +5661,7 @@ async function cmResumePending(){
   let draft=null;
   try{ draft=JSON.parse(sessionStorage.getItem('mrc_pending_post')||'null'); }catch(e){}
   if(!draft || !currentUser) return;
+  if(await needSchool('글쓰기')) return;   // 쓰던 글은 남겨 두었다가 학교 확인 뒤 다시 로그인하면 올린다
   try{ sessionStorage.removeItem('mrc_pending_post'); }catch(e){}
   showPage('community'); setNavByName('community');
   await cmInsertPost(draft);
@@ -5639,6 +5698,7 @@ function cmPaintLike(p){
 async function cmToggleLike(){
   const p=POSTS.find(x=>x.id===_currentPostId); if(!p) return;
   if(!currentUser){ openAuth('login'); showAuthMessage('로그인하면 공감을 누를 수 있어요'); return; }
+  if(await needSchool('공감')) return;
   const on=_cmLiked.has(p.id);
   // 화면 먼저 바꾸고, 저장 실패하면 되돌림
   if(on){ _cmLiked.delete(p.id); p.likes=Math.max(0,(p.likes||0)-1); } else { _cmLiked.add(p.id); p.likes=(p.likes||0)+1; }
@@ -5733,6 +5793,7 @@ async function submitComment(){
   const text=ta?.value.trim();
   if(!text || !_currentPostId) return;
   if(!currentUser){ openAuth('login'); showAuthMessage('로그인하면 댓글을 남길 수 있어요'); return; }
+  if(await needSchool('댓글')) return;
   const isAnon=document.getElementById('comment-anon')?.checked;
   const { error } = await sbClient.from('comments').insert([{
     post_id:_currentPostId, author_id:currentUser.id,
@@ -6644,6 +6705,8 @@ function attendFab(){
 }
 async function attendStamp(){
   if(!currentUser || _atBusy) return;
+  if(_canWrite === null) await loadCanWrite();
+  if(_canWrite === false) { closeAttend(); await needSchool('출석 도장'); return; }
   const btn = document.getElementById('at-btn'), msg = document.getElementById('at-msg');
   _atBusy = true; btn.disabled = true; btn.textContent = '도장 찍는 중...';
   const { data, error } = await sbClient.rpc('attend_stamp', { p_event: ATTEND_EVENT.id });
@@ -6652,7 +6715,7 @@ async function attendStamp(){
     const m = error.message || '';
     attendRender(false);
     msg.className = 'at-msg muted';
-    msg.textContent = /closed/.test(m) ? '지금은 이벤트 기간이 아니에요.' : /suspended/.test(m) ? '이용이 정지된 계정은 참여할 수 없어요.' : /login/.test(m) ? '로그인이 풀렸어요. 다시 로그인해 주세요.' : '도장을 찍지 못했어요. 잠시 뒤 다시 눌러 주세요.';
+    msg.textContent = /closed/.test(m) ? '지금은 이벤트 기간이 아니에요.' : /suspended/.test(m) ? '이용이 정지된 계정은 참여할 수 없어요.' : /school only/.test(m) ? '학교 메일 확인이나 학교 인증을 마친 회원만 참여할 수 있어요.' : /login/.test(m) ? '로그인이 풀렸어요. 다시 로그인해 주세요.' : '도장을 찍지 못했어요. 잠시 뒤 다시 눌러 주세요.';
     return;
   }
   _atDays = (data || []).map(r => typeof r === 'string' ? r : (r.attend_stamp || r.day || Object.values(r)[0])); _atUid = currentUser.id;

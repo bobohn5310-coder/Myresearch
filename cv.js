@@ -287,8 +287,9 @@ function cvFieldHTML(f, val) {
   return `<div class="cv-field ${f.half ? 'half' : ''}"><label for="${id}">${esc(f.label)}${f.req ? ' <b>*</b>' : ''}</label>${input}</div>`;
 }
 
-function openCVForm(key, id) {
+async function openCVForm(key, id) {
   if (!_currentUser) { alert('로그인이 필요합니다.'); return; }
+  if (typeof dbNeedSchool === 'function' && await dbNeedSchool()) return;
   const sec = cvSec(key);
   if (sec.table === 'cv_items' && !cvReady) { alert('CV 저장 기능을 준비 중이에요. 잠시 후 다시 시도해 주세요.'); return; }
   const row = id ? cvRows(sec).find(r => Number(r.id) === Number(id)) : null;
@@ -344,6 +345,7 @@ async function cvReload(sec) {
 // ── 머리글(기본 정보) ──
 async function openCVProfile() {
   if (!_currentUser) { alert('로그인이 필요합니다.'); return; }
+  if (typeof dbNeedSchool === 'function' && await dbNeedSchool()) return;
   if (!cvReady) { alert('CV 저장 기능을 준비 중이에요. 잠시 후 다시 시도해 주세요.'); return; }
   const p = cvProfile || {};
   let fallbackAff = '';

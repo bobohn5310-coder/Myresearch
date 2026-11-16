@@ -1586,6 +1586,7 @@ async function saveEvent(){
   const date=document.getElementById('f-date').value;
   const memo=document.getElementById('f-memo').value.trim();
   if(!title||!date){alert('제목과 날짜를 입력해주세요.');return;}
+  if(await dbNeedSchool()) return;
 
   if(_currentUser) {
     const { data, error } = await _sb.from('schedules').insert([{
@@ -1671,6 +1672,18 @@ const _sb = supabase.createClient(
 );
 
 let _currentUser = null;
+// 학교 메일 확인이나 학교 인증을 받은 회원만 저장할 수 있다 (supabase/school_member_only.sql). 나머지는 보기만.
+let _dbCanWrite = null;
+async function dbNeedSchool() {
+  if(!_currentUser) return false;
+  if(_dbCanWrite === null) {
+    const { data, error } = await _sb.rpc('is_school_member');
+    _dbCanWrite = error ? true : !!data;   // SQL을 아직 실행하지 않았으면 막지 않는다
+  }
+  if(_dbCanWrite !== false) return false;
+  if(confirm('🔒 저장은 학교 메일을 확인했거나 학교 인증을 받은 회원만 할 수 있어요.\n지금은 보기만 돼요. 학교 메일 확인 화면으로 갈까요?')) location.href = '/?verify=1';
+  return true;
+}
 loadInfoData(); // 학회 정보 (로그인과 상관없이)
 
 // 인증 상태 감지: 페이지를 열 때(INITIAL_SESSION)와 로그인할 때만 내 데이터를 불러온다.
@@ -1975,6 +1988,7 @@ async function submitAdd() {
   if(!_currentUser) { alert('로그인이 필요합니다.'); return; }
   const title = document.getElementById('am-title')?.value.trim();
   if(!title) { alert('제목을 입력해주세요.'); return; }
+  if(await dbNeedSchool()) return;
 
   const venue  = document.getElementById('am-venue')?.value.trim() || '';
   const status = document.getElementById('am-status')?.value || '';
@@ -2006,7 +2020,7 @@ async function submitAdd() {
 // 초기 렌더
 renderMyStats();
 </script>
-<script src="cv.js?v=2"></script>
+<script src="cv.js?v=3"></script>
 <script>
 renderCV();
 if(_currentUser) loadCV();   // 로그인 확인이 cv.js 보다 먼저 끝난 경우
