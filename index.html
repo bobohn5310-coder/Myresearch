@@ -199,7 +199,6 @@ a { text-decoration: none; color: inherit; }
   font-family: 'Noto Sans KR', sans-serif;
   transition: all 0.15s;
 }
-.btn-cta:hover { background: #1e293b; }
 
 .btn-cta:hover { background: var(--blue-dark); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(5,150,105,0.45); }
 
@@ -559,10 +558,6 @@ a { text-decoration: none; color: inherit; }
   cursor: pointer;
   margin-bottom: 12px;
   transition: border-color 0.15s, box-shadow 0.15s;
-}
-.write-box:hover {
-  border-color: #94a3b8;
-  box-shadow: 0 2px 8px rgba(15,23,42,0.05);
 }
 .write-box-avatar {
   width: 30px; height: 30px;
@@ -1512,11 +1507,6 @@ a { text-decoration: none; color: inherit; }
   
 
   /* ── FOOTER ── */
-  .footer { padding: 40px 20px 28px; }
-  .footer-top {
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
-  }
   .footer-bottom { flex-direction: column; align-items: flex-start; gap: 12px; }
 
   /* ── INFO PAGE ── */
@@ -1875,13 +1865,8 @@ a { text-decoration: none; color: inherit; }
 @media (max-width: 1100px) { .hp-cols { grid-template-columns: 1fr; gap: 36px; } }
 @media (max-width: 768px) {
   .hp-h { font-size: 23px; }
-  .hp-journal-col { grid-template-columns: 96px minmax(0, 1fr); gap: 14px; }
-  .hp-cover { width: 96px; }
-  .hp-cover.type .t-name { font-size: 20px; }
-  .hp-cover.type.science .t-name { font-size: 16px; }
   .hp-cover.type .t-meta { font-size: 8.5px; }
   .hp-t { font-size: 14.5px; }
-  .hp-cover-cap span { display: none; }
   .hp-item.has-img { grid-template-columns: 18px minmax(0, 1fr) 72px; gap: 4px 10px; }
   .hp-img { width: 72px; height: 72px; }
 }
@@ -1916,7 +1901,6 @@ a { text-decoration: none; color: inherit; }
 .cm-prompts { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px; }
 .cm-cat-pick { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px; }
 .cm-cat-opt { font-size:13px; padding:6px 12px; border-radius:20px; border:1.5px solid #e2e8f0; background:#fff; color:var(--text-sub); cursor:pointer; font-family:'Noto Sans KR',sans-serif; font-weight:600; }
-.cm-cat-opt.on { background:#0f172a; border-color:#0f172a; color:#fff; }
 .cm-composer-bar { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
 .cm-spacer { flex:1; }
 .cm-mini-select { padding:7px 10px; border-radius:10px; border:1.5px solid #e2e8f0; font-size:13px; font-family:'Noto Sans KR',sans-serif; background:#fff; color:var(--text-sub); }
@@ -1980,7 +1964,6 @@ a { text-decoration: none; color: inherit; }
 .cm-post-content { font-size:15px; color:#334155; line-height:1.85; white-space:pre-wrap; word-break:break-word; }
 .cm-post-actions { display:flex; align-items:center; gap:8px; padding:16px 0; border-bottom:1px solid #f1f5f9; }
 .cm-like, .cm-act { display:inline-flex; align-items:center; gap:6px; padding:7px 14px; border-radius:20px; border:1.5px solid #e2e8f0; background:#fff; font-size:13px; font-weight:700; color:#475569; cursor:pointer; font-family:'Noto Sans KR',sans-serif; }
-.cm-like.on { border-color:#fecaca; background:#fef2f2; color:#dc2626; }
 .cm-del { color:#dc2626; border-color:#fecaca; }
 .cm-comments { margin-top:16px; }
 .cm-comments-h { font-size:14px; font-weight:800; color:#0f172a; margin-bottom:12px; }
@@ -2072,19 +2055,13 @@ a { text-decoration: none; color: inherit; }
 .clv-btn:hover{background:#15803d}
 .clv-btn:disabled{background:#94a3b8;cursor:default}
 .clv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.clv-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:18px;position:relative;display:flex;flex-direction:column}
 .clv-dept{font-size:12px;color:var(--text-muted);padding-right:90px}
-.clv-card h3{font-size:16px;margin:4px 0 2px;color:var(--text)}
 .clv-topic{font-size:12px;color:var(--text-muted);min-height:16px}
 .clv-badge{position:absolute;top:14px;right:14px;display:flex;align-items:center;gap:4px;background:#f0fdf4;border:1px solid #bbf7d0;color:#15803d;font-size:11px;font-weight:700;border-radius:999px;padding:3px 8px 3px 4px}
 .clv-total{display:flex;align-items:center;gap:10px;margin:14px 0 10px;padding:10px 12px;background:#f0fdf4;border-radius:12px}
 .clv-total b{font-family:'Montserrat',sans-serif;font-size:22px;color:#15803d}
 .clv-total small{color:var(--text-muted);font-size:12px;display:block}
 .clv-row{display:flex;align-items:center;justify-content:space-between;padding:4px 0;font-size:13px;color:var(--text-sub)}
-.clv-grow{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;min-height:172px;color:var(--text-muted);background:repeating-linear-gradient(45deg,#f8fafc,#f8fafc 10px,#f1f5f9 10px,#f1f5f9 20px);border-radius:12px;margin-top:14px;padding:16px;font-size:12px}
-.clv-grow b{color:var(--text-sub);font-size:14px}
-.clv-foot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:10px;border-top:1px solid var(--border);font-size:12px}
-.clv-foot-wrap{margin-top:12px}
 .clv-link{color:#15803d;font-weight:700;cursor:pointer;background:none;border:0;font-family:inherit;font-size:12px;padding:0}
 .clv-report{color:var(--text-light);text-decoration:underline;cursor:pointer;background:none;border:0;font-family:inherit;font-size:11px;padding:0}
 .clv-note{margin-top:22px;font-size:12px;color:var(--text-muted);background:#fff;border:1px dashed var(--border);border-radius:12px;padding:12px 14px;line-height:1.7}
@@ -2117,9 +2094,6 @@ a { text-decoration: none; color: inherit; }
 .clv-click{cursor:pointer;transition:border-color .15s,box-shadow .15s}
 .clv-click:hover{border-color:#86efac;box-shadow:0 6px 18px rgba(22,163,74,.08)}
 .clv-src{display:inline-block;font-size:10.5px;font-weight:500;color:var(--text-light);border:1px solid var(--border);border-radius:999px;padding:2px 7px;background:#fff;vertical-align:middle}
-.clv-card>.clv-src{position:absolute;top:14px;right:14px}
-.clv-more{display:flex;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--text-muted);margin-top:6px}
-.clv-more a,.clv-more span{color:var(--text-muted);text-decoration:underline;text-underline-offset:2px}
 .clv-lab-box{max-width:640px;padding:26px}
 .clv-lab-name{font-size:22px!important;margin:4px 0 4px!important;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .clv-lab-meta{display:grid;grid-template-columns:76px 1fr;gap:8px 12px;font-size:13.5px;margin:16px 0 4px;padding:14px 16px;background:var(--bg);border-radius:12px;color:var(--text)}
@@ -2139,7 +2113,6 @@ a { text-decoration: none; color: inherit; }
 /* 작은 카드 목록 (연구실이 많아져도 한눈에 보이게) */
 .clv-chips{display:flex;gap:8px;align-items:center}
 .clv-chip span{opacity:.75;font-weight:700}
-.clv-univ{appearance:none;-webkit-appearance:none;padding-right:30px;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2364748b' stroke-width='1.6' fill='none'/%3E%3C/svg%3E") no-repeat right 12px center}
 .clv-sec{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:800;color:var(--text);margin:6px 0 10px}
 .clv-sec small{font-weight:500;color:var(--text-muted);font-size:12.5px}
 .clv-sec+.clv-mgrid,.clv-sec+.clv-empty-open{margin-bottom:24px}
@@ -2287,11 +2260,9 @@ a { text-decoration: none; color: inherit; }
 .hcp-go { flex: none; font-size: 13px; font-weight: 700; color: #15803d; }
 
 /* 홈: 오늘의 포춘쿠키 (하루 3개 · 첫 쿠키 무료, 2·3번째는 추천 상품을 3초 본 뒤 열림) */
-.hero-fc { position: relative; z-index: 2; width: 100%; margin-top: 12px; display: flex; align-items: center; gap: 12px; text-align: left; background: linear-gradient(120deg,#fffaf0,#fff3d6); border: 1.5px solid #f3cf8a; border-radius: 18px; padding: 14px 18px 14px 14px; cursor: pointer; font-family: inherit; box-shadow: 0 4px 14px rgba(217,119,6,.10); transition: border-color .15s, transform .15s, box-shadow .15s; }
+.hero-fc { position: relative; z-index: 2; width: 100%; margin-top: 12px; display: flex; align-items: center; gap: 14px; text-align: left; background: linear-gradient(120deg,#fffaf0,#fff3d6); border: 1.5px solid #f3cf8a; border-radius: 18px; padding: 14px 18px 14px 14px; cursor: pointer; font-family: inherit; box-shadow: 0 4px 14px rgba(217,119,6,.10); transition: border-color .15s, transform .15s, box-shadow .15s; min-width: 0; contain: inline-size; }
 .hero-fc:hover { border-color: #f0b95a; transform: translateY(-1px); box-shadow: 0 6px 18px rgba(217,119,6,.12); }
-.hero-fc { gap: 14px; }
-/* 안의 글자가 한 줄로 길어도 히어로 칸 너비를 밀어내지 않게 (작은 폰에서 오른쪽이 잘리던 문제) */
-.hero-fc { min-width: 0; contain: inline-size; }
+/* .hero-fc 의 min-width·contain: 안의 글자가 한 줄로 길어도 히어로 칸 너비를 밀어내지 않게 (작은 폰에서 오른쪽이 잘리던 문제) */
 .hero-visual { min-width: 0; }
 .hero-fc .fc-ck { width: 76px; height: 58px; flex: none; }
 .hero-fc .hfc-text { flex: 1; min-width: 0; }
@@ -2342,7 +2313,7 @@ a { text-decoration: none; color: inherit; }
 .fc-chip b { color: #0f172a; }
 .fc-chip .fc-star { color: #f59e0b; letter-spacing: -1px; }
 .fc-slots { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-top: 16px; }
-.fc-slot { background: #fff; border: 1px solid #f1e3c4; border-radius: 12px; padding: 6px 4px 7px; display: flex; flex-direction: column; align-items: center; gap: 1px; font-family: inherit; cursor: pointer; }
+.fc-slot { position: relative; background: #fff; border: 1px solid #f1e3c4; border-radius: 12px; padding: 6px 4px 7px; display: flex; flex-direction: column; align-items: center; gap: 1px; font-family: inherit; cursor: pointer; }
 .fc-slot .fc-ck { width: 50px; height: 38px; }
 .fc-slot span { font-size: 11px; font-weight: 800; color: #64748b; }
 .fc-slot small { font-size: 11px; font-weight: 700; color: #059669; }
@@ -2351,7 +2322,6 @@ a { text-decoration: none; color: inherit; }
 .fc-slot.lock { background: #f8fafc; border: 1px dashed #cbd5e1; }
 .fc-slot.lock small { color: #64748b; }
 .fc-slot.lock .fc-ck { filter: grayscale(.85); opacity: .5; }
-.fc-slot { position: relative; }
 .fc-lock { position: absolute; left: 50%; top: 27px; transform: translateX(-50%); font-size: 15px; line-height: 1; }
 .fc-slot:disabled { cursor: default; }
 .fc-btn { width: 100%; margin-top: 14px; padding: 13px; border: none; border-radius: 12px; font-size: 15px; font-weight: 800; cursor: pointer; font-family: 'Noto Sans KR', sans-serif; background: linear-gradient(135deg,#f59e0b 0%,#f97316 100%); color: #fff; box-shadow: 0 2px 10px rgba(245,158,11,.4); transition: filter .15s, background .2s; }
@@ -4566,6 +4536,8 @@ function safeUrl(u){
   const v = String(u ?? '').trim();
   return /^https?:\/\//i.test(v) ? v : '';
 }
+// 오늘 날짜 (한국 시간, 'YYYY-MM-DD')
+function kstToday(){ return new Date().toLocaleDateString('sv-SE', { timeZone:'Asia/Seoul' }); }
 
 // 홈 화면 수치와 마감 임박 카드를 실제 학술정보 데이터로 채움
 
@@ -4974,7 +4946,7 @@ function logVisit(){
   try{
     vid = localStorage.getItem('mrc_vid');
     if(!vid){ vid = (crypto.randomUUID ? crypto.randomUUID() : String(Math.random()).slice(2) + Date.now()); localStorage.setItem('mrc_vid', vid); }
-    const today = new Date().toLocaleDateString('sv-SE', { timeZone:'Asia/Seoul' });
+    const today = kstToday();
     if(localStorage.getItem('mrc_vday') === today) return;
     localStorage.setItem('mrc_vday', today);
   }catch(e){ if(!vid) vid = String(Math.random()).slice(2) + Date.now(); }
@@ -6026,7 +5998,7 @@ function clvRender(){
         <span class="d">${escHtml(depts.slice(0, 3).join(' · '))}${depts.length > 3 ? ` 외 ${depts.length - 3}곳` : ''}</span>
         <span class="c">${nOpen ? `<em>🍀 ${nOpen}</em>` : ''}${nGrow ? `<span>🌱 ${nGrow}</span>` : ''}연구실 ${labs.length}곳</span>
       </button>
-      ${unfold ? `<div class="clv-gb"><div class="clv-mgrid">${labs.slice(0, n).map(l => clvMiniCard(l, true)).join('')}</div>
+      ${unfold ? `<div class="clv-gb"><div class="clv-mgrid">${labs.slice(0, n).map(l => clvMiniCard(l)).join('')}</div>
         ${left > 0 ? `<button class="clv-more-btn" data-k="${ue}" onclick="CLV.more['u:'+this.dataset.k]=(CLV.more['u:'+this.dataset.k]||0)+${step * 2};clvRender()">${ue} 연구실 ${left}곳 더 보기 ↓</button>` : ''}</div>` : ''}
     </div>`;
   }).join('');
@@ -6035,12 +6007,12 @@ function clvRender(){
 function clvShort(u){ return (u || '').replace(/대학교$/, '대').replace(/과학기술원$/, '과기원'); }
 function clvUniv(u){ CLV.univ = u || ''; CLV.more = {}; clvRender(); }
 function clvFold(u, open){ CLV.fold = CLV.fold || {}; CLV.fold[u] = open; clvRender(); }
-// 작은 카드: 학교·학과 / 연구실 이름 / 분야 한 줄 / 클로버 상태
-function clvMiniCard(l, inGroup){
+// 작은 카드 (학교별 묶음 안): 학과 / 연구실 이름 / 분야 한 줄 / 클로버 상태
+function clvMiniCard(l){
   const s = CLV.sum[l.id] || { cnt:0 };
   const open = s.total != null, tot = open ? Number(s.total) : 0;
   const four = open && tot >= 3.5;
-  const u = inGroup ? (l.name ? escHtml(l.dept) : '🌱 새로 등록된 연구실') : l.name ? `${escHtml(l.univ)} · ${escHtml(l.dept)}` : escHtml(l.univ);
+  const u = l.name ? escHtml(l.dept) : '🌱 새로 등록된 연구실';
   const t = l.name ? escHtml(l.topic || '') : `🔒 ${CLV_MIN_LABEL}이 모이면 이름 공개`;
   const pill = open ? `<span class="clv-pill on">${clvClover(Math.round(tot), 16)}${tot.toFixed(1)}</span>`
     : `<span class="clv-pill">${clvClover(1, 16)}자라는 중</span>`;
@@ -6521,9 +6493,8 @@ const FC_COLORS = [['클로버 그린','#22c55e'],['리뷰어 블루','#3b82f6']
 const FC_WORDS = ['Related Work','Ablation','Figure 1','Abstract','Baseline','Future Work','Appendix','Camera-ready','Limitation','서론 첫 문장','참고문헌 정리','실험 로그','랩미팅','코드 정리','데이터 백업'];
 
 let _fcView = 'cookie', _fcIdx = 0, _fcTimer = null, _fcBusy = false;
-function fcToday(){ return new Date().toLocaleDateString('sv-SE', { timeZone:'Asia/Seoul' }); }
 function fcLoad(){
-  const day = fcToday();
+  const day = kstToday();
   try{
     const s = JSON.parse(localStorage.getItem('mrc_fc') || 'null');
     if(s && s.d === day) return { d: day, u: Math.min(FC_MAX, Math.max(1, s.u | 0)), o: Math.min(FC_MAX, Math.max(0, s.o | 0)) };
@@ -6686,14 +6657,18 @@ function openFortune(){
   fcRender();
   if(!m.classList.contains('open')){ m.classList.add('open'); navOverlayOpened(); }
 }
-function closeFortune(){
-  const m = document.getElementById('fortune-modal'); if(!m) return;
+// 창만 닫기 (뒤로가기로 닫을 때도 같이 쓴다)
+function fcHide(){
   clearInterval(_fcTimer); _fcTimer = null; _fcBusy = false;
-  m.classList.remove('open');
+  document.getElementById('fortune-modal').classList.remove('open');
   fcRenderWidget();
+}
+function closeFortune(){
+  if(!document.getElementById('fortune-modal')) return;
+  fcHide();
   navOverlayClosed();
 }
-NAV_OVERLAYS.push({ isOpen: () => document.getElementById('fortune-modal')?.classList.contains('open'), close: () => { clearInterval(_fcTimer); _fcTimer = null; _fcBusy = false; document.getElementById('fortune-modal').classList.remove('open'); fcRenderWidget(); } });
+NAV_OVERLAYS.push({ isOpen: () => document.getElementById('fortune-modal')?.classList.contains('open'), close: fcHide });
 document.addEventListener('click', e => { if(e.target.closest && e.target.closest('#fc-box .fc-stage .fc-ck.idle')) fcCrack(); });
 // 자정이 지나 다시 돌아오면 위젯을 새 쿠키로 바꿔 준다
 document.addEventListener('visibilitychange', () => { if(!document.hidden) fcRenderWidget(); });
@@ -6713,8 +6688,7 @@ const ATTEND_EVENT = {
   doneDesc: '출석 도장을 모두 모았어요. 선물 안내는 곧 공지할게요.',
 };
 let _atDays = [], _atUid = null, _atBusy = false, _atErr = '', _atAfterLogin = false;
-function attendToday(){ return new Date().toLocaleDateString('sv-SE', { timeZone:'Asia/Seoul' }); }
-function attendActive(){ const t = attendToday(); return t >= ATTEND_EVENT.start && t <= ATTEND_EVENT.end; }
+function attendActive(){ const t = kstToday(); return t >= ATTEND_EVENT.start && t <= ATTEND_EVENT.end; }
 function attendMD(d){ const p = String(d).split('-'); return Number(p[1]) + '/' + Number(p[2]); }
 function attendName(){ return currentUser ? (currentUser.user_metadata?.name || (currentUser.email || '').split('@')[0] || '회원') : ''; }
 async function attendLoad(){
@@ -6727,7 +6701,7 @@ async function attendLoad(){
 }
 function attendRender(justStamped){
   const grid = document.getElementById('at-grid'); if(!grid) return;
-  const member = !!currentUser, days = member ? _atDays : [], goal = ATTEND_EVENT.goal, today = attendToday();
+  const member = !!currentUser, days = member ? _atDays : [], goal = ATTEND_EVENT.goal, today = kstToday();
   const n = Math.min(days.length, goal), doneToday = days.includes(today), complete = n >= goal;
   let html = '';
   for(let i = 0; i < goal; i++){
@@ -6762,7 +6736,7 @@ function attendFab(){
   if(!attendActive()){ fab.classList.remove('show'); return; }
   const n = currentUser ? Math.min(_atDays.length, ATTEND_EVENT.goal) : 0;
   fab.classList.add('show');
-  fab.classList.toggle('todo', !!currentUser && _atUid === currentUser.id && !_atDays.includes(attendToday()) && n < ATTEND_EVENT.goal);
+  fab.classList.toggle('todo', !!currentUser && _atUid === currentUser.id && !_atDays.includes(kstToday()) && n < ATTEND_EVENT.goal);
   document.getElementById('at-fab-count').textContent = currentUser && _atUid === currentUser.id ? n + '/' + ATTEND_EVENT.goal : '체크';
 }
 async function attendStamp(){
@@ -6795,17 +6769,19 @@ async function openAttend(){
   attendRender(false);
   if(!m.classList.contains('open')){ m.classList.add('open'); navOverlayOpened(); }
 }
-function attendMarkSeen(){ try{ localStorage.setItem('mrc_attend_seen', attendToday()); }catch(e){} }
+function attendMarkSeen(){ try{ localStorage.setItem('mrc_attend_seen', kstToday()); }catch(e){} }
+// 창만 닫기 (뒤로가기로 닫을 때도 같이 쓴다)
+function attendHide(){ document.getElementById('attend-modal').classList.remove('open'); attendMarkSeen(); }
 function closeAttend(){
-  const m = document.getElementById('attend-modal'); if(!m) return;
-  m.classList.remove('open'); attendMarkSeen();
+  if(!document.getElementById('attend-modal')) return;
+  attendHide();
   navOverlayClosed();
 }
-NAV_OVERLAYS.push({ isOpen: () => document.getElementById('attend-modal')?.classList.contains('open'), close: () => { document.getElementById('attend-modal').classList.remove('open'); attendMarkSeen(); } });
+NAV_OVERLAYS.push({ isOpen: () => document.getElementById('attend-modal')?.classList.contains('open'), close: attendHide });
 // 하루 한 번, 홈 화면에서 자동으로 띄운다. 환영 창 같은 다른 창이 떠 있으면 닫힌 뒤에 띄운다.
 async function maybeShowAttend(tries){
   if(!attendActive()) return;
-  try{ if(localStorage.getItem('mrc_attend_seen') === attendToday()) return; }catch(e){ return; }
+  try{ if(localStorage.getItem('mrc_attend_seen') === kstToday()) return; }catch(e){ return; }
   if(_cameForRecovery || navFromHash().page !== 'home') return;
   if(navAnyOverlay() || document.getElementById('welcome-modal')?.classList.contains('open')){
     if((tries || 0) < 300) setTimeout(() => maybeShowAttend((tries || 0) + 1), 1000);
@@ -6813,7 +6789,7 @@ async function maybeShowAttend(tries){
   }
   if(!currentUser){ try{ currentUser = (await sbClient.auth.getSession()).data.session?.user || null; }catch(e){} }
   await attendLoad();
-  if(currentUser && !_atErr && (_atDays.includes(attendToday()) || _atDays.length >= ATTEND_EVENT.goal)){ attendFab(); return; }
+  if(currentUser && !_atErr && (_atDays.includes(kstToday()) || _atDays.length >= ATTEND_EVENT.goal)){ attendFab(); return; }
   setTimeout(() => { if(!navAnyOverlay() && navFromHash().page === 'home') openAttend(); }, (tries ? 500 : 0));
 }
 // 로그인·로그아웃하면 버튼 숫자를 새로 맞추고, 출석하려고 로그인한 경우엔 창을 다시 연다

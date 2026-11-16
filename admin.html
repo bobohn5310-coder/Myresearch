@@ -169,10 +169,6 @@
     cursor: pointer; border: none; transition: all 0.15s;
     font-family: 'Noto Sans KR', sans-serif;
   }
-  .btn-primary { background: var(--blue); color: white; }
-  .btn-primary:hover { background: var(--blue-dark); }
-  .btn-secondary { background: white; color: var(--text-sub); border: 1.5px solid var(--border); }
-  .btn-secondary:hover { border-color: var(--blue); color: var(--blue); }
   .btn-danger { background: var(--red-light); color: var(--red); border: 1.5px solid #fecaca; }
   .btn-danger:hover { background: var(--red); color: white; }
   .btn-sm { padding: 6px 12px; font-size: 13px; }
@@ -1125,6 +1121,7 @@ function showAdminPage(page, el) {
 // ════════════════════════════════════
 let _members = [];
 const mbDate = d => d ? new Date(d).toLocaleDateString('sv-SE', { timeZone:'Asia/Seoul' }) : '-';
+const kstToday = () => new Date().toLocaleDateString('sv-SE', { timeZone:'Asia/Seoul' });   // 오늘 날짜 (한국 시간, 'YYYY-MM-DD')
 async function loadMembers() {
   const body = document.getElementById('members-table-body');
   const { data, error } = await sbClient.rpc('admin_members');
@@ -1608,7 +1605,7 @@ async function loadAttendance() {
   const { data, error } = await sbClient.rpc('admin_attendance', { p_event: ATTEND_EVENT_ID });
   if(error) { body.innerHTML = `<tr><td colspan="6"><div class="empty-state"><div class="emoji">⚠️</div>${needSql(error, 'attendance_event.sql')}</div></td></tr>`; return; }
   _attend = data || [];
-  const today = new Date().toLocaleDateString('sv-SE', { timeZone:'Asia/Seoul' });
+  const today = kstToday();
   document.getElementById('at-stats').innerHTML =
     chip('참여 회원', _attend.length) + chip('7일 달성', _attend.filter(r => r.completed).length) +
     chip('오늘 출석', _attend.filter(r => (r.dates || []).includes(today)).length);
@@ -2272,7 +2269,7 @@ async function exportVerificationsExcel() {
     });
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, '학교 인증');
-    const today = new Date().toLocaleDateString('sv-SE', { timeZone:'Asia/Seoul' });
+    const today = kstToday();
     XLSX.writeFile(wb, `학교인증_${today}.xlsx`);
     showToast(`✅ ${rows.length}건을 엑셀로 내려받았어요.`);
   } catch(e) {
