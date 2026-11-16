@@ -622,7 +622,7 @@
           <select id="mb-type" onchange="renderMembers()" style="padding:8px 10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:13px;font-family:'Noto Sans KR',sans-serif;">
             <option value="">모든 유형</option>
             <option>예비대학원생</option><option>학부연구생</option><option>석사과정</option><option>박사과정</option>
-            <option>석박통합</option><option>박사후연구원</option><option>기타</option><option value="-">유형 없음</option>
+            <option>석박통합</option><option>박사후연구원</option><option>졸업생</option><option>교수·연구교수</option><option>기업·연구소 연구원</option><option value="-">유형 없음</option>
           </select>
           <select id="mb-state" onchange="renderMembers()" style="padding:8px 10px;border:1.5px solid #e2e8f0;border-radius:8px;font-size:13px;font-family:'Noto Sans KR',sans-serif;">
             <option value="">모든 상태</option><option value="withdraw">탈퇴 요청</option><option value="suspended">정지 중</option>
@@ -817,7 +817,7 @@
       <div style="display:flex;gap:8px;">
         <select class="form-select" id="mm-type" style="flex:1;">
           <option value="">(없음)</option><option>예비대학원생</option><option>학부연구생</option><option>석사과정</option>
-          <option>박사과정</option><option>석박통합</option><option>박사후연구원</option><option>졸업생</option><option>기타</option>
+          <option>박사과정</option><option>석박통합</option><option>박사후연구원</option><option>졸업생</option><option>교수·연구교수</option><option>기업·연구소 연구원</option>
         </select>
         <input class="form-input" id="mm-grad" type="number" min="1950" max="2100" placeholder="졸업 연도" title="졸업생만: 졸업 연도 (비워 두면 그대로)" style="width:110px;">
         <button class="btn btn-primary" onclick="mmSaveType()">유형 저장</button>
@@ -1419,7 +1419,7 @@ async function loadCloverQueue(status) {
   const leaf = n => '🍀'.repeat(n) + '<span style="opacity:.25">' + '🍀'.repeat(4 - n) + '</span>';
   body.innerHTML = _cq.map((r, i) => `<tr>
     <td style="font-size:13px;"><b>${esc(r.name || '(이름 없음)')}</b><br><span style="color:#64748b;">${esc(r.email || '')}</span>
-      <div style="font-size:12px;color:#94a3b8;">${esc(r.member_type || '유형 없음')}${r.grad_year ? ` (${esc(r.grad_year)}년 졸업)` : ''}${r.is_verified ? ' · 🪪 인증' : ''} · ${mbDate(r.created_at)}</div></td>
+      <div style="font-size:12px;color:#94a3b8;">${esc(r.member_type || '유형 없음')}${r.grad_year ? ` (${esc(r.grad_year)}년 졸업)` : ''}${r.is_verified ? ' · 🪪 인증' : ''} · ${mbDate(r.created_at)}</div>${r.member_type === '교수·연구교수' ? '<div style="font-size:12px;color:#c2410c;font-weight:700;">⚠️ 교수 회원: 본인이 지도하는 연구실이 아닌지 확인해 주세요</div>' : ''}</td>
     <td style="font-size:13px;">${esc(r.univ)} ${esc(r.dept)}<br><b>${esc(r.lab_name)}</b> <span style="color:#64748b;">(${esc(r.prof || '-')})</span>
       <div style="font-size:12px;color:#94a3b8;">승인된 참여 ${r.lab_approved}명${r.lab_hidden ? ' · <b style="color:#dc2626;">가려진 연구실</b>' : ''}</div></td>
     <td style="font-size:12.5px;line-height:1.6;">
@@ -2283,7 +2283,7 @@ async function exportVerificationsExcel() {
 }
 
 // 학교 인증 승인 시 회원 유형을 인증된 과정으로 갱신 (예: 예비대학원생 → 석사과정이면 클로버가 열림)
-const MEMBER_TYPES = ['예비대학원생','학부연구생','석사과정','박사과정','석박통합','박사후연구원','졸업생','기타'];
+const MEMBER_TYPES = ['예비대학원생','학부연구생','석사과정','박사과정','석박통합','박사후연구원','졸업생','교수·연구교수','기업·연구소 연구원'];
 async function approveVerification(reqId, userId, grade, gradYear) {
   if(!confirm(grade === '졸업생' ? `이 회원을 ${gradYear || '(연도 없음)'}년 졸업생으로 승인하시겠습니까?\n서류의 졸업 연도와 같은지 확인해 주세요.` : '이 회원을 승인하시겠습니까?')) return;
   const { error: e1 } = await sbClient.from('verification_requests').update({ status:'approved', reviewed_at: new Date().toISOString() }).eq('id', reqId);
