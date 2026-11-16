@@ -3386,9 +3386,20 @@ let newsFieldFilter = 'all';
 let currentUser = null;
 
 // ── SUPABASE 초기화 ──
+// 서버(DB)가 멈추면 요청이 1분 넘게 응답 없이 매달려 '로그인 중...'에서 멈춘 것처럼 보인다.
+// 로그인·데이터 요청은 20초가 지나면 끊고 오류로 알려 준다. (파일 올리기는 오래 걸릴 수 있어 제외)
+const SB_TIMEOUT_MS = 20000;
+function sbFetch(url, opts = {}) {
+  const u = String(url);
+  if(opts.signal || !/\/(auth|rest)\/v1\//.test(u) || typeof AbortController === 'undefined') return fetch(url, opts);
+  const ctl = new AbortController();
+  const t = setTimeout(() => ctl.abort(), SB_TIMEOUT_MS);
+  return fetch(url, { ...opts, signal: ctl.signal }).finally(() => clearTimeout(t));
+}
 const sbClient = supabase.createClient(
   'https://ryikaxrcgfrgaczmmgnh.supabase.co',
-  'sb_publishable_-WzxQGfWdMzjXDok_tBiNg_w5W11MMX'
+  'sb_publishable_-WzxQGfWdMzjXDok_tBiNg_w5W11MMX',
+  { global: { fetch: sbFetch } }
 );
 // 학교 메일 확인 링크로 돌아온 경우 (Supabase 가 주소의 # 부분을 지우기 전에 읽어 둔다)
 const _mailChangeHash = decodeURIComponent((location.hash || '').replace(/\+/g, ' '));
@@ -4804,9 +4815,22 @@ sbClient.channel('realtime-banners')
 
 
 // 로그인 상태 확인
+// 로그인 직후 같은 확인을 여러 번 동시에 하지 않도록, 진행 중인 확인을 함께 쓴다
+let _navCheck = null, _navCheckUid = null, _navSeq = 0;
+function navVerifyCheck() {
+  const uid = currentUser?.id || null;
+  if(!_navCheck || _navCheckUid !== uid) {
+    _navCheckUid = uid;
+    _navCheck = Promise.all([getMyVerification(), loadCanWrite()])
+      .catch(() => [{ user: currentUser, last: null, verified: false }])
+      .finally(() => setTimeout(() => { _navCheck = null; }, 3000));
+  }
+  return _navCheck;
+}
 async function updateNavForAuth(knownSession) {
   const session = knownSession !== undefined ? knownSession : (await sbClient.auth.getSession()).data.session;
   currentUser = session?.user || null;
+  const seq = ++_navSeq;
   const loginBtns = document.querySelectorAll('.nav-login-btn');
   const userArea = document.getElementById('nav-user-area');
   if(currentUser) {
@@ -4814,19 +4838,24 @@ async function updateNavForAuth(knownSession) {
     if(userArea) {
       userArea.style.display = 'flex';
       const name = currentUser.user_metadata?.name || currentUser.email.split('@')[0];
-      const [v] = await Promise.all([getMyVerification(), loadCanWrite()]);
+      const logoutBtn = `<button onclick="handleLogout()" style="font-size:13px;padding:5px 12px;border-radius:8px;border:1.5px solid var(--border);background:white;cursor:pointer;color:var(--text-muted);">로그아웃</button>`;
+      // 이름·로그아웃은 바로 보여 주고, 학교 인증 표시는 확인이 끝나면 채운다
+      if(userArea.dataset.uid !== currentUser.id)
+        userArea.innerHTML = `<span data-nav-name style="font-size:14px;color:var(--text);font-weight:600;">👤 ${escHtml(name)}</span>${logoutBtn}`;
+      const [v] = await navVerifyCheck();
+      if(seq !== _navSeq || !currentUser) return;
       const vBtn = v.verified
         ? `<span title="학교 인증 완료" style="font-size:12px;font-weight:700;color:#059669;background:#ecfdf5;padding:4px 9px;border-radius:20px;">✅ 인증</span>`
         : `<button onclick="openVerify()" style="font-size:13px;padding:5px 12px;border-radius:8px;border:1.5px solid var(--blue);background:white;cursor:pointer;color:var(--blue);font-weight:700;">${v.last?.status==='pending' ? '⏳ 인증 확인중' : _canWrite===false ? '🔒 보기 전용 · 학교 인증' : '🪪 학교 인증'}</button>`;
       const dv = document.getElementById('nav-drawer-verify');
       if(dv) { dv.style.display = v.verified ? 'none' : ''; dv.textContent = v.last?.status==='pending' ? '⏳ 학교 인증 확인중' : '🪪 학교 인증'; }
-      userArea.innerHTML = `<span style="font-size:14px;color:var(--text);font-weight:600;">👤 ${escHtml(name)}</span>${vBtn}
-        <button onclick="handleLogout()" style="font-size:13px;padding:5px 12px;border-radius:8px;border:1.5px solid var(--border);background:white;cursor:pointer;color:var(--text-muted);">로그아웃</button>`;
+      userArea.innerHTML = `<span data-nav-name style="font-size:14px;color:var(--text);font-weight:600;">👤 ${escHtml(name)}</span>${vBtn}${logoutBtn}`;
+      userArea.dataset.uid = currentUser.id;
     }
   } else {
     _canWrite = null;
     loginBtns.forEach(b => b.style.display = '');
-    if(userArea) userArea.innerHTML = '';
+    if(userArea) { userArea.innerHTML = ''; delete userArea.dataset.uid; }
     const dv = document.getElementById('nav-drawer-verify');
     if(dv) dv.style.display = 'none';
   }
@@ -5051,9 +5080,17 @@ function renderInfoCards(containerId){
   }).join('');
 }
 
+// 서버가 응답하지 않거나(20초 초과) 인터넷이 끊겨 생긴 오류인지
+function isNetworkError(error) {
+  const name = error?.name || '', msg = error?.message || '';
+  return name === 'AbortError' || name === 'AuthRetryableFetchError' || error?.status === 0
+    || [502, 503, 504, 520, 522, 524].includes(error?.status)
+    || /abort|failed to fetch|network|load failed|timed? ?out/i.test(msg);
+}
 // Supabase 인증 오류를 알기 쉬운 말로
 function authErrorText(error, fallback) {
   const code = error?.code || '', msg = error?.message || '';
+  if(isNetworkError(error)) return '지금 서버 응답이 늦어요. 잠시 뒤 다시 시도해 주세요.';
   if(code === 'over_email_send_rate_limit' || error?.status === 429 || /rate limit/i.test(msg))
     return '지금 인증 메일을 보내려는 사람이 많아 잠시 막혔어요. 10분쯤 뒤에 다시 시도해주세요.';
   if(code === 'email_address_invalid' || /invalid.*email|email.*invalid/i.test(msg))
@@ -5078,7 +5115,9 @@ async function handleLogin() {
   const btn = document.querySelector('#login-form .auth-btn');
   if(btn){ btn.textContent = '로그인 중...'; btn.disabled = true; }
 
-  const { data, error } = await sbClient.auth.signInWithPassword({ email, password });
+  let data = null, error = null;
+  try { ({ data, error } = await sbClient.auth.signInWithPassword({ email, password })); }
+  catch(e) { error = e; }
 
   if(error) {
     if(error.code === 'email_not_confirmed' || /not confirmed/i.test(error.message || '')) {
@@ -5087,16 +5126,18 @@ async function handleLogin() {
       el.insertAdjacentHTML('beforeend', '<br><a href="javascript:void(0)" onclick="resendConfirm()" style="color:inherit;text-decoration:underline;">인증 메일 다시 보내기</a>');
     } else if(/invalid login/i.test(error.message || '')) {
       showAuthMessage('이메일 또는 비밀번호가 맞지 않아요.', true);
+    } else if(isNetworkError(error)) {
+      showAuthMessage('지금 서버 응답이 늦어 로그인하지 못했어요. 인터넷 연결을 확인하고 잠시 뒤 다시 시도해 주세요.', true);
     } else {
       showAuthMessage(authErrorText(error, '로그인하지 못했어요. 잠시 뒤 다시 시도해주세요.'), true);
     }
-    btn.textContent = '로그인';
-    btn.disabled = false;
-  } else {
-    showAuthMessage('✅ 로그인 성공! 환영합니다.');
-    await updateNavForAuth(data.session);
     if(btn){ btn.textContent = '로그인'; btn.disabled = false; }
-    setTimeout(() => closeAuth(), 1200);
+  } else {
+    // 상단 메뉴는 로그인 알림(onAuthStateChange)이 따로 바꿔 준다. 여기서 기다리지 않고 바로 닫는다
+    showAuthMessage('✅ 로그인 성공! 환영합니다.');
+    updateNavForAuth(data.session);
+    if(btn){ btn.textContent = '로그인'; btn.disabled = false; }
+    setTimeout(() => closeAuth(), 600);
   }
 }
 
@@ -5142,7 +5183,8 @@ function selectGrade(el, value) {
 
 // 내 최신 인증 요청과 인증 여부
 async function getMyVerification() {
-  const { data: { user } } = await sbClient.auth.getUser();
+  // 화면 표시용이라 서버에 다시 묻지(getUser) 않고 브라우저에 있는 로그인 정보를 쓴다 (권한은 DB 정책이 따로 지킨다)
+  const user = (await sbClient.auth.getSession()).data.session?.user || null;
   if(!user) return { user: null };
   const [{ data: reqs }, { data: prof }] = await Promise.all([
     sbClient.from('verification_requests').select('status,reject_reason,created_at').eq('user_id', user.id).order('created_at', { ascending: false }).limit(1),
