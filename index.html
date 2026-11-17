@@ -2431,11 +2431,139 @@ a { text-decoration: none; color: inherit; }
   .hero-clv-peek { padding: 12px; }
   .hcp-go { display: none; }
 }
+
+/* ══ 🕯️ 불빛 지도 (익명 고민 한 줄 → 학교에 불 켜기) ══ */
+#page-lights { background:#070c1a; }
+.lt-night { position:relative; min-height:calc(100vh - 64px); background:radial-gradient(1200px 700px at 30% 40%,#0f1a35 0%,#070c1a 70%); overflow:hidden; color:#e2e8f0; }
+.lt-stars { position:absolute; inset:0; pointer-events:none; opacity:.6;
+  background-image:radial-gradient(1px 1px at 20px 30px,#ffffff88 50%,transparent),radial-gradient(1px 1px at 140px 90px,#ffffff66 50%,transparent),radial-gradient(1.2px 1.2px at 260px 40px,#ffffff77 50%,transparent),radial-gradient(1px 1px at 330px 160px,#ffffff55 50%,transparent);
+  background-size:380px 220px; }
+.lt-wrap { position:relative; max-width:1360px; margin:0 auto; padding:40px 48px 56px; display:grid; grid-template-columns:minmax(0,1fr) 440px; gap:36px; }
+.lt-kicker { display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:700; color:#fcd34d; background:#fcd34d1a; border:1px solid #fcd34d40; border-radius:999px; padding:5px 12px; }
+.lt-h1 { font-size:38px; font-weight:800; line-height:1.3; margin:14px 0 10px; color:#fff; letter-spacing:-.5px; }
+.lt-h1 em { font-style:normal; color:#fcd34d; text-shadow:0 0 24px #fbbf2480; }
+.lt-h1 br { display:none; }
+.lt-sub { font-size:16px; color:#94a3b8; line-height:1.7; }
+.lt-stats { display:flex; gap:28px; margin:20px 0 4px; }
+.lt-stats b { font-size:26px; color:#fde68a; font-weight:800; display:block; line-height:1.15; font-family:'Montserrat','Noto Sans KR',sans-serif; }
+.lt-stats span { font-size:13px; color:#94a3b8; }
+.lt-zc { display:none; gap:6px; margin-top:16px; }
+.lt-zc button, .lt-tabs button { font:inherit; font-size:13px; padding:6px 12px; border-radius:999px; color:#94a3b8; border:1px solid #1e2a47; background:none; cursor:pointer; }
+.lt-zc button.on, .lt-tabs button.on { background:#fcd34d; color:#1c1405; border-color:#fcd34d; font-weight:700; }
+.lt-mapbox { position:relative; margin-top:8px; }
+#lt-map { width:100%; height:auto; display:block; }
+#lt-map .lt-land { fill:#121c34; stroke:#22304f; stroke-width:.8; }
+#lt-map .lt-in .lt-land { stroke-width:.25; }
+#lt-map .lt-hit { fill:transparent; cursor:pointer; }
+#lt-map .lt-lbl { font-size:11px; fill:#fde68a; font-weight:700; paint-order:stroke; stroke:#070c1a; stroke-width:3px; pointer-events:none; font-family:'Noto Sans KR',sans-serif; }
+#lt-map .lt-lbl.dim { fill:#94a3b8; font-weight:500; }
+#lt-map .lt-in .lt-lbl { font-size:9.5px; }
+#lt-map .lt-sel { fill:none; stroke:#fde68a; stroke-width:1.3; stroke-dasharray:2 2; pointer-events:none; }
+#lt-map .lt-tw { animation:ltTw 3.6s ease-in-out infinite; }
+@keyframes ltTw { 0%,100% { opacity:1; } 50% { opacity:.72; } }
+@media (prefers-reduced-motion: reduce) { #lt-map .lt-tw { animation:none; } }
+.lt-legend { position:absolute; right:0; bottom:34px; display:flex; gap:14px; align-items:center; font-size:12px; color:#94a3b8; background:#0b1328cc; border:1px solid #1e293b; border-radius:12px; padding:8px 12px; }
+.lt-legend i { display:inline-block; border-radius:50%; background:#fde68a; margin-right:5px; vertical-align:middle; }
+.lt-hint { position:absolute; right:4px; bottom:8px; font-size:12px; color:#64748b; }
+.lt-chips { display:flex; flex-wrap:wrap; gap:6px; margin-top:14px; }
+.lt-chips button { white-space:nowrap; min-height:0; height:auto; width:auto; line-height:1.4; font:inherit; font-size:12.5px; color:#cbd5e1; background:#0e1730; border:1px solid #1f2c4d; border-radius:999px; padding:5px 11px; cursor:pointer; }
+.lt-chips button b { color:#fde68a; margin-left:4px; }
+.lt-chips button.on { border-color:#fcd34d; color:#fde68a; }
+.lt-chips .lt-chips-t { font-size:12px; color:#64748b; align-self:center; margin-right:4px; }
+
+.lt-panel { background:#0e1730ee; border:1px solid #1e2a47; border-radius:20px; padding:22px; align-self:start; box-shadow:0 20px 60px #0008; position:sticky; top:84px; }
+.lt-ph { display:flex; align-items:center; gap:12px; }
+.lt-bulb { width:46px; height:46px; border-radius:50%; flex:none; background:radial-gradient(circle,#fff7d6 0 22%,#fcd34d 40%,#f59e0b33 72%,transparent 74%); }
+.lt-bulb.l0 { background:radial-gradient(circle,#3b4866 0 20%,#1e293b 45%,transparent 47%); }
+.lt-bulb.l1 { opacity:.55; } .lt-bulb.l2 { opacity:.75; }
+.lt-ph h2 { font-size:20px; color:#fff; font-weight:800; margin:0; }
+.lt-ph p { font-size:13px; color:#94a3b8; margin:2px 0 0; }
+.lt-lvbar { display:flex; gap:4px; margin:16px 0 4px; }
+.lt-lvbar i { flex:1; height:6px; border-radius:3px; background:#1e293b; }
+.lt-lvbar i.on { background:linear-gradient(90deg,#f59e0b,#fde68a); box-shadow:0 0 8px #fbbf2470; }
+.lt-lvtxt { font-size:12px; color:#94a3b8; display:flex; justify-content:space-between; gap:8px; }
+.lt-tabs { display:flex; gap:6px; margin:18px 0 12px; }
+.lt-notes { max-height:520px; overflow-y:auto; scrollbar-width:thin; scrollbar-color:#1f2c4d transparent; }
+.lt-note { background:#131f3d; border:1px solid #1f2c4d; border-radius:14px; padding:14px 15px; margin-bottom:10px; }
+.lt-note p { font-size:14.5px; line-height:1.6; color:#e2e8f0; margin:0; white-space:pre-wrap; word-break:break-word; }
+.lt-note .lt-m { display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin-top:10px; font-size:12px; color:#64748b; }
+.lt-chip { font:inherit; display:inline-flex; align-items:center; gap:4px; border:1px solid #2a3a60; border-radius:999px; padding:4px 10px; color:#cbd5e1; font-size:12px; background:none; cursor:pointer; }
+.lt-chip.on { border-color:#fcd34d80; color:#fde68a; background:#fcd34d14; }
+.lt-more { margin-left:auto; font:inherit; font-size:12px; color:#64748b; background:none; border:none; cursor:pointer; padding:4px; }
+.lt-more:hover { color:#cbd5e1; }
+.lt-help { margin-top:10px; font-size:12px; color:#fde68a; background:#fcd34d12; border-radius:10px; padding:8px 10px; line-height:1.6; }
+.lt-empty { font-size:14px; color:#94a3b8; text-align:center; padding:28px 10px; line-height:1.7; }
+.lt-compose { margin-top:14px; background:#0a1226; border:1px dashed #fcd34d66; border-radius:14px; padding:14px; }
+.lt-compose .t { font-size:13px; color:#fde68a; font-weight:700; margin-bottom:8px; }
+.lt-ta { width:100%; box-sizing:border-box; font:inherit; font-size:14.5px; line-height:1.6; color:#e2e8f0; background:transparent; border:none; outline:none; resize:none; min-height:48px; }
+.lt-ta::placeholder { color:#64748b; }
+.lt-compose .row { display:flex; align-items:center; gap:8px; margin-top:8px; font-size:12px; color:#64748b; }
+.lt-btn { font:inherit; margin-left:auto; background:linear-gradient(180deg,#fde68a,#f59e0b); color:#1c1405; font-weight:800; font-size:14px; border:none; border-radius:10px; padding:9px 16px; box-shadow:0 0 20px #f59e0b55; cursor:pointer; }
+.lt-btn:disabled { opacity:.6; cursor:default; }
+.lt-rules { font-size:11.5px; color:#64748b; margin-top:12px; line-height:1.6; }
+.lt-toast { position:fixed; left:50%; top:96px; transform:translate(-50%,-10px); opacity:0; pointer-events:none; display:flex; align-items:center; gap:10px; background:#1c1405f0; border:1px solid #fcd34d; color:#fde68a; border-radius:999px; padding:11px 20px; font-size:14.5px; font-weight:700; box-shadow:0 0 40px #f59e0b66; z-index:600; transition:.25s; max-width:calc(100vw - 32px); }
+.lt-toast.show { opacity:1; transform:translate(-50%,0); }
+.lt-toast small { color:#fcd34dcc; font-weight:500; font-size:12.5px; }
+.lt-fab { display:none; }
+.lt-sheetbg { display:none; position:fixed; inset:0; background:#000a; z-index:500; }
+.lt-sheet { display:none; position:fixed; left:0; right:0; bottom:0; z-index:501; background:#0e1730; border-top:1px solid #2a3a60; border-radius:22px 22px 0 0; padding:14px 18px calc(22px + env(safe-area-inset-bottom)); box-shadow:0 -10px 40px #000a; color:#e2e8f0; max-width:560px; margin:0 auto; }
+.lt-sheet.open, .lt-sheetbg.open { display:block; }
+.lt-sheet .grab { width:40px; height:4px; border-radius:2px; background:#334155; margin:0 auto 14px; }
+.lt-sheet h3 { font-size:19px; color:#fff; font-weight:800; margin:0; }
+.lt-sheet .who { font-size:13px; color:#94a3b8; margin:6px 0 14px; line-height:1.6; }
+.lt-sheet .who b { color:#fde68a; }
+.lt-sheet .lt-ta { background:#0a1226; border:1px solid #fcd34d66; border-radius:12px; padding:12px; min-height:120px; font-size:16px; }
+.lt-sheet .cnt { text-align:right; font-size:12px; color:#64748b; margin-top:6px; }
+.lt-sheet ul { list-style:none; font-size:12px; color:#94a3b8; line-height:1.8; margin:8px 0 14px; padding:0; }
+.lt-sheet ul li:before { content:"· "; color:#fcd34d; }
+.lt-sheet .lt-btn { display:block; width:100%; margin:0; font-size:16px; padding:14px; border-radius:14px; }
+
+/* 홈: 커뮤니티 인기글 자리에 들어가는 불빛 지도 카드 */
+body.cm-closed #home-cm-col { display:none; }
+body:not(.cm-closed) #home-lights-col { display:none; }
+.lt-home { background:radial-gradient(600px 300px at 30% 30%,#0f1a35 0%,#070c1a 80%); border-radius:18px; padding:22px; color:#e2e8f0; display:grid; grid-template-columns:minmax(0,1fr) 200px; gap:18px; align-items:center; cursor:pointer; }
+.lt-home h3 { color:#fff; font-size:19px; font-weight:800; margin:0 0 6px; }
+.lt-home h3 em { font-style:normal; color:#fcd34d; }
+.lt-home p { font-size:13.5px; color:#94a3b8; line-height:1.65; margin:0; }
+.lt-home ol { list-style:none; margin:14px 0 0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.lt-home ol li { font-size:12.5px; color:#cbd5e1; background:#0e1730; border:1px solid #1f2c4d; border-radius:999px; padding:4px 10px; }
+.lt-home ol li b { color:#fde68a; margin-left:3px; }
+.lt-home .lt-btn { margin:16px 0 0; }
+.lt-home svg { width:100%; height:auto; }
+
+@media (max-width: 1100px) {
+  .lt-wrap { grid-template-columns:minmax(0,1fr) 380px; padding:32px 24px 48px; gap:24px; }
+}
+@media (max-width: 768px) {
+  .lt-night { min-height:calc(100vh - 56px); }
+  .lt-wrap { display:block; padding:20px 16px 110px; }
+  .lt-h1 { font-size:25px; margin:10px 0 6px; }
+  .lt-h1 br { display:inline; }
+  .lt-sub { font-size:14px; }
+  .lt-sub br { display:none; }
+  .lt-stats { gap:18px; margin:14px 0 0; }
+  .lt-stats b { font-size:21px; }
+  .lt-zc { display:flex; }
+  .lt-legend { position:static; margin-top:6px; justify-content:center; font-size:11px; gap:10px; padding:6px 10px; flex-wrap:wrap; }
+  .lt-hint { display:none; }
+  .lt-chips { flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none; margin-right:-16px; padding-right:16px; }
+  .lt-chips::-webkit-scrollbar { display:none; }
+  .lt-chips button { flex-shrink:0; }
+  .lt-chips .lt-chips-t { flex-shrink:0; white-space:nowrap; }
+  body:has(#page-lights.active) .at-fab { bottom:calc(84px + env(safe-area-inset-bottom)); }
+  .lt-panel { margin-top:16px; padding:18px 16px; position:static; }
+  .lt-notes { max-height:none; overflow:visible; }
+  .lt-compose { display:none; }
+  #page-lights.active .lt-fab { display:block; position:fixed; left:16px; right:16px; bottom:calc(16px + env(safe-area-inset-bottom)); z-index:150; font:inherit; text-align:center; background:linear-gradient(180deg,#fde68a,#f59e0b); color:#1c1405; font-weight:800; font-size:16px; border:none; border-radius:14px; padding:15px; box-shadow:0 0 30px #f59e0b66,0 10px 30px #0009; cursor:pointer; }
+  .lt-toast { top:72px; font-size:13.5px; flex-wrap:wrap; justify-content:center; text-align:center; border-radius:16px; }
+  .lt-home { grid-template-columns:minmax(0,1fr); padding:18px; }
+  .lt-home svg { display:none; }
+}
 </style>
 <!-- 구글 애드센스 (광고) -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8855158825430155" crossorigin="anonymous"></script>
 </head>
-<body>
+<body class="cm-closed"><!-- cm-closed: 커뮤니티를 잠시 닫고 불빛 지도로 대신함 (다시 열려면 이 클래스와 COMMUNITY_CLOSED 를 지움) -->
 
 <!-- 공지 띠 (관리자 페이지에서 켠 최신 공지 1개) -->
 <div id="site-notice" style="display:none;background:#0f172a;color:#f8fafc;font-size:13.5px;padding:9px 44px 9px 16px;position:relative;text-align:center;line-height:1.5;">
@@ -2457,7 +2585,7 @@ a { text-decoration: none; color: inherit; }
 
   <div class="nav-links">
     <div class="nav-link active" onclick="showPage('home');setNav(this)">홈</div>
-    <div class="nav-link" onclick="showPage('community');setNav(this)">커뮤니티</div>
+    <div class="nav-link" onclick="showPage('lights');setNav(this)">🕯️ 불빛 지도 <span class="nav-badge" style="background:#f59e0b">NEW</span></div>
     <div class="nav-link" onclick="showPage('info');setNav(this)">학회정보</div>
     <div class="nav-link" onclick="goToCalendar()">연구 캘린더 <span class="nav-badge">EXCLUSIVE</span></div>
     <div class="nav-link" onclick="showPage('news');setNav(this)">국내연구소식</div>
@@ -2485,7 +2613,7 @@ a { text-decoration: none; color: inherit; }
   </div>
   <div class="nav-drawer-links">
     <div class="nav-drawer-link active" onclick="showPage('home');setNavDrawer(this);closeDrawer()">🏠 홈</div>
-    <div class="nav-drawer-link" onclick="showPage('community');setNavDrawer(this);closeDrawer()">💬 커뮤니티</div>
+    <div class="nav-drawer-link" onclick="showPage('lights');setNavDrawer(this);closeDrawer()">🕯️ 불빛 지도</div>
     <div class="nav-drawer-link" onclick="showPage('info');setNavDrawer(this);closeDrawer()">🎤 학회정보</div>
     <div class="nav-drawer-link" onclick="goToCalendar();closeDrawer()">📅 연구 캘린더 ✦</div>
     <div class="nav-drawer-link" onclick="showPage('news');setNavDrawer(this);closeDrawer()">📰 국내연구소식</div>
@@ -2657,8 +2785,28 @@ a { text-decoration: none; color: inherit; }
   <div class="community-section-wrap">
     <div class="community-grid">
 
+      <!-- 🕯️ 불빛 지도 (커뮤니티를 잠시 닫은 동안 이 자리에) -->
+      <div id="home-lights-col">
+        <div class="section-header">
+          <div>
+            <div class="section-title">🕯️ 오늘 밤의 불빛 지도</div>
+            <div class="section-sub">익명 고민 한 줄이 우리 학교의 불을 켜요</div>
+          </div>
+          <div class="see-all" onclick="showPage('lights');setNavByName('lights')">지도 보기 →</div>
+        </div>
+        <div class="lt-home" onclick="showPage('lights');setNavByName('lights')">
+          <div>
+            <h3>어두운 밤, <em>우리 학교에 불</em>을 켜 주세요</h3>
+            <p>고민을 한 줄 남기면 내 학교에 불이 하나 켜져요. 누가 남겼는지는 아무도 몰라요.</p>
+            <ol id="lt-home-top"></ol>
+            <button type="button" class="lt-btn">🕯️ 불 켜러 가기</button>
+          </div>
+          <svg id="lt-home-map" viewBox="90 0 420 560" aria-hidden="true"></svg>
+        </div>
+      </div>
+
       <!-- HOT COMMUNITY -->
-      <div>
+      <div id="home-cm-col">
         <div class="section-header">
           <div>
             <div class="section-title">💬 커뮤니티 인기글</div>
@@ -2716,7 +2864,7 @@ a { text-decoration: none; color: inherit; }
         <div>
           <div class="footer-col-title">서비스</div>
           <span class="footer-link" onclick="showPage('home')">홈</span>
-          <span class="footer-link" onclick="showPage('community')">커뮤니티</span>
+          <span class="footer-link" onclick="showPage('lights');setNavByName('lights')">불빛 지도</span>
           <span class="footer-link" onclick="showPage('info')">학회정보</span>
           <span class="footer-link" onclick="showPage('news')">국내연구소식</span>
           <span class="footer-link" onclick="goClover()">클로버 지수</span>
@@ -3030,6 +3178,48 @@ a { text-decoration: none; color: inherit; }
   </div>
 </div>
 
+
+<!-- ══ PAGE: 🕯️ 불빛 지도 (익명 고민 한 줄 → 우리 학교에 불 켜기) ══ -->
+<div class="page" id="page-lights">
+  <div class="lt-night">
+    <div class="lt-stars"></div>
+    <div class="lt-wrap">
+      <div>
+        <span class="lt-kicker">🕯️ 오늘 밤의 불빛 지도</span>
+        <h1 class="lt-h1">어두운 밤,<br> <em>우리 학교에 불</em>을 켜 주세요</h1>
+        <p class="lt-sub">고민을 한 줄 남기면 내 학교에 불이 하나 켜져요.<br> 누가 남겼는지는 아무도 몰라요. 고민이 모일수록 학교가 환해져요.</p>
+        <div class="lt-stats">
+          <div><b id="lt-st-total">0</b><span>최근 30일 남긴 고민</span></div>
+          <div><b id="lt-st-schools">0</b><span>불 켜진 학교</span></div>
+          <div><b id="lt-st-today">0</b><span>오늘 켜진 불</span></div>
+        </div>
+        <div class="lt-zc" id="lt-zc">
+          <button type="button" class="on" onclick="ltZoom(0)">전국</button>
+          <button type="button" onclick="ltZoom(1)">서울·수도권 확대</button>
+        </div>
+        <div class="lt-mapbox">
+          <svg id="lt-map" viewBox="0 0 800 560" role="img" aria-label="학교별 불빛 지도"></svg>
+          <div class="lt-legend" aria-hidden="true"><span><i style="width:5px;height:5px;background:#3b4866"></i>아직 깜깜</span><span><i style="width:7px;height:7px;opacity:.5"></i>1~2</span><span><i style="width:9px;height:9px;opacity:.75"></i>3~5</span><span><i style="width:11px;height:11px;box-shadow:0 0 6px #fde68a"></i>6~14</span><span><i style="width:13px;height:13px;box-shadow:0 0 10px #fde68a"></i>15개 이상</span></div>
+          <div class="lt-hint">학교를 누르면 그 학교의 고민이 보여요</div>
+        </div>
+        <div class="lt-chips" id="lt-chips"></div>
+      </div>
+      <div class="lt-panel" id="lt-panel"><div class="lt-empty">불빛을 불러오는 중이에요…</div></div>
+    </div>
+    <button type="button" class="lt-fab" onclick="ltOpenSheet()">🕯️ 우리 학교에 불 켜기</button>
+  </div>
+</div>
+<div class="lt-toast" id="lt-toast" role="status" aria-live="polite"></div>
+<div class="lt-sheetbg" id="lt-sheetbg" onclick="ltCloseSheet()"></div>
+<div class="lt-sheet" id="lt-sheet" role="dialog" aria-modal="true" aria-labelledby="lt-sheet-title">
+  <div class="grab"></div>
+  <h3 id="lt-sheet-title">🕯️ 우리 학교에 불 켜기</h3>
+  <p class="who" id="lt-sheet-who">학교는 학교 메일이나 학교 인증으로 자동으로 정해져요.<br><b>이름·닉네임·정확한 시간은 누구에게도 보이지 않아요.</b></p>
+  <textarea class="lt-ta" id="lt-sheet-ta" maxlength="140" placeholder="오늘 마음에 걸리는 걸 한 줄로 남겨 보세요" oninput="document.getElementById('lt-sheet-cnt').textContent=this.value.length+' / 140'"></textarea>
+  <div class="cnt" id="lt-sheet-cnt">0 / 140</div>
+  <ul><li>하루 3개까지 남길 수 있어요</li><li>욕설·특정인을 알아볼 수 있는 이야기는 가려져요</li><li>내가 남긴 고민은 언제든 지울 수 있어요</li></ul>
+  <button type="button" class="lt-btn" id="lt-sheet-btn" onclick="ltSubmit('lt-sheet-ta')">불 켜기</button>
+</div>
 
 <!-- ══ PAGE: 🍀 클로버 지수 ══ -->
 <div class="page" id="page-clover">
@@ -3385,11 +3575,14 @@ const _mailChangeHash = decodeURIComponent((location.hash || '').replace(/\+/g, 
 
 function setNavByName(name){
   document.querySelectorAll('.nav-link').forEach(n=>n.classList.remove('active'));
-  const map={'home':0,'community':1,'info':2,'news':4,'clover':5};
+  const map={'home':0,'community':1,'lights':1,'info':2,'news':4,'clover':5};
   const links=document.querySelectorAll('.nav-link');
   if(map[name]!==undefined && links[map[name]]) links[map[name]].classList.add('active');
 }
+// 커뮤니티는 잠시 닫고 그 자리를 🕯️ 불빛 지도로 대신한다 (다시 열려면 false + <body> 의 cm-closed 클래스 삭제)
+const COMMUNITY_CLOSED = true;
 function showPage(name, fromHistory){
+  if(name === 'community' && COMMUNITY_CLOSED) name = 'lights';
   const pg = document.getElementById('page-'+name);
   if(!pg) return;
   const changed = name !== _navCur;
@@ -3399,6 +3592,7 @@ function showPage(name, fromHistory){
   pg.classList.add('active');
   _navCur = name;
   if(!fromHistory) window.scrollTo(0,0);
+  if(name === 'lights' && typeof ltLoad === 'function') ltLoad();
 }
 
 function setNav(el){
@@ -3652,11 +3846,11 @@ function renderBanners() {
     },
     {
       type: 'default',
-      title: '연구자 커뮤니티에서 동료를 만나세요',
-      subtitle: '랩실 고민부터 논문 후기까지. 비슷한 고민을 가진 연구자들과 솔직하게 소통하세요.',
-      grad: '135deg, #1e1b4b 0%, #4c1d95 60%, #7c3aed 100%',
-      cta: '커뮤니티 둘러보기',
-      ctaAction: "showPage('community');setNav(document.querySelectorAll('.nav-link')[1])",
+      title: '고민 한 줄로 우리 학교에 불을 켜 주세요',
+      subtitle: '익명으로 남긴 고민이 모일수록 어두운 지도 속 학교가 환해져요. 누가 남겼는지는 아무도 몰라요.',
+      grad: '135deg, #070c1a 0%, #0f1a35 60%, #78350f 100%',
+      cta: '불빛 지도 보기',
+      ctaAction: "showPage('lights');setNavByName('lights')",
     },
   ];
 
@@ -5589,7 +5783,7 @@ function cmAfterLogin(){
   try{ a=JSON.parse(sessionStorage.getItem('mrc_after_login')||'null'); sessionStorage.removeItem('mrc_after_login'); }catch(e){}
   if(!a) return;
   setTimeout(()=>{
-    if(a.intent==='write'){ showPage('community'); setNavByName('community'); cmOpenWrite(); }
+    if(a.intent==='write'){ if(COMMUNITY_CLOSED){ showPage('lights'); setNavByName('lights'); return; } showPage('community'); setNavByName('community'); cmOpenWrite(); }
     else if(a.intent==='comment' && a.post){ openPost(a.post); setTimeout(()=>document.getElementById('comment-text')?.focus(), 100); }
   }, 1300);
 }
@@ -6403,7 +6597,7 @@ function navFromHash(){
   const h = location.hash.replace('#', '');
   if(h.startsWith('post-')) return { page: 'community' };
   if(h === 'news-detail') return { page: 'news' };
-  return { page: ['community', 'info', 'news', 'clover'].includes(h) ? h : 'home' };
+  return { page: ['community', 'lights', 'info', 'news', 'clover'].includes(h) ? h : 'home' };
 }
 
 // ── 오늘의 포춘쿠키 (홈 히어로 아래 위젯 + 창) ──
@@ -6883,6 +7077,334 @@ window.addEventListener('popstate', e => {
   if(st.ov){ try { const c = Object.assign({}, st); delete c.ov; delete c.post; history.replaceState(c, '', navUrl(c.page)); } catch(e) {} }
   navRender(st);
 });
+// ══ 🕯️ 불빛 지도 (supabase/school_lights.sql) ══
+// 익명 고민 한 줄 → 회원의 학교(학교 메일·학교 인증으로 서버가 정함)에 불이 켜진다.
+// 밝기는 최근 30일 고민 수: 1~2 / 3~5 / 6~14 / 15개 이상
+// 학교 위치 [위도, 경도, 지도에 쓰는 짧은 이름] — 이름은 clover_univ_domains 의 정식 이름과 같아야 한다
+const LT_PLACES = {
+  '서울대학교':[37.460,126.952,'서울대'], '한국과학기술원':[36.372,127.360,'KAIST'], '포항공과대학교':[36.014,129.322,'POSTECH'],
+  '연세대학교':[37.566,126.939,'연세대'], '고려대학교':[37.589,127.032,'고려대'], '성균관대학교':[37.294,126.975,'성균관대'],
+  '한양대학교':[37.557,127.045,'한양대'], '대구경북과학기술원':[35.706,128.457,'DGIST'], '광주과학기술원':[35.228,126.843,'GIST'],
+  '울산과학기술원':[35.574,129.190,'UNIST'], '한국에너지공과대학교':[35.027,126.782,'KENTECH'], '과학기술연합대학원대학교':[36.390,127.372,'UST'],
+  '이화여자대학교':[37.562,126.947,'이화여대'], '서강대학교':[37.551,126.941,'서강대'], '중앙대학교':[37.505,126.957,'중앙대'],
+  '경희대학교':[37.597,127.052,'경희대'], '한국외국어대학교':[37.597,127.059,'한국외대'], '서울시립대학교':[37.584,127.059,'서울시립대'],
+  '건국대학교':[37.541,127.079,'건국대'], '동국대학교':[37.558,127.000,'동국대'], '홍익대학교':[37.551,126.925,'홍익대'],
+  '국민대학교':[37.611,126.997,'국민대'], '숭실대학교':[37.496,126.957,'숭실대'], '세종대학교':[37.550,127.073,'세종대'],
+  '아주대학교':[37.283,127.044,'아주대'], '인하대학교':[37.451,126.657,'인하대'], '인천대학교':[37.376,126.633,'인천대'],
+  '광운대학교':[37.620,127.059,'광운대'], '명지대학교':[37.581,126.923,'명지대'], '단국대학교':[37.322,127.127,'단국대'],
+  '가천대학교':[37.451,127.129,'가천대'], '한국항공대학교':[37.601,126.865,'항공대'], '서울과학기술대학교':[37.632,127.077,'서울과기대'],
+  '숙명여자대학교':[37.547,126.965,'숙명여대'], '서울여자대학교':[37.628,127.090,'서울여대'], '성신여자대학교':[37.593,127.017,'성신여대'],
+  '동덕여자대학교':[37.607,127.042,'동덕여대'], '가톨릭대학교':[37.486,126.801,'가톨릭대'], '경기대학교':[37.301,127.035,'경기대'],
+  '한국기술교육대학교':[36.764,127.282,'한기대'], '순천향대학교':[36.771,126.931,'순천향대'], '한림대학교':[37.886,127.738,'한림대'],
+  '부산대학교':[35.233,129.079,'부산대'], '부경대학교':[35.134,129.103,'부경대'], '경북대학교':[35.889,128.610,'경북대'],
+  '전남대학교':[35.177,126.905,'전남대'], '전북대학교':[35.846,127.129,'전북대'], '충남대학교':[36.367,127.345,'충남대'],
+  '충북대학교':[36.629,127.457,'충북대'], '강원대학교':[37.869,127.745,'강원대'], '경상국립대학교':[35.154,128.099,'경상국립대'],
+  '제주대학교':[33.455,126.562,'제주대'], '울산대학교':[35.544,129.257,'울산대'], '영남대학교':[35.833,128.757,'영남대'],
+  '계명대학교':[35.856,128.488,'계명대'], '동아대학교':[35.116,128.968,'동아대'], '금오공과대학교':[36.146,128.393,'금오공대'],
+  '한밭대학교':[36.350,127.301,'한밭대'], '한국교통대학교':[36.970,127.871,'교통대'], '차의과학대학교':[37.402,127.103,'차의과대']
+};
+const LT_K = 100 * Math.cos(36 * Math.PI / 180);
+const ltX = lon => (lon - 124.5) * LT_K, ltY = lat => (38.7 - lat) * 100;
+// 수도권 확대 창 (PC: 지도 오른쪽에 붙임 / 모바일: '서울·수도권 확대' 버튼으로 전환)
+const LT_IN = { x:560, y:150, s:4, lon0:126.58, lon1:127.28, lat0:37.72, lat1:37.25 };
+LT_IN.w = (LT_IN.lon1 - LT_IN.lon0) * LT_K * LT_IN.s; LT_IN.h = (LT_IN.lat0 - LT_IN.lat1) * 100 * LT_IN.s;
+const ltIX = lon => LT_IN.x + (ltX(lon) - ltX(LT_IN.lon0)) * LT_IN.s, ltIY = lat => LT_IN.y + (ltY(lat) - ltY(LT_IN.lat0)) * LT_IN.s;
+const ltInSeoul = p => p[1] > LT_IN.lon0 && p[1] < LT_IN.lon1 && p[0] > LT_IN.lat1 && p[0] < LT_IN.lat0;
+// 수도권 확대 창에서 학교가 몰린 곳은 이름 위치를 비켜 둔다 [x, y, 정렬]
+const LT_LBL_OFF = {
+  '연세대학교':[-7,-3,'end'], '이화여자대학교':[-7,9,'end'], '서강대학교':[-7,18,'end'], '홍익대학교':[-7,4,'end'], '명지대학교':[-7,-4,'end'],
+  '고려대학교':[-6,-7,'end'], '성신여자대학교':[-6,-4,'end'], '동국대학교':[0,-7,'middle'], '숙명여자대학교':[0,13,'middle'],
+  '한양대학교':[8,9], '서울시립대학교':[8,0], '경희대학교':[8,-7], '한국외국어대학교':[8,-15], '세종대학교':[8,1], '건국대학교':[8,13],
+  '성균관대학교':[-7,4,'end'], '경기대학교':[7,-3], '아주대학교':[7,10]
+};
+const LT_LV_NAME = ['아직 깜깜해요', '작은 촛불', '따뜻한 창문', '환한 창문', '밤을 밝히는 등대'];
+const LT_LV_MIN = [0, 1, 3, 6, 15];
+const ltLv = n => n >= 15 ? 4 : n >= 6 ? 3 : n >= 3 ? 2 : n >= 1 ? 1 : 0;
+const ltShort = u => (LT_PLACES[u] && LT_PLACES[u][2]) || u;
+const LT_HELP_RE = /죽고\s*싶|자살|사라지고\s*싶|살기\s*싫|죽을\s*것\s*같|목숨|자해/;
+const LT_HELP = '🫂 많이 힘들 땐 자살예방상담전화 <b>109</b>(24시간)에 이야기해도 괜찮아요.';
+
+let LT_PATHS = null, _ltPathsP = null;
+let LT_COUNTS = {};          // 학교 → { cnt, today }
+let LT_SEL = '', LT_TAB = 'new', LT_NOTES = [], LT_ZOOM = 0, LT_READY = null;
+let LT_MY_UNIV = null, _ltMyUid = undefined, LT_PICKED = false;
+
+function ltPaths(){
+  if(LT_PATHS) return Promise.resolve(LT_PATHS);
+  if(!_ltPathsP) _ltPathsP = fetch('data/kr-map.json').then(r => r.json()).then(j => (LT_PATHS = j.paths)).catch(() => { _ltPathsP = null; return []; });
+  return _ltPathsP;
+}
+async function ltLoadCounts(){
+  const { data, error } = await sbClient.rpc('school_light_map');
+  if(error){ LT_READY = false; LT_COUNTS = {}; return; }
+  LT_READY = true;
+  LT_COUNTS = {};
+  (data || []).forEach(r => { LT_COUNTS[r.univ] = { cnt: r.cnt || 0, today: r.today || 0 }; });
+}
+async function ltLoadMyUniv(){
+  const uid = currentUser?.id || null;
+  if(uid === _ltMyUid) return LT_MY_UNIV;
+  _ltMyUid = uid; LT_MY_UNIV = null;
+  if(!uid) return null;
+  try { const { data } = await sbClient.rpc('clover_my_univs'); LT_MY_UNIV = (data && data[0]) || null; } catch(e) {}
+  return LT_MY_UNIV;
+}
+function ltSortedLit(){
+  return Object.entries(LT_COUNTS).filter(([, v]) => v.cnt > 0).sort((a, b) => b[1].cnt - a[1].cnt || a[0].localeCompare(b[0], 'ko'));
+}
+
+async function ltLoad(){
+  const map = document.getElementById('lt-map');
+  if(!map) return;
+  await Promise.all([ltPaths(), ltLoadCounts(), ltLoadMyUniv()]);
+  if(!LT_PICKED || !LT_SEL){
+    const top = ltSortedLit()[0];
+    LT_SEL = LT_MY_UNIV || (top && top[0]) || '';
+  }
+  ltRenderStats(); ltDrawMap(); ltRenderChips();
+  await ltLoadNotes();
+}
+function ltRenderStats(){
+  const lit = ltSortedLit();
+  const total = lit.reduce((a, [, v]) => a + v.cnt, 0), today = lit.reduce((a, [, v]) => a + v.today, 0);
+  const all = new Set(Object.keys(LT_PLACES).concat(lit.map(([u]) => u))).size;
+  document.getElementById('lt-st-total').textContent = total.toLocaleString();
+  document.getElementById('lt-st-schools').textContent = lit.length + ' / ' + all;
+  document.getElementById('lt-st-today').textContent = today.toLocaleString();
+}
+function ltSvg(opts){
+  // opts.inset: 수도권 확대 창 포함, opts.labels: 이름 표시, opts.sel: 고른 학교
+  const R = [0, 9, 14, 20, 30], O = [0, .45, .65, .85, 1];
+  let h = '<defs><radialGradient id="' + opts.gid + '"><stop offset="0" stop-color="#fff7d6"/><stop offset=".25" stop-color="#fde68a" stop-opacity=".9"/><stop offset=".6" stop-color="#f59e0b" stop-opacity=".28"/><stop offset="1" stop-color="#f59e0b" stop-opacity="0"/></radialGradient></defs>';
+  const land = (LT_PATHS || []).map(d => '<path class="lt-land" d="' + d + '"/>').join('');
+  h += land;
+  const places = Object.entries(LT_PLACES).map(([u, p]) => ({ u, p, n: (LT_COUNTS[u] || {}).cnt || 0 })).sort((a, b) => a.n - b.n);
+  const dot = (x, y, n, scale, u) => {
+    const L = ltLv(n);
+    const hit = opts.labels ? '<circle class="lt-hit" data-u="' + escHtml(u) + '" cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="9"><title>' + escHtml(u) + ' · 고민 ' + n + '개</title></circle>' : '';
+    if(!L) return '<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="2.2" fill="#2b3650" stroke="#3b4866" stroke-width=".6"/>' + hit;
+    return '<g class="lt-tw" style="animation-delay:-' + ((x * 7 + y * 3) % 36) / 10 + 's"><circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + (R[L] * scale) + '" fill="url(#' + opts.gid + ')" opacity="' + O[L] + '"/></g><circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + (1.4 + L * .45) + '" fill="#fffbea"/>' + hit;
+  };
+  h += places.map(({ u, p, n }) => dot(ltX(p[1]), ltY(p[0]), n, 1, u)).join('');
+  if(opts.labels){
+    places.filter(({ p, n }) => ltLv(n) >= 2 && !ltInSeoul(p)).forEach(({ u, p, n }) => {
+      h += '<text class="lt-lbl' + (n < 3 ? ' dim' : '') + '" x="' + (ltX(p[1]) + 8).toFixed(1) + '" y="' + (ltY(p[0]) + 4).toFixed(1) + '">' + escHtml(p[2]) + '</text>';
+    });
+    const sp = LT_PLACES[opts.sel];
+    if(sp && !ltInSeoul(sp)) h += '<circle class="lt-sel" cx="' + ltX(sp[1]).toFixed(1) + '" cy="' + ltY(sp[0]).toFixed(1) + '" r="8"/>';
+  }
+  if(opts.inset){
+    const I = LT_IN;
+    h += '<g id="lt-inset">';
+    h += '<path d="M' + ltX(I.lon0).toFixed(1) + ',' + ltY(I.lat0).toFixed(1) + 'h' + (I.w / I.s).toFixed(1) + 'v' + (I.h / I.s).toFixed(1) + 'h' + (-I.w / I.s).toFixed(1) + 'Z" fill="none" stroke="#fde68a66" stroke-width=".8" stroke-dasharray="3 2"/>'
+       + '<line x1="' + ltX(I.lon1).toFixed(1) + '" y1="' + ltY(I.lat0).toFixed(1) + '" x2="' + I.x + '" y2="' + I.y + '" stroke="#fde68a33" stroke-width=".8"/>'
+       + '<line x1="' + ltX(I.lon1).toFixed(1) + '" y1="' + ltY(I.lat1).toFixed(1) + '" x2="' + I.x + '" y2="' + (I.y + I.h).toFixed(1) + '" stroke="#fde68a33" stroke-width=".8"/>';
+    h += '<clipPath id="lt-cp"><rect x="' + I.x + '" y="' + I.y + '" width="' + I.w.toFixed(1) + '" height="' + I.h.toFixed(1) + '" rx="10"/></clipPath>'
+       + '<rect x="' + I.x + '" y="' + I.y + '" width="' + I.w.toFixed(1) + '" height="' + I.h.toFixed(1) + '" rx="10" fill="#0a1226" stroke="#2a3a60"/>';
+    h += '<g class="lt-in" clip-path="url(#lt-cp)"><g transform="translate(' + (I.x - ltX(I.lon0) * I.s).toFixed(1) + ',' + (I.y - ltY(I.lat0) * I.s).toFixed(1) + ') scale(' + I.s + ')">' + land + '</g>';
+    const ins = places.filter(({ p }) => ltInSeoul(p));
+    h += ins.map(({ u, p, n }) => dot(ltIX(p[1]), ltIY(p[0]), n, .8, u)).join('');
+    ins.filter(({ u, n }) => n > 0 || u === opts.sel).forEach(({ u, p, n }) => {
+      const o = LT_LBL_OFF[u] || [7, 4];
+      h += '<text class="lt-lbl' + (n < 3 ? ' dim' : '') + '" x="' + (ltIX(p[1]) + o[0]).toFixed(1) + '" y="' + (ltIY(p[0]) + o[1]).toFixed(1) + '"' + (o[2] ? ' text-anchor="' + o[2] + '"' : '') + '>' + escHtml(p[2]) + '</text>';
+    });
+    const sp = LT_PLACES[opts.sel];
+    if(sp && ltInSeoul(sp)) h += '<circle class="lt-sel" cx="' + ltIX(sp[1]).toFixed(1) + '" cy="' + ltIY(sp[0]).toFixed(1) + '" r="8"/>';
+    h += '</g><text class="lt-lbl" x="' + (I.x + 8) + '" y="' + (I.y - 8) + '">서울·수도권 확대</text></g>';
+  }
+  return h;
+}
+const ltMobile = () => window.matchMedia('(max-width: 768px)').matches;
+function ltDrawMap(){
+  const map = document.getElementById('lt-map');
+  if(!map) return;
+  map.innerHTML = ltSvg({ gid: 'lt-g', inset: true, labels: true, sel: LT_SEL });
+  ltFitMap();
+}
+function ltFitMap(){
+  const map = document.getElementById('lt-map'), inset = document.getElementById('lt-inset');
+  if(!map || !inset) return;
+  const I = LT_IN;
+  if(!ltMobile()){ map.setAttribute('viewBox', '0 0 800 560'); inset.style.display = ''; return; }
+  if(LT_ZOOM){ map.setAttribute('viewBox', (I.x - 2) + ' ' + (I.y - 2) + ' ' + (I.w + 4).toFixed(0) + ' ' + (I.h + 4).toFixed(0)); inset.style.display = ''; }
+  else { map.setAttribute('viewBox', '90 0 420 560'); inset.style.display = 'none'; }
+}
+function ltZoom(z){
+  LT_ZOOM = z;
+  document.querySelectorAll('#lt-zc button').forEach((b, i) => b.classList.toggle('on', i === z));
+  ltFitMap();
+}
+window.addEventListener('resize', () => { if(document.getElementById('page-lights')?.classList.contains('active')) ltFitMap(); });
+document.addEventListener('click', e => {
+  const t = e.target.closest && e.target.closest('#lt-map [data-u]');
+  if(t) ltSelect(t.getAttribute('data-u'));
+});
+function ltRenderChips(){
+  const el = document.getElementById('lt-chips');
+  const lit = ltSortedLit();
+  const mine = LT_MY_UNIV && !LT_COUNTS[LT_MY_UNIV] ? [[LT_MY_UNIV, { cnt: 0 }]] : [];
+  el.innerHTML = (lit.length || mine.length ? '<span class="lt-chips-t">불 켜진 학교</span>' : '<span class="lt-chips-t">아직 불 켜진 학교가 없어요. 첫 불을 켜 주세요!</span>')
+    + mine.concat(lit).map(([u, v]) => '<button type="button" class="' + (u === LT_SEL ? 'on' : '') + '" onclick="ltSelect(this.dataset.u)" data-u="' + escHtml(u) + '">' + (u === LT_MY_UNIV ? '내 학교 · ' : '') + escHtml(ltShort(u)) + '<b>' + v.cnt + '</b></button>').join('');
+}
+function ltSelect(u){
+  if(!u) return;
+  LT_SEL = u; LT_PICKED = true; if(LT_TAB === 'mine') LT_TAB = 'new';
+  ltDrawMap(); ltRenderChips(); ltLoadNotes();
+  if(ltMobile()) document.getElementById('lt-panel')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+function ltTab(t){
+  if(t === 'mine' && !currentUser){ openAuth('login'); return; }
+  LT_TAB = t; ltLoadNotes();
+}
+async function ltLoadNotes(){
+  LT_NOTES = [];
+  if(LT_READY === false){ ltRenderPanel('불빛 지도를 준비하고 있어요. 조금만 기다려 주세요!'); return; }
+  if(LT_TAB === 'mine'){
+    const { data, error } = await sbClient.rpc('school_light_mine');
+    LT_NOTES = error ? [] : (data || []).map(r => Object.assign({ mine: true }, r));
+  } else if(LT_SEL){
+    const { data, error } = await sbClient.rpc('school_light_list', { p_univ: LT_SEL, p_sort: LT_TAB === 'hot' ? 'hot' : 'new' });
+    LT_NOTES = error ? [] : (data || []);
+  }
+  ltRenderPanel();
+}
+function ltNoteHtml(n){
+  const sameOn = n.i_same ? ' on' : '', cheerOn = n.i_cheer ? ' on' : '';
+  const where = LT_TAB === 'mine' ? escHtml(ltShort(n.univ)) + ' · ' : '';
+  const act = n.mine ? '<button type="button" class="lt-more" onclick="ltDelete(' + n.id + ')">지우기</button>'
+                     : '<button type="button" class="lt-more" onclick="ltReport(' + n.id + ')">신고</button>';
+  const reacts = n.mine
+    ? '<span>🤝 ' + (n.same_cnt || 0) + '</span><span>🫶 ' + (n.cheer_cnt || 0) + '</span>'
+    : '<button type="button" class="lt-chip' + sameOn + '" onclick="ltReact(' + n.id + ',\'same\')">🤝 나도 그래요 ' + (n.same_cnt || 0) + '</button>'
+    + '<button type="button" class="lt-chip' + cheerOn + '" onclick="ltReact(' + n.id + ',\'cheer\')">🫶 힘내요 ' + (n.cheer_cnt || 0) + '</button>';
+  return '<div class="lt-note"><p>' + escHtml(n.body) + '</p>'
+    + '<div class="lt-m"><span>' + where + escHtml(n.at_label || '') + (n.hidden ? ' · 신고로 가려짐' : '') + '</span>' + reacts + act + '</div>'
+    + (LT_HELP_RE.test(n.body) ? '<div class="lt-help">' + LT_HELP + '</div>' : '') + '</div>';
+}
+function ltRenderPanel(notice){
+  const el = document.getElementById('lt-panel');
+  if(!el) return;
+  const u = LT_SEL, v = LT_COUNTS[u] || { cnt: 0 }, L = ltLv(v.cnt);
+  const next = L < 4 ? (LT_LV_MIN[L + 1] - v.cnt) + '개 더 모이면 ' + (L + 1) + '단계 ✨' : '가장 환한 학교예요 ✨';
+  let h = '';
+  if(u){
+    h += '<div class="lt-ph"><div class="lt-bulb l' + L + '"></div><div><h2>' + escHtml(u) + '</h2><p>최근 30일 고민 ' + v.cnt + '개' + (u === LT_MY_UNIV ? ' · 내 학교' : '') + '</p></div></div>'
+       + '<div class="lt-lvbar">' + [1, 2, 3, 4].map(i => '<i class="' + (i <= L ? 'on' : '') + '"></i>').join('') + '</div>'
+       + '<div class="lt-lvtxt"><span>' + (L ? '불빛 ' + L + '단계 · ' : '') + LT_LV_NAME[L] + '</span><span>' + next + '</span></div>';
+  } else {
+    h += '<div class="lt-ph"><div class="lt-bulb l0"></div><div><h2>학교를 골라 보세요</h2><p>지도에서 학교를 누르면 고민이 보여요</p></div></div>';
+  }
+  h += '<div class="lt-tabs">' + [['new', '최신'], ['hot', '공감 많은'], ['mine', '내가 남긴']].map(([k, t]) => '<button type="button" class="' + (LT_TAB === k ? 'on' : '') + '" onclick="ltTab(\'' + k + '\')">' + t + '</button>').join('') + '</div>';
+  h += '<div class="lt-notes">';
+  if(notice) h += '<div class="lt-empty">' + notice + '</div>';
+  else if(!LT_NOTES.length) h += '<div class="lt-empty">' + (LT_TAB === 'mine' ? '아직 남긴 고민이 없어요.' : u ? '아직 이 학교는 깜깜해요.<br>첫 번째 불을 켜 주세요 🕯️' : '') + '</div>';
+  else h += LT_NOTES.map(ltNoteHtml).join('');
+  h += '</div>';
+  const myU = LT_MY_UNIV;
+  h += '<div class="lt-compose"><div class="t">🕯️ ' + (myU ? '내 학교(' + escHtml(myU) + ')에 불 켜기' : '우리 학교에 불 켜기') + '</div>'
+     + '<textarea class="lt-ta" id="lt-ta" maxlength="140" rows="2" placeholder="' + (currentUser ? '오늘 마음에 걸리는 걸 한 줄로 남겨 보세요 (140자)' : '로그인하면 내 학교에 불을 켤 수 있어요') + '"' + (currentUser ? '' : ' onfocus="this.blur();openAuth(\'login\')"') + '></textarea>'
+     + '<div class="row"><span>🔒 항상 익명 · 학교만 보여요</span><button type="button" class="lt-btn" id="lt-btn" onclick="ltSubmit(\'lt-ta\')">불 켜기</button></div></div>'
+     + '<div class="lt-rules">학교 메일 확인이나 학교 인증을 마친 회원만 남길 수 있고, 하루 3개까지예요. 욕설·특정인 이야기는 신고 3번이면 바로 가려져요.</div>';
+  el.innerHTML = h;
+}
+function ltToast(msg, sub){
+  const t = document.getElementById('lt-toast');
+  t.innerHTML = escHtml(msg) + (sub ? ' <small>' + escHtml(sub) + '</small>' : '');
+  t.classList.add('show');
+  clearTimeout(ltToast._t); ltToast._t = setTimeout(() => t.classList.remove('show'), 3200);
+}
+async function ltCanWrite(what){
+  if(!currentUser){ openAuth('login'); return false; }
+  if(await needSchool(what)) return false;
+  return true;
+}
+async function ltOpenSheet(){
+  if(!(await ltCanWrite('불 켜기'))) return;
+  await ltLoadMyUniv();
+  document.getElementById('lt-sheet-title').textContent = '🕯️ ' + (LT_MY_UNIV ? LT_MY_UNIV + '에 불 켜기' : '우리 학교에 불 켜기');
+  document.getElementById('lt-sheet').classList.add('open');
+  document.getElementById('lt-sheetbg').classList.add('open');
+  setTimeout(() => document.getElementById('lt-sheet-ta')?.focus(), 50);
+}
+function ltCloseSheet(){
+  document.getElementById('lt-sheet').classList.remove('open');
+  document.getElementById('lt-sheetbg').classList.remove('open');
+}
+const LT_ERR = [
+  [/school only/, '학교 메일 확인이나 학교 인증을 마친 회원만 불을 켤 수 있어요.'],
+  [/no school/, '어느 학교인지 아직 알 수 없어요. 학교 메일을 확인하거나 학교 인증을 받아 주세요.'],
+  [/length/, '5자 이상 140자 이하로 적어 주세요.'],
+  [/bad word/, '욕설이 들어 있어요. 조금만 다듬어 주세요.'],
+  [/daily limit/, '오늘은 3개를 모두 남겼어요. 내일 또 켜 주세요.'],
+  [/too fast/, '조금 뒤에 다시 남겨 주세요 (1분에 1개).'],
+  [/duplicate/, '같은 고민을 이미 남겼어요.'],
+  [/suspended/, '이용이 정지된 계정은 남길 수 없어요.'],
+  [/login/, '로그인이 풀렸어요. 다시 로그인해 주세요.']
+];
+async function ltSubmit(taId){
+  const ta = document.getElementById(taId);
+  if(!ta) return;
+  if(!(await ltCanWrite('불 켜기'))) return;
+  const body = ta.value.trim();
+  if(body.length < 5) { ltToast('5자 이상 적어 주세요.'); ta.focus(); return; }
+  const btns = [document.getElementById('lt-btn'), document.getElementById('lt-sheet-btn')];
+  btns.forEach(b => b && (b.disabled = true));
+  const { data, error } = await sbClient.rpc('school_light_add', { p_body: body });
+  btns.forEach(b => b && (b.disabled = false));
+  if(error){
+    const m = error.message || '', hit = LT_ERR.find(([re]) => re.test(m));
+    ltToast(hit ? hit[1] : '불을 켜지 못했어요. 잠시 뒤 다시 눌러 주세요.');
+    if(/no school/.test(m) && typeof openVerify === 'function') openVerify();
+    return;
+  }
+  ta.value = '';
+  const cnt = document.getElementById('lt-sheet-cnt'); if(cnt) cnt.textContent = '0 / 140';
+  ltCloseSheet();
+  LT_MY_UNIV = data || LT_MY_UNIV; LT_SEL = data || LT_SEL; LT_TAB = 'new';
+  ltToast('🕯️ ' + (data || '우리 학교') + '에 불을 하나 켰어요', '누가 켰는지는 아무도 몰라요');
+  if(LT_HELP_RE.test(body)) setTimeout(() => ltToast('🫂 많이 힘들 땐 109(24시간)에 이야기해도 괜찮아요'), 3400);
+  await ltLoadCounts(); ltRenderStats(); ltDrawMap(); ltRenderChips(); await ltLoadNotes();
+}
+async function ltReact(id, kind){
+  if(!(await ltCanWrite('공감'))) return;
+  const { data, error } = await sbClient.rpc('school_light_react', { p_id: id, p_kind: kind });
+  if(error){ ltToast('공감을 남기지 못했어요. 잠시 뒤 다시 눌러 주세요.'); return; }
+  const n = LT_NOTES.find(x => x.id === id);
+  if(n){
+    const f = kind === 'same' ? 'i_same' : 'i_cheer', c = kind === 'same' ? 'same_cnt' : 'cheer_cnt';
+    if(n[f] !== data){ n[f] = data; n[c] = Math.max(0, (n[c] || 0) + (data ? 1 : -1)); }
+  }
+  ltRenderPanel();
+}
+async function ltReport(id){
+  if(!currentUser){ openAuth('login'); return; }
+  if(!confirm('이 고민을 신고할까요? 3명이 신고하면 바로 가려지고 운영자가 확인해요.')) return;
+  const { error } = await sbClient.rpc('school_light_report', { p_id: id, p_reason: null });
+  ltToast(error ? '신고하지 못했어요. 잠시 뒤 다시 눌러 주세요.' : '신고했어요. 운영자가 확인할게요.');
+}
+async function ltDelete(id){
+  if(!confirm('내 고민을 지울까요? 지우면 불빛도 하나 꺼져요.')) return;
+  const { error } = await sbClient.rpc('school_light_delete', { p_id: id });
+  if(error){ ltToast('지우지 못했어요. 잠시 뒤 다시 눌러 주세요.'); return; }
+  ltToast('지웠어요.');
+  await ltLoadCounts(); ltRenderStats(); ltDrawMap(); ltRenderChips(); await ltLoadNotes();
+}
+// 홈 카드: 불 켜진 학교 상위 몇 곳 + 작은 지도
+async function ltHomeLoad(){
+  const el = document.getElementById('lt-home-top');
+  if(!el || !document.body.classList.contains('cm-closed')) return;
+  await Promise.all([ltPaths(), ltLoadCounts()]);
+  const lit = ltSortedLit().slice(0, 6);
+  el.innerHTML = lit.length ? lit.map(([u, v]) => '<li>🕯️ ' + escHtml(ltShort(u)) + '<b>' + v.cnt + '</b></li>').join('') : '<li>아직 깜깜해요. 첫 불을 켜 주세요!</li>';
+  const m = document.getElementById('lt-home-map');
+  if(m) m.innerHTML = ltSvg({ gid: 'lt-hg', inset: false, labels: false, sel: '' }).replace(/class="lt-land"/g, 'fill="#121c34" stroke="#22304f" stroke-width=".8"');
+}
+// 로그인·로그아웃하면 '내 학교'를 다시 확인
+sbClient.auth.onAuthStateChange(() => {
+  setTimeout(() => { if(document.getElementById('page-lights')?.classList.contains('active')) ltLoad(); }, 300);
+});
+if('requestIdleCallback' in window) requestIdleCallback(() => ltHomeLoad(), { timeout: 3000 }); else setTimeout(ltHomeLoad, 1500);
+
 // 주소에 #info 처럼 화면 이름이 있으면 그 화면으로 시작
 (function(){
   const st = navFromHash();
