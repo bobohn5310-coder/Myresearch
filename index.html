@@ -3250,7 +3250,7 @@ a { text-decoration: none; color: inherit; }
     </div>
     <div class="at-body">
       <div class="at-grid" id="at-grid"></div>
-      <div class="at-reward"><span class="at-ic">🎁</span><div><b id="at-reward-title"></b><span id="at-reward-desc"></span></div></div>
+      <div class="at-reward"><span class="at-ic">☕</span><div><b id="at-reward-title"></b><span id="at-reward-desc"></span></div></div>
       <div class="at-msg" id="at-msg"></div>
       <button class="at-btn" id="at-btn" onclick="attendStamp()">오늘 출석 도장 찍기</button>
       <div class="at-foot" id="at-foot"></div>
@@ -5322,7 +5322,10 @@ async function handleSignup() {
     btn.textContent = '무료로 시작하기';
     btn.disabled = false;
   } else {
+    // 가입 직후 로그인되면 (학교 인증 창을 닫은 뒤) 출석 창을 띄운다
+    if(attendActive()) _atAfterLogin = true;
     const { error: loginError } = await sbClient.auth.signInWithPassword({ email, password });
+    if(loginError) _atAfterLogin = false;
     if(!loginError) {
       await updateNavForAuth();
       if(memberType === '예비대학원생') {
@@ -6724,10 +6727,10 @@ const ATTEND_EVENT = {
   start: '2026-11-15',
   end: '2026-12-31',
   goal: 7,
-  rewardTitle: '7일 출석하면 깜짝 선물!',
-  rewardDesc: '선물 내용은 곧 공개할게요.',
+  rewardTitle: '7일 출석하면 커피 쿠폰 ☕',
+  rewardDesc: '도장 7개를 모은 분께 커피 쿠폰을 드려요.',
   doneTitle: '🎉 7일 출석 완료!',
-  doneDesc: '출석 도장을 모두 모았어요. 선물 안내는 곧 공지할게요.',
+  doneDesc: '도장을 모두 모았어요! 커피 쿠폰을 보내 드릴게요.',
 };
 let _atDays = [], _atUid = null, _atBusy = false, _atErr = '', _atAfterLogin = false;
 function attendActive(){ const t = kstToday(); return t >= ATTEND_EVENT.start && t <= ATTEND_EVENT.end; }
@@ -6811,7 +6814,9 @@ async function openAttend(){
   attendRender(false);
   if(!m.classList.contains('open')){ m.classList.add('open'); navOverlayOpened(); }
 }
-function attendMarkSeen(){ try{ localStorage.setItem('mrc_attend_seen', kstToday()); }catch(e){} }
+// '오늘 봤음'은 계정별로 남긴다. 로그인 전에 닫았어도, 가입·로그인하고 오면 그날 한 번 더 뜬다.
+function attendSeenKey(){ return kstToday() + ':' + (currentUser?.id || 'guest'); }
+function attendMarkSeen(){ try{ localStorage.setItem('mrc_attend_seen', attendSeenKey()); }catch(e){} }
 // 창만 닫기 (뒤로가기로 닫을 때도 같이 쓴다)
 function attendHide(){ document.getElementById('attend-modal').classList.remove('open'); attendMarkSeen(); }
 function closeAttend(){
@@ -6823,7 +6828,8 @@ NAV_OVERLAYS.push({ isOpen: () => document.getElementById('attend-modal')?.class
 // 하루 한 번, 홈 화면에서 자동으로 띄운다. 환영 창 같은 다른 창이 떠 있으면 닫힌 뒤에 띄운다.
 async function maybeShowAttend(tries){
   if(!attendActive()) return;
-  try{ if(localStorage.getItem('mrc_attend_seen') === kstToday()) return; }catch(e){ return; }
+  if(!currentUser){ try{ currentUser = (await sbClient.auth.getSession()).data.session?.user || null; }catch(e){} }
+  try{ if(localStorage.getItem('mrc_attend_seen') === attendSeenKey()) return; }catch(e){ return; }
   if(_cameForRecovery || navFromHash().page !== 'home') return;
   if(navAnyOverlay() || document.getElementById('welcome-modal')?.classList.contains('open')){
     if((tries || 0) < 300) setTimeout(() => maybeShowAttend((tries || 0) + 1), 1000);
@@ -6843,9 +6849,10 @@ sbClient.auth.onAuthStateChange((event, session) => {
     attendFab();
     if(event === 'SIGNED_IN' && _atAfterLogin && u){
       _atAfterLogin = false;
-      // 로그인 창은 '로그인 성공' 문구를 1.2초 보여 준 뒤 닫히므로, 닫힐 때까지 기다렸다가 연다
+      // 로그인 창('로그인 성공' 문구)이나 가입 직후 학교 인증 창이 닫힐 때까지 기다렸다가 연다 (최대 30분)
       const reopen = (tries) => {
-        if(navAnyOverlay()){ if(tries < 20) setTimeout(() => reopen(tries + 1), 500); return; }
+        if(currentUser && currentUser.id !== u.id) return;
+        if(!currentUser || navAnyOverlay()){ if(tries < 3600) setTimeout(() => reopen(tries + 1), 500); return; }
         openAttend();
       };
       setTimeout(() => reopen(0), 700);
