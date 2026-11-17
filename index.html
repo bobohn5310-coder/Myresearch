@@ -2519,6 +2519,7 @@ a { text-decoration: none; color: inherit; }
 .lt-sheet .who { font-size:13px; color:#94a3b8; margin:6px 0 14px; line-height:1.6; }
 .lt-sheet .who b { color:#fde68a; }
 .lt-sheet .lt-ta { background:#0a1226; border:1px solid #fcd34d66; border-radius:12px; padding:12px; min-height:120px; font-size:16px; }
+.lt-pick { width:100%; margin:0 0 8px; padding:9px 10px; border-radius:10px; background:#0a1226; color:#e2e8f0; border:1px solid #fcd34d66; font-size:15px; }
 .lt-sheet .cnt { text-align:right; font-size:12px; color:#64748b; margin-top:6px; }
 .lt-sheet ul { list-style:none; font-size:12px; color:#94a3b8; line-height:1.8; margin:8px 0 14px; padding:0; }
 .lt-sheet ul li:before { content:"· "; color:#fcd34d; }
@@ -3217,6 +3218,7 @@ body:not(.cm-closed) #home-lights-col { display:none; }
   <div class="grab"></div>
   <h3 id="lt-sheet-title">🕯️ 우리 학교에 불 켜기</h3>
   <p class="who" id="lt-sheet-who">학교는 학교 메일이나 학교 인증으로 자동으로 정해져요.<br><b>이름·닉네임·정확한 시간은 누구에게도 보이지 않아요.</b></p>
+  <div id="lt-sheet-pick"></div>
   <textarea class="lt-ta" id="lt-sheet-ta" maxlength="140" placeholder="오늘 마음에 걸리는 걸 한 줄로 남겨 보세요" oninput="document.getElementById('lt-sheet-cnt').textContent=this.value.length+' / 140'"></textarea>
   <div class="cnt" id="lt-sheet-cnt">0 / 140</div>
   <ul><li>하루 3개까지 남길 수 있어요</li><li>욕설·특정인을 알아볼 수 있는 이야기는 가려져요</li><li>내가 남긴 고민은 언제든 지울 수 있어요</li></ul>
@@ -7155,6 +7157,7 @@ let LT_REGION = -1, LT_VB = [90, 0, 420, 560];             // 크게 보고 있�
 let LT_COUNTS = {};          // 학교 → { cnt, today }
 let LT_SEL = '', LT_TAB = 'new', LT_NOTES = [], LT_READY = null;
 let LT_MY_UNIV = null, _ltMyUid = undefined, LT_PICKED = false;
+let LT_IS_ADMIN = false;   // 관리자는 학교 인증이 없어도 불 켤 학교를 직접 고른다 (서버가 is_admin 으로 다시 확인)
 
 function ltPaths(){
   if(LT_PATHS) return Promise.resolve(LT_PATHS);
@@ -7174,9 +7177,13 @@ async function ltLoadCounts(){
 async function ltLoadMyUniv(){
   const uid = currentUser?.id || null;
   if(uid === _ltMyUid) return LT_MY_UNIV;
-  _ltMyUid = uid; LT_MY_UNIV = null;
+  _ltMyUid = uid; LT_MY_UNIV = null; LT_IS_ADMIN = false;
   if(!uid) return null;
-  try { const { data } = await sbClient.rpc('clover_my_univs'); LT_MY_UNIV = ltCanon((data && data[0]) || null); } catch(e) {}
+  try {
+    const [u, a] = await Promise.all([sbClient.rpc('clover_my_univs'), sbClient.rpc('is_admin')]);
+    LT_MY_UNIV = ltCanon((u.data && u.data[0]) || null);
+    LT_IS_ADMIN = !a.error && !!a.data;
+  } catch(e) {}
   return LT_MY_UNIV;
 }
 function ltSortedLit(){
@@ -7346,11 +7353,21 @@ function ltRenderPanel(notice){
   else h += LT_NOTES.map(ltNoteHtml).join('');
   h += '</div>';
   const myU = LT_MY_UNIV;
-  h += '<div class="lt-compose"><div class="t">🕯️ ' + (myU ? '내 학교(' + escHtml(myU) + ')에 불 켜기' : '우리 학교에 불 켜기') + '</div>'
+  h += '<div class="lt-compose"><div class="t">🕯️ ' + (LT_IS_ADMIN ? '관리자 · 불 켤 학교 고르기' : myU ? '내 학교(' + escHtml(myU) + ')에 불 켜기' : '우리 학교에 불 켜기') + '</div>'
+     + (LT_IS_ADMIN ? ltAdminPick('lt-univ') : '')
      + '<textarea class="lt-ta" id="lt-ta" maxlength="140" rows="2" placeholder="' + (currentUser ? '오늘 마음에 걸리는 걸 한 줄로 남겨 보세요 (140자)' : '로그인하면 내 학교에 불을 켤 수 있어요') + '"' + (currentUser ? '' : ' onfocus="this.blur();openAuth(\'login\')"') + '></textarea>'
      + '<div class="row"><span>🔒 항상 익명 · 학교만 보여요</span><button type="button" class="lt-btn" id="lt-btn" onclick="ltSubmit(\'lt-ta\')">불 켜기</button></div></div>'
-     + '<div class="lt-rules">학교 메일 확인이나 학교 인증을 마친 회원만 남길 수 있고, 하루 3개까지예요. 욕설·특정인 이야기는 신고 3번이면 바로 가려져요.</div>';
+     + '<div class="lt-rules">' + (LT_IS_ADMIN ? '관리자 계정은 학교 인증 없이 고른 학교에 남길 수 있어요. ' : '') + '학교 메일 확인이나 학교 인증을 마친 회원만 남길 수 있고, 하루 3개까지예요. 욕설·특정인 이야기는 신고 3번이면 바로 가려져요.</div>';
   el.innerHTML = h;
+}
+// 관리자용 학교 고르기 (기본: 지금 보고 있는 학교)
+function ltAdminPick(id){
+  const cur = LT_SEL || LT_MY_UNIV || '';
+  const list = Object.keys(LT_PLACES).sort((a, b) => ltShort(a).localeCompare(ltShort(b), 'ko'));
+  return '<select class="lt-pick" id="' + id + '" aria-label="불 켤 학교">'
+    + (cur && !LT_PLACES[cur] ? '<option value="' + escHtml(cur) + '" selected>' + escHtml(cur) + '</option>' : '')
+    + list.map(u => '<option value="' + escHtml(u) + '"' + (u === cur ? ' selected' : '') + '>' + escHtml(ltShort(u)) + ' (' + escHtml(u) + ')</option>').join('')
+    + '</select>';
 }
 function ltToast(msg, sub){
   const t = document.getElementById('lt-toast');
@@ -7366,7 +7383,11 @@ async function ltCanWrite(what){
 async function ltOpenSheet(){
   if(!(await ltCanWrite('불 켜기'))) return;
   await ltLoadMyUniv();
-  document.getElementById('lt-sheet-title').textContent = '🕯️ ' + (LT_MY_UNIV ? LT_MY_UNIV + '에 불 켜기' : '우리 학교에 불 켜기');
+  document.getElementById('lt-sheet-title').textContent = '🕯️ ' + (LT_IS_ADMIN ? '관리자 · 고른 학교에 불 켜기' : LT_MY_UNIV ? LT_MY_UNIV + '에 불 켜기' : '우리 학교에 불 켜기');
+  const pk = document.getElementById('lt-sheet-pick');
+  if(pk) pk.innerHTML = LT_IS_ADMIN ? ltAdminPick('lt-sheet-univ') : '';
+  const who = document.getElementById('lt-sheet-who');
+  if(who) who.innerHTML = (LT_IS_ADMIN ? '관리자 계정이라 불 켤 학교를 직접 골라요.' : '학교는 학교 메일이나 학교 인증으로 자동으로 정해져요.') + '<br><b>이름·닉네임·정확한 시간은 누구에게도 보이지 않아요.</b>';
   document.getElementById('lt-sheet').classList.add('open');
   document.getElementById('lt-sheetbg').classList.add('open');
   setTimeout(() => document.getElementById('lt-sheet-ta')?.focus(), 50);
@@ -7377,6 +7398,7 @@ function ltCloseSheet(){
 }
 const LT_ERR = [
   [/school only/, '학교 메일 확인이나 학교 인증을 마친 회원만 불을 켤 수 있어요.'],
+  [/unknown school/, '학교 목록에 없는 학교예요. 다른 학교를 골라 주세요.'],
   [/no school/, '어느 학교인지 아직 알 수 없어요. 학교 메일을 확인하거나 학교 인증을 받아 주세요.'],
   [/length/, '5자 이상 140자 이하로 적어 주세요.'],
   [/bad word/, '욕설이 들어 있어요. 조금만 다듬어 주세요.'],
@@ -7392,9 +7414,15 @@ async function ltSubmit(taId){
   if(!(await ltCanWrite('불 켜기'))) return;
   const body = ta.value.trim();
   if(body.length < 5) { ltToast('5자 이상 적어 주세요.'); ta.focus(); return; }
+  const args = { p_body: body };
+  if(LT_IS_ADMIN){
+    const pick = document.getElementById(taId === 'lt-sheet-ta' ? 'lt-sheet-univ' : 'lt-univ');
+    if(!pick || !pick.value){ ltToast('불 켤 학교를 골라 주세요.'); return; }
+    args.p_univ = pick.value;
+  }
   const btns = [document.getElementById('lt-btn'), document.getElementById('lt-sheet-btn')];
   btns.forEach(b => b && (b.disabled = true));
-  const { data, error } = await sbClient.rpc('school_light_add', { p_body: body });
+  const { data, error } = await sbClient.rpc('school_light_add', args);
   btns.forEach(b => b && (b.disabled = false));
   if(error){
     const m = error.message || '', hit = LT_ERR.find(([re]) => re.test(m));
@@ -7405,7 +7433,9 @@ async function ltSubmit(taId){
   ta.value = '';
   const cnt = document.getElementById('lt-sheet-cnt'); if(cnt) cnt.textContent = '0 / 140';
   ltCloseSheet();
-  LT_MY_UNIV = ltCanon(data) || LT_MY_UNIV; LT_SEL = LT_MY_UNIV || LT_SEL; LT_TAB = 'new';
+  if(LT_IS_ADMIN) LT_SEL = ltCanon(data) || LT_SEL;
+  else { LT_MY_UNIV = ltCanon(data) || LT_MY_UNIV; LT_SEL = LT_MY_UNIV || LT_SEL; }
+  LT_TAB = 'new'; LT_PICKED = true;
   ltToast('🕯️ ' + (data || '우리 학교') + '에 불을 하나 켰어요', '누가 켰는지는 아무도 몰라요');
   if(LT_HELP_RE.test(body)) setTimeout(() => ltToast('🫂 많이 힘들 땐 109(24시간)에 이야기해도 괜찮아요'), 3400);
   await ltLoadCounts(); ltRenderStats(); ltDrawMap(); ltRenderChips(); await ltLoadNotes();
