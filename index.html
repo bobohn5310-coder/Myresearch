@@ -3250,7 +3250,7 @@ a { text-decoration: none; color: inherit; }
     </div>
     <div class="at-body">
       <div class="at-grid" id="at-grid"></div>
-      <div class="at-reward"><span class="at-ic">🎁</span><div><b id="at-reward-title"></b><span id="at-reward-desc"></span></div></div>
+      <div class="at-reward"><span class="at-ic">☕</span><div><b id="at-reward-title"></b><span id="at-reward-desc"></span></div></div>
       <div class="at-msg" id="at-msg"></div>
       <button class="at-btn" id="at-btn" onclick="attendStamp()">오늘 출석 도장 찍기</button>
       <div class="at-foot" id="at-foot"></div>
@@ -6724,10 +6724,10 @@ const ATTEND_EVENT = {
   start: '2026-11-15',
   end: '2026-12-31',
   goal: 7,
-  rewardTitle: '7일 출석하면 깜짝 선물!',
-  rewardDesc: '선물 내용은 곧 공개할게요.',
+  rewardTitle: '7일 출석하면 커피 쿠폰 ☕',
+  rewardDesc: '도장 7개를 모은 분께 커피 쿠폰을 드려요.',
   doneTitle: '🎉 7일 출석 완료!',
-  doneDesc: '출석 도장을 모두 모았어요. 선물 안내는 곧 공지할게요.',
+  doneDesc: '도장을 모두 모았어요! 커피 쿠폰을 보내 드릴게요.',
 };
 let _atDays = [], _atUid = null, _atBusy = false, _atErr = '', _atAfterLogin = false;
 function attendActive(){ const t = kstToday(); return t >= ATTEND_EVENT.start && t <= ATTEND_EVENT.end; }
