@@ -2447,17 +2447,14 @@ a { text-decoration: none; color: inherit; }
 .lt-stats { display:flex; gap:28px; margin:20px 0 4px; }
 .lt-stats b { font-size:26px; color:#fde68a; font-weight:800; display:block; line-height:1.15; font-family:'Montserrat','Noto Sans KR',sans-serif; }
 .lt-stats span { font-size:13px; color:#94a3b8; }
-.lt-zc { display:none; gap:6px; margin-top:16px; }
-.lt-zc button, .lt-tabs button { font:inherit; font-size:13px; padding:6px 12px; border-radius:999px; color:#94a3b8; border:1px solid #1e2a47; background:none; cursor:pointer; }
-.lt-zc button.on, .lt-tabs button.on { background:#fcd34d; color:#1c1405; border-color:#fcd34d; font-weight:700; }
+.lt-tabs button { font:inherit; font-size:13px; padding:6px 12px; border-radius:999px; color:#94a3b8; border:1px solid #1e2a47; background:none; cursor:pointer; }
+.lt-tabs button.on { background:#fcd34d; color:#1c1405; border-color:#fcd34d; font-weight:700; }
 .lt-mapbox { position:relative; margin-top:8px; }
-#lt-map { width:100%; height:auto; display:block; }
+#lt-map { width:100%; height:auto; max-height:680px; display:block; margin:0 auto; }
 #lt-map .lt-land { fill:#121c34; stroke:#22304f; stroke-width:.8; }
-#lt-map .lt-in .lt-land { stroke-width:.25; }
 #lt-map .lt-hit { fill:transparent; cursor:pointer; }
 #lt-map .lt-lbl { font-size:11px; fill:#fde68a; font-weight:700; paint-order:stroke; stroke:#070c1a; stroke-width:3px; pointer-events:none; font-family:'Noto Sans KR',sans-serif; }
 #lt-map .lt-lbl.dim { fill:#94a3b8; font-weight:500; }
-#lt-map .lt-in .lt-lbl { font-size:9.5px; }
 #lt-map .lt-sel { fill:none; stroke:#fde68a; stroke-width:1.3; stroke-dasharray:2 2; pointer-events:none; }
 #lt-map .lt-tw { animation:ltTw 3.6s ease-in-out infinite; }
 @keyframes ltTw { 0%,100% { opacity:1; } 50% { opacity:.72; } }
@@ -2543,7 +2540,6 @@ body:not(.cm-closed) #home-lights-col { display:none; }
   .lt-sub br { display:none; }
   .lt-stats { gap:18px; margin:14px 0 0; }
   .lt-stats b { font-size:21px; }
-  .lt-zc { display:flex; }
   .lt-legend { position:static; margin-top:6px; justify-content:center; font-size:11px; gap:10px; padding:6px 10px; flex-wrap:wrap; }
   .lt-hint { display:none; }
   .lt-chips { flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none; margin-right:-16px; padding-right:16px; }
@@ -3193,12 +3189,8 @@ body:not(.cm-closed) #home-lights-col { display:none; }
           <div><b id="lt-st-schools">0</b><span>불 켜진 학교</span></div>
           <div><b id="lt-st-today">0</b><span>오늘 켜진 불</span></div>
         </div>
-        <div class="lt-zc" id="lt-zc">
-          <button type="button" class="on" onclick="ltZoom(0)">전국</button>
-          <button type="button" onclick="ltZoom(1)">서울·수도권 확대</button>
-        </div>
         <div class="lt-mapbox">
-          <svg id="lt-map" viewBox="0 0 800 560" role="img" aria-label="학교별 불빛 지도"></svg>
+          <svg id="lt-map" viewBox="90 0 420 560" role="img" aria-label="학교별 불빛 지도"></svg>
           <div class="lt-legend" aria-hidden="true"><span><i style="width:5px;height:5px;background:#3b4866"></i>아직 깜깜</span><span><i style="width:7px;height:7px;opacity:.5"></i>1~2</span><span><i style="width:9px;height:9px;opacity:.75"></i>3~5</span><span><i style="width:11px;height:11px;box-shadow:0 0 6px #fde68a"></i>6~14</span><span><i style="width:13px;height:13px;box-shadow:0 0 10px #fde68a"></i>15개 이상</span></div>
           <div class="lt-hint">학교를 누르면 그 학교의 고민이 보여요</div>
         </div>
@@ -7141,18 +7133,6 @@ const ltCanon = u => {
 };
 const LT_K = 100 * Math.cos(36 * Math.PI / 180);
 const ltX = lon => (lon - 124.5) * LT_K, ltY = lat => (38.7 - lat) * 100;
-// 수도권 확대 창 (PC: 지도 오른쪽에 붙임 / 모바일: '서울·수도권 확대' 버튼으로 전환)
-const LT_IN = { x:560, y:150, s:4, lon0:126.58, lon1:127.28, lat0:37.72, lat1:37.25 };
-LT_IN.w = (LT_IN.lon1 - LT_IN.lon0) * LT_K * LT_IN.s; LT_IN.h = (LT_IN.lat0 - LT_IN.lat1) * 100 * LT_IN.s;
-const ltIX = lon => LT_IN.x + (ltX(lon) - ltX(LT_IN.lon0)) * LT_IN.s, ltIY = lat => LT_IN.y + (ltY(lat) - ltY(LT_IN.lat0)) * LT_IN.s;
-const ltInSeoul = p => p[1] > LT_IN.lon0 && p[1] < LT_IN.lon1 && p[0] > LT_IN.lat1 && p[0] < LT_IN.lat0;
-// 수도권 확대 창에서 학교가 몰린 곳은 이름 위치를 비켜 둔다 [x, y, 정렬]
-const LT_LBL_OFF = {
-  '연세대학교':[-7,-3,'end'], '이화여자대학교':[-7,9,'end'], '서강대학교':[-7,18,'end'], '홍익대학교':[-7,4,'end'], '명지대학교':[-7,-4,'end'],
-  '고려대학교':[-6,-7,'end'], '성신여자대학교':[-6,-4,'end'], '동국대학교':[0,-7,'middle'], '숙명여자대학교':[0,13,'middle'],
-  '한양대학교':[8,9], '서울시립대학교':[8,0], '경희대학교':[8,-7], '한국외국어대학교':[8,-15], '세종대학교':[8,1], '건국대학교':[8,13],
-  '성균관대학교':[-7,4,'end'], '경기대학교':[7,-3], '아주대학교':[7,10]
-};
 const LT_LV_NAME = ['아직 깜깜해요', '작은 촛불', '따뜻한 창문', '환한 창문', '밤을 밝히는 등대'];
 const LT_LV_MIN = [0, 1, 3, 6, 15];
 const ltLv = n => n >= 15 ? 4 : n >= 6 ? 3 : n >= 3 ? 2 : n >= 1 ? 1 : 0;
@@ -7162,7 +7142,7 @@ const LT_HELP = '🫂 많이 힘들 땐 자살예방상담전화 <b>109</b>(24�
 
 let LT_PATHS = null, _ltPathsP = null;
 let LT_COUNTS = {};          // 학교 → { cnt, today }
-let LT_SEL = '', LT_TAB = 'new', LT_NOTES = [], LT_ZOOM = 0, LT_READY = null;
+let LT_SEL = '', LT_TAB = 'new', LT_NOTES = [], LT_READY = null;
 let LT_MY_UNIV = null, _ltMyUid = undefined, LT_PICKED = false;
 
 function ltPaths(){
@@ -7212,7 +7192,7 @@ function ltRenderStats(){
   document.getElementById('lt-st-today').textContent = today.toLocaleString();
 }
 function ltSvg(opts){
-  // opts.inset: 수도권 확대 창 포함, opts.labels: 이름 표시, opts.sel: 고른 학교
+  // opts.labels: 이름 표시, opts.sel: 고른 학교 (모든 지역을 같은 크기로 보여 준다)
   const R = [0, 9, 14, 20, 30], O = [0, .45, .65, .85, 1];
   let h = '<defs><radialGradient id="' + opts.gid + '"><stop offset="0" stop-color="#fff7d6"/><stop offset=".25" stop-color="#fde68a" stop-opacity=".9"/><stop offset=".6" stop-color="#f59e0b" stop-opacity=".28"/><stop offset="1" stop-color="#f59e0b" stop-opacity="0"/></radialGradient></defs>';
   const land = (LT_PATHS || []).map(d => '<path class="lt-land" d="' + d + '"/>').join('');
@@ -7228,33 +7208,14 @@ function ltSvg(opts){
   if(opts.labels){
     // 이름이 겹치면 고민이 많은 학교 이름만 보여 준다 (나머지는 눌러서 확인)
     const placed = [];
-    places.filter(({ p, n }) => ltLv(n) >= 2 && !ltInSeoul(p)).sort((a, b) => b.n - a.n).forEach(({ u, p, n }) => {
+    places.filter(({ n }) => ltLv(n) >= 2).sort((a, b) => b.n - a.n).forEach(({ u, p, n }) => {
       const lx = ltX(p[1]), ly = ltY(p[0]);
-      if(placed.some(([x, y]) => Math.abs(x - lx) < 46 && Math.abs(y - ly) < 13)) return;
+      if(placed.some(([x, y]) => Math.abs(x - lx) < 50 && Math.abs(y - ly) < 18)) return;
       placed.push([lx, ly]);
       h += '<text class="lt-lbl' + (n < 3 ? ' dim' : '') + '" x="' + (ltX(p[1]) + 8).toFixed(1) + '" y="' + (ltY(p[0]) + 4).toFixed(1) + '">' + escHtml(p[2]) + '</text>';
     });
     const sp = LT_PLACES[opts.sel];
-    if(sp && !ltInSeoul(sp)) h += '<circle class="lt-sel" cx="' + ltX(sp[1]).toFixed(1) + '" cy="' + ltY(sp[0]).toFixed(1) + '" r="8"/>';
-  }
-  if(opts.inset){
-    const I = LT_IN;
-    h += '<g id="lt-inset">';
-    h += '<path d="M' + ltX(I.lon0).toFixed(1) + ',' + ltY(I.lat0).toFixed(1) + 'h' + (I.w / I.s).toFixed(1) + 'v' + (I.h / I.s).toFixed(1) + 'h' + (-I.w / I.s).toFixed(1) + 'Z" fill="none" stroke="#fde68a66" stroke-width=".8" stroke-dasharray="3 2"/>'
-       + '<line x1="' + ltX(I.lon1).toFixed(1) + '" y1="' + ltY(I.lat0).toFixed(1) + '" x2="' + I.x + '" y2="' + I.y + '" stroke="#fde68a33" stroke-width=".8"/>'
-       + '<line x1="' + ltX(I.lon1).toFixed(1) + '" y1="' + ltY(I.lat1).toFixed(1) + '" x2="' + I.x + '" y2="' + (I.y + I.h).toFixed(1) + '" stroke="#fde68a33" stroke-width=".8"/>';
-    h += '<clipPath id="lt-cp"><rect x="' + I.x + '" y="' + I.y + '" width="' + I.w.toFixed(1) + '" height="' + I.h.toFixed(1) + '" rx="10"/></clipPath>'
-       + '<rect x="' + I.x + '" y="' + I.y + '" width="' + I.w.toFixed(1) + '" height="' + I.h.toFixed(1) + '" rx="10" fill="#0a1226" stroke="#2a3a60"/>';
-    h += '<g class="lt-in" clip-path="url(#lt-cp)"><g transform="translate(' + (I.x - ltX(I.lon0) * I.s).toFixed(1) + ',' + (I.y - ltY(I.lat0) * I.s).toFixed(1) + ') scale(' + I.s + ')">' + land + '</g>';
-    const ins = places.filter(({ p }) => ltInSeoul(p));
-    h += ins.map(({ u, p, n }) => dot(ltIX(p[1]), ltIY(p[0]), n, .8, u)).join('');
-    ins.filter(({ u, n }) => n > 0 || u === opts.sel).forEach(({ u, p, n }) => {
-      const o = LT_LBL_OFF[u] || [7, 4];
-      h += '<text class="lt-lbl' + (n < 3 ? ' dim' : '') + '" x="' + (ltIX(p[1]) + o[0]).toFixed(1) + '" y="' + (ltIY(p[0]) + o[1]).toFixed(1) + '"' + (o[2] ? ' text-anchor="' + o[2] + '"' : '') + '>' + escHtml(p[2]) + '</text>';
-    });
-    const sp = LT_PLACES[opts.sel];
-    if(sp && ltInSeoul(sp)) h += '<circle class="lt-sel" cx="' + ltIX(sp[1]).toFixed(1) + '" cy="' + ltIY(sp[0]).toFixed(1) + '" r="8"/>';
-    h += '</g><text class="lt-lbl" x="' + (I.x + 8) + '" y="' + (I.y - 8) + '">서울·수도권 확대</text></g>';
+    if(sp) h += '<circle class="lt-sel" cx="' + ltX(sp[1]).toFixed(1) + '" cy="' + ltY(sp[0]).toFixed(1) + '" r="8"/>';
   }
   return h;
 }
@@ -7262,23 +7223,8 @@ const ltMobile = () => window.matchMedia('(max-width: 768px)').matches;
 function ltDrawMap(){
   const map = document.getElementById('lt-map');
   if(!map) return;
-  map.innerHTML = ltSvg({ gid: 'lt-g', inset: true, labels: true, sel: LT_SEL });
-  ltFitMap();
+  map.innerHTML = ltSvg({ gid: 'lt-g', labels: true, sel: LT_SEL });
 }
-function ltFitMap(){
-  const map = document.getElementById('lt-map'), inset = document.getElementById('lt-inset');
-  if(!map || !inset) return;
-  const I = LT_IN;
-  if(!ltMobile()){ map.setAttribute('viewBox', '0 0 800 560'); inset.style.display = ''; return; }
-  if(LT_ZOOM){ map.setAttribute('viewBox', (I.x - 2) + ' ' + (I.y - 2) + ' ' + (I.w + 4).toFixed(0) + ' ' + (I.h + 4).toFixed(0)); inset.style.display = ''; }
-  else { map.setAttribute('viewBox', '90 0 420 560'); inset.style.display = 'none'; }
-}
-function ltZoom(z){
-  LT_ZOOM = z;
-  document.querySelectorAll('#lt-zc button').forEach((b, i) => b.classList.toggle('on', i === z));
-  ltFitMap();
-}
-window.addEventListener('resize', () => { if(document.getElementById('page-lights')?.classList.contains('active')) ltFitMap(); });
 document.addEventListener('click', e => {
   const t = e.target.closest && e.target.closest('#lt-map [data-u]');
   if(t) ltSelect(t.getAttribute('data-u'));
@@ -7441,7 +7387,7 @@ async function ltHomeLoad(){
   const lit = ltSortedLit().slice(0, 6);
   el.innerHTML = lit.length ? lit.map(([u, v]) => '<li>🕯️ ' + escHtml(ltShort(u)) + '<b>' + v.cnt + '</b></li>').join('') : '<li>아직 깜깜해요. 첫 불을 켜 주세요!</li>';
   const m = document.getElementById('lt-home-map');
-  if(m) m.innerHTML = ltSvg({ gid: 'lt-hg', inset: false, labels: false, sel: '' }).replace(/class="lt-land"/g, 'fill="#121c34" stroke="#22304f" stroke-width=".8"');
+  if(m) m.innerHTML = ltSvg({ gid: 'lt-hg', labels: false, sel: '' }).replace(/class="lt-land"/g, 'fill="#121c34" stroke="#22304f" stroke-width=".8"');
 }
 // 로그인·로그아웃하면 '내 학교'를 다시 확인
 sbClient.auth.onAuthStateChange(() => {
