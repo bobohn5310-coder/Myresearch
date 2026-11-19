@@ -2525,18 +2525,28 @@ a { text-decoration: none; color: inherit; }
 .lt-sheet ul li:before { content:"· "; color:#fcd34d; }
 .lt-sheet .lt-btn { display:block; width:100%; margin:0; font-size:16px; padding:14px; border-radius:14px; }
 
-/* 홈: 커뮤니티 인기글 자리에 들어가는 불빛 지도 카드 */
-body.cm-closed #home-cm-col { display:none; }
-body:not(.cm-closed) #home-lights-col { display:none; }
-.lt-home { background:radial-gradient(600px 300px at 30% 30%,#0f1a35 0%,#070c1a 80%); border-radius:18px; padding:22px; color:#e2e8f0; display:grid; grid-template-columns:minmax(0,1fr) 200px; gap:18px; align-items:center; cursor:pointer; }
-.lt-home h3 { color:#fff; font-size:19px; font-weight:800; margin:0 0 6px; }
-.lt-home h3 em { font-style:normal; color:#fcd34d; }
-.lt-home p { font-size:13.5px; color:#94a3b8; line-height:1.65; margin:0; }
-.lt-home ol { list-style:none; margin:14px 0 0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
-.lt-home ol li { font-size:12.5px; color:#cbd5e1; background:#0e1730; border:1px solid #1f2c4d; border-radius:999px; padding:4px 10px; }
-.lt-home ol li b { color:#fde68a; margin-left:3px; }
-.lt-home .lt-btn { margin:16px 0 0; }
-.lt-home svg { width:100%; height:auto; }
+/* 홈: 첫 화면 바로 아래 🕯️ 불빛 지도 (밤하늘 창 카드). 커뮤니티를 닫은 동안 아래쪽 커뮤니티 칸은 숨긴다 */
+body.cm-closed .community-section-wrap { display:none; }
+body:not(.cm-closed) #home-lights { display:none; }
+.lt-band { padding:40px 48px 4px; }
+.lt-band-card { position:relative; overflow:hidden; max-width:1184px; margin:0 auto; border-radius:28px; padding:36px 56px; color:#e2e8f0; cursor:pointer;
+  display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr); gap:40px; align-items:center;
+  background:radial-gradient(700px 380px at 72% 45%,rgba(252,211,77,.10),transparent 65%),radial-gradient(900px 500px at 15% 0%,#1b2a5c 0%,transparent 60%),#0a1129;
+  box-shadow:0 30px 60px -20px rgba(15,23,42,.35),0 0 0 1px rgba(15,23,42,.04); }
+.lt-band-card::before { content:''; position:absolute; inset:0; pointer-events:none;
+  background-image:radial-gradient(1.3px 1.3px at 8% 18%,#fff9 50%,transparent),radial-gradient(1px 1px at 24% 82%,#fff6 50%,transparent),radial-gradient(1.4px 1.4px at 41% 12%,#fffb 50%,transparent),radial-gradient(1px 1px at 52% 70%,#fff5 50%,transparent),radial-gradient(1.2px 1.2px at 63% 22%,#fff8 50%,transparent),radial-gradient(1px 1px at 90% 30%,#fff6 50%,transparent),radial-gradient(1.3px 1.3px at 95% 85%,#fff8 50%,transparent),radial-gradient(1px 1px at 33% 40%,#fff5 50%,transparent); }
+.lt-band-card > * { position:relative; }
+.ltb-kicker { display:inline-flex; gap:6px; align-items:center; font-size:13px; font-weight:700; color:#fcd34d; background:rgba(252,211,77,.1); border:1px solid rgba(252,211,77,.25); border-radius:999px; padding:5px 12px; }
+.lt-band h2 { color:#fff; font-size:34px; line-height:1.3; font-weight:800; margin:14px 0 10px; letter-spacing:-.02em; }
+.lt-band h2 em { font-style:normal; color:#fcd34d; }
+.ltb-desc { color:#94a3b8; font-size:15px; line-height:1.7; margin:0; }
+.lt-band ol { list-style:none; margin:16px 0 0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.lt-band ol li { font-size:13px; color:#cbd5e1; background:#0e1730; border:1px solid #1f2c4d; border-radius:999px; padding:5px 12px; }
+.lt-band ol li b { color:#fde68a; margin-left:4px; }
+.ltb-actions { display:flex; gap:10px; margin-top:24px; flex-wrap:wrap; }
+.ltb-go { font:inherit; background:#fbbf24; color:#1f1300; border:0; border-radius:12px; padding:13px 22px; font-weight:800; font-size:15px; cursor:pointer; box-shadow:0 0 24px rgba(251,191,36,.35); }
+.ltb-map { font:inherit; border:1px solid #2a3a63; color:#cbd5e1; background:transparent; border-radius:12px; padding:13px 18px; font-weight:700; font-size:14px; cursor:pointer; }
+.lt-band svg { width:100%; max-width:290px; height:auto; justify-self:center; }
 
 @media (max-width: 1100px) {
   .lt-wrap { grid-template-columns:minmax(0,1fr) 380px; padding:32px 24px 48px; gap:24px; }
@@ -2562,8 +2572,12 @@ body:not(.cm-closed) #home-lights-col { display:none; }
   .lt-compose { display:none; }
   #page-lights.active .lt-fab { display:block; position:fixed; left:16px; right:16px; bottom:calc(16px + env(safe-area-inset-bottom)); z-index:150; font:inherit; text-align:center; background:linear-gradient(180deg,#fde68a,#f59e0b); color:#1c1405; font-weight:800; font-size:16px; border:none; border-radius:14px; padding:15px; box-shadow:0 0 30px #f59e0b66,0 10px 30px #0009; cursor:pointer; }
   .lt-toast { top:72px; font-size:13.5px; flex-wrap:wrap; justify-content:center; text-align:center; border-radius:16px; }
-  .lt-home { grid-template-columns:minmax(0,1fr); padding:18px; }
-  .lt-home svg { display:none; }
+  .lt-band { padding:24px 16px 4px; }
+  .lt-band-card { grid-template-columns:minmax(0,1fr); gap:8px; padding:28px 20px 26px; border-radius:22px; }
+  .lt-band h2 { font-size:25px; }
+  .lt-band svg { order:-1; max-width:150px; margin:0 auto 4px; }
+  .ltb-actions { flex-direction:column; }
+  .ltb-go, .ltb-map { width:100%; }
 }
 </style>
 <!-- 구글 애드센스 (광고) -->
@@ -2717,6 +2731,23 @@ body:not(.cm-closed) #home-lights-col { display:none; }
   <!-- 초록 마감 흐름 띠 -->
   <div class="cfp-ticker" id="cfp-ticker" aria-label="초록 마감이 다가오는 학회"></div>
 
+  <!-- 🕯️ 불빛 지도: 첫 화면 바로 아래 (커뮤니티를 다시 열면 숨겨짐) -->
+  <div class="lt-band" id="home-lights">
+    <div class="lt-band-card" onclick="showPage('lights');setNavByName('lights')">
+      <div>
+        <span class="ltb-kicker">🕯️ 오늘 밤의 불빛 지도</span>
+        <h2>어두운 밤,<br><em>우리 학교에 불</em>을 켜 주세요</h2>
+        <p class="ltb-desc">고민을 한 줄 남기면 내 학교에 불이 하나 켜져요.<br>누가 남겼는지는 아무도 몰라요.</p>
+        <ol id="lt-home-top"></ol>
+        <div class="ltb-actions">
+          <button type="button" class="ltb-go">🕯️ 고민 한 줄로 불 켜기</button>
+          <button type="button" class="ltb-map">전국 지도 보기 →</button>
+        </div>
+      </div>
+      <svg id="lt-home-map" viewBox="90 0 420 560" aria-hidden="true"></svg>
+    </div>
+  </div>
+
   <!-- 다가오는 학회 -->
   <div class="hc-section">
     <div class="hc-inner">
@@ -2790,26 +2821,6 @@ body:not(.cm-closed) #home-lights-col { display:none; }
   <!-- COMMUNITY + INFO -->
   <div class="community-section-wrap">
     <div class="community-grid">
-
-      <!-- 🕯️ 불빛 지도 (커뮤니티를 잠시 닫은 동안 이 자리에) -->
-      <div id="home-lights-col">
-        <div class="section-header">
-          <div>
-            <div class="section-title">🕯️ 오늘 밤의 불빛 지도</div>
-            <div class="section-sub">익명 고민 한 줄이 우리 학교의 불을 켜요</div>
-          </div>
-          <div class="see-all" onclick="showPage('lights');setNavByName('lights')">지도 보기 →</div>
-        </div>
-        <div class="lt-home" onclick="showPage('lights');setNavByName('lights')">
-          <div>
-            <h3>어두운 밤, <em>우리 학교에 불</em>을 켜 주세요</h3>
-            <p>고민을 한 줄 남기면 내 학교에 불이 하나 켜져요. 누가 남겼는지는 아무도 몰라요.</p>
-            <ol id="lt-home-top"></ol>
-            <button type="button" class="lt-btn">🕯️ 불 켜러 가기</button>
-          </div>
-          <svg id="lt-home-map" viewBox="90 0 420 560" aria-hidden="true"></svg>
-        </div>
-      </div>
 
       <!-- HOT COMMUNITY -->
       <div id="home-cm-col">
