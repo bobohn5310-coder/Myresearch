@@ -6347,9 +6347,9 @@ async function clvOpenVote(labId){
     <div class="clv-q"><div class="lb">어떤 연구실인가요?</div><div id="clv-lab-pick"></div></div>
     ${CLV_ITEMS.map(it => `<div class="clv-q"><div class="lb">${it.label}</div><div class="hn">${it.q}</div>
       <div class="clv-opts">${[1,2,3,4].map(n => `<button class="clv-opt" data-k="${it.k}" data-n="${n}" onclick="clvPick(this)">${clvClover(n,26)}${CLV_WORDS[n-1]}</button>`).join('')}</div></div>`).join('')}
-    <div class="clv-q"><div class="lb">한줄평 <span style="font-weight:400;color:var(--text-muted);font-size:12px">(선택)</span></div>
+    <div class="clv-q"><div class="lb">한줄평 <span style="font-weight:400;color:#dc2626;font-size:12px">(필수 · 5자 이상)</span></div>
       <div class="hn">연구실 생활을 한 줄로 알려 주세요. 예: 실험 장비가 잘 갖춰져 있고 선배들이 친절해요</div>
-      <textarea class="clv-input" id="clv-comment" rows="2" maxlength="80" placeholder="80자 이내" oninput="document.getElementById('clv-comment-n').textContent=this.value.length"></textarea>
+      <textarea class="clv-input" id="clv-comment" rows="2" maxlength="80" placeholder="5자 이상 80자 이내로 적어 주세요" oninput="document.getElementById('clv-comment-n').textContent=this.value.length"></textarea>
       <div class="clv-cnt"><span id="clv-comment-n">0</span>/80</div></div>
     <div class="clv-rules">🔒 누가 남겼는지는 공개되지 않아요. 클로버와 한줄평은 ${CLV_MIN_LABEL} 이상 모인 뒤에만 보여요.<br>🛡️ 남긴 클로버는 운영자가 소속과 내용을 확인한 뒤에 반영돼요.<br>👤 교수님 성함은 같은 연구실을 묶는 데만 쓰이고 화면에 공개되지 않아요.<br>🙏 한줄평에는 욕설, 확인되지 않은 사실, 다른 사람의 신상을 적지 말아 주세요. 신고된 한줄평은 운영자가 확인한 뒤 가려져요.</div>
     <button class="clv-btn" id="clv-vote-btn" onclick="clvSubmitVote()">클로버 남기기</button>
@@ -6402,10 +6402,9 @@ async function clvSubmitVote(){
   if(CLV.locked){ Object.assign(nl, { univ: CLV.myLab.univ, dept: CLV.myLab.dept, name: CLV.myLab.name }); }
   else if(CLV.pickId){ /* 카드에서 고른 운영자 등록 연구실 */ }
   else if(nl.univ.length < 2 || nl.dept.length < 2 || nl.name.length < 2 || profName.length < 2){ btn.disabled = false; return say('학교·학과·연구실 이름·지도교수님 성함을 모두 적어 주세요.', true); }
-  if(comment){
-    const bad = clvCommentProblem(comment);
-    if(bad){ btn.disabled = false; return say(bad, true); }
-  }
+  // 한줄평은 필수 (5자 이상) — 연구실 등록·클로버 저장 전에 먼저 거른다
+  const bad = clvCommentProblem(comment);
+  if(bad){ btn.disabled = false; document.getElementById('clv-comment')?.focus(); return say(bad, true); }
   // 고른 운영자 등록 연구실이면 그 번호로 바로 남긴다 (내 연구실·학교 검사는 서버 clover_vote_guard 가 그대로 함)
   let added = CLV.pickId ? { data: CLV.pickId }
     : await sbClient.rpc('clover_add_lab', { p_univ:nl.univ, p_dept:nl.dept, p_name:nl.name, p_topic:nl.topic, p_prof:profName });
@@ -6445,8 +6444,10 @@ function clvVoteErr(e){
 
 // 한줄평: 저장 전에 화면에서 한 번 거르고, 서버(clover_comment_guard)에서 한 번 더 거른다
 const CLV_BAD = /(씨발|시발|ㅅㅂ|ㅆㅂ|씨바|시바|병신|ㅂㅅ|븅신|개새|개색|개세|좆|존나|졸라|미친|ㅁㅊ|지랄|ㅈㄹ|꺼져|닥쳐|죽어|뒤져|썅|쌍놈|년놈|새끼|fuck|shit)/i;
+const CLV_COMMENT_MIN = 5;
 function clvCommentProblem(t){
-  if(t.length < 2) return '한줄평은 2자 이상 적어 주세요.';
+  if(!t) return '한줄평을 적어 주세요. 한줄평은 꼭 남겨야 해요.';
+  if(t.length < CLV_COMMENT_MIN) return `한줄평은 ${CLV_COMMENT_MIN}자 이상 적어 주세요. (지금 ${t.length}자)`;
   if(CLV_BAD.test(t.replace(/[\s.\-_*~!]/g,''))) return '한줄평에 욕설이나 비하 표현이 있어요. 고쳐서 다시 남겨 주세요.';
   if(/(\d{2,3}[-\s]?\d{3,4}[-\s]?\d{4}|[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}|https?:\/\/)/.test(t)) return '한줄평에는 연락처나 링크를 적을 수 없어요.';
   return '';
