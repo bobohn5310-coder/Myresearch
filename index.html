@@ -6289,9 +6289,10 @@ async function clvOpenVote(labId){
   const body = document.getElementById('clv-vote-body');
   clvShow('clv-vote-modal');
   if(!CLV.ready){ body.innerHTML = '<div class="clv-info clv-warn">클로버 지수를 준비하고 있어요. 곧 열릴 예정이에요!</div>'; return; }
-  const [{ data: ok }, { data: prof }] = await Promise.all([
+  const [{ data: ok }, { data: prof }, { data: isAdmin }] = await Promise.all([
     sbClient.rpc('can_clover'),
-    sbClient.from('profiles').select('member_type').eq('id', currentUser.id).maybeSingle()
+    sbClient.from('profiles').select('member_type').eq('id', currentUser.id).maybeSingle(),
+    sbClient.rpc('is_admin')
   ]);
   if(!ok && prof?.member_type === '예비대학원생'){
     body.innerHTML = `<div class="clv-info clv-warn">🌱 예비대학원생은 아직 클로버를 남길 수 없어요. 클로버는 지금 연구실에 있는 분들(학부연구생 포함)의 목소리만 모으고 있어요. 입학 후 학교 인증을 받으면 남길 수 있어요.</div>
@@ -6341,7 +6342,7 @@ async function clvOpenVote(labId){
     ? `<div class="clv-info"><span>🏠</span><div>내 연구실(${escHtml(my.univ)} ${escHtml(my.dept)} ${escHtml(my.name)})에 다시 남기는 거예요.</div></div>`
     : `<div class="clv-info clv-warn"><span>🏠</span><div><b>처음 남기는 연구실이 '내 연구실'로 고정</b>되고, 다른 연구실에는 남길 수 없어요.${myUnivs ? ` 가입 메일·학교 인증 기준으로 <b>${myUnivs}</b> 연구실만 남길 수 있어요.` : ''}${my.reject_reason ? `<br>❌ 지난번 클로버가 반려됐어요. 사유: ${escHtml(my.reject_reason)}` : ''}</div></div>`;
   body.innerHTML = `
-    <div class="clv-info">✅ 인증된 계정이에요 · 내 연구실에 한 번만 남길 수 있어요</div>
+    <div class="clv-info">${isAdmin ? '🛠️ 관리자 계정이에요 · 학교 메일·인증 없이 남길 수 있어요 · 내 연구실에 한 번만 남길 수 있어요' : '✅ 인증된 계정이에요 · 내 연구실에 한 번만 남길 수 있어요'}</div>
     ${lockNote}
     <div class="clv-q"><div class="lb">어떤 연구실인가요?</div><div id="clv-lab-pick"></div></div>
     ${CLV_ITEMS.map(it => `<div class="clv-q"><div class="lb">${it.label}</div><div class="hn">${it.q}</div>
