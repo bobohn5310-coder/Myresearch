@@ -194,6 +194,14 @@
 
   /* ── TABLE ── */
   .table-wrap { overflow-x: auto; }
+  /* 학회 제보: 처리 버튼 */
+  .sg-actions { white-space: nowrap; }
+  .sg-actions .btn { margin: 2px 0; }
+  .sg-done { background: #16a34a; color: white; border: none; font-weight: 700; }
+  .sg-done:hover { background: #15803d; }
+  .sg-state { font-size: 12px; font-weight: 700; margin-right: 6px; }
+  .sg-state.ok { color: #16a34a; }
+  .sg-state.no { color: #94a3b8; }
   table { width: 100%; border-collapse: collapse; }
   th {
     font-size: 12px; font-weight: 700; color: var(--text-muted);
@@ -359,6 +367,17 @@
   .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -14px; padding: 0 14px; }
   .table-wrap table { min-width: 640px; }
   th { white-space: nowrap; padding: 9px 10px; }
+
+  /* 학회 제보 표는 옆으로 밀지 않고 한 줄씩 카드처럼 */
+  .table-wrap table.sg-table { min-width: 0; width: 100%; }
+  .sg-table thead { display: none; }
+  .sg-table tr { display: block; padding: 12px 0; border-bottom: 1px solid #f1f5f9; }
+  .sg-table td { display: block; padding: 2px 0; border: none; min-width: 0; }
+  .sg-table td .empty-state { padding: 24px 0; }
+  .sg-table .sg-date { color: #94a3b8; font-size: 12px !important; }
+  .sg-table .sg-actions { white-space: normal; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding-top: 8px; }
+  .sg-table .sg-actions .btn { margin: 0; }
+  .sg-table .sg-done { flex: 1 1 100%; justify-content: center; min-height: 44px; font-size: 14px; }
   td { padding: 10px; font-size: 13px; min-width: 84px; }
 
   /* 버튼은 손가락으로 누르기 쉽게 */
@@ -573,15 +592,15 @@
     <div class="admin-page" id="page-suggest">
       <div class="page-header">
         <div class="page-title">📮 학회 제보</div>
-        <div class="page-sub">사용자가 알려 준 학회 이름이에요. <b>구글 검색</b>으로 날짜와 홈페이지를 확인한 뒤 <b>등록하기</b>를 누르면, 이름이 채워진 등록 창이 열려요.<br>
-          저장하면 제보는 자동으로 '올림'으로 바뀌어요. 목록에 올리지 않을 제보는 <b>반려</b>해 주세요.</div>
+        <div class="page-sub">사용자가 알려 준 학회 이름이에요. Claude에게 맡겨 학회를 올렸다면 <b>학회 등록 완료</b>를 눌러 주세요. 바로 '등록 완료' 탭으로 옮겨져요.<br>
+          직접 올릴 때는 <b>직접 등록</b>을 누르면 이름이 채워진 등록 창이 열리고, 저장하면 자동으로 '등록 완료'가 돼요. 올리지 않을 제보는 <b>반려</b>해 주세요. 잘못 누른 건 <b>되돌리기</b>로 다시 '확인 대기'로 보낼 수 있어요.</div>
       </div>
       <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
         <button class="btn btn-secondary cs-tab" data-s="pending" onclick="loadSuggestions('pending')">⏳ 확인 대기</button>
-        <button class="btn btn-secondary cs-tab" data-s="approved" onclick="loadSuggestions('approved')">✅ 올림</button>
+        <button class="btn btn-secondary cs-tab" data-s="approved" onclick="loadSuggestions('approved')">✅ 등록 완료</button>
         <button class="btn btn-secondary cs-tab" data-s="rejected" onclick="loadSuggestions('rejected')">❌ 반려</button>
       </div>
-      <div class="card"><div class="table-wrap"><table>
+      <div class="card"><div class="table-wrap"><table class="sg-table">
         <thead><tr><th>학회 이름</th><th>제보일</th><th>처리</th></tr></thead>
         <tbody id="suggest-table-body"><tr><td colspan="3"><div class="empty-state"><div class="emoji">📮</div>불러오는 중...</div></td></tr></tbody>
       </table></div></div>
@@ -1416,16 +1435,19 @@ async function loadSuggestions(status) {
   _suggestions = data || [];
   if(!_suggestions.length) { body.innerHTML = '<tr><td colspan="3"><div class="empty-state"><div class="emoji">✨</div>여기에 해당하는 제보가 없어요.</div></td></tr>'; refreshAdminBadges(); return; }
   body.innerHTML = _suggestions.map((r, i) => `<tr>
-    <td style="font-size:13.5px;"><b>${esc(r.title)}</b>
-      <a href="https://www.google.com/search?q=${encodeURIComponent(r.title)}" target="_blank" rel="noopener" style="font-size:12px;margin-left:8px;">구글 검색 ↗</a></td>
-    <td style="font-size:12.5px;white-space:nowrap;">${(r.created_at || '').slice(0, 10)}</td>
-    <td style="white-space:nowrap;">${r.status === 'pending' ? `
-      <button class="btn btn-primary btn-sm" onclick="approveSuggestion(${i})">등록하기</button>
-      <button class="btn btn-secondary btn-sm" onclick="rejectSuggestion(${i})">반려</button>` : `<span style="font-size:12px;color:#94a3b8;">${r.status === 'approved' ? '올림' : '반려'}</span>`}</td>
+    <td class="sg-title" style="font-size:13.5px;"><b>${esc(r.title)}</b>
+      <a href="https://www.google.com/search?q=${encodeURIComponent(r.title)}" target="_blank" rel="noopener" style="font-size:12px;margin-left:8px;white-space:nowrap;">구글 검색 ↗</a></td>
+    <td class="sg-date" style="font-size:12.5px;white-space:nowrap;">${(r.created_at || '').slice(0, 10)}</td>
+    <td class="sg-actions">${r.status === 'pending' ? `
+      <button class="btn btn-sm sg-done" onclick="completeSuggestion(${i})">✅ 학회 등록 완료</button>
+      <button class="btn btn-secondary btn-sm" onclick="approveSuggestion(${i})">직접 등록</button>
+      <button class="btn btn-secondary btn-sm" onclick="rejectSuggestion(${i})">반려</button>` : `
+      <span class="sg-state ${r.status === 'approved' ? 'ok' : 'no'}">${r.status === 'approved' ? '✅ 등록 완료' : '반려'}${r.reviewed_at ? ' · ' + r.reviewed_at.slice(0, 10) : ''}</span>
+      <button class="btn btn-secondary btn-sm" onclick="reopenSuggestion(${i})">↩️ 되돌리기</button>`}</td>
   </tr>`).join('');
   refreshAdminBadges();
 }
-// 등록 창을 학회 이름으로 채워 연다. 저장에 성공하면 saveInfo가 제보를 '올림'으로 바꾼다.
+// 등록 창을 학회 이름으로 채워 연다. 저장에 성공하면 saveInfo가 제보를 '등록 완료'으로 바꾼다.
 function approveSuggestion(i) {
   const r = _suggestions[i]; if(!r) return;
   openInfoModal();
@@ -1441,6 +1463,22 @@ async function markSuggestionApproved() {
   if(error) showToast('⚠️ 학회는 등록했지만 제보 상태를 바꾸지 못했어요: ' + error.message);
   refreshAdminBadges();
   if(document.getElementById('page-suggest')?.classList.contains('active')) loadSuggestions();
+}
+// Claude를 통해 학회를 이미 올렸을 때: 등록 창 없이 바로 '등록 완료'로 바꾼다.
+async function completeSuggestion(i) {
+  const r = _suggestions[i]; if(!r) return;
+  const { error } = await sbClient.from('conference_suggestions').update({ status: 'approved', reviewed_at: new Date().toISOString() }).eq('id', r.id);
+  if(error) { showToast('❌ 처리 실패: ' + error.message); return; }
+  showToast('✅ 학회 등록 완료로 옮겼어요. \'등록 완료\' 탭에서 되돌릴 수 있어요.');
+  loadSuggestions();
+}
+// 등록 완료·반려를 취소하고 다시 '확인 대기'로 돌린다.
+async function reopenSuggestion(i) {
+  const r = _suggestions[i]; if(!r) return;
+  const { error } = await sbClient.from('conference_suggestions').update({ status: 'pending', reviewed_at: null }).eq('id', r.id);
+  if(error) { showToast('❌ 처리 실패: ' + error.message); return; }
+  showToast('↩️ 다시 확인 대기로 옮겼어요.');
+  loadSuggestions();
 }
 async function rejectSuggestion(i) {
   const r = _suggestions[i]; if(!r) return;
