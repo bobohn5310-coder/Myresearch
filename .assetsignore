@@ -8,3 +8,4 @@ wrangler.jsonc
 .assetsignore
 .wrangler
 vendor/README.md
+content

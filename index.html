@@ -667,8 +667,8 @@ a { text-decoration: none; color: inherit; }
 
 .footer-top {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr;
-  gap: 48px;
+  grid-template-columns: 1.4fr 1fr 1.2fr 0.8fr 1fr;
+  gap: 40px;
   padding-bottom: 48px;
   border-bottom: 1px solid rgba(255,255,255,0.08);
 }
@@ -2875,6 +2875,16 @@ body:not(.cm-closed) #home-lights-col { display:none; }
           <span class="footer-link" onclick="showPage('news')">국내연구소식</span>
           <span class="footer-link" onclick="goClover()">클로버 지수</span>
           <span class="footer-link" onclick="goToCalendar()">연구 캘린더</span>
+          <a class="footer-link" href="conferences.html">학회 일정표 (한눈에 보기)</a>
+        </div>
+        <!-- 연구 가이드 (자바스크립트 없이도 읽히는 글 페이지) -->
+        <div>
+          <div class="footer-col-title">연구 가이드</div>
+          <a class="footer-link" href="guide/conference-deadline-timezone.html">학회 마감 한국 시간 환산</a>
+          <a class="footer-link" href="guide/conference-rankings.html">학회 등급(CCF·CORE) 읽는 법</a>
+          <a class="footer-link" href="guide/first-international-conference.html">첫 해외 학회 체크리스트</a>
+          <a class="footer-link" href="guide/choosing-a-lab.html">연구실 고르는 법</a>
+          <a class="footer-link" href="guide/">가이드 전체 보기</a>
         </div>
         <!-- 계정 -->
         <div>
@@ -2887,8 +2897,8 @@ body:not(.cm-closed) #home-lights-col { display:none; }
           <div class="footer-col-title">정보</div>
           <a class="footer-link" href="terms.html">이용약관</a>
           <a class="footer-link" href="privacy.html"><b>개인정보처리방침</b></a>
-          <span class="footer-link">광고/제휴 문의</span>
-          <span class="footer-link">공지사항</span>
+          <a class="footer-link" href="about.html">서비스 소개</a>
+          <a class="footer-link" href="contact.html">문의 · 광고/제휴</a>
         </div>
       </div>
       <div class="footer-bottom">
@@ -3843,10 +3853,10 @@ function renderBanners() {
     {
       type: 'ad',
       title: '이 자리에 귀사의 광고·공지를 게재하세요',
-      subtitle: '3만+ 연구자에게 직접 노출. 학회·학술 행사·채용 홍보에 최적화된 배너 광고.',
+      subtitle: '대학원생·연구자가 매일 보는 학회 캘린더에 학회·학술 행사·채용 소식을 알려 보세요.',
       grad: '135deg, #064e3b 0%, #065f46 50%, #059669 100%',
       cta: '광고 문의하기',
-      ctaAction: "window.location.href='mailto:contact@myresearch.kr'",
+      ctaAction: "window.location.href='contact.html'",
     },
     {
       type: 'default',
