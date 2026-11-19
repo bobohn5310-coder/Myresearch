@@ -496,5 +496,17 @@
     "tags": "국내개최,디스플레이",
     "url": "https://www.kids.or.kr/",
     "abstract_deadline": "2026-11-13"
+  },
+  {
+    "id": "icfd-2027",
+    "title": "ICFD 2027",
+    "org": "24th International Conference on Flow Dynamics (ICFD 2027), Institute of Fluid Science, Tohoku University",
+    "keywords": "유체역학 유동 열전달 연소 난류 다상류 미세유체 수소 에너지 Flow Dynamics 도호쿠대 센다이 ICFD",
+    "start_date": "2027-11-08",
+    "end_date": "2027-11-10",
+    "location": "Sendai, Japan",
+    "field": "eng",
+    "tags": "해외,유체역학,에너지",
+    "url": "https://www.ifs.tohoku.ac.jp/icfd/"
   }
 ]
