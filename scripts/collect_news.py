@@ -304,10 +304,19 @@ def decode_google_link(url):
     if not m:
         return url
     gid = m.group(1)
-    page, _ = page_get(f"https://news.google.com/articles/{gid}?hl=ko&gl=KR&ceid=KR:ko")
-    sg = re.search(r'data-n-a-sg="([^"]+)"', page)
-    ts = re.search(r'data-n-a-ts="([^"]+)"', page)
+    sg = ts = None
+    for u in (f"https://news.google.com/rss/articles/{gid}?hl=ko&gl=KR&ceid=KR:ko",
+              f"https://news.google.com/articles/{gid}?hl=ko&gl=KR&ceid=KR:ko"):
+        page, final = page_get(u)
+        sg = re.search(r'data-n-a-sg="([^"]+)"', page)
+        ts = re.search(r'data-n-a-ts="([^"]+)"', page)
+        if sg and ts:
+            break
+        # 구글이 바로 원문으로 보내 주는 경우
+        if "news.google.com" not in final and safe_url(final):
+            return safe_url(final)
     if not (sg and ts):
+        print(f"[이미지] 구글 링크 풀기 실패(서명 없음) {final[:80]} len={len(page)}", file=sys.stderr)
         return ""
     inner = json.dumps(["garturlreq",
                         [["X", "X", ["X", "X"], None, None, 1, 1, "KR:ko", None, 1, None, None, None, None, None, 0, 1],
@@ -322,6 +331,7 @@ def decode_google_link(url):
         payload = json.loads(text.split("\n\n", 1)[1])
         real = json.loads(payload[0][2])[1]
     except (IndexError, ValueError, TypeError):
+        print(f"[이미지] 구글 링크 풀기 실패(응답) {text[:120]!r}", file=sys.stderr)
         return ""
     return safe_url(real)
 
@@ -341,8 +351,25 @@ def find_og_image(article_url):
             img = urllib.parse.urljoin(final, img)
             img = safe_url(img)
             if img and not BAD_IMAGE_RE.search(img):
-                return img[:500]
+                return bigger_image(img)[:500]
     return ""
+
+
+def bigger_image(img):
+    """국내 언론사 다수가 쓰는 기사 관리 시스템은 공유 이미지로 가로 150px 썸네일
+    (/news/thumbnail/..._v150.jpg)을 준다. 같은 사진의 원본(/news/photo/...)이 있으면 그 주소를 쓴다."""
+    m = re.match(r"^(https?://[^/]+/news/)thumbnail/(.+?)_v\d+(\.\w+)$", img)
+    if not m:
+        return img
+    big = f"{m.group(1)}photo/{m.group(2)}{m.group(3)}"
+    try:
+        req = urllib.request.Request(big, method="HEAD", headers={"User-Agent": BROWSER_UA})
+        with urllib.request.urlopen(req, timeout=10) as r:
+            if r.status == 200 and r.headers.get_content_type().startswith("image/"):
+                return big
+    except Exception:
+        pass
+    return img
 
 
 def load_previous_images(path):
