@@ -4858,7 +4858,10 @@ function renderHomeNews(){
   if(!list.length){ el.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:28px;color:#94a3b8;">연구소식을 불러오는 중…</div>'; return; }
   const GRAD={cs:'linear-gradient(135deg,#4c1d95,#7c3aed)',eng:'linear-gradient(135deg,#1e3a8a,#2563eb)',bio:'linear-gradient(135deg,#064e3b,#059669)',energy:'linear-gradient(135deg,#7c2d12,#ea580c)',quantum:'linear-gradient(135deg,#164e63,#0891b2)'};
   // 대표(맨 왼쪽 큰) 카드는 최신 5건 중 대표 이미지가 있는 가장 최근 기사로 고른다. 이미지가 하나도 없으면 맨 첫 기사.
-  const lead=list.findIndex(n=>safeUrl(n.image_url));
+  // 언론사가 작은 썸네일(_v150 등)만 준 기사는 큰 카드에서 흐려 보이므로, 큰 사진이 있는 기사를 먼저 고른다.
+  const hasImg=n=>!!safeUrl(n.image_url), isSmall=n=>/\/thumbnail\/.*_v\d+\.\w+$/.test(n.image_url||'');
+  let lead=list.findIndex(n=>hasImg(n)&&!isSmall(n));
+  if(lead<0) lead=list.findIndex(hasImg);
   if(lead>0) list.unshift(list.splice(lead,1)[0]);
   el.innerHTML=list.map((n,i)=>{
     const fm=fieldMeta(n.field);
