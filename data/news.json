@@ -1,5 +1,643 @@
 [
  {
+  "org": "헬로디디",
+  "field": "bio",
+  "tag": "의학",
+  "title": "[조간브리핑]독일서 '키트루다SC' 판매 제한 풀려···머크, 유럽 최대 시장 진입 가능",
+  "content": "[매일경제]獨법원 ‘키트루다SC’ 판매금지 가처분 취소···유럽 최대시장 출시 길 열렸다독일 법원이 미국 머크(MSD)의 면역항암제 ‘키트루다 피하주사(SC)’에 대한 판매금지 가처분을 취소했다. MSD는 알테오젠의 SC 기술을 적용한 이 제품을 유럽 최대 의약품 시장인 독일에 출시할…",
+  "url": "http://www.hellodd.com/news/articleView.html?idxno=113952",
+  "date": "2026-11-20",
+  "source": "rss",
+  "external_id": "news:254e8dc5aea917c96cf4"
+ },
+ {
+  "org": "한스경제",
+  "field": "eng",
+  "tag": "반도체",
+  "title": "[속보] 삼성전자 이종명 사장 승진…반도체연구소장 선임",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE5OWWoxWjhxMWphazVFNmJQaXdqWlNDbmJoTFNUN21saGFzNDJ4V0VTX0hXTnh0dE4yZEpLZWQwdnJYUG5uaVhRclN2WXg5dEM4NENBWU9sYXNRM1hvWkNjV1ZYRU1ucFI1UGZZ0gFvQVVfeXFMT0o3M1FobE9peUY1RUpBakFacmtid2VSTHFrSGVEWTNHdXV4T3poR2J2dW5HOFpUR3RrYldyamhMaDJXa1ZGV2N6SU01UlRNa3hwcGllT2NSNWVYYXlLZDBIdW5zYnFyWUtPXzE1d213?oc=5",
+  "date": "2026-11-20",
+  "source": "google_news",
+  "external_id": "news:95d14f5fcf0cc71832a5"
+ },
+ {
+  "org": "한국강사신문",
+  "field": "eng",
+  "tag": "연구",
+  "title": "연세대학교 G-램프 사업단, 조유승 박사 교육부 장관상 수상…신진 연구자 연구 역량 입증",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE40MzZmVUs3czRNTDJDbjVrSklzVC1JeG9SSDhjVmNaaU1FRGtlTGZsUjRsYUhsVjBUZ3B6SlJtaXlheFdNaENMQnQ5N25rUEJwazQ2aWlRazVzVzZnQnptYjB3QlR6VC1Tcm91cC1zeVM?oc=5",
+  "date": "2026-11-20",
+  "source": "google_news",
+  "external_id": "news:05d39318b3e3d33ba7dd"
+ },
+ {
+  "org": "AI넷",
+  "field": "eng",
+  "tag": "연구",
+  "title": "[건강·과학 리포트] '집 안의 숲 향기가 독이 된다'… 향 첨가 제품, 실내 공기 오염도 자동차 배기가스 수준 퍼듀대 연구팀, 향초·방향제 등 ‘불연성 향 제품’의 보이지 않는 위협 규명",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMiQEFVX3lxTE9idEEwNEdtV2QzMWdBRTZPb1VPMVU0Nkp0aTU1VFRsRE9DMy0xTTMxQTFiekJCdEdvWVRBNzV0Ykg?oc=5",
+  "date": "2026-11-20",
+  "source": "google_news",
+  "external_id": "news:76008e2568b57a420ea7"
+ },
+ {
+  "org": "더쎈뉴스",
+  "field": "eng",
+  "tag": "연구",
+  "title": "국립창원대, G-LAMP 페스티벌서 교육부장관 표창·연구재단 이사장상 수상",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFA4UW1sT0p6bnNJLV9YUW9oZE5tVmNVOVJnYTRTQnBmRlpGU0RsSk1lb25uellpVkZZTG5yQXlIVERsRVZXdXM4RW9vRGhDYU8wRl9udTBjRldjV3haeUEtOVhGaTdOTVVZ?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:4f06a4a6dce58e931d91"
+ },
+ {
+  "org": "NSP통신",
+  "field": "energy",
+  "tag": "에너지",
+  "title": "영남대 화학과 학생들, 차세대 에너지·환경 소재 연구 논문 3편 국제학술지 게재",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBkWUU0cHE3TjI3dnozSjB4Vy13MGMtNWd3dnJwc3RORzJsLVlzWEZqc3U4QlhPQnYyN1Zldi1BbHdIVV9oVUFZT1V3bnlTMWl1UEw3TWpIb0p6d2NmYlY3Xw?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:4ada032608f5780686ca"
+ },
+ {
+  "org": "의학신문",
+  "field": "cs",
+  "tag": "AI",
+  "title": "딥노이드, 위·대장암 복막 전이 판별 AI 연구 ‘JKMS’ 게재",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE9iaEpDejN5ZEdabllYMHJ6WjA0S2ZKajVQUnBDNnYxYkxvUXJSRk1WXzRGV3FCR3BCTU9DNlZRbExHTTM5anJnQWtFSGhhTU83WWxLcTg3Slk5aWxiTEV5T2d3UFdIMlBxS1E?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:4d25c127eb2866c8225d"
+ },
+ {
+  "org": "한국강사신문",
+  "field": "cs",
+  "tag": "AI",
+  "title": "전북대학교 박동준 교수팀, ‘2026 R&D 커리어랩’ 우수상 수상…AI·나노바이오 융합연구 성과 인정",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE52Y3VwT0VnQzhGRlh5aWtELTczY2ZFaXp3QUdDWmZmcElzYm5VazRjd2NWNEhCUXRlLVFsbDJtWGo2SUJacnhwdmFjUUlQRUFrU3ZkUXlKamQ0V1h0YVlnd3BPc3lSaWNJaTZaaFozQVM?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:8a5ec223f36092fcf54e"
+ },
+ {
+  "org": "헬로디디",
+  "field": "cs",
+  "tag": "AI",
+  "title": "연구장비 난제 해결, 과학자 4총사 외주 업체 뛰어넘은 명작 '외부 러브콜까지'",
+  "content": "한국과학기술연구원(이하 KIST) 특성분석데이터센터는 올 한 해 외부 대학과 출연연 관계자들의 방문으로 바쁜 날들을 보냈다. 연구에 필요한 각종 소재와 시료의 특성을 분석하고 데이터를 제공하는 연구지원 조직이라면 누구나 안고 있을 고질적인 문제를 AI로 해결했다는 소문이 과학기술계에 파…",
+  "url": "http://www.hellodd.com/news/articleView.html?idxno=113881",
+  "date": "2026-11-19",
+  "source": "rss",
+  "external_id": "news:8c473eeb7ba0dc9a15ad"
+ },
+ {
+  "org": "헬로디디",
+  "field": "eng",
+  "tag": "연구",
+  "title": "[기자수첩] 과학자와 쓰레기더미",
+  "content": "대전 과학문화거리의 한 도로변. 대한민국 과학기술 발전에 기여한 인물들을 소개하는 홍보판 앞에 폐지와 쓰레기봉투가 수북이 쌓여 있다. 과학기술유공자들의 얼굴과 업적을 알리려고 마련한 공간인데, 쓰레기에 가려 홍보판 일부는 보이지 않았다. 시민들에게 이들의 업적을 알리는 곳이라 아쉬움이…",
+  "url": "http://www.hellodd.com/news/articleView.html?idxno=113931",
+  "date": "2026-11-19",
+  "source": "rss",
+  "external_id": "news:f12f95d0b9d7a083bf79"
+ },
+ {
+  "org": "충청뉴스",
+  "field": "eng",
+  "tag": "연구",
+  "title": "목원대 이민재 교수, 기업 순환경제 개방형 혁신 연구 논문 국제학술지 게재",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9uLWNwT0hVY056alRTN3JDRTFUdGlHV1VNRjZleHdDRzhqVWFET2JZTlRZbWpxSk9KS1ROeWpreHMxZUQ0c0ZHeGFMa1RXejlfU0FZS3Y1eElabW10REl5MzJyUE4xb3lKeWQ5WA?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:7e2fd8e634278ddfbbb7"
+ },
+ {
+  "org": "전북금강일보",
+  "field": "eng",
+  "tag": "소재",
+  "title": "전북대·한국교통대 연구팀, 오가노이드 배양 소재 국산화 성공",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMiQEFVX3lxTFB0YTllbkNPMVo2a3BMLVc2WElXX2FGaFQxOEdMZ2hXT2hucnMyXzRUdUItdG1Bd3FvQ214TTNORnU?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:0878f8bfb02904cdbd9e"
+ },
+ {
+  "org": "헬로디디",
+  "field": "eng",
+  "tag": "우주",
+  "title": "'인간이 닿지 못한 곳, 과학이 답하다'···극한 환경 뚫은 네 연구자의 기록",
+  "content": "제 76회 '사이언스슬램D'가 지난 17일 대전서일고등학교에서 열렸다.이번 행사는 올해 정규회차의 대미를 장식하는 무대로, '극한의 환경, 한계에 도전하다'를 주제로 진행됐다. 2학년 학생 180여 명이 강당을 가득 메운 가운데, 100년의 세월이 담긴 한반도 지질부터 우주 폭풍, 수심…",
+  "url": "http://www.hellodd.com/news/articleView.html?idxno=113938",
+  "date": "2026-11-19",
+  "source": "rss",
+  "external_id": "news:b4b74b7a8b3dd8d920ae"
+ },
+ {
+  "org": "아시아투데이",
+  "field": "eng",
+  "tag": "우주",
+  "title": "숭실대 민선기 교수 연구팀 이한결 학생, 학부 시절 연구로 우주항공 분야 SCI급 학술지에 논문 게재",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1LYi1qZjNQcFFRVVBfT3BCbXRLaExHcV9qVGpmRTF6NVRTMXB6Ym5DUExDa0lXLXYzcGpJMEIxNEFSX2l3eDFLMmliekNfODhremEycXBidTRBQXVvZWlld0xEczdtZ2Q4dVRVTw?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:8ee9c0707d7b1a5cfe1f"
+ },
+ {
+  "org": "헬로디디",
+  "field": "bio",
+  "tag": "의학",
+  "title": "KAIST '귀금속 잘게 쪼갰더니···암모니아 생산 속도 57배↑'",
+  "content": "국내 연구팀이 암모니아 생산에 사용되는 귀금속을 잘게 쪼개 생산 속도를 최대 57배 높이는 데 성공했다. 비싼 귀금속을 적게 사용하면서도 암모니아를 효율적으로 생산할 수 있는 기술 개발에 도움이 될 전망이다.KAIST(총장 배충식)는 최민기 생명화학공학과 교수 연구팀이 귀금속인 루테늄의…",
+  "url": "http://www.hellodd.com/news/articleView.html?idxno=113945",
+  "date": "2026-11-19",
+  "source": "rss",
+  "external_id": "news:c48564a5d55467bd87c1"
+ },
+ {
+  "org": "헬로디디",
+  "field": "quantum",
+  "tag": "통신",
+  "title": "'흩어진 메모리를 하나로'···ETRI, 서버 간 공유 기술 개발",
+  "content": "데이터센터 여러 서버에 남아 있는 메모리를 모아 필요한 서버가 끌어다 쓰는 기술이 개발됐다. 개별 서버의 물리적 한계를 넘어 메모리 추가 구매와 고가 서버 구축 부담을 줄이는 데 활용될 것으로 기대된다.한국전자통신연구원(ETRI·원장 박세웅)은 데이터센터 메모리 하이퍼바이저 'EMP(E…",
+  "url": "http://www.hellodd.com/news/articleView.html?idxno=113946",
+  "date": "2026-11-19",
+  "source": "rss",
+  "external_id": "news:7ec942076de0ae1a6d59"
+ },
+ {
+  "org": "헬로디디",
+  "field": "eng",
+  "tag": "연구",
+  "title": "세계 상위 1% 피인용 연구자···중국과학원 264건·하버드 185건",
+  "content": "세계 과학기술 연구의 영향력에서 미국의 독주가 흔들리고 있다. 미국은 여전히 세계에서 가장 많은 최상위 피인용 연구자를 보유하고 있지만, 중국의 추격이 거세다. 2018년 세계 상위 1% 피인용 연구자 선정 건수의 7.9%에 불과했던 중국의 점유율은 올해 20.9%까지 높아졌다. 특히…",
+  "url": "http://www.hellodd.com/news/articleView.html?idxno=113940",
+  "date": "2026-11-19",
+  "source": "rss",
+  "external_id": "news:c69f0d1a3bff41ef301d"
+ },
+ {
+  "org": "헬로디디",
+  "field": "bio",
+  "tag": "의학",
+  "title": "'주 1회 비만주사 월 1회로'···펩트론, 비만치료제 임상 1상 돌입",
+  "content": "비만치료제의 투여 주기를 주 1회에서 월 1회로 늘리는 임상이 시작된다. 식약처로부터 임상 1상을 통해 한 번 투여한 약물이 체내에서 얼마나 오래 유지되는지와 초기 안전성을 확인할 계획이다.의약품 개발 바이오기업 펩트론은 식품의약품안전처로부터 월 1회 투여형 세마글루타이드 장기지속형 비…",
+  "url": "http://www.hellodd.com/news/articleView.html?idxno=113943",
+  "date": "2026-11-19",
+  "source": "rss",
+  "external_id": "news:ba03c0e90ce9f6762ff3"
+ },
+ {
+  "org": "전남대학교 미디어포털",
+  "field": "cs",
+  "tag": "AI",
+  "title": "전남대 교육문제연구소, AI·XR 기반 미래교육 특별세션 개최",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQeDlMRXFERzZKTzV1c1BTd2pSY0p3Z0EyeVRuWk1ySFQ2T3BlNUZhZlFlMlhNOEc4TzVobURSdHhLQXVYRUFDZ2VkYVJkZnZXbHh0OHpTbWdXV1hSN25ZemVfWHpQWi1udG1uTV9nUHFWYS1hdExmcEgwc2N6RlFSMUJNbEdUTFBqSjlzOUVxTGYyOEdadUZpMQ?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:f94d61fb7c67a8f8e700"
+ },
+ {
+  "org": "헬로디디",
+  "field": "bio",
+  "tag": "의학",
+  "title": "분자진단으로 글로벌 시장 겨냥···HLB파나진, 의료기기 전시회 공략",
+  "content": "HLB파나진이 세계적인 의료기기 전시회에 참가해 해외시장 공략에 나섰다. 분자진단 기술을 글로벌 업계에 알리고 유통망 확대와 신규 사업 기회를 찾는 데 집중한다.분자진단 및 신약 연구·개발 바이오 기업 HLB파나진은 지난 16일부터 독일 뒤셀도르프에서 열리는 'MEDICA 2026'에…",
+  "url": "http://www.hellodd.com/news/articleView.html?idxno=113941",
+  "date": "2026-11-19",
+  "source": "rss",
+  "external_id": "news:de93fae4e0b4754ee6d4"
+ },
+ {
+  "org": "한국대학신문",
+  "field": "eng",
+  "tag": "연구",
+  "title": "전북대·한국교통대 공동연구팀, 간 기능 향상 오가노이드 배양 복합 하이드로젤 개발",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE5ZZTF1ZzJqck9qN05YYUtSVFRKaWQ5YnhfV3V1TlJRUmg2UTdBSGZmTHZZdXhQVTltbHRLcHFIaG83MVhXRURIMk9seXpOWFMwQ19nNkk5VFp1VmZjTlg4TThtWjFGZw?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:53a72dfe5f57a914cbf0"
+ },
+ {
+  "org": "헬로디디",
+  "field": "quantum",
+  "tag": "양자",
+  "title": "'남극 탐험부터 아이언맨 슈트까지'···전설의 과학자 6人, 시민과 만났다",
+  "content": "남극 탐험부터 양자컴퓨터, 인공위성, 공룡 탐사, 슈퍼컴퓨터, 아이언맨 슈트까지. 각 분야에서 평생 연구에 매진해 온 과학자 6명이 시민들과 만나 과학의 세계를 들려줬다. 지난 6월 시작된 '레전드 과학자 사이언스 콘서트'가 6개월간의 여정을 마무리했다.고경력과학기술인연우총연합회(회장…",
+  "url": "http://www.hellodd.com/news/articleView.html?idxno=113944",
+  "date": "2026-11-19",
+  "source": "rss",
+  "external_id": "news:c085754015c09b01fb24"
+ },
+ {
+  "org": "매일일보",
+  "field": "cs",
+  "tag": "AI",
+  "title": "성신여대 AI융합학부 학부생 연구팀, 층간소음 AI·스마트홈 기술 해법 제시",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE5UbDM2NTl6MTNhSy1PVUNpbl9kRHpKc2w2aFNuY1hYVVdyMFVHWmNGQ2U5Y2Q4T0I1bFhlbTlvREJFc2hBbC1Oa2djTlA0VmItUWVsTWFHQXZDeW1DVENMSGtsN1U?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:5c9c4034556a153fd1e5"
+ },
+ {
+  "org": "BBS불교방송",
+  "field": "eng",
+  "tag": "연구",
+  "title": "DGIST·고려대 공동연구팀, 불필요한 전류 줄인 고감도 유기 광검출기 개발",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9qczZvNzd2UTlJaDZ2b1FkUnl4OXdGM1JuWmo2ZGdUQmNuaU04Nlo5VFlFckJSXy1wcnhRaHFZUG1RaWdsa3Ntd0RJZEpuMTEtajlvWUhWeldRRmhSWGI3TlAtdVRWaEVfc1M4?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:6a677f8ac6436071593c"
+ },
+ {
+  "org": "헬로디디",
+  "field": "cs",
+  "tag": "AI",
+  "title": "UNIST, 산업 데이터 활용해 수업한다···AI 융합인재 2000명 육성",
+  "content": "울산과학기술원(UNIST·총장 박종래)이 조선해양·소재 등 산업 현장의 문제를 인공지능(AI)으로 해결할 융합인재 2000명을 키운다. 기업 데이터를 학부 수업에 도입하고, 이를 대학원 연구와 기술개발로 발전시킨다는 계획이다.UNIST는 19일 대학 본관 대강당에서 'AI융합대학 AX…",
+  "url": "http://www.hellodd.com/news/articleView.html?idxno=113947",
+  "date": "2026-11-19",
+  "source": "rss",
+  "external_id": "news:56c7da7231683fc933ec"
+ },
+ {
+  "org": "헬로디디",
+  "field": "cs",
+  "tag": "컴퓨터",
+  "title": "'더 넓은 적외선 영역까지'···재료연, 차세대 센서 개발",
+  "content": "국내 연구팀이 기존 실리콘 센서로는 감지하기 어려웠던 적외선까지 검출할 수 있는 이미지 센서를 개발했다. 산업용 정밀검사와 자율주행 등 다양한 분야에 활용될 것으로 기대된다.한국재료연구원(원장 최철진)은 김용훈 지능형반도체재료연구센터 책임연구원 연구팀이 차세대 단파적외선(SWIR) 이미…",
+  "url": "http://www.hellodd.com/news/articleView.html?idxno=113942",
+  "date": "2026-11-19",
+  "source": "rss",
+  "external_id": "news:252468383d2e5cd0745b"
+ },
+ {
+  "org": "뉴스티앤티",
+  "field": "cs",
+  "tag": "AI",
+  "title": "성균관대 연구팀, AI로 최적 조건 찾아 극미량 비타민C 검출 가능한 초고감도 센서 개발",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTFBTLXV2Q21nZWZuYTBKWURyWDhtbndRVkxBNDZZUlFwamNiQ1ZLYUgxeUczbm9YQXBLMmlCSVhFcnNyMkh6NGUwWURoNnF1b1lDR0VRaGN1T0Q5a29rbjJ0WFgzZ05vNHZyM0E?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:b699cf9155a514ef6ac1"
+ },
+ {
+  "org": "뉴스티앤티",
+  "field": "eng",
+  "tag": "반도체",
+  "title": "동국대·연세대 공동연구, 반도체 심층결함 비접촉 측정법 개발",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE5kRkRDRG9DTEptNkhrejRHcnM2TEpIQWhwS2RzaE53eUlXZ05fOVNTMkNMMGpEUWZkLXhwM09GWlNJQ2FxNUhxNkVuU2hCeWYxV0NtdUZUMEFyNWxET014SjV4NE1ZRmRGSHc?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:982457ebb37466221358"
+ },
+ {
+  "org": "헬로디디",
+  "field": "quantum",
+  "tag": "양자",
+  "title": "[인사] 한국원자력연구원·원자력안전위원회",
+  "content": "한국원자력연구원(원장 정우식)과 원자력안전위원회(위원장 최원호)는 20일 자로 다음과 같이 인사를 실시한다고 19일 밝혔다.◇원자력연소장급 전보△강경호 원자력안전기반연구소장△김명섭 하나로중성자과학연구소장△이재상 양자빔과학연구소장△이병호 선진원자로연구소장△류재수 선진핵주기연구소장△임윤묵…",
+  "url": "http://www.hellodd.com/news/articleView.html?idxno=113939",
+  "date": "2026-11-19",
+  "source": "rss",
+  "external_id": "news:83c7831d2a3a1d13c19f"
+ },
+ {
+  "org": "한국강사신문",
+  "field": "eng",
+  "tag": "반도체",
+  "title": "인하대학교 반도체시스템공학과, 제1회 학술제 개최…학생 연구성과 산업 현장과 연결",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1vRVVyYVJzRlRFSEJVem9nSmlJMXpBbVBhMjVsWmRfTFZYWmdSUF9hdjdkdXhvOW0zSmhuVGtYTTNJcnI0Y1Zjbk9zd3VvaUIyUUZub0xRQktIcTBSTXdsMFNMbl9sSHJjM1dCLXAwU1Q?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:d15cf270966ac3a51bdc"
+ },
+ {
+  "org": "정보통신신문",
+  "field": "eng",
+  "tag": "연구",
+  "title": "한국과학창의재단, 한·미 과학영재 연구교류…국제 공동연구 역량 키운다",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE9nTVEyOE95NlNvSGFTLV9SOTJQQVg0NUFtQU9uTmxJZFRGYnMtQWFxMUd3empEdWRQNXlKemVWNnpGc2NXakpnbFo1YTlITHZwVWJwdmRubXRqVjlUT3oxSTZKOUFSRTJh0gFsQVVfeXFMT1ZYY3owMmdRazQzZVk2X3N1N2dXT2hHak1VZlB3RVZPN0FxVGpsWHZZV05xUTFocTRRSVl4TW9tTzB5MWlYOUVwZ2MxSDZacnJsY3FnWTY5cUdTcW9uRFljaWVSVGRCc2E4bTQ4?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:95e1c84a06492e7cf91e"
+ },
+ {
+  "org": "한국NGO신문",
+  "field": "eng",
+  "tag": "연구",
+  "title": "'기부 이유부터 새로운 방식까지'…아름다운재단, 나눔문화 연구성과 공개",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE1tbE9mQTUtWmZoejNnY1RqZTFrZDNoT1BoZXRwMjlwajJrVWlJNGQ5RVprRGtIczY3clJxSTdsbUNvM2Q1TGFSOEFIZkJOQmRkckw5UUFDVkJ4ajcxUGIyZ080MzdIVFE3?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:ee8e9d41be0fae0c72ea"
+ },
+ {
+  "org": "Vietnam.vn",
+  "field": "cs",
+  "tag": "AI",
+  "title": "새로운 연구는 인공지능의 학습 능력에 영향을 미치는 숨겨진 요인들을 밝혀냈습니다.",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxQWnhyUnFvRmhpSzZtVGtYbWFyZDBVUEZ5ODM4U1F0QXdtQk14TEN2dmw1SnZRb1RvMTJGd2pZT2RsRC0wXzh4T2tYYlh3OEZTUjJtcG1kNjBqalZIOGExSG44Mi12THJxZWlkaXBuRjJkVHUzQThJbU91Z3dUbzFEM19sYzR1X3RhVFpJQktSZEFxX2p5ZmtIb2xmX2c?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:872bfd2c78e72f57d16c"
+ },
+ {
+  "org": "스타트업레시피",
+  "field": "cs",
+  "tag": "AI",
+  "title": "초인적 연구 AI 2027년에 등장할까?",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTFBMdkJoTjF1TnJ5T0tLb3RhekQxS05GalZ0VllMZkFDOWZ4ODBQRlNhcU5yVTI3VTJyVFNIT0lNWlVlTWY1XzBnV0lkSk9fU19ZVFU1MjNlVlpLYUpYeUE?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:92ee6d8d4cb8b1100215"
+ },
+ {
+  "org": "핀포인트뉴스",
+  "field": "cs",
+  "tag": "AI",
+  "title": "성신여대 연구팀, AI로 층간소음 전달 여부 가린다",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE1iODhNQ3VSaklWSnZGdXdFTXBkRlk5bFVjUFJaMzVDTjZVY1g3MTlBSS1UZnF5V2V0N3pfZjJKelFWWER5LWNCUk5iV2dLMVlVaWg1VG5pYWFDR2hhNXc0Q2VlLXhRZ3ZrMHNsWjFmRmNsZVnSAXdBVV95cUxPM0VYTjFJeGcwc3JXRngyRk1wMW9keE0tY2hEZlJjWlRJY2V1dHFfR0pyN25IYXA3MndtRHMwcWp5a3c3aHVSZkttVlVvT09waV9SeTBHZkY2QmRkMEo2R0FZSUN4SG5tNlBsRVYzSE1lVW1ZYXhTYw?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:f4dcfebf00ece2974664"
+ },
+ {
+  "org": "주간한국",
+  "field": "cs",
+  "tag": "AI",
+  "title": "신약 연구, 어떤 분자부터 만들까…대웅제약이 AI 쓰는 법",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5PaTcyN2pXbVFhdm9yR0loUTF0bWExSnYybDZOd09fSnQ2Z0lCVU9PVjdvRnp3T29SWTR4VF9sQmFMNlVZaVh6UnlWc2ZiTllUMEhobGlHak0zcHIwcnNIUXpkRU1ZMVEwN0gxQU8ydHTSAXRBVV95cUxQdlEwaUUyNS0wdkpka1ZOR25hSElnZVBFcFJmVHBHcWJNeW1WQ00zVUJuUDZpZnZwOHFZVjM3T2JWcUJrMmQ5TmduenBwZVpMQ3BXSU9sTFZ0RmpZVzhnaWZGbjBIUVpVMzloTDlndHktZGw3YQ?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:54b2217a146cf71dfa2d"
+ },
+ {
+  "org": "한국강사신문",
+  "field": "eng",
+  "tag": "반도체",
+  "title": "전북대학교 라용호 교수팀, 반도체 광전극 기술 국제학술지 상위 5% 논문 2편 동시 게재",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9PSDJGUmtqanNtdkEyeTMtd1hJSDJoZjFrWGFXRHpyWWFNel9QRlc1b0NjUXVlRXFSLW5UaUpoOFpycV9Icm8zUXJMMmtVRGR2R0ZiQ1hXZXRHU2JmVVdZM1d3N1QwZHV3cmwyUFJ0aEo?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:df96ff4855426414bcc9"
+ },
+ {
+  "org": "디스커버리뉴스(DISCOVERYNEWS)",
+  "field": "eng",
+  "tag": "반도체",
+  "title": "이천시, 반도체 소부장·연구단지 조성 본격화",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE8waW1DeGJ1MzY1VWlVNHF0QUdoaENLMlpCcjRoazJRQndRQzhkTDlxbHBKV3JDTXdJZ2tmMmpOUXF3TlJuOEY3N0xOWXNNT09tU19JWlZGVFNQaC1taEJCVmVld1czMm1KYkYwY2NCUFpOQQ?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:18c163a1a2dd003d687c"
+ },
+ {
+  "org": "한국강사신문",
+  "field": "cs",
+  "tag": "AI",
+  "title": "고려대학교, ‘BP+ 오픈 이노베이션 포럼’ 개최… AI·첨단바이오 글로벌 융합연구 허브 구축 본격화",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1IanJrNjdIanFhWHZ6NUtzMVhnMTdYT1VBYjhZQWJvQ2FUb3lUSDVETGVXNFFVZ2J4VlNmNXBNQ1Z2bjFfRUR6Z1M1YXdISl9KalZmR2lnc01WcXZNRzFZR0tzX1ZNbHJPOXVMdmV1UWY?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:b128e07bb67279e897f3"
+ },
+ {
+  "org": "서울경제",
+  "field": "bio",
+  "tag": "의학",
+  "title": "항암 신약 연구 진전…바이오주 신용미수 당일 상환 필요하다면",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE9mTHVfblFyQWw2VzN3b1V2SzJTbE1HT2RRU0hDSTZIbFZhUFV6LWxvcVZZQW5aNm96cXREaTh1cTNvTGdMbVdSV1B4aExxTFVMZGdF0gFTQVVfeXFMT2ZMdV9uUXJBbDZXM3dvVXZLMlNsTUdPZFFTSENJNkhsVmFQVXotbG9xVllBblo2b3pxdERpOHVxM29MZ0xtV1JXUHhoTHFMVUxkZ0U?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:6b39588e9f7350a347a0"
+ },
+ {
+  "org": "한국강사신문",
+  "field": "bio",
+  "tag": "의학",
+  "title": "인하대학교 이상민 교수, ‘대한의용생체공학상’ 수상…의료기기 산업 발전 공로 인정",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9aNGpMWmNKTzVaTUZTQnFIbUFEU0tlOWtFWnFQaUlsSEE3bjk5N1dIQWkwNlN0c3EwT1FWZ2IyUDBVMkdYblhJOVdTSG5lUC1Td1VWTmpLVlJOZnJUcW1kLWJ2dEd4TVIzRC1uQ2RMa3k?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:6c8a81f91f4976d8e336"
+ },
+ {
+  "org": "유니메이트 알파",
+  "field": "cs",
+  "tag": "AI",
+  "title": "성균관대 박진성 교수 연구팀, AI 최적화 기술로 초고감도 비타민 C 센서 개발",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9ZdkVOWFRBM3ZfenBmajlvQ2Z5RC1EZ2pxUGdlWExtSl9oNkpoOHRzVFdKejRoZXd1ajNkNnE5Mk1nbWdkNHh6VXJGR3VEZUU2MTBmYl9NMkJiczBIMVJmcnRJNDZKTXFPcEJsaQ?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:b28339d3744cdbeebe5f"
+ },
+ {
+  "org": "스마트경제",
+  "field": "eng",
+  "tag": "반도체",
+  "title": "“전극 없이 심층 결함 정밀 진단”… 동국대·연세대 공동연구팀, 차세대 반도체 광학계측법 개발",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5iOVZkaFBHdkJPUFR3Yk1ndzlwWGNCeTlDcmQtQ0NCMldIenZydHlWdGREZ0h5aS1tR2tPWTlWdVpqVVVlRk4zWTRBN3dMaGxQQkZHUUtGRmwyd1RESlFtREZqQ1I2dUgwRl9WNWxqM3I?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:53978f69f63188a9a497"
+ },
+ {
+  "org": "핀포인트뉴스",
+  "field": "eng",
+  "tag": "우주",
+  "title": "숭실대 이한결, 학부 연구로 우주항공 학술지 논문 게재",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFBGa0lJS2tsZnRsNGV3eHBVakg5a0Zia3VPaGQ0R1ZfeVJZTllEbWNwOHhNSnRHTHpvX3RuSlA1VUdldWt2akVVX2RqT21KODMzR0xVLUlIbE1CdjJWRGdncHg3aXRnbDRsbGxyR0REQ05oOFhOdTFn0gF3QVVfeXFMUEZrSUlLa2xmdGw0ZXd4cFVqSDlrRmJrdU9oZDRHVl95UllOWURtY3A4eE1KdEdMem9fdG5KUDVVR2V1a3ZqRVVfZGpPbUo4MzNHTFUtSUhsTUJ2MlZEZ2dweDdpdGdsNGxsbHJHRERDTmg4WE51MWc?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:2e1019414b01845fa09c"
+ },
+ {
+  "org": "스마트경제",
+  "field": "cs",
+  "tag": "AI",
+  "title": "“25번의 실험으로 625가지 경우의 수를 꿰뚫다”… 성균관대 연구팀, AI 최적화 초고감도 비타민 C 센서 구현",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE11cXpsTzZoRjN2U2p1ZDEyejNveHBRcGo0c29MYWFNUERnSlBFTHd2NFU5bXRvM19CQmpNZ3hmbkNOMjZlUXowZ0xtNGFzNUJhOGNoUkZ4cHpWdkgzMWRscUQxaFBkNjVJanlQcjF4M0o?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:007cae43d418763199af"
+ },
+ {
+  "org": "서울파이낸스",
+  "field": "eng",
+  "tag": "반도체",
+  "title": "정권범 동국대 교수 연구팀, 반도체 심층 결함 비접촉 광학계측법 개발",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE5tTEJXdk5aUDNRNHkya3JYY0E2al9qSTZHQjdWNVhiZ2F6YVhuejFEQjdaVjZhMmZiZ0VPSDI1WTk5dDdtTmdKRUhpN1NDdVk1SzNNMEh5aUs4VmxjUXU5SzNoT055MXloR3c?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:c7b6095a04baedc024b6"
+ },
+ {
+  "org": "팝콘뉴스",
+  "field": "eng",
+  "tag": "연구",
+  "title": "성균관대 박진성 교수 연구팀, 소변·혈액 속 극미량 비타민 C 검출 센서 개발",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE0xQm1td29pMG1SR1JkVGJYRThCTUsybHY5Z1dyQmNhN2p1M0dfV252NF93WVMtalVjRzZfdXc5dDc0R3pETzZRZDkyRko1WDFQeTNMd0ZFWlUxUjVMWmRJQlNzTkxSVU9ZN2RTU2ZJc1BRd9IBckFVX3lxTE0xQm1td29pMG1SR1JkVGJYRThCTUsybHY5Z1dyQmNhN2p1M0dfV252NF93WVMtalVjRzZfdXc5dDc0R3pETzZRZDkyRko1WDFQeTNMd0ZFWlUxUjVMWmRJQlNzTkxSVU9ZN2RTU2ZJc1BRdw?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:7dccfc278cb8b77f505d"
+ },
+ {
+  "org": "이뉴스투데이",
+  "field": "quantum",
+  "tag": "양자",
+  "title": "서강대 박준우·최영우 교수팀, 전하 이동이 분자 구조 바꾸는 양자역학 원리 최초 규명",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE5Kb1lDTjVscjliNnF0X3dzN0xaR0E2MzRXb0dIbDZXR2wtNy1hT0VQSGpyNkZzbUJwM2I0WVJsX0FnNlA1MXlEVTFLc2kwdy1hV2o2YnhoLVc4QW9Dak93TFRES2NJUm14YmZkcWpSdnAwWk910gF0QVVfeXFMTkpvWUNONWxyOWI2cXRfd3M3TFpHQTYzNFdvR0hsNldHbC03LWFPRVBIanI2RnNtQnAzYjRZUmxfQWc2UDUxeURVMUtzaTB3LWFXajZieGgtVzhBb0NqT3dMVERLY0lSbXhiZmRxalJ2cDBaT3U?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:a7ef162a79dcc0976008"
+ },
+ {
+  "org": "경기타임스 e",
+  "field": "eng",
+  "tag": "반도체",
+  "title": "이천시, 경기도 ‘K-반도체 초격차' 비전 선포식 참석… “SK하이닉스와 소부장·연구단지로 핵심 거점 역할",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE0yVVlfRXRJak5jTkZ4RXJ6cno4QXZHRWFGRFpXUnc4anktNVZvUkc5X0FIR0NNbDNhN0lRRy0xSVRJTzFMTnV5Mm5sdk5MNEMzZTU3SWtNNC03QlREY3VqMTVUV3F3OWl2cm9ybQ?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:a48c0911fc32de187208"
+ },
+ {
+  "org": "전자신문",
+  "field": "cs",
+  "tag": "AI",
+  "title": "성균관대 박진성 교수 연구팀, AI로 초고감도 비타민 C 센서 개발",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTFBFcjhyaHYxeUNkWmhESVBCSUFFTnJkVWd4RTFDUFlIa1lFV29JNWRIRHhYaFF5OXc2amZyNElzRmRYVjNOcDVKQURUblF0UQ?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:5865327a89ee72db574d"
+ },
+ {
+  "org": "약업신문",
+  "field": "eng",
+  "tag": "연구",
+  "title": "라피끄, 비타민C 안정화 연구 국제학술지 게재",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTE8xbUpyMUdwaFdjQ29WR0lCeHZXRnN1bUNVSndvVjZIdjdraTVhNWEwWXBhdE1XTkJCZGt2bk11bmVpN0dQUmZpSXhrc0JIN1dRdlUzUXJ2MllOSHYtTVVCZmMzQ1I2YnhYZ0NQOUx3MHg5Y1J3a0dKM3l3?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:3bf385c32f127b0e0c7b"
+ },
+ {
+  "org": "대학지성 In&Out",
+  "field": "eng",
+  "tag": "연구",
+  "title": "“빛의 ‘잡음’ 줄였더니 감지 성능 8.5배↑”… DGIST, 고감도 광센서 개발",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE9QSjU4bWVmcjVLVHpQdmQtaGM1Q0lOT1cxVzBKbkY1YmNGQVpfSGk4OW1hSUNOTHdLZ0oweHZhU0J0QURBbFdMalAtSTRvWk9rR3BuUkduTEtZa0lkb1AxTGZkV1drTkU?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:5e515309ea4e5a91a779"
+ },
+ {
+  "org": "https://www.dhtimes.co.kr/",
+  "field": "cs",
+  "tag": "AI",
+  "title": "딥노이드, AI로 병리 전문의 민감도 66%에서 93%로, 판독 시간 절반… 위·대장암 복막 전이 연구 ‘JKMS’ 게재",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTFAyTk1kQ2JVdGZqRVJvVXBJdlkzb0tPbEZCa2dzVFZjakZZU2Q4anpfS0FmVTIzazFHS0g2NkhlckxkbmlkQ2lQYV9sTGE3NkFfQlYxWTFpZDNkREFaRVpDYjRKeXcxYlA5cHc?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:74103ecd29082c67728b"
+ },
+ {
+  "org": "헬로디디",
+  "field": "cs",
+  "tag": "AI",
+  "title": "[조간브리핑]'수백 명 필요하다더니 고작 20명?'···4조원대 'K-프론티어 AI', 인재 영입부터 삐걱",
+  "content": "[조선일보]세계 최고 AI 만든다면서···인력 계획부터 엉성정부가 세계 최고 수준의 인공지능 모델(프론티어 AI 모델)을 개발하겠다며 4조6250억원을 내년도 예산안에 편성했지만, 현실성 없는 인재 확보 방안, 불투명한 사업 추진 일정, 구체성이 결여된 투자 계획 등으로 제대로 추진될지…",
+  "url": "http://www.hellodd.com/news/articleView.html?idxno=113937",
+  "date": "2026-11-19",
+  "source": "rss",
+  "external_id": "news:649c98de01187b9fa501"
+ },
+ {
+  "org": "서울동북신문",
+  "field": "eng",
+  "tag": "연구",
+  "title": "서울시립대 학생연구팀 2곳, 물환경학회 논문대회 우수상",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE10bkpQOFVBdnRTdXB1aHRNYTBkYjdNUTh1UGxQMFo4WnZyVzFidVljNVRzY21ONHlPaVRfcGxodWNjc2FxYXlLMjg2V29oLXRvYWltU2NGVHRWYjdTV2l2NXl2TDRRWXVXV19EaA?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:331a8c2613953b13534a"
+ },
+ {
+  "org": "베리타스알파",
+  "field": "eng",
+  "tag": "반도체",
+  "title": "동국대-연세대 공동연구팀 전극 없이 산화물 반도체 심층 결함 측정하는 비접촉 광학계측법 개발.. '국제학술지 게재'",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE4tb2k5OVFHZk43cnIxbXkzT3d5eXpmUDBQdTNWWHBBanJsY2xHcWpLZ3ZmT2NEbmhWZUNiV1dXeUpuS1BxU1JlQnR2VnVSMU1RYzVhRUI4bE9yVWgxRDFxWEc0dThtazlWZ2ZIbg?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:b6c3f1c197fc8432e8d0"
+ },
+ {
+  "org": "데일리대구경북뉴스",
+  "field": "eng",
+  "tag": "연구",
+  "title": "국립금오공대 은종현 교수 연구팀, 인성·강도 동시에 높인 ‘탄소섬유복합재’ 층간 강화 기술 개발",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTFBTVm02Rm5sRkQzQVJqaGVQMzhaTlpvYlZGTjBib19COHJzTmxQOWxzY2RsVG5CUlVwbnA4U0NlZHAtajB1OXVDcjZfRG9HaGdHRG5HaG93d3BfaHh0UkJFbnpHakpfZw?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:ef3c3c67d77ca6fa43ae"
+ },
+ {
+  "org": "메트로신문",
+  "field": "quantum",
+  "tag": "양자",
+  "title": "울산과학기술원, 양자 AI 회로 경량화 알고리즘 개발",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE1hbkkxSW5RSVRvcG5rZ2FERmt1UEhJM2RpRU81dW5aV25sQzk3MkFkYXFSWmtRQ3dSb0NMakNNUVY0RUN3OHo3ekZ5Wlk1NFc1V2Y0UHBCcGdaTzVSSGtrTA?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:c43d194956a8f20167b8"
+ },
+ {
   "org": "포인트데일리",
   "field": "eng",
   "tag": "반도체",
@@ -9,6 +647,17 @@
   "date": "2026-11-19",
   "source": "google_news",
   "external_id": "news:e077e3042109c53537bc"
+ },
+ {
+  "org": "브런치",
+  "field": "eng",
+  "tag": "반도체",
+  "title": "03화 반도체 연구에 52시간 예외는 필요 없다",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE9BLVBoMXdibkEzcEE1cmtwOVp5MTRkeXQ2ckZrNVdvbFd0VjF4bTB5bnJXTkRMUFh3ODJjaEF3aXV2bm9OcFFLaFZER1h1X25oeXc?oc=5",
+  "date": "2026-11-19",
+  "source": "google_news",
+  "external_id": "news:64cfa32533485b6402b1"
  },
  {
   "org": "Unite.AI",
@@ -55,6 +704,17 @@
   "external_id": "news:3c6413a939723aa12342"
  },
  {
+  "org": "머니투데이",
+  "field": "energy",
+  "tag": "이차전지",
+  "title": "드론 다리가 배터리 된다…휘어도 끄떡없는 구조 배터리 전극 개발 - 머니투데이",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTFBndzVIalVkRFMzdnU1N2RJcW5kMWtDYWg2UlYwWERuNDVFTU9haHNWQjFfdzA5SEIzVHVnc0tjQ0p5TnQ3RTVlMEgtME5Ha2VBZDJ2VW1WMzc5WmF2XzB2dERCRnpocGxNNURWS0NIMNIBb0FVX3lxTFBndzVIalVkRFMzdnU1N2RJcW5kMWtDYWg2UlYwWERuNDVFTU9haHNWQjFfdzA5SEIzVHVnc0tjQ0p5TnQ3RTVlMEgtME5Ha2VBZDJ2VW1WMzc5WmF2XzB2dERCRnpocGxNNURWS0NIMA?oc=5",
+  "date": "2026-11-18",
+  "source": "google_news",
+  "external_id": "news:8ab8b3f3baedabbb5706"
+ },
+ {
   "org": "뉴스타운",
   "field": "eng",
   "tag": "반도체",
@@ -66,37 +726,15 @@
   "external_id": "news:c2fd75ea39370bbde98c"
  },
  {
-  "org": "유니콘팩토리",
-  "field": "energy",
-  "tag": "이차전지",
-  "title": "드론 다리가 배터리 된다…휘어도 끄떡없는 구조 배터리 전극 개발",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE55aDhNTllMa01iN1dtQlFSM0t6REhra0VvYVQ1TzFkaTNselV3S0tvaEFWMTBhdnNod0JfOUNoRmJDNmV3ZTVFZkhITmQ3bGdxbDV1Ri0tVmNpa2J3SDFwTVJqTUNCWm1TZzcwZg?oc=5",
-  "date": "2026-11-18",
-  "source": "google_news",
-  "external_id": "news:e77e9479a0cac27d893e"
- },
- {
   "org": "울산매일 - 울산최초, 최고의 조간신문",
   "field": "quantum",
   "tag": "양자",
   "title": "양자 AI 회로 ‘알짜’만 골라낸다…UNIST 새 알고리즘 개발 - 울산매일",
   "content": "",
-  "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTFBkS1oxQjN0OGU3ck14a1BaRUZqY1dBYV9pd3BSaHdTZWxDTUJmamtTWk5rMU82NlVvMTAxRnFoY2hMZnNvcFVUUmVIV3RoZnVpcXQwOWhLRUxBUXl2R05Qc0h5blBoSmQteFHSAW5BVV95cUxNMXpwaWsybXpyUERIMF8wbTJ5YTV6aTlqby1FbUpQOUV2VmRib0pDVnVDVUJqT05jOU54cGVTXzZwQ3hKUVRTZ0tieGxoeFJGNnlUSkNHaW1uNEo4bTRteDdaaDhQMkZBbTAwOG43UQ?oc=5",
+  "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE0xenBpazJtenJQREgwXzBtMnlhNXppOWpvLUVtSlA5RXZWZGJvSkNWdUNVQmpPTmM5TnhwZVNfNnBDeEpRVFNnS2J4bGh4UkY2eVRKQ0dpbW40SjhtNG14N1poOFAyRkFtMDA4bjdR0gFuQVVfeXFMTTF6cGlrMm16clBESDBfMG0yeWE1emk5am8tRW1KUDlFdlZkYm9KQ1Z1Q1VCak9OYzlOeHBlU182cEN4SlFUU2dLYnhsaHhSRjZ5VEpDR2ltbjRKOG00bXg3Wmg4UDJGQW0wMDhuN1E?oc=5",
   "date": "2026-11-18",
   "source": "google_news",
-  "external_id": "news:650b3a7c749b267193c5"
- },
- {
-  "org": "뉴스밴드",
-  "field": "eng",
-  "tag": "연구",
-  "title": "충남대 공동연구팀, 지문 사진 한 장에서 손가락의 3차원 손잡이성 읽어낸다",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE5RRVVUSlN2M2diWWloc3lvdU9Oemg0WF92LVE4M3ViYWJmSWZVa2xOZ0pCcFJpam1OcGNVMlM2c0xzWVN2ZXFkSS10QVpYN3lDNWNhVDVCdXFvU0FNcmN6ellJVXNQQXBL?oc=5",
-  "date": "2026-11-18",
-  "source": "google_news",
-  "external_id": "news:70fbbe611a588622fb7e"
+  "external_id": "news:def0335d32ca9c04bf7c"
  },
  {
   "org": "헬로디디",
@@ -108,6 +746,17 @@
   "date": "2026-11-18",
   "source": "rss",
   "external_id": "news:dc99b426d6fb61640cf0"
+ },
+ {
+  "org": "메디칼타임즈",
+  "field": "bio",
+  "tag": "의학",
+  "title": "외형 키운 '종근당' R&D 무게…신약개발 중심 체질 전환",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE13ZUFPazlSUmNTZV9ScGFkQkJGUFRtMDVkcmpuSmVoTHlKRERmSktuTGN6cEtlbjRBVFprZW5lMUhzRTBLMjJGOHBjZUcwTUVfdHRzVmUwQm1wVGNZcGVkaXg3V3FTamRGOFE1VE5rNi0?oc=5",
+  "date": "2026-11-18",
+  "source": "google_news",
+  "external_id": "news:df7dff6bcd186e2c2ea8"
  },
  {
   "org": "헬로디디",
@@ -176,17 +825,6 @@
   "external_id": "news:e422de7015e3b8c2e267"
  },
  {
-  "org": "누리일보",
-  "field": "eng",
-  "tag": "연구",
-  "title": "대학원생 140명 우수논문상…경상국립대 ‘젊은 개척연구자의 날’ 열려",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE40TnBISDdhTWpwZmY2b3ROX0JBcmtKUnNKTlA4azhtV3RfTHA0SU5KR0w4ZnQ1QVFGLUpDT0w1b2hYRUJjazB0Zk9pWmMtRlRrdEROTVpDUFpGZW9j?oc=5",
-  "date": "2026-11-18",
-  "source": "google_news",
-  "external_id": "news:9db04a5bdab3041187d7"
- },
- {
   "org": "헬로디디",
   "field": "cs",
   "tag": "AI",
@@ -231,17 +869,6 @@
   "external_id": "news:e9c6a4c8bcb25c3fbfae"
  },
  {
-  "org": "미주중앙일보",
-  "field": "bio",
-  "tag": "생명과학",
-  "title": "국립부경대 연구팀, ‘파치 명란’ 식품 단백질로 전환 기술 개발",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE5HY0ZPdnNXQ0JjNm8tQzVjN254SV8zbFBMTGtJZG1MbFFTVkY1TVBITzFsUklMMm03WE9xN2pWWFNjb2N4RFdTanhHMmFrS3Q4UDJ2OHVqbDN6bHptLVFPZmZR?oc=5",
-  "date": "2026-11-18",
-  "source": "google_news",
-  "external_id": "news:31a069d77360f4148a42"
- },
- {
   "org": "경북일보",
   "field": "bio",
   "tag": "의학",
@@ -251,17 +878,6 @@
   "date": "2026-11-18",
   "source": "google_news",
   "external_id": "news:d237069137453c376ea7"
- },
- {
-  "org": "스포트라이트유",
-  "field": "eng",
-  "tag": "연구",
-  "title": "고려대 박지혁 교수팀, 자바스크립트 호환성 코드 자동 생성 기술 개발… ASE 2026 우수논문상",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMiygJBVV95cUxQcGpNOWNnTy0tT0F5SUpMcHg0ZDc0ak1DMG5TaVNYUUlwNTJCZ0x5U3JEbHh2RkV3YkRleEJDNkk5bURKSldnMGMwdjNLN3MxdndUemFqdHpHOEVhcnBpOWh5X2xkaFNFYzU1X2FYMktqWkJ5UHNfS3BxcDF0dGtEX1poOEFEOHJES1JpM3RyWFFmMUtlbkVxcVlnYkNZV3pEWXUxWEZ1WUk3bGJmY3llSUlsc2Q0WmQxbGxWZWV1R19PQlFLTW5TV1VvVkowZmp6N1lucjVEazdMTzh3T19MMVlWenFBYjdkeTkwaGVub2VoZHY0T1BaOFpOUVZiMGI0YzJlRUpyZWk0ckswc3IxYzBHdVk4YTd0ZDgtYUhnRmhQNGh0Um5YeVU1SVk1WWxNV0d1UVBwRmVNSFlGdE16TExvMTlKNzM1Y3c?oc=5",
-  "date": "2026-11-18",
-  "source": "google_news",
-  "external_id": "news:aabd56a4848409dc007e"
  },
  {
   "org": "헬로디디",
@@ -286,17 +902,6 @@
   "external_id": "news:3604b5ee3ddae379c72f"
  },
  {
-  "org": "매일일보",
-  "field": "eng",
-  "tag": "연구",
-  "title": "숭실대 자연어처리연구실 박찬준 교수 연구팀, EACL 2027 논문 8편 채택",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTFBndzVkVksxb1FxNTZmQVJrUDFfQjhaZFhCXzM5R1U1V0ZmRFVxT2dnZWduWVJMSHluSV94WEdxM0RZQ2EzNzZkR2pOYW81bmlDZGwzR3lRdUo0elEwcE5uRmlfMTM?oc=5",
-  "date": "2026-11-18",
-  "source": "google_news",
-  "external_id": "news:79bac78ac5a1f2428831"
- },
- {
   "org": "헬로디디",
   "field": "energy",
   "tag": "에너지",
@@ -317,17 +922,6 @@
   "date": "2026-11-18",
   "source": "rss",
   "external_id": "news:83eb9d3daa04eae65c03"
- },
- {
-  "org": "이로운넷",
-  "field": "energy",
-  "tag": "이차전지",
-  "title": "포스텍·한양대, 배터리 부식 억제하는 젤 전해질 개발",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE1uOUZmLU9CeUhrZVhZRmtEYTlKNEZ4UFpMaG8zVFY4ZXptUlgwV1RYbDFuRVRfX1BSNUszSXN4RFF3YXY2UUpQSVB5VGVmTzY2NHBOLU9UY2NXc1NOV1k4OU1zTFpfdw?oc=5",
-  "date": "2026-11-18",
-  "source": "google_news",
-  "external_id": "news:fcc96a1db7984f0ede8b"
  },
  {
   "org": "한국일보",
@@ -418,6 +1012,17 @@
   "external_id": "news:5c7b01e53bd15f6f0f68"
  },
  {
+  "org": "조선일보",
+  "field": "bio",
+  "tag": "생명과학",
+  "title": "세종대 바이오융합공학전공 좌남수 교수 연구팀, 식물 면역·도열병균 감염서 페롭토시스 역할 조명 “국제학술지 ‘iMeta’에 논문 게재…철 대사·활성산소·칼슘 신호 연결한 통합 모델 제시”",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQbFoyYVc5Tk5EeDFaNC16bWp4ZC0xWHFUcWRKZEg3ZVdacGxpeXJaaE94T3ptV2ZseXlLaTJyTlVaTjktcXdYNTc2elQ3R2lKY0xNMDJhTXJTNHlDdjZhVGFRU0IxSWF6dFBGd01sanljZTQ1eGRQTE9LcF9TcDRaV3NDS1VzYVV1MmVCSE9B?oc=5",
+  "date": "2026-11-18",
+  "source": "google_news",
+  "external_id": "news:be044c7df46a73a4c98f"
+ },
+ {
   "org": "헬로디디",
   "field": "cs",
   "tag": "AI",
@@ -484,17 +1089,6 @@
   "external_id": "news:65abd2c9d5a6ab41aa61"
  },
  {
-  "org": "이데일리",
-  "field": "eng",
-  "tag": "연구",
-  "title": "고려대 “자바스크립트 호환성 코드 수작업 끝”…자동 생성 기술 개발",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxOa3RrR3R6aHhrb1JzMmhkak5Vc3JvNWNxVTNTNXFwdWdNSk03cjR1NVlxaDdjVUhXb2tNa05HMUJGb19jVFpQYlpvWlBPZWczVW83UGRDMEdiLTBlUENQOWdzSFBrYUdTRVZXUUJhem5FTmN4NS02VGswc3gzdEJNaw?oc=5",
-  "date": "2026-11-18",
-  "source": "google_news",
-  "external_id": "news:297148a539318644d16e"
- },
- {
   "org": "중부매일",
   "field": "energy",
   "tag": "이차전지",
@@ -517,15 +1111,15 @@
   "external_id": "news:299b099a4e73deb9c6d6"
  },
  {
-  "org": "신아일보",
-  "field": "eng",
-  "tag": "연구",
-  "title": "서울시립대 오희경 교수 연구팀, 물환경 논문대회서 우수상 2건",
+  "org": "한국일보",
+  "field": "cs",
+  "tag": "AI",
+  "title": "이태훈 DGIST 교수, 엔비디아 GPU 지원 받는다... 'AI로 촉매 구조 연구'",
   "content": "",
-  "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9zTk8tcVdhdjlOWlZUQzN5TnJhYUx4SjN0RmJEQTRuMDVDWXR5S2NMblRoa29FcHJVa2hSRUl5QkFfVGE4WEttUkQxWFhmYWFjaXFDX1JMenBKRDNTVlZhcFlJM1JOUVNOYnVfTnhZQmE?oc=5",
+  "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE1TUHNldzZvOFNtckpWOUQyRDJWTE5JeFR4WUplQU1DOUpBbUJpNDhCd25wVnloOE9GNEdBNGdVNzhQTW1hSl9aZ0xCZkdYN3RNX1c5WkRfcVRNT2NjWGNUU0RmQ181eGNPcUlLdlBweFNpZ3fSAXNBVV95cUxNU1BzZXc2bzhTbXJKVjlEMkQyVkxOSXhUeFlKZUFNQzlKQW1CaTQ4QnducFZ5aDhPRjRHQTRnVTc4UE1tYUpfWmdMQmZHWDd0TV9XOVpEX3FUTU9jY1hjVFNEZkNfNXhjT3FJS3ZQcHhTaWd3?oc=5",
   "date": "2026-11-18",
   "source": "google_news",
-  "external_id": "news:c0105490106e551c281e"
+  "external_id": "news:8df7411d25d9f008b6b1"
  },
  {
   "org": "스마트경제",
@@ -566,21 +1160,10 @@
   "tag": "생명과학",
   "title": "“식물 면역과 병균 감염의 열쇠”…좌남수 세종대 바이오융합공학전공 교수 연구팀, ‘페롭토시스’ 역할 조명",
   "content": "",
-  "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1uUFhNSi03Qzd2NzdWcUI5UTROam1ndzN4TWp5emJXVmE1dW5pakFEbldLQi1xMU1RcjR0VE1jZG85V1BYaV9ibk5PT3lyNTZEM1ExXzdKR1NQRjJOaXc4SFROd2ZRVWRnRlFXZ2w4MzA?oc=5",
+  "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE41ZmV6Q3QzdGU0N0VyUWVfYTFxN3VKaVBTajNJWnJybGpxVV9XYmN0WmR6YnQ1QTUwbEs0ZDVvYWpUcjBxMlhETkR4STR0NzhOM0RFYmotR281WTIybFpGYlBONVNUTjBYc0ZHTmlPMA?oc=5",
   "date": "2026-11-18",
   "source": "google_news",
-  "external_id": "news:18ccadd41f125c8ed3bd"
- },
- {
-  "org": "뉴스N연합",
-  "field": "cs",
-  "tag": "AI",
-  "title": "숭실대 연구팀, 메타·네이버와 손잡고 프라이버시·효율 동시 잡는 AI 기술 국제 무대 입증",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMiSkFVX3lxTE9MZThlWTR6X0I1bXV0djZ4eDhNQmVSU1V5bXVmOFZaYktNc09jY2Mtdy1TTlBEQ1BHb2hQMmpmdEFqQ2s5RkxHUTVR?oc=5",
-  "date": "2026-11-18",
-  "source": "google_news",
-  "external_id": "news:e90b4382e364fea8fbf4"
+  "external_id": "news:20c53366e8096190ae64"
  },
  {
   "org": "Vietnam.vn",
@@ -627,17 +1210,6 @@
   "external_id": "news:88e4b8234b93326769b1"
  },
  {
-  "org": "재경일보",
-  "field": "cs",
-  "tag": "AI",
-  "title": "AI가 촉매 구조 스스로 탐색…DGIST 연구팀 연구 착수 : 테크/과학",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTFAzSjlZcFJtVFlvQ2luU2VqbEVjaGxxMGpKOGtNeVU0eWhaa3lSM0otbmFWY2JZTUs2TzBVWmdnTEdSREFqWU5EWEo3WQ?oc=5",
-  "date": "2026-11-18",
-  "source": "google_news",
-  "external_id": "news:9e2b4c84d57845fd241b"
- },
- {
   "org": "연합뉴스",
   "field": "cs",
   "tag": "AI",
@@ -660,48 +1232,26 @@
   "external_id": "news:8c48107370962dc348c0"
  },
  {
-  "org": "베타뉴스",
-  "field": "eng",
-  "tag": "연구",
-  "title": "서울시립대 오희경 교수팀, '2026 미래유망 학생연구자 논문대회' 우수상 수상",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTFBMZUtvc2ZpdFMyTGlDWlZUN3BEV0dtT18xMGU1b1FaVmhtd3NKSWN5TzlwM3FESVRPdDZJTHdVZF9tbXVMakstUnlJZWFjeW9pNTUxZ3lVM0txQms5cGJaYnBYT3Q?oc=5",
-  "date": "2026-11-18",
-  "source": "google_news",
-  "external_id": "news:ebe1a5251a36f04b4c3d"
- },
- {
   "org": "팝콘뉴스",
   "field": "eng",
   "tag": "반도체",
   "title": "이화여대 연구팀, 127℃ 고온에도 끄떡없는 차세대 '초박막 반도체' 기술 개발",
   "content": "",
-  "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTFBGaVhJWVlLRENiSmNWbEtZYmNFWFpfS2xhNGxkSUNKNmhCZ0dLRGR0cTAyV3BJdDlMbWdfTDdBRGNPRXFJT3NJVWZWVy1SR2NYa0pVdkRMNGU5d2Q1bzR2TlFfMjJTVzRGQXZfM21HSdIBckFVX3lxTE1mRDJ1N050VWxIUzI4dDRzVjc0OW9Id3R5dWJIby1QT0d1MjZIbi1nWHdnLVVma05icS1vT3pBVXViNVQ0d0hHU0JtZHRSSUZuSWtQNjFtQVlfTUotWVltNHdpTWVwRUhRZEpwakJ5ZUpvZw?oc=5",
+  "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9pWUZ1bnJlWlhXZ3dIc1VteHNIREpNWGt2d2NRRTRUcVIxMnZPTjNENi1YemxIMDY0U0JjUnVjVFF0OXV2YXZ5M3BXUEZtdVJGWTJqZF8tVGtqa09IRWFiZmM2VDlXZHUzNTFsQTlR0gFyQVVfeXFMTWZEMnU3TnRVbEhTMjh0NHNWNzQ5b0h3dHl1YkhvLVBPR3UyNkhuLWdYd2ctVWZrTmJxLW9PekFVdWI1VDR3SEdTQm1kdFJJRm5Ja1A2MW1BWV9NSi1ZWW00d2lNZXBFSFFkSnBqQnllSm9n?oc=5",
   "date": "2026-11-18",
   "source": "google_news",
-  "external_id": "news:87c3e0bc8895958f4e83"
+  "external_id": "news:ed7bec82413af2f3d610"
  },
  {
-  "org": "베리타스알파",
-  "field": "eng",
-  "tag": "연구",
-  "title": "국립금오공대 은종현 교수 연구팀 인성/강도 동시에 높인 '탄소섬유복합재' 층간 강화 기술 개발",
+  "org": "KPI뉴스",
+  "field": "energy",
+  "tag": "이차전지",
+  "title": "배터리 속 물, 약일까 독일까?…포스텍 연구팀, ′야누스 젤′ 개발",
   "content": "",
-  "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE92YXlia3JuR2xrMEpXYTVrOWh4eGVpTzEtMWptVkNlQ1BqZW5SR2hnNmhKN0xrcERjYzJDZHVpV0lQZzhmSlJIUVJ6Y1E3MDZYSUVETENvemg2VGRqUkF1SUZydEVFeVJOR2JOSg?oc=5",
+  "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE5HY0dvdC1zQkQ1bG1ldjVqOGJZNjVqay1NRXVJM0w5SkdqTXB6cHBMNW5iaUo5bkc4UE5vMW9XYzFBM3o5OFBJUVJuMlN6QXRwV0hyR3lxUdIBU0FVX3lxTFBwVG5kcTdwMVNnRHRMLXZwN0U0eWt6eF9JQ3l2ckctNnI5UXAtSWRrMFpsSWRoZ3Y4TkQ5X1VSY2tZTXZtbEVELXNSYzN3TGhEaDVZ?oc=5",
   "date": "2026-11-18",
   "source": "google_news",
-  "external_id": "news:2678a13d184970c39d20"
- },
- {
-  "org": "와이드경제",
-  "field": "quantum",
-  "tag": "양자",
-  "title": "양자 AI에도 ‘복권 당첨’ 원리 통했다…UNIST·고려대, 핵심 회로 선별 알고리즘 개발",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE41Qm9Sb2s5Y2JQZW5iNzZCNEI4MVhtMkRsMy1nU3RLdDFiOTd6M0NSNTk5eG9sV1Bkc013SHFWV21mNE1acF9BYW40bkZFZXJaRnRCMDcySVBjcFhnRjVscl85SVllLUIwMXEwYw?oc=5",
-  "date": "2026-11-18",
-  "source": "google_news",
-  "external_id": "news:2676c539dbad828b6722"
+  "external_id": "news:d886e5a2aa0a002b7c2b"
  },
  {
   "org": "베리타스알파",
@@ -748,17 +1298,6 @@
   "external_id": "news:0b1642814558ce09634f"
  },
  {
-  "org": "메트로신문",
-  "field": "bio",
-  "tag": "생명과학",
-  "title": "국립부경대 연구팀, 빛 기억하는 뇌 모방 소자 개발",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBoTUZBa2dEX3BlOVFEcENQNzNPTDZ3YjNlQjlrN2VfWXZ1U2h1VVlEaHlqSnJZWVFrQWRYZHNIdnZ0Y1Y2UkpFbVRjR1hobGJGTVF4MzVhQ1ZZYUtwUjJxUw?oc=5",
-  "date": "2026-11-18",
-  "source": "google_news",
-  "external_id": "news:5df7eddbb96abb4ce98a"
- },
- {
   "org": "기계신문",
   "field": "cs",
   "tag": "컴퓨터",
@@ -779,17 +1318,6 @@
   "date": "2026-11-18",
   "source": "google_news",
   "external_id": "news:6518f7b2c3fb04eee344"
- },
- {
-  "org": "스포트라이트유",
-  "field": "energy",
-  "tag": "이차전지",
-  "title": "KAIST, 휘어진 구조에 넣어도 작동하는 리튬-황 배터리 양극 개발… 드론 다리 적용 시연",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMixwJBVV95cUxOcjNpZlVwWklQeVU3YmJMWEJRYXFvd3dXM1J0ZXJEM1RJOC16TFFTM0QteW9YYTV6aTBGVl96OWNWOHRuMy02em9BR2ozanFrUVh3OHpmWHlmX3Q2NTZydzZERHM2c3hwc1pQR3FEWFNqUGUzQUVqSlhPX0tmMFQ3ZXBZQTRfU3VqRWk0TmgzTEl1ZkNrUXNrRzRRSTJuMElldnFwR1FVZkQ3VzRNRFd0c0dHSTZXVm5mR2FHWnNha1FoWWNNVEhYbEd6UHRFOVMyXzE3eS1TM0UxQTROUkxMamFFVmc5N2laVjB5UFRtaUFwdHBLbVU3R043bTVTaXpCSktRSFNfbXh1VXM5djdnb29RX1NsWWIybnktY0RCdmJhODdiZ1lENTF4T19xcmVqZVRXLUItQzVZemFRNUxHNUppMmdRWGM?oc=5",
-  "date": "2026-11-18",
-  "source": "google_news",
-  "external_id": "news:a798552bac2d75bf28a6"
  },
  {
   "org": "이뉴스투데이",
@@ -852,21 +1380,10 @@
   "tag": "반도체",
   "title": "아이에스시, 인천 송도에 반도체 테스트 소켓 제조·연구시설 증설",
   "content": "",
-  "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE8zbnZDeTloRkx6QkNmSHNmSGp3aEh5YzlLU0xtQXN1WmZSWWVOQzRqSFd0VUl1OU1qNWVYdkxWU1BLOVNxWjZWQnpxMkV2MWl4ckticlhiVVdyZTF1SFBNc3g4SG9XQUJzYkxv?oc=5",
+  "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE5kU0hRZU9JaWxEUWNDck5lUXYyOC04X2RVOXJ2ZGlNUlFoaVJNZFNaaHQzUEt3WUt1RWFsX1R2RTFBS25BcnNoUHA3TlNFZWJyZDZoWTBDMU1EMER0clF1Wk5Cbjl2WTc3RkE?oc=5",
   "date": "2026-11-18",
   "source": "google_news",
-  "external_id": "news:4d2507f5836e97c14e25"
- },
- {
-  "org": "양자신문",
-  "field": "quantum",
-  "tag": "양자",
-  "title": "블루큐비트, 15만 달러 규모 양자컴퓨팅 연구 지원…글로벌 연구팀 8곳 선정",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTFBuUzNNRTktWWl2MnY4bVdsYll0ZjdSbVI4REsza3FVNUJMTHNWblB3dU4tbjk0NFhxTU1qMkVjUXZKUVA1dW14OFhabC04LU94WkVldFlqQnhTaFVna0RqdDhNRlZIQUtuU3VnRW1nZw?oc=5",
-  "date": "2026-11-18",
-  "source": "google_news",
-  "external_id": "news:9d3229bd8713f655fabb"
+  "external_id": "news:fbd889e011e44a840d88"
  },
  {
   "org": "포인트데일리",
@@ -935,26 +1452,15 @@
   "external_id": "news:b10a791fcb3c705b2b10"
  },
  {
-  "org": "메드월드뉴스",
-  "field": "bio",
-  "tag": "의학",
-  "title": "온코닉, ‘GLP-1 병용 근육보존 신약’ 연구성과 美 비만학회 발표",
+  "org": "이뉴스투데이",
+  "field": "eng",
+  "tag": "반도체",
+  "title": "이재준 수원시장, 수원 반도체 연구개발 거점 육성 추진",
   "content": "",
-  "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE1JMGxHSFZaeWlqUFNaa214WUlhOVFXSWpaUThMRVhOZW4tRWlXRzJBQmlmYjRhdXV3VkJLektvWUZ1bG1lQnRaX3Njb09VNl9SWm9pTzRJcDhRSFI2d3psOS16Q2MzQzRqWjFRZkJ3?oc=5",
+  "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTFBMNFB3Ul9oZVBuS3ZwNmRTRExta1pyWi1MVmNXV2lXYllxbWEtdHFfNTlzX0dvZFdIZ3FVSTJRY0FCNXVudnQ0SUhpZDBNRTIxeEdpMEZlUFg3TmpDaTI0WXAyR01WV3Y0c2pLb0lCX0ViQ1ot0gF0QVVfeXFMUEw0UHdSX2hlUG5LdnA2ZFNETG1rWnJaLUxWY1dXaVdiWXFtYS10cV81OXNfR29kV0hncVVJMlFjQUI1dW52dDRJSGlkME1FMjF4R2kwRmVQWDdOakNpMjRZcDJHTVZXdjRzaktvSUJfRWJDWi0?oc=5",
   "date": "2026-11-17",
   "source": "google_news",
-  "external_id": "news:02f26bc98589ab38e8d9"
- },
- {
-  "org": "병원신문",
-  "field": "cs",
-  "tag": "AI",
-  "title": "[HU]수술 장면의 맥락 인식하는 AI 기술 개발",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE5CZHNXckpsU2h6b0JNeWdxM0ZkUUI1aUVQZlR3YzhSb0hXalVSVGVCTm5fakVFTlVNVGpKWG5TWGF2RjhDNG9Wb2FMNmY0LVA4MUU5NEdvcm9VTEhWNkUxY2hERERxVnJyTFE?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:0f7cc9126a130bd596b5"
+  "external_id": "news:4a1501236ce080ba3a23"
  },
  {
   "org": "Vietnam.vn",
@@ -966,6 +1472,17 @@
   "date": "2026-11-17",
   "source": "google_news",
   "external_id": "news:b99e32fcbdc11052ba0a"
+ },
+ {
+  "org": "베리타스알파",
+  "field": "eng",
+  "tag": "연구",
+  "title": "광운대 이상신 교수 연구팀 국내 최초 메타표면 기반 광다이오드 핵심기술 개발/// 차세대 CPO용 광 아이솔레이터 집적 혁신 기대",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBzRURGZ2VqV0R2Tm8zN0JQN1hrUHlvS3JzNGk3VjE3eDFSOVo1RFFVdGpQZFl2REpUc01WM0pFUVpqQ2ZBQ0pRM0hTNm9nODRzM3FPbGxCdFM1LU5kbVpSZmo3ZDBMMmxqOVczTg?oc=5",
+  "date": "2026-11-17",
+  "source": "google_news",
+  "external_id": "news:4745255d71891ebe6caa"
  },
  {
   "org": "베리타스알파",
@@ -1006,10 +1523,10 @@
   "tag": "컴퓨터",
   "title": "환자정보·신약 연구 데이터까지…국가 배후 해커들 의료계 정조준",
   "content": "",
-  "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTFBTYVBHa0J3aC0zRkxGOHd2WkwyRnpyTXdmaHBGLWtYNjd6NDlrXzNVWGdJNVJScXF1aV9PZ2FCbzZTSkg0Mm5ua1phWWdRaWNkZk5Z0gFTQVVfeXFMUFNhUEdrQndoLTNGTEY4d3ZaTDJGenJNd2ZocEYta1g2N3o0OWtfM1VYZ0k1UlJxcXVpX09nYUJvNlNKSDQybm5rWmFZZ1FpY2RmTlk?oc=5",
+  "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE1lVEZ1WmllVU9zY29lUXJxZDFFanIxZ3lUaWpod0VsV2wxMnV3ZVQwWjRrQi1ENy0yaTlVMmJFNjVQSjlTWU1rZEV2X0VmbHlUaVHSAVNBVV95cUxQU2FQR2tCd2gtM0ZMRjh3dlpMMkZ6ck13ZmhwRi1rWDY3ejQ5a18zVVhnSTVSUnFxdWlfT2dhQm82U0pINDJubmtaYVlnUWljZGZOWQ?oc=5",
   "date": "2026-11-17",
   "source": "google_news",
-  "external_id": "news:e0774d28bf5be2d1bcf2"
+  "external_id": "news:24cac0afea5ce75dc277"
  },
  {
   "org": "헬로디디",
@@ -1032,6 +1549,17 @@
   "date": "2026-11-17",
   "source": "google_news",
   "external_id": "news:836f61d0304b0de8310f"
+ },
+ {
+  "org": "톱뉴스",
+  "field": "eng",
+  "tag": "연구",
+  "title": "건국대 이만종 교수팀, 초저선량 X선 검출기 개발… 세계 최초 ‘무씨드 성장법’으로 제작 공정 혁신",
+  "content": "",
+  "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE9hVTdXaTNET3ZWbXBFcERlRXlDaTJIR0Q2ckEzS1VTT1ZVUmVGeHlPOWV3amZ3MTZiZ3dqWkxjcGk0NDc3bWVISVdkTndKM3pkdzA3c1lJOENmRGNSdVliMlR0YmdvelBiUHVPUXljVQ?oc=5",
+  "date": "2026-11-17",
+  "source": "google_news",
+  "external_id": "news:4f3435251008f60d32a4"
  },
  {
   "org": "헬로디디",
@@ -1111,17 +1639,6 @@
   "external_id": "news:76597183b9652ea839a7"
  },
  {
-  "org": "livesnews.com",
-  "field": "cs",
-  "tag": "AI",
-  "title": "인천대·가천대, AI 반도체 연구·인재양성 협력 확대",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE1DSzY2dExXbHBwREVzUUQ2OHE4MmVKaTl3Tks3UGtxb0tDZWVtWmNidm9SemFBa0xtZEtYVkJVN0llczBjTFpKaFZqWW1ma3I2WUZCMXlyeTk5WmtMSmR6UkVn?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:27ca24821b97e84e1b64"
- },
- {
   "org": "헬로디디",
   "field": "energy",
   "tag": "에너지",
@@ -1131,522 +1648,5 @@
   "date": "2026-11-17",
   "source": "rss",
   "external_id": "news:1557e822df57c615fea2"
- },
- {
-  "org": "산학뉴스",
-  "field": "energy",
-  "tag": "이차전지",
-  "title": "캐나다, 연구자 26명·기업 4곳에 과학상…배터리·친환경 소재 성과는?",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9vRUt6UXlsV3k1dDBfNEVWQlhKMkNPT0t1WDkwZ3hiWUgzZTdLRlZJZGxPOXZvRzJuWUk3TV9fUmhrZnNHX2JFRkwzWmZPbmlIX3g2Mi1ocVpkQW10WExNOXRJRmI0MVgyYUt3?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:1e776c464a48c3981a41"
- },
- {
-  "org": "머니투데이",
-  "field": "eng",
-  "tag": "연구",
-  "title": "삼육대 임종은·이병희 교수, '세계 상위 2% 연구자' 동반 선정 - 머니투데이",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE9tQXhlQXcyd3AwbVFqQ2FqcnhpQ2xRYWRJdmlPT3A3YTlGTlk0MWRvd1FQY0lVdDNsbzRXRDR5Um5VMW1pQVM0bXZRR3p1Mk8tRm41Q2U2VmxwZ0RxSE5abEU0X1JPM2RicGRpUFFDSdIBb0FVX3lxTE9tQXhlQXcyd3AwbVFqQ2FqcnhpQ2xRYWRJdmlPT3A3YTlGTlk0MWRvd1FQY0lVdDNsbzRXRDR5Um5VMW1pQVM0bXZRR3p1Mk8tRm41Q2U2VmxwZ0RxSE5abEU0X1JPM2RicGRpUFFDSQ?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:84731169c3828d19d6ab"
- },
- {
-  "org": "헬로디디",
-  "field": "energy",
-  "tag": "이차전지",
-  "title": "비싼 니켈 줄이고, 성능 높이고···배터리 장수명 원리 규명",
-  "content": "니켈을 덜 쓰고도 배터리에 에너지를 더 많이 담을 수 있는 방법이 개발됐다. 사람이 무리하지 않으면 오래 버티듯, 소재가 견딜 수 있는 한계 안에서 충전하는 방법을 활용하자 저렴한 소재가 비싼 소재에 버금가는 성능을 낸다는 사실을 확인했다.포항공과대학교(POSTECH·총장 김성근)는 신…",
-  "url": "http://www.hellodd.com/news/articleView.html?idxno=113904",
-  "date": "2026-11-17",
-  "source": "rss",
-  "external_id": "news:fcf2f7d39e7cee57732a"
- },
- {
-  "org": "전자신문",
-  "field": "cs",
-  "tag": "AI",
-  "title": "개인기초연구에도 AI 활용해 과학 난제 푼다",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE9sLUJOWlUzZ2VodTUteUVXRUFXZzdaN1MxQ2k0cWpJLWlvbzYxcjZzc3VYR2tiU1hFRHFQdzdVTkhTNm1laHJUbnhfT1B4UQ?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:a6065d86f0b3572b595c"
- },
- {
-  "org": "헬로디디",
-  "field": "energy",
-  "tag": "이차전지",
-  "title": "재료연·경희대, 배터리 없이 심장 움직임 읽는 '무선 패치' 개발",
-  "content": "배터리나 전자회로 없이 심장의 움직임을 실시간으로 측정할 수 있는 무선 패치가 개발됐다. 심장 표면에 붙인 패치의 자기장 변화를 외부 센서로 감지하는 방식이다. 수술 후 심장 기능을 지속적으로 관찰하는 데 활용될 것으로 기대된다.경희대학교(총장 김진상)는 박윤석 신소재공학과 교수 연구팀…",
-  "url": "http://www.hellodd.com/news/articleView.html?idxno=113905",
-  "date": "2026-11-17",
-  "source": "rss",
-  "external_id": "news:7f8b7d1ea4fe18147909"
- },
- {
-  "org": "교수신문",
-  "field": "cs",
-  "tag": "AI",
-  "title": "숭실대 AI안전성연구센터, 군집 드론 위협 대응 AI 제어 기술 개발",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE80WFBvaVNEblRMdlRYZUNaYXR3cE5PZDY0ckNLT2FYblJuWGppdzliaWFGdW1XV0x3akhxOU03R0ZtM0ZVUHF0R2dES2xrajBKcTBiVFlmU3IzTjM3V1Q0RW5udGRWTzQ?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:9d922482861b0bc5a16e"
- },
- {
-  "org": "중앙매일",
-  "field": "eng",
-  "tag": "연구",
-  "title": "청주시정연구원, 충북대학교 도시안전연구소와 MOU 체결",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBQb1FJMGNJejZqT0VOTUI4NW11eGxYUGJQUnBMckM3S1hpODNHRUJIM1M1eHdCOHE4SFAyZVB6QmEyQ1lYX0xxTVJyNkhxU2tLa0x0MlV5WG1CaGJublNYYkI2T1pZTHM?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:95dc613b319e1c1f7c5d"
- },
- {
-  "org": "헬로디디",
-  "field": "eng",
-  "tag": "우주",
-  "title": "나라스페이스, 우즈베키스탄 우주청과 맞손···중앙아시아 우주시장 공략",
-  "content": "나라스페이스테크놀로지(대표 박재필, 이하 나라스페이스)가 우즈베키스탄 디지털기술부 산하 우주연구기술청(Uzcosmos)과 우주과학기술 분야 협력을 위한 양해각서(MOU)를 체결했다고 17일 밝혔다.협약식은 외교부와 우주항공청이 공동 주최한 '제2회 글로벌 뉴스페이스 포럼'이 열린 지난…",
-  "url": "http://www.hellodd.com/news/articleView.html?idxno=113903",
-  "date": "2026-11-17",
-  "source": "rss",
-  "external_id": "news:464fc747d901c9785135"
- },
- {
-  "org": "전국매일신문",
-  "field": "energy",
-  "tag": "이차전지",
-  "title": "한국연구재단 “전고체전지 수명 난제, 해법은 이중층에 있었다”",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE1LX2RlM1ZwU2h3aTQzOE15YVppejhlWkZtam1VTFd5RkdDZi1uaElOREM0ZHRnVXIyZ0xxSk4wMFhQUjVwTmJ0MHdKbGtjXzBjejJOdm9IbFVfM2JhTXE4VHBaNjFKYkVXVlB3dHhn?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:6a09eca6b9cc065650be"
- },
- {
-  "org": "전자신문",
-  "field": "cs",
-  "tag": "AI",
-  "title": "“챗GPT부터 쇼핑·메일까지”… 카이스트 연구팀, 화면 보고 일하는 AI 'KORMo-Web' 공개",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE5YV0plbldJUm9oMFViTDFyYXpDYmUwcGwzMXRJZnZvV2VaeUZHcmE0YXFlcXN6eFNkbHRhMHZOYXNzazRHemJvRzlLUjFidw?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:84f540fc7f02a1dcee9e"
- },
- {
-  "org": "금강일보",
-  "field": "bio",
-  "tag": "생명과학",
-  "title": "국립공주대 생명과학과 연구팀 논문 국제학술지 BioScience 게재",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE4xQ1BnTmFSbG9PdXgxNENzeGstcDlkMjJyMVQ0NVFlejU1TXNORG5LaHQ1MGFiSDlyMlJPYmVITEtkaDNTdmVvLVJWMmFtU2t5U25xdnVDQTJJN0tVc3Q0UTlkeXREbGNDblE?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:c0fa9532347395c34a6e"
- },
- {
-  "org": "컨슈머타임스",
-  "field": "cs",
-  "tag": "AI",
-  "title": "일동바이오사이언스·가톨릭대, 프로바이오틱스 AI 예측 연구 국제 게재",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1rVTNhazVqTjBKZFdrRUgtdEYxS1NVVDhQTkx6aDV2aFE0Y0tBblBYeGpjbURfLVpCQllPS0xVRGloQ190SGVIUmZDOWFFT2hWbWpSZktkVE1RV2JtTk5Sd1g1Ni0tUEd1Snc?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:7c5aa54a674c810caf31"
- },
- {
-  "org": "경인방송 뉴스",
-  "field": "cs",
-  "tag": "AI",
-  "title": "일동제약·한미약품·유한양행, AI 제조혁신부터 항암·신장질환 신약까지 연구개발 속도",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE9ubGQ1X21tdzBzeDYzLUF1dVB6VzNSNHV3S1JtYlZ4cDhrX3QzY3MyNVJFQTMxRWZkWkJ5WUJZZk8tc0ktbFBYQ0JuNUowODJUNkNHNzBUb1h4VUVWTDk5elFDT0HSAWhBVV95cUxPSjVzRC1mOVpTN2oyS0xUdkk5NkZGdUdNMXJVVTdpNkprNTVQUXNuMWVaSXFHT0ZtVE5pQ0dCNTZYXzMxZGtKUC01ZXNiajNxbGZJS3NPajRyUFM3QlUxNy1NME5KNnVfaA?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:5277cef8888e5caed798"
- },
- {
-  "org": "한국농어민신문",
-  "field": "eng",
-  "tag": "연구",
-  "title": "효모 활용해 농산물 가공 유해물질 줄이는 기술 개발",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1Da1NCcUM5U1ppdlpmclloOEdlSFZ2SFZyQUlBZWNGVXBkWnNlU01QY2NXUnprQldzemFqMjlfS05fdk9MazJDT1p1S1pVOTBGYjY1OVZPVUxtRHhTUzJvM0tWcncxd2tzckVTNg?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:5a0c62e4f8221b9d7fc6"
- },
- {
-  "org": "중앙일보",
-  "field": "eng",
-  "tag": "연구",
-  "title": "G-LAMP, 3년간 ‘박사후연구원’ 350명에 698억원 지원",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE1LMjloTi1QRWw1RDI1U09IN3Z4NkNMUzVqSGNMa1RLalM1eV9KWUdvYjZHUjZ3cGI0RDl0amxibWM3U3F4WnRHTGVEOWJjM1ZIZmZWZF9B?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:2e246a71964e852cf0a5"
- },
- {
-  "org": "한국대학신문",
-  "field": "eng",
-  "tag": "연구",
-  "title": "경희대 박윤석 교수 연구팀, 심장 움직임 무선 측정 자성-점탄성 패치 개발",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE5SQzJRRjZ5SlJyTFM4cjZhQ0VvNTJCR0ZtYlcwbklMMnNGR1hCdUN0TmdQUzZmeDNudnNwaUF6SGpCd3VxYnNTeWlHdFpVcDFzdXhSbjZYVlVnTmxzd0NnS21wc0dWUQ?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:8ed1b0d62d598bdd4c10"
- },
- {
-  "org": "더바이오",
-  "field": "bio",
-  "tag": "생명과학",
-  "title": "일동바이오, 이민지 교수 연구팀과 ‘프로바이오틱스 제조공정’ 공동 연구 발표",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFA3MnJPbVZkTkw1bERzTTRMaUZwem5sMzBySmNkX0JWZlpCZ1N2bEN1WGlXc0RwTjV1VHRCRzRvaUU3Qm11QVlSS3RVckxKYjJ4N0Z1N002d2ZQVHRsdEtDNnJneHljMDBEd2ZyNdIBcEFVX3lxTE9Rc0c1NWNRT0ZOcE42dzF2MGx0a256eXgySmpmUXpGLVd1cG9iYWpRTEpEZ2lFWHhJVnJ6cEhZUjVHaVUzMWpQRG5NSXp5THdGclFLWVotbWh1N1FtMUNqOWZ3T25hclROSHpCXzhxZVc?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:45b66119342535867b97"
- },
- {
-  "org": "서울경제TV",
-  "field": "cs",
-  "tag": "AI",
-  "title": "일동바이오·가톨릭대 연구팀, AI 기반 프로바이오틱스 예측 모델 개발",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE5XaXBtNnhncG96YklXR0NxWHBaU2pWUjdqY2RRUFl5eVozN3ZDQVlyWFctd3NuY2NjR3dzZ1dJdXdiZFV2SzVZU04wUmd3dEh6dC1VWWxBTnFlVmZsRlZpNlJoMmQ?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:7b3bee9a5e398a4defa8"
- },
- {
-  "org": "하이테크정보",
-  "field": "quantum",
-  "tag": "양자",
-  "title": "양자 신호 1000배 증폭…다이아몬드 마이크로파 레이저 개발",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5TWl93ckN4TXNOQnY4azZ1dG5DOUM1T01NRWllVDJIRDhSbXJBRWk3a1FqQ1pCczRvX2x6a2ljWjlCMS1Iam1xV2x6aWJrVzViV01uOUhvTzhKV2wtMFhiSUtmWXlLaUhmYU1IVdIBbEFVX3lxTE5TWl93ckN4TXNOQnY4azZ1dG5DOUM1T01NRWllVDJIRDhSbXJBRWk3a1FqQ1pCczRvX2x6a2ljWjlCMS1Iam1xV2x6aWJrVzViV01uOUhvTzhKV2wtMFhiSUtmWXlLaUhmYU1IVQ?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:5ad9002e5d1ecf6f9b80"
- },
- {
-  "org": "뉴스H",
-  "field": "cs",
-  "tag": "AI",
-  "title": "한양대 박상진 교수 연구팀, AI 분야 최우수 국제학술대회 CIKM 2026 정규 논문 게재",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1PSXNpVXhiSGFaZVVZaFBNSG0wdVpUTjJsQUtRR1ZwU21HNUZKSC02LTYtVU5TUkhzREU0MzJWcDBZY0lmYTV0V0Y1elVDQzZlYWQ1a3hCMUpXYmFyRGV2MEJCeFo4SF91aEE?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:b3d4699787b6b1d0d3a2"
- },
- {
-  "org": "헬스코리아뉴스",
-  "field": "bio",
-  "tag": "의학",
-  "title": "[Pharma Report] 한미약품, 항암신약 2종 임상 성과 공개…비만 치료제 연구 결과 잇따라 外",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE9fUmpjZUh0MDFxRnlCdWJIZ3dySFVYUUpiVkU4ZjNMSnFobGhJVGYwaEE0dmNhV2tqM25GbDVyTkJ1Rk9QSkREOTFseW1WNUg3OFdrT0JsWmFhX3FRZ0RMZ0VUSUZ1YXM?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:ba25c12c2410f536f3f1"
- },
- {
-  "org": "MBC 뉴스",
-  "field": "cs",
-  "tag": "AI",
-  "title": "한국은행 고용연구팀 '근로자, AI로 업무시간 3.7시간 단축'",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE14cFFoZ201M2RNdWNlOHNEbDl1dUxpZUJtLTRialQzSXhJYjF5aE1rdUh5LWpqczdRYzVocUViandBUVdIb1V0alJqU2h3Tk00anBjMnpqSldadHcxRllRYzEzeEJ1T3EzVE1leVFfaHZMOWNv0gF0QVVfeXFMTkV3aUlJZ1NSU3V0bUN4U0UxVVRQSE1qWXY3cHRucmpOUks4cHRmeXljcGdLQmhtMk1YMzJrbGtvX1J3dWVMalFGMEh1UlhqcVcyT2RySG9SeGR4bTA5OERXUnJCRTZKVC1iSnI2MjNGbDlJbU8?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:5c2e90a75471f8c81239"
- },
- {
-  "org": "이코노미사이언스",
-  "field": "cs",
-  "tag": "AI",
-  "title": "일동바이오사이언스, AI로 프로바이오틱스 생산공정 예측 모델 개발",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTFBlQ1RXRmtMcWlncGZwVG9oeGhpVXF2OElwdkpkRm5GczZ4ZlNlT0o4LUEtU0NWNU9Nd0pPa2tpRE9QQTdzWml6bmRDSnNDZ0hzeUMxWnh2ZldXd3hacXZfS0h0RUtYR1NOby1lS3Fucw?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:85a2e07555c0927ddd8f"
- },
- {
-  "org": "인공지능신문",
-  "field": "cs",
-  "tag": "AI",
-  "title": "오픈AI, 전 세계 연구자 20만 명에 챗GPT 무료 지원…AI 연구 생태계 확대",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5ZZ1J2Z1lVZVp6LU5EZG1CLVNWcjBvcXI1bVpvcUJreW0wWVVGU3RsdVNlVjJhSl9SdUl3VVRsSDVjUW45SzVaODRCMTFkMGl6OUxIbHI3VXNaejhNb2FlMFZpaEJDS00?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:f541ced5f92dc90c080a"
- },
- {
-  "org": "대학IN",
-  "field": "eng",
-  "tag": "연구",
-  "title": "건국대, 세계 최초 ‘무씨드 성장법’으로 초저선량 X선 검출기 개발",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBqa1VqYmg1V1Eyd1VZd1YzaE55LThVOTlMa3c4bWViLUlXZW0yNnVQT05kNkNjVVhjUkh3bVNiSVk1Mlk0aG1MaVQ1MGljMWNkNk9KQVpQNmFsVXMxLTVnV000YW55bGRKQS1NYtIBcEFVX3lxTE44RlhuRFQ0Wk91MzNqMUIwTjhzNXNLOWJNejl3c2llLW5vRno5WjJER0dZSS1MeHBaSFBCV016aHZDQktLM1RMWi1IREJpVXBVdmNFbjdBcE5KQnhiQXE5Zl95Ym0tVWdmNEdHOE85QzI?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:799f0ee588ef3b090eb0"
- },
- {
-  "org": "부산일보",
-  "field": "bio",
-  "tag": "생명과학",
-  "title": "국립부경대 이은광 교수팀, 뇌 모방 소자 연구 국제학술지 잇달아 게재",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE53NFFIQllIM2VYM21hREc3WS1LVmhJM2NRRU5FajlxVmdfVlh4UUVyd0RqSXI1elZDWDR1TkFnbnJNcnlIUWVIRW5VVVNoanJNVjRMaTJHd3pWcWd4U01PLTVrSWx0Y0xrWFNadU5iRmxvbXJn?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:d12c1c3d4eeb4f540756"
- },
- {
-  "org": "기계신문",
-  "field": "eng",
-  "tag": "연구",
-  "title": "기계연구원, 빛 조절로 물체 색상 바꾸는 스마트 조명 기술 개발",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE90blBXOE50cFJsLTRSN0VzTGxzODVaU1hjZVVCM3NKOG5GY2xJaXZUUmxOQVlhaGlSSEsxYmtoQ3cyYldNRng1ajd2RzJtdnlHNlZ4X3ZKcElBaGozZWtnaG5jcTlwZw?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:3ab0a9500ffc66f714e9"
- },
- {
-  "org": "뉴스티앤티",
-  "field": "eng",
-  "tag": "연구",
-  "title": "성균관대 연구팀, 실리콘 음극 수명 문제 해결할 차세대 전해액 기술 개발",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE96WllTMkp1dHgyZ3Nrc01mZml5YU9BbzNScHBCQ1pfU0JoMGcxc0RiTW5xSmNzLVNHQVpXRC1sN3JqY3d2WDVRZ3VVUzRUWGE0emNRUFk3dUw5YmZXbUVwbTdrSG4zZUo1M3c?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:9490d9d484713cfef7d1"
- },
- {
-  "org": "스마트경제",
-  "field": "eng",
-  "tag": "소재",
-  "title": "“방사선 공포 지우는 기적의 엑스레이”…이만종 건국대 화학과 교수 연구팀, 11일 걸리던 핵심 소재 24시간 만에 완성",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE9OSUlEZHZDQnVqSjVEaVQtM1p2eEpGVFY4RlRTMHhHcFlQZHlXWEs1TXlXdG1RVGRFQTVSamtGNDlqb1RoYmJwUjJyUklFSEUxTlpoWUxCaHhUNHFwQ0R6Vi1GTHMwLXNzbzFhbEVBWQ?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:9b77d93c0b93012d6796"
- },
- {
-  "org": "한국대학신문",
-  "field": "quantum",
-  "tag": "통신",
-  "title": "전북대 염종민 교수 연구팀, 위성자료·AI로 새만금 수질 지표 추정 기술 개발",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE9mSmdkQUVKc1VOalFLVU9MS3NDQ2JFazZkbGtjaUJvQ0s2UE5SSjV5Tk5BQ0FuU1RZWTRsSGIxM2JXVnR4UFF0MENwNnNTNUNtNW9KQ0FXUDM0LVgwZEdUQ1FkQUJNZw?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:3987b96c10f8ab8fc74d"
- },
- {
-  "org": "미주중앙일보",
-  "field": "eng",
-  "tag": "반도체",
-  "title": "김남승 서울대 교수, 美반도체연구조합 기술 우수상 수상",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE0zNTNQYVhtX1NoWDdwbmdRYml3QmNmYmdXS1ZRTlVVMkxRM2xuUTUyNUxKRWllc1BYVWpIX1JhUUpEZ0FzNWpESzVEZ0sxYUgyVU9icTJRRm45bFN3dnFIdklB?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:1f98d685a5cb6bdd070f"
- },
- {
-  "org": "뉴시스",
-  "field": "eng",
-  "tag": "연구",
-  "title": "숭실대 안윤호 교수팀, 기체 분리막 기공 조절 기술 개발",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTFBJOS1qdTE0dDB3MGJQMFNsV0pfMmhUUlZnTWs4TE1Ma25RSmZab2o0WG9CZjFCY2tQX3gtZElQTjJiejV2VERmYmF3MFBsdVpkTEdQeFhmM0lIVDFQQmR1RHJ2MjRCNGNkcWM1VzcyQ2V5U0pkR3pSNtIBeEFVX3lxTFBJOS1qdTE0dDB3MGJQMFNsV0pfMmhUUlZnTWs4TE1Ma25RSmZab2o0WG9CZjFCY2tQX3gtZElQTjJiejV2VERmYmF3MFBsdVpkTEdQeFhmM0lIVDFQQmR1RHJ2MjRCNGNkcWM1VzcyQ2V5U0pkR3pSNg?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:0b8a4e960caf9bdac97a"
- },
- {
-  "org": "바이오타임즈",
-  "field": "cs",
-  "tag": "AI",
-  "title": "루닛, AI 자율 판독·위험 예측 연구 대거 공개…RSNA서 17편 발표",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1tSGp5OUZPekt4VlBtNlo3bnRINlhpWGhxd0Z0SmJMVG1kNGNRelcxMExMZnJVcHBBXzhrRWdJQWJ6cWRmRFhVemVxTHVKNnBXZzZjWnF1R3ZxNWZWU0huVU80ZzdXdGJmT2FWaA?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:19df545ebcb62ffb77e2"
- },
- {
-  "org": "세종대학교 뉴스룸",
-  "field": "cs",
-  "tag": "AI",
-  "title": "인공지능데이터사이언스학과 구영현 교수 연구팀, 한국인터넷정보학회 추계학술대회서 최우수논문상 등 4편 수상",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTFBvSzJUZ1MzNVZlMFR5OWdyRzBMbXNlc2c5OFo4MS1nSkRndThzWjlsRDBvQ3Q5ZjNGQ19DZTIteFZvdEJ4c1I3VDJISGtsUXpINmluOGEwUXFBQWxidktnem5tZ0FRaTV1eERDUE1GeF9mYVNsdU9WeGl2aG12UQ?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:508093d0d91b53a557b4"
- },
- {
-  "org": "한국대학신문",
-  "field": "eng",
-  "tag": "연구",
-  "title": "건국대 이만종 교수팀, 초저선량 X선 검출기 개발…세계 최초 ‘무씨드 성장법’으로 제작 공정 혁신",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE03YzF3ZUxTN2pubUM4OWc5VmtKTXJKLVhiZk52RXg4b0tvSVJ3d1h4LTRvcU5MQTdaZEFGdDFpSGRWMzJNcVZsaTVPNXBVS3JyN3FnRFpQRmplcnBiOWk0TWx3Vkc2dw?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:11fc8accff312059e7a1"
- },
- {
-  "org": "뉴시스",
-  "field": "bio",
-  "tag": "의학",
-  "title": "온코닉 '美비만학회서 근육보존 신약 연구 발표'",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE9xdGpROHdUOHZ5VTQyQ3N1am5pWnF3Z3lhU1g5TXNzM1ZpRFhzUEtxdkFjZjBRN1ZLeDdPRHdHd1lCa1JHOExoRjhLSjlYeDMwbzBoSGlXbDlpZ0piOUhCUFlwSzR2dGNMdGgxZDNrZFE3SmZ0ZXQ0cNIBeEFVX3lxTE9xdGpROHdUOHZ5VTQyQ3N1am5pWnF3Z3lhU1g5TXNzM1ZpRFhzUEtxdkFjZjBRN1ZLeDdPRHdHd1lCa1JHOExoRjhLSjlYeDMwbzBoSGlXbDlpZ0piOUhCUFlwSzR2dGNMdGgxZDNrZFE3SmZ0ZXQ0cA?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:d7b84dbdbd8ef3e4c157"
- },
- {
-  "org": "베리타스알파",
-  "field": "cs",
-  "tag": "AI",
-  "title": "경희대-성균관대-한국재료연구원 공동연구팀 배터리 없이 심장 움직임 읽는 무선 패치 개발.. '자성 패치에 머신러닝 결합'",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE90eTZyR3JnRU5zRzF0RnBNc3JxMGRWWkVpdW1vYmtyRkVhbWpEOW5YRDBHRkk1YjR2WF82RnJETlhZd0M3SkF3Y2Q3YmYtZ1dpM3hlYlQ3TmRYY01GMzd0dUZFTWRwZWNXdFlSZw?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:59f7710c20cdd7e748be"
- },
- {
-  "org": "정보통신신문",
-  "field": "eng",
-  "tag": "연구",
-  "title": "GIST, ‘비전 2035’ 선포…글로벌 톱 100 연구중심대학 도약",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE1KOEF1bDZCRHpGSHhkOEI2czdLd3hTMlFSMUxVVjBUbklxSHBRM2xDOVF1N2FRTUg1WGlWOFJ5N2tuYmdyUllNMDljVTdxRlRscjMwRGxYemVBQklaSVduS0xKZU9oSGRn0gFsQVVfeXFMUElUcXFyYXBuTmhmbl93NnU0azNnX25uQVE3UUNudHpTbXBkQlB4N3p5QkZqUUcwazFhWUpLVm8tSjNyWFhwMEtHc0JBYWNlRXBXT2FkTUNGT3pPZnNQaDYxcUh5eEcxY0luWEFI?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:96966fee78a177a93760"
- },
- {
-  "org": "헬로디디",
-  "field": "cs",
-  "tag": "AI",
-  "title": "[조간브리핑]기술은 AI 시대인데 법은 제자리···시험장 '스마트 커닝' 막을 방패 없어",
-  "content": "[중앙일보]중국은 시험장 전파 끊는데···한국은 ‘AI 커닝’ 막을 법 없다국가 전문자격시험에서 인공지능(AI)을 활용한 부정행위자가 적발되고, 대학수학능력시험(수능)일이 눈앞에 다가오자 ‘AI 커닝’을 사전 차단할 방안에 관심이 쏠리고 있다.[매일경제]연매출 10억 달러 찍은 퍼플렉시…",
-  "url": "http://www.hellodd.com/news/articleView.html?idxno=113896",
-  "date": "2026-11-17",
-  "source": "rss",
-  "external_id": "news:274c4b7b4f10d3e21bd6"
- },
- {
-  "org": "전자신문",
-  "field": "cs",
-  "tag": "AI",
-  "title": "숭실대 최대선 교수 연구팀, 적대적 물리 위협 대응 군집 드론 AI 제어 기술 개발",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTFBGNmFmMWJ6cE9lZVJGVUlKNi1MN042OF9qaXlKemFYZ2F1VnBqYW1xYk45LXBMREpMZUlEQ19ENHZ5a0V0ZFlhakJXQVlVQQ?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:f947936c747d0ece34bb"
- },
- {
-  "org": "연합뉴스",
-  "field": "bio",
-  "tag": "생명과학",
-  "title": "국립부경대 연구팀, 뇌 닮은 '빛 기억 소자' 개발",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9iUTNZRVVaTktyUklLdFN5UUtzajI3RXVFMGM0dWZCai0tZ3JDU2hYajZCbFZvYnhPaUxrX2dQVnYxRGNlRHBGcXhjVXRNXzhHTndjT09mZzZFV0XSAWBBVV95cUxNNmFaWkNpVkZvQl9LVWhGeGN2c0IzUXRzaU1VVWU5U3hLX29wemFxN1U0YTdKcmtoLWdUcnRJVUd6TVk3eGNsYy1hdVRYUURuQ2hwb3VpcGtaZ1MwYVJfa18?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:35a1c52db6521f16ffd5"
- },
- {
-  "org": "뉴시스",
-  "field": "cs",
-  "tag": "AI",
-  "title": "숙명여대, 차량 네트워크 '사이버 공격 탐지' AI 기술 개발",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE82R0hOcW9mMkNTQm9aV0YyeXBZTjNGNHYzSmRLY0V3UWNxcDdzcmF4RXM3SU5DSzVNSzQzYmJud0dyejlNcFhkamJQNG5hREpwX05HcTd2Q3R6RThiZEVGWVo5YVg0UHQ3QlY5OTAwXzNyN1pYMDRhQ9IBeEFVX3lxTE82R0hOcW9mMkNTQm9aV0YyeXBZTjNGNHYzSmRLY0V3UWNxcDdzcmF4RXM3SU5DSzVNSzQzYmJud0dyejlNcFhkamJQNG5hREpwX05HcTd2Q3R6RThiZEVGWVo5YVg0UHQ3QlY5OTAwXzNyN1pYMDRhQw?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:fe7a8e2b48bd65fef84b"
- },
- {
-  "org": "데일리안",
-  "field": "cs",
-  "tag": "AI",
-  "title": "휴머노이드 다음은 'AI 눈'…삼성서울병원, 의료로봇 연구 속도",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMijAJBVV95cUxNQkd3aU02bVlSaEg5Sk5XdUhYMGozOFlfSll2NE5xOTNUUWpYd3lsNllBLTFxN2ZsSUZsMmdrazdSVVQzbWVjUFFYMzJIdTR4OHJvMlhqaXJtQmhmQmRmNWgxQVhFQTVuREZxYmgtTFRna3VOd2R4MkpPSnN1RVNiVkZwMVBvenpVRnlxUFNibG96MGRzb2NjM3NoY21aWm0tckZ0VFowUnJLaG5GMm5Sa2o4ZU9kd05NaDJXb2d2UWhxMWdZMXJPQlNwYWd2Vk5FRXgzZ2hOdEdla0VRUjNFOVo1MVpTbGhUa1lqWTdMS3QyaVdCVTJzYUJLVGJuTTVkR1M3bTJuUmVCV2FJ?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:ac3c94ac62cfa710e1ce"
- },
- {
-  "org": "한국경제",
-  "field": "bio",
-  "tag": "의학",
-  "title": "온코닉테라퓨틱스, 美 비만학회서 ‘GLP-1 병용 근육보존 신약’ 연구성과 구두발표",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1LaWlMdVcycFVBUHVOOWlVVExZWjgwNjhhelZDd19kcTlmMG5GTjNpUFE3b3hvbnU1TmlnR0lXYm5fRDVtWGdFYWJJRXQyVEFSNGJhNWVwOTBTQQ?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:38e9a7fb34109b7f14cf"
- },
- {
-  "org": "AI넷",
-  "field": "cs",
-  "tag": "AI",
-  "title": "“AI가 부른 전력 대란”… 美 데이터센터, 미시간주 전체만큼 전기 쓴다 - 하버드대 등 국제 연구팀, 초거대 데이터센터 403곳 전력 소비량 분석",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMiQEFVX3lxTE9ReF8wU00tZ3FZczFhR0V2b2I0dEpjMkIxM0tSZnJ2Zkd6S3JPcXFHQW5MYlpuaXViQW1OR1M0aEw?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:abde9f1746c198b0112f"
- },
- {
-  "org": "메디칼업저버",
-  "field": "cs",
-  "tag": "AI",
-  "title": "수술 상황 읽는 'AI 눈' 개발",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE56Ynd0ZGtGZkFTUW9NcXpJc1czeTR2TFR6SE9mY1BuRmJSTWZzS3Z4SnJacTVDOXU0QkJBVjZVb1RNaFYtSzNXeUZMaURiODZqZGg2bkdtS1Ffa0Y2NUFPZW50TUdVSlFIbndV?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:13732b1a46e4fd9b5ae7"
- },
- {
-  "org": "뉴시안",
-  "field": "cs",
-  "tag": "AI",
-  "title": "삼성서울병원, 수술 맥락·단계 읽는 AI 개발…‘수술로봇’ 상용화 성큼",
-  "content": "",
-  "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1yaXhxTF9haGpKanVvMGR3cEJuMDJ1UndVakpOQjJzLXl2UmlacFpEZElQZkNBRjlnLUFibU5QRkdlSnNtRldPdzZ0QTFaTmFpMlRDSXZUVUx4WFpCSGljZWVlblc2ZkFKOXFaeQ?oc=5",
-  "date": "2026-11-17",
-  "source": "google_news",
-  "external_id": "news:b463ecd0d9d22afc29ce"
  }
 ]
