@@ -1823,6 +1823,13 @@ a { text-decoration: none; color: inherit; }
 .hn-card.big .hn-title { font-size: 21px; color: #fff; -webkit-line-clamp: 3; position: relative; z-index: 1; }
 .hn-meta { font-size: 12px; color: #94a3b8; }
 .hn-card.big .hn-meta { color: rgba(255,255,255,.75); position: relative; z-index: 1; }
+/* 대표 기사에 언론사 대표 이미지가 있으면 사진을 깔고, 글자가 잘 보이게 아래쪽을 어둡게 덮는다.
+   사진을 못 불러오면 사진과 덮개를 빼서 원래 색 배경 카드로 돌아간다. */
+.hn-card.big .hn-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s; }
+.hn-card.big.has-img::after { content: ''; inset: 0; font-size: 0; opacity: 1; background: linear-gradient(to top, rgba(2,6,23,.92) 0%, rgba(2,6,23,.62) 38%, rgba(2,6,23,.08) 72%, rgba(2,6,23,0) 100%); }
+.hn-card.big.has-img:hover .hn-img { transform: scale(1.04); }
+.hn-card.big.has-img .hn-chip { position: relative; z-index: 1; background: rgba(15,23,42,.55); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
+.hn-card.big.has-img .hn-title { text-shadow: 0 1px 8px rgba(0,0,0,.35); }
 
 /* 홈: Nature·Science 새 논문 (학술지 목차 느낌) */
 .hp-section { background: #fbfaf7; border-top: 1px solid #ebe7df; border-bottom: 1px solid #ebe7df; }
@@ -4850,10 +4857,15 @@ function renderHomeNews(){
   const list=NEWS.slice(0,5);
   if(!list.length){ el.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:28px;color:#94a3b8;">연구소식을 불러오는 중…</div>'; return; }
   const GRAD={cs:'linear-gradient(135deg,#4c1d95,#7c3aed)',eng:'linear-gradient(135deg,#1e3a8a,#2563eb)',bio:'linear-gradient(135deg,#064e3b,#059669)',energy:'linear-gradient(135deg,#7c2d12,#ea580c)',quantum:'linear-gradient(135deg,#164e63,#0891b2)'};
+  // 대표(맨 왼쪽 큰) 카드는 최신 5건 중 대표 이미지가 있는 가장 최근 기사로 고른다. 이미지가 하나도 없으면 맨 첫 기사.
+  const lead=list.findIndex(n=>safeUrl(n.image_url));
+  if(lead>0) list.unshift(list.splice(lead,1)[0]);
   el.innerHTML=list.map((n,i)=>{
     const fm=fieldMeta(n.field);
     const big=i===0;
-    return `<div class="hn-card${big?' big':''}" style="--cf-c:${fm.c};--cf-bg:${fm.bg};${big?'background:'+(GRAD[n.field]||'linear-gradient(135deg,#1e293b,#334155)'):''}" data-emoji="${fm.emoji}" onclick="goNews(${NEWS.indexOf(n)})">
+    const img=big?safeUrl(n.image_url):'';
+    return `<div class="hn-card${big?' big':''}${img?' has-img':''}" style="--cf-c:${fm.c};--cf-bg:${fm.bg};${big?'background:'+(GRAD[n.field]||'linear-gradient(135deg,#1e293b,#334155)'):''}" data-emoji="${fm.emoji}" onclick="goNews(${NEWS.indexOf(n)})">
+      ${img?`<img class="hn-img" src="${escHtml(img)}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.parentNode.classList.remove('has-img');this.remove()">`:''}
       <span class="hn-chip">${fm.emoji} ${escHtml(n.tag||fm.label)}</span>
       <div class="hn-title">${escHtml(n.title)}</div>
       <div class="hn-meta">${escHtml(n.org||'')}${n.org&&n.date?' · ':''}${escHtml(n.date||'')}</div>
