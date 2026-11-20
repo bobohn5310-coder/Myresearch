@@ -39,6 +39,10 @@ jobs:
           print("총", len(rows), "건")
           print("분야별", dict(collections.Counter(r["field"] for r in rows)))
           print("출처별", dict(collections.Counter(r["org"] for r in rows).most_common(15)))
+          imgs = [r for r in rows if r.get("image_url")]
+          print("대표 이미지", len(imgs), "건 /", sum(1 for r in rows if "image_url" in r), "건 확인")
+          for r in imgs[:10]:
+              print("  ", r["org"], "|", r["image_url"])
           for r in rows[:25]:
               print(r["date"], r["field"], r["tag"], "|", r["org"], "|", r["title"])
           PY
