@@ -279,12 +279,12 @@ BAD_IMAGE_RE = re.compile(r"logo|default|noimage|no_image|no-image|blank|placeho
                           r"share_img|og_img_default|sns_default|lh3\.googleusercontent|gstatic\.com", re.I)
 
 
-def page_get(url, timeout=15, data=None, headers=None):
+def page_get(url, timeout=15, data=None, headers=None, limit=600_000):
     h = {"User-Agent": BROWSER_UA, "Accept-Language": "ko-KR,ko;q=0.9"}
     h.update(headers or {})
     req = urllib.request.Request(url, data=data, headers=h)
     with urllib.request.urlopen(req, timeout=timeout) as r:
-        raw = r.read(600_000)   # 머리말(head)만 있으면 되므로 앞부분만 읽는다
+        raw = r.read(limit)   # 기사는 머리말(head)만 있으면 되므로 앞부분만 읽는다
         final = r.geturl()
         charset = r.headers.get_content_charset() or ""
     m = re.search(rb'<meta[^>]+charset=["\']?([\w-]+)', raw[:4000], re.I)
@@ -307,7 +307,7 @@ def decode_google_link(url):
     sg = ts = None
     for u in (f"https://news.google.com/rss/articles/{gid}?hl=ko&gl=KR&ceid=KR:ko",
               f"https://news.google.com/articles/{gid}?hl=ko&gl=KR&ceid=KR:ko"):
-        page, final = page_get(u)
+        page, final = page_get(u, limit=5_000_000)   # 구글 뉴스 화면은 서명이 뒤쪽에 있어 끝까지 읽는다
         sg = re.search(r'data-n-a-sg="([^"]+)"', page)
         ts = re.search(r'data-n-a-ts="([^"]+)"', page)
         if sg and ts:
@@ -363,12 +363,15 @@ def bigger_image(img):
         return img
     big = f"{m.group(1)}photo/{m.group(2)}{m.group(3)}"
     try:
-        req = urllib.request.Request(big, method="HEAD", headers={"User-Agent": BROWSER_UA})
+        req = urllib.request.Request(big, headers={"User-Agent": BROWSER_UA, "Range": "bytes=0-1023",
+                                                   "Referer": m.group(1)})
         with urllib.request.urlopen(req, timeout=10) as r:
-            if r.status == 200 and r.headers.get_content_type().startswith("image/"):
+            r.read(1024)
+            if r.status in (200, 206) and r.headers.get_content_type().startswith("image/"):
                 return big
-    except Exception:
-        pass
+            print(f"[이미지] 원본 사진 없음 {big} {r.status} {r.headers.get_content_type()}", file=sys.stderr)
+    except Exception as e:
+        print(f"[이미지] 원본 사진 확인 실패 {big}: {e}", file=sys.stderr)
     return img
 
 
