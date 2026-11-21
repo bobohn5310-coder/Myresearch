@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-20T09:45+09:00",
+ "updated": "2026-11-21T09:04+09:00",
  "issues": {
   "Nature": {
    "url": "https://www.nature.com/nature/volumes/659/issues/8141",
@@ -82,17 +82,6 @@
    "doi": "10.1126/science.aef9553",
    "date": "2026-11-19",
    "external_id": "paper:d0f2e78b67b1812794dd"
-  },
-  {
-   "journal": "Science",
-   "field": "bio",
-   "tag": "생명/의학",
-   "title": "Atmospheric organic nitrogen is a major nutrient source to global oceans",
-   "summary": "",
-   "url": "https://www.science.org/doi/10.1126/science.aeg4265",
-   "doi": "10.1126/science.aeg4265",
-   "date": "2026-11-19",
-   "external_id": "paper:f1b8cbb6ea0d78d13b1b"
   },
   {
    "journal": "Science",
@@ -181,6 +170,17 @@
    "doi": "10.1126/science.aei7840",
    "date": "2026-11-19",
    "external_id": "paper:503662dd5076e6f341e1"
+  },
+  {
+   "journal": "Science",
+   "field": "bio",
+   "tag": "생명/의학",
+   "title": "Atmospheric organic nitrogen is a major nutrient source to global oceans",
+   "summary": "",
+   "url": "https://www.science.org/doi/10.1126/science.aeg4265",
+   "doi": "10.1126/science.aeg4265",
+   "date": "2026-11-19",
+   "external_id": "paper:f1b8cbb6ea0d78d13b1b"
   },
   {
    "journal": "Science",
@@ -549,18 +549,6 @@
    "date": "2026-11-18",
    "external_id": "paper:442e8e74f24d750f85fe",
    "image": "https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41586-026-11305-w/MediaObjects/41586_2026_11305_Fig1_HTML.png"
-  },
-  {
-   "journal": "Nature",
-   "field": "etc",
-   "tag": "기초과학",
-   "title": "Architecture of a portal complex embedded in the poxvirus core",
-   "summary": "",
-   "url": "https://www.nature.com/articles/s41586-026-11399-2",
-   "doi": "10.1038/s41586-026-11399-2",
-   "date": "2026-11-16",
-   "external_id": "paper:fbf0edf6ef5376211e27",
-   "image": ""
   },
   {
    "journal": "Science",
