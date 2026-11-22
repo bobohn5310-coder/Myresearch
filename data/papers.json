@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-22T08:30+09:00",
+ "updated": "2026-11-23T08:42+09:00",
  "issues": {
   "Nature": {
    "url": "https://www.nature.com/nature/volumes/659/issues/8141",
@@ -670,17 +670,6 @@
    "doi": "10.1126/science.aeh2982",
    "date": "2026-10-15",
    "external_id": "paper:81c8f46fd969d04861a4"
-  },
-  {
-   "journal": "Science",
-   "field": "space",
-   "tag": "우주",
-   "title": "A fast radio burst at redshift 2, three billion years after the Big Bang",
-   "summary": "",
-   "url": "https://www.science.org/doi/10.1126/science.adz2675",
-   "doi": "10.1126/science.adz2675",
-   "date": "2026-10-08",
-   "external_id": "paper:586e16e84e9a4fe3eb4a"
   }
  ]
 }
