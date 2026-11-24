@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-23T08:42+09:00",
+ "updated": "2026-11-24T13:00+09:00",
  "issues": {
   "Nature": {
    "url": "https://www.nature.com/nature/volumes/659/issues/8141",
@@ -16,6 +16,42 @@
   }
  },
  "papers": [
+  {
+   "journal": "Nature",
+   "field": "eng",
+   "tag": "소재/화학",
+   "title": "Hexa-substituted benzene synthesis with non-classical carbocations",
+   "summary": "",
+   "url": "https://www.nature.com/articles/s41586-026-11449-9",
+   "doi": "10.1038/s41586-026-11449-9",
+   "date": "2026-11-23",
+   "external_id": "paper:13b358f92751b29820ab",
+   "image": ""
+  },
+  {
+   "journal": "Nature",
+   "field": "eng",
+   "tag": "소재/화학",
+   "title": "Continuous N-to-C Peptide Synthesis",
+   "summary": "",
+   "url": "https://www.nature.com/articles/s41586-026-11448-w",
+   "doi": "10.1038/s41586-026-11448-w",
+   "date": "2026-11-23",
+   "external_id": "paper:f8101048cd5b8b2fba33",
+   "image": ""
+  },
+  {
+   "journal": "Nature",
+   "field": "etc",
+   "tag": "기초과학",
+   "title": "Architecture of the poxvirus early-transcription machinery and portal complex",
+   "summary": "",
+   "url": "https://www.nature.com/articles/s41586-026-11458-8",
+   "doi": "10.1038/s41586-026-11458-8",
+   "date": "2026-11-23",
+   "external_id": "paper:014bc6083ac9f68c3201",
+   "image": ""
+  },
   {
    "journal": "Nature",
    "field": "eng",
@@ -393,162 +429,6 @@
    "date": "2026-11-18",
    "external_id": "paper:d22b87cd6c59ec76cb88",
    "image": "https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41586-026-11322-9/MediaObjects/41586_2026_11322_Fig1_HTML.png"
-  },
-  {
-   "journal": "Nature",
-   "field": "space",
-   "tag": "우주",
-   "title": "An inspiral of a star inside a common envelope with its giant companion",
-   "summary": "Observations of AT 2025abao provide direct evidence of common-envelope inspiral, revealing frictional energy dissipation and constraining how orbital energy drives stellar-envelope ejection during…",
-   "url": "https://www.nature.com/articles/s41586-026-11221-z",
-   "doi": "10.1038/s41586-026-11221-z",
-   "date": "2026-11-18",
-   "external_id": "paper:1c9756bd20cb26815245",
-   "image": "https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41586-026-11221-z/MediaObjects/41586_2026_11221_Fig1_HTML.png"
-  },
-  {
-   "journal": "Nature",
-   "field": "bio",
-   "tag": "생명/의학",
-   "title": "Global patterns and drivers of bee richness and endemism on islands",
-   "summary": "Gobal analysis of bee species across 305 islands reveals that islands account for 20% of global bee diversity, with more than 4,100 species and high levels of endemism, and shows that richness is…",
-   "url": "https://www.nature.com/articles/s41586-026-11325-6",
-   "doi": "10.1038/s41586-026-11325-6",
-   "date": "2026-11-18",
-   "external_id": "paper:a5aa00eca76b2a6573ee",
-   "image": "https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41586-026-11325-6/MediaObjects/41586_2026_11325_Fig1_HTML.png"
-  },
-  {
-   "journal": "Nature",
-   "field": "bio",
-   "tag": "생명/의학",
-   "title": "Host–microbe interactions in engineered immunocompetent human gut tissues",
-   "summary": "Engineered barrier models of the small intestine and colon that include immune cells and a microbial compartment enable characterizations of the human epithelial response to Salmonella Typhimurium at…",
-   "url": "https://www.nature.com/articles/s41586-026-11292-y",
-   "doi": "10.1038/s41586-026-11292-y",
-   "date": "2026-11-18",
-   "external_id": "paper:e349acfd88aee906847c",
-   "image": "https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41586-026-11292-y/MediaObjects/41586_2026_11292_Fig1_HTML.png"
-  },
-  {
-   "journal": "Nature",
-   "field": "bio",
-   "tag": "생명/의학",
-   "title": "Injury-induced signalling coordinates immunity and cannibalism in locusts",
-   "summary": "Studies in migratory locusts identify a dual role of volatile guaiacol emission, enhancing survival of individual insects following minor injury but attracting cannibalistic attack once an injury…",
-   "url": "https://www.nature.com/articles/s41586-026-11297-7",
-   "doi": "10.1038/s41586-026-11297-7",
-   "date": "2026-11-18",
-   "external_id": "paper:ab7373919e27981302c6",
-   "image": "https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41586-026-11297-7/MediaObjects/41586_2026_11297_Fig1_HTML.png"
-  },
-  {
-   "journal": "Nature",
-   "field": "bio",
-   "tag": "생명/의학",
-   "title": "Structural and regulatory evolution across the genus Hordeum",
-   "summary": "Chromosome-scale pangenomics across diploid Hordeum species reveals extensive structural variation, hybridization, introgression, horizontal gene transfer and regulatory evolution, revealing adaptive…",
-   "url": "https://www.nature.com/articles/s41586-026-11332-7",
-   "doi": "10.1038/s41586-026-11332-7",
-   "date": "2026-11-18",
-   "external_id": "paper:bf52416a7f63ce8dc4da",
-   "image": "https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41586-026-11332-7/MediaObjects/41586_2026_11332_Fig1_HTML.png"
-  },
-  {
-   "journal": "Nature",
-   "field": "etc",
-   "tag": "기초과학",
-   "title": "Evidence for late Middle Pleistocene Homo erectus in mainland East Asia",
-   "summary": "Late Middle Pleistocene hominin teeth from the Naxian and Baxian caves of southern China, dated to around 324–184 thousand years ago, fill a gap in the geographical and chronological distribution of…",
-   "url": "https://www.nature.com/articles/s41586-026-11271-3",
-   "doi": "10.1038/s41586-026-11271-3",
-   "date": "2026-11-18",
-   "external_id": "paper:a0102e8c12c7c4c17233",
-   "image": "https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41586-026-11271-3/MediaObjects/41586_2026_11271_Fig1_HTML.png"
-  },
-  {
-   "journal": "Nature",
-   "field": "bio",
-   "tag": "생명/의학",
-   "title": "Closest relatives of poxviruses prevail in human and animal guts worldwide",
-   "summary": "A diversified group of DNA viruses with large linear genomes is discovered, egoviruses, that comprise a putative viral order most closely related to animal-infecting poxviruses, and prevail in the…",
-   "url": "https://www.nature.com/articles/s41586-026-11283-z",
-   "doi": "10.1038/s41586-026-11283-z",
-   "date": "2026-11-18",
-   "external_id": "paper:e1af8a87e9da3f01f702",
-   "image": "https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41586-026-11283-z/MediaObjects/41586_2026_11283_Fig1_HTML.png"
-  },
-  {
-   "journal": "Nature",
-   "field": "quantum",
-   "tag": "양자/물리",
-   "title": "Evidence for p -wave magnetism in electronic band structure of metallic EuSi",
-   "summary": "A combination of symmetry analysis, first-principles calculations, neutron scattering and photoemission spectroscopy shows p-wave magnetism in the near-Fermi-level electronic structure of…",
-   "url": "https://www.nature.com/articles/s41586-026-11295-9",
-   "doi": "10.1038/s41586-026-11295-9",
-   "date": "2026-11-18",
-   "external_id": "paper:a8910b1f0604d69deb1b",
-   "image": "https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41586-026-11295-9/MediaObjects/41586_2026_11295_Fig1_HTML.png"
-  },
-  {
-   "journal": "Nature",
-   "field": "energy",
-   "tag": "에너지",
-   "title": "Designing dislocation-driven polar vortex networks in twisted perovskites",
-   "summary": "Experimental and theoretical investigation of twisted freestanding SrTiO3 layers using various analytic methods from 4DSTEM to DFT reveal a long-range ordered screw dislocation pattern as well as…",
-   "url": "https://www.nature.com/articles/s41586-026-11330-9",
-   "doi": "10.1038/s41586-026-11330-9",
-   "date": "2026-11-18",
-   "external_id": "paper:b2914a45553dcf3e4773",
-   "image": "https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41586-026-11330-9/MediaObjects/41586_2026_11330_Fig1_HTML.png"
-  },
-  {
-   "journal": "Nature",
-   "field": "etc",
-   "tag": "기초과학",
-   "title": "Transient contacts between filaments impart its elasticity to branched actin",
-   "summary": "Stiffness of branched actin networks emerges from the formation of contacts between filaments, with growth under load resulting in stiffer networks.",
-   "url": "https://www.nature.com/articles/s41586-026-11300-1",
-   "doi": "10.1038/s41586-026-11300-1",
-   "date": "2026-11-18",
-   "external_id": "paper:adeea8b99f48142f4f51",
-   "image": "https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41586-026-11300-1/MediaObjects/41586_2026_11300_Fig1_HTML.png"
-  },
-  {
-   "journal": "Nature",
-   "field": "earth",
-   "tag": "지구/환경",
-   "title": "Tropical land-use intensification restructures biodiversity",
-   "summary": "Tropical land-use intensification drives substantial biodiversity loss and reorganizes community composition, with aboveground assemblages showing an increase in nestedness in monocultures compared…",
-   "url": "https://www.nature.com/articles/s41586-026-11298-6",
-   "doi": "10.1038/s41586-026-11298-6",
-   "date": "2026-11-18",
-   "external_id": "paper:ce2b3571648b3e94d729",
-   "image": "https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41586-026-11298-6/MediaObjects/41586_2026_11298_Fig1_HTML.png"
-  },
-  {
-   "journal": "Nature",
-   "field": "bio",
-   "tag": "생명/의학",
-   "title": "Ferroptosis in cancer cells triggers PGE 2 production for tumour immune escape",
-   "summary": "Ferroptotic cancer cells activate a molecular program that causes increased levels of PGE2, which in turn impairs type 1 conventional dendritic cell function, compromising antitumour CD8+ T cell…",
-   "url": "https://www.nature.com/articles/s41586-026-11333-6",
-   "doi": "10.1038/s41586-026-11333-6",
-   "date": "2026-11-18",
-   "external_id": "paper:1c238646268c5b572330",
-   "image": "https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41586-026-11333-6/MediaObjects/41586_2026_11333_Fig1_HTML.png"
-  },
-  {
-   "journal": "Nature",
-   "field": "bio",
-   "tag": "생명/의학",
-   "title": "Hypothalamic volume and cell-type changes in ageing and Alzheimer’s disease",
-   "summary": "HypoAD, an atlas of the human hypothalamus in ageing and Alzheimer’s disease that combines high-resolution magnetic resonance imaging from 458 individuals with single-nucleus RNA sequencing of…",
-   "url": "https://www.nature.com/articles/s41586-026-11305-w",
-   "doi": "10.1038/s41586-026-11305-w",
-   "date": "2026-11-18",
-   "external_id": "paper:442e8e74f24d750f85fe",
-   "image": "https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41586-026-11305-w/MediaObjects/41586_2026_11305_Fig1_HTML.png"
   },
   {
    "journal": "Science",
