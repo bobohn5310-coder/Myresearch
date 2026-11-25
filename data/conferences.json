@@ -1978,10 +1978,10 @@
   "org": "IEEE International Symposium on Cluster, Cloud and Internet Computing",
   "start_date": "2027-05-24",
   "end_date": "2027-05-27",
-  "date": "2026-12-01",
-  "abstract_deadline": "2026-11-24",
+  "date": "2026-12-08",
+  "abstract_deadline": "2026-12-01",
   "registration_deadline": null,
-  "content": "IEEE International Symposium on Cluster, Cloud and Internet Computing · 투고 마감 2026-12-01",
+  "content": "IEEE International Symposium on Cluster, Cloud and Internet Computing · 투고 마감 2026-12-08",
   "url": "https://hpcclab.org/ccgrid27/",
   "tags": "해외,컴퓨터구조·시스템,CCF-C,CORE-B",
   "location": "Dallas-Fort Worth, Texas, USA",
@@ -3827,6 +3827,23 @@
  {
   "type": "conf",
   "field": "cs",
+  "title": "SATML 2027",
+  "org": "IEEE Conference on Secure and Trustworthy Machine Learning",
+  "start_date": "2027-05-04",
+  "end_date": "2027-05-06",
+  "date": "2026-09-29",
+  "abstract_deadline": "2026-09-22",
+  "registration_deadline": null,
+  "content": "IEEE Conference on Secure and Trustworthy Machine Learning",
+  "url": "https://satml.org/",
+  "tags": "해외,보안",
+  "location": "Reykjavik, Iceland",
+  "source": "ccfddl",
+  "external_id": "ccfddl:satml27"
+ },
+ {
+  "type": "conf",
+  "field": "cs",
   "title": "SEC 2027",
   "org": "IFIP International Information Security Conference",
   "start_date": "2027-06-14",
@@ -4112,23 +4129,6 @@
   "location": "Burghausen, Bavaria, Germany",
   "source": "ccfddl",
   "external_id": "ccfddl:hotos27"
- },
- {
-  "type": "conf",
-  "field": "cs",
-  "title": "ICECCS 2026",
-  "org": "International Conference on Engineering of Complex Computer Systems",
-  "start_date": "2026-11-23",
-  "end_date": "2026-11-24",
-  "date": "2026-07-20",
-  "abstract_deadline": "2026-07-20",
-  "registration_deadline": null,
-  "content": "International Conference on Engineering of Complex Computer Systems",
-  "url": "https://formal-analysis.com/iceccs/2026/",
-  "tags": "해외,소프트웨어공학,CCF-C,CORE-B",
-  "location": "Brisbane, Australia",
-  "source": "ccfddl",
-  "external_id": "ccfddl:iceccs26"
  },
  {
   "type": "conf",
@@ -7060,6 +7060,22 @@
  {
   "type": "conf",
   "field": "bio",
+  "title": "ICBEMD 2027",
+  "org": "2027 3rd International Conference on Biomedical Engineering and Medical Devices",
+  "start_date": "2027-01-08",
+  "end_date": "2027-01-10",
+  "date": "2026-11-30",
+  "content": "2027 3rd International Conference on Biomedical Engineering and Medical Devices",
+  "url": "https://www.aischolar.com/u/IJ7J3m",
+  "tags": "해외,의학",
+  "location": "Dalian, China",
+  "source": "wikicfp",
+  "external_id": "wikicfp:204464",
+  "wikicfp_checked": true
+ },
+ {
+  "type": "conf",
+  "field": "bio",
   "title": "ICBIP--EI 2027",
   "org": "2027 12th International Conference on Biomedical Signal and Image Processing (ICBIP 2027)",
   "start_date": "2027-07-16",
@@ -8277,6 +8293,8 @@
   "location": "Kunming, China",
   "source": "wikicfp",
   "external_id": "wikicfp:204423",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -8552,15 +8570,15 @@
  {
   "type": "conf",
   "field": "cs",
-  "title": "ACITY 2026",
-  "org": "16thInternational Conference on Advances in Computing and Information Technology",
-  "start_date": "2026-11-27",
-  "end_date": "2026-11-28",
+  "title": "SIPM 2027",
+  "org": "15th International Conference on Signal Image Processing and Multimedia",
+  "start_date": "2027-02-27",
+  "end_date": "2027-02-28",
   "date": "2026-10-31",
-  "content": "16thInternational Conference on Advances in Computing and Information Technology",
+  "content": "15th International Conference on Signal Image Processing and Multimedia",
   "url": "https://acity2026.org/index",
   "tags": "해외",
-  "location": "Zurich, Switzerland",
+  "location": "Vancouver, Canada",
   "source": "wikicfp",
   "external_id": "wikicfp:194359",
   "abstract_deadline": null,
@@ -8941,6 +8959,8 @@
   "location": "Xuzhou, China",
   "source": "wikicfp",
   "external_id": "wikicfp:204457",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9587,6 +9607,8 @@
   "location": "Porto, Portugal",
   "source": "wikicfp",
   "external_id": "wikicfp:204453",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9603,6 +9625,8 @@
   "location": "Singapore",
   "source": "wikicfp",
   "external_id": "wikicfp:204425",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -9763,6 +9787,8 @@
   "location": "Shanghai, China",
   "source": "wikicfp",
   "external_id": "wikicfp:204416",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -10110,6 +10136,22 @@
  {
   "type": "conf",
   "field": "quantum",
+  "title": "EMC² 2027",
+  "org": "2027 2nd International Conference on Embedded Systems, Mobile Communication and Computing",
+  "start_date": "2027-01-08",
+  "end_date": "2027-01-10",
+  "date": "2026-12-23",
+  "content": "2027 2nd International Conference on Embedded Systems, Mobile Communication and Computing",
+  "url": "https://www.aischolar.com/u/32uyuq",
+  "tags": "해외,통신",
+  "location": "Shenzhen, China",
+  "source": "wikicfp",
+  "external_id": "wikicfp:204487",
+  "wikicfp_checked": true
+ },
+ {
+  "type": "conf",
+  "field": "quantum",
   "title": "INNOV 2027",
   "org": "The Sixteenth International Conference on Communications, Computation, Networks and Technologies",
   "start_date": "2027-09-26",
@@ -10121,6 +10163,8 @@
   "location": "Porto, Portugal",
   "source": "wikicfp",
   "external_id": "wikicfp:204449",
+  "abstract_deadline": null,
+  "registration_deadline": null,
   "wikicfp_checked": true
  },
  {
@@ -10407,24 +10451,6 @@
   "location": "Chongqing, China",
   "source": "wikicfp",
   "external_id": "wikicfp:203671",
-  "abstract_deadline": null,
-  "registration_deadline": null,
-  "wikicfp_checked": true
- },
- {
-  "type": "conf",
-  "field": "cs",
-  "title": "ITCA 2026",
-  "org": "2026 8th International Conference on Information Technology and Computer Application",
-  "start_date": "2026-12-18",
-  "end_date": "2026-12-20",
-  "date": "2026-10-30",
-  "content": "2026 8th International Conference on Information Technology and Computer Application",
-  "url": "https://www.aischolar.com/u/bY36Jf",
-  "tags": "해외",
-  "location": "Guangzhou, China",
-  "source": "wikicfp",
-  "external_id": "wikicfp:203631",
   "abstract_deadline": null,
   "registration_deadline": null,
   "wikicfp_checked": true
