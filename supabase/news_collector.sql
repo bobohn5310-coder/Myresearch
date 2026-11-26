@@ -7,6 +7,7 @@
 alter table public.news add column if not exists source       text;
 alter table public.news add column if not exists external_id  text;
 alter table public.news add column if not exists last_seen_at timestamptz;
+alter table public.news add column if not exists image_url    text;
 create unique index if not exists news_external_id_key on public.news (external_id);
 
 -- 2) 확장 (학회 자동 수집 때 이미 켜져 있으면 그대로 넘어간다)
@@ -31,7 +32,7 @@ begin
   end if;
 
   insert into public.news
-    (org, field, tag, title, content, url, date, source, external_id, last_seen_at)
+    (org, field, tag, title, content, url, date, source, external_id, last_seen_at, image_url)
   select left(regexp_replace(r->>'org', '[<>]', '', 'g'), 60),
          coalesce(nullif(r->>'field', ''), 'eng'),
          left(regexp_replace(r->>'tag', '[<>]', '', 'g'), 30),
@@ -39,13 +40,16 @@ begin
          left(regexp_replace(coalesce(r->>'content', ''), '[<>]', '', 'g'), 200),
          r->>'url',
          (r->>'date')::date,
-         r->>'source', r->>'external_id', now()
+         r->>'source', r->>'external_id', now(),
+         -- 언론사가 공개한 대표 이미지 주소 (http/https 만, 따옴표·꺾쇠 같은 위험 문자가 있으면 버림)
+         case when r->>'image_url' ~* '^https?://[^\s"''<>`]+$' then left(r->>'image_url', 500) end
   from jsonb_array_elements(resp.content::jsonb) as r
   where r->>'external_id' is not null
     and coalesce(r->>'title', '') <> ''
     and r->>'url' ~* '^https?://'
   on conflict (external_id) do update set
-    last_seen_at = now();   -- 이미 있는 소식은 관리자가 고친 내용을 덮어쓰지 않는다
+    last_seen_at = now(),   -- 이미 있는 소식은 관리자가 고친 내용을 덮어쓰지 않는다
+    image_url = coalesce(nullif(public.news.image_url, ''), excluded.image_url);  -- 이미지는 비어 있을 때만 채운다
   get diagnostics n = row_count;
 
   delete from public.news

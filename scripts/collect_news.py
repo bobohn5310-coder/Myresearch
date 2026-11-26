@@ -6,6 +6,8 @@ Supabase 는 DB 안의 예약 작업(pg_cron)이 이 파일을 읽어 news 테�
 
 저작권을 지키기 위해 기사 본문은 저장하지 않는다.
 제목, RSS 가 공개하는 짧은 요약(최대 160자), 출처 이름, 원문 링크만 남긴다.
+최근 기사는 언론사가 공유용으로 공개한 대표 이미지(og:image) 주소도 함께 남긴다.
+(이미지 파일은 내려받지 않고 주소만 저장한다)
 
 사용법
   python scripts/collect_news.py --out data/news.json
@@ -31,6 +33,9 @@ NOW = dt.datetime.now(KST)
 KEEP_DAYS = 30          # 이보다 오래된 기사는 모으지 않는다 (DB 에서도 30일 뒤 지움)
 MAX_ITEMS = 150         # 파일에 남길 최대 건수 (최신순)
 SUMMARY_LEN = 160
+IMAGE_LIMIT = 40        # 대표 이미지를 새로 찾아볼 최신 기사 수 (이미 찾은 기사는 지난 파일에서 이어받는다)
+BROWSER_UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+              "(KHTML, like Gecko) Chrome/124.0 Safari/537.36")
 
 # (이름, RSS 주소, 연구 관련 단어가 있어야만 남길지)
 DIRECT_FEEDS = [
@@ -268,6 +273,145 @@ def dedupe(rows):
     return out
 
 
+# ── 대표 이미지 (og:image) ──────────────────────────────────────────
+# 로고나 기본 이미지처럼 기사와 상관없는 그림은 쓰지 않는다
+BAD_IMAGE_RE = re.compile(r"logo|default|noimage|no_image|no-image|blank|placeholder|favicon|"
+                          r"share_img|og_img_default|sns_default|lh3\.googleusercontent|gstatic\.com", re.I)
+
+
+def page_get(url, timeout=15, data=None, headers=None, limit=600_000):
+    h = {"User-Agent": BROWSER_UA, "Accept-Language": "ko-KR,ko;q=0.9"}
+    h.update(headers or {})
+    req = urllib.request.Request(url, data=data, headers=h)
+    with urllib.request.urlopen(req, timeout=timeout) as r:
+        raw = r.read(limit)   # 기사는 머리말(head)만 있으면 되므로 앞부분만 읽는다
+        final = r.geturl()
+        charset = r.headers.get_content_charset() or ""
+    m = re.search(rb'<meta[^>]+charset=["\']?([\w-]+)', raw[:4000], re.I)
+    for enc in (charset, m.group(1).decode() if m else "", "utf-8", "euc-kr"):
+        if not enc:
+            continue
+        try:
+            return raw.decode(enc), final
+        except (LookupError, UnicodeDecodeError):
+            continue
+    return raw.decode("utf-8", "replace"), final
+
+
+def decode_google_link(url):
+    """구글 뉴스 RSS 링크(news.google.com/rss/articles/...)를 실제 언론사 기사 주소로 바꾼다."""
+    m = re.search(r"news\.google\.com/(?:rss/)?articles/([A-Za-z0-9_\-]+)", url)
+    if not m:
+        return url
+    gid = m.group(1)
+    sg = ts = None
+    for u in (f"https://news.google.com/rss/articles/{gid}?hl=ko&gl=KR&ceid=KR:ko",
+              f"https://news.google.com/articles/{gid}?hl=ko&gl=KR&ceid=KR:ko"):
+        page, final = page_get(u, limit=5_000_000)   # 구글 뉴스 화면은 서명이 뒤쪽에 있어 끝까지 읽는다
+        sg = re.search(r'data-n-a-sg="([^"]+)"', page)
+        ts = re.search(r'data-n-a-ts="([^"]+)"', page)
+        if sg and ts:
+            break
+        # 구글이 바로 원문으로 보내 주는 경우
+        if "news.google.com" not in final and safe_url(final):
+            return safe_url(final)
+    if not (sg and ts):
+        print(f"[이미지] 구글 링크 풀기 실패(서명 없음) {final[:80]} len={len(page)}", file=sys.stderr)
+        return ""
+    inner = json.dumps(["garturlreq",
+                        [["X", "X", ["X", "X"], None, None, 1, 1, "KR:ko", None, 1, None, None, None, None, None, 0, 1],
+                         "X", "X", 1, [1, 1, 1], 1, 1, None, 0, 0, None, 0],
+                        gid, int(ts.group(1)), sg.group(1)], separators=(",", ":"))
+    body = urllib.parse.urlencode({"f.req": json.dumps([[["Fbv4je", inner, None, "generic"]]], separators=(",", ":"))})
+    text, _ = page_get("https://news.google.com/_/DotsSplashUi/data/batchexecute",
+                       data=body.encode(),
+                       headers={"Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+                                "Referer": "https://news.google.com/"})
+    try:
+        payload = json.loads(text.split("\n\n", 1)[1])
+        real = json.loads(payload[0][2])[1]
+    except (IndexError, ValueError, TypeError):
+        print(f"[이미지] 구글 링크 풀기 실패(응답) {text[:120]!r}", file=sys.stderr)
+        return ""
+    return safe_url(real)
+
+
+def find_og_image(article_url):
+    page, final = page_get(article_url)
+    head = page.split("</head>", 1)[0]
+    for key in ("og:image", "og:image:url", "og:image:secure_url", "twitter:image", "twitter:image:src"):
+        for tag in re.findall(r"<meta\b[^>]*>", head, re.I):
+            prop = re.search(r'(?:property|name)\s*=\s*["\']([^"\']+)', tag, re.I)
+            if not prop or prop.group(1).strip().lower() != key:
+                continue
+            c = re.search(r'content\s*=\s*["\']([^"\']+)', tag, re.I)
+            if not c:
+                continue
+            img = html.unescape(c.group(1).strip())
+            img = urllib.parse.urljoin(final, img)
+            img = safe_url(img)
+            if img and not BAD_IMAGE_RE.search(img):
+                return bigger_image(img)[:500]
+    return ""
+
+
+def bigger_image(img):
+    """국내 언론사 다수가 쓰는 기사 관리 시스템은 공유 이미지로 가로 150px 썸네일
+    (/news/thumbnail/..._v150.jpg)을 준다. 같은 사진의 원본(/news/photo/...)이 있으면 그 주소를 쓴다."""
+    m = re.match(r"^(https?://[^/]+/news/)thumbnail/(.+?)_v\d+(\.\w+)$", img)
+    if not m:
+        return img
+    big = f"{m.group(1)}photo/{m.group(2)}{m.group(3)}"
+    try:
+        req = urllib.request.Request(big, headers={"User-Agent": BROWSER_UA, "Range": "bytes=0-1023",
+                                                   "Referer": m.group(1)})
+        with urllib.request.urlopen(req, timeout=10) as r:
+            r.read(1024)
+            if r.status in (200, 206) and r.headers.get_content_type().startswith("image/"):
+                return big
+            print(f"[이미지] 원본 사진 없음 {big} {r.status} {r.headers.get_content_type()}", file=sys.stderr)
+    except Exception as e:
+        print(f"[이미지] 원본 사진 확인 실패 {big}: {e}", file=sys.stderr)
+    return img
+
+
+def load_previous_images(path):
+    """지난번 파일에서 이미 찾아 둔 대표 이미지를 이어받아, 같은 기사를 매일 다시 열지 않는다."""
+    try:
+        with open(path, encoding="utf-8") as f:
+            return {r["external_id"]: r.get("image_url", "") for r in json.load(f) if "image_url" in r}
+    except (OSError, ValueError, KeyError, TypeError):
+        return {}
+
+
+def attach_images(rows, prev):
+    tried = found = 0
+    for r in rows:
+        if r["external_id"] in prev:
+            r["image_url"] = prev[r["external_id"]]
+            continue
+        if tried >= IMAGE_LIMIT:
+            continue   # 이번에는 건너뛰고, image_url 키가 없으니 다음 수집 때 다시 찾아본다
+        tried += 1
+        try:
+            link = r["url"]
+            if "news.google.com" in link:
+                link = decode_google_link(link)
+                time.sleep(1)
+            if not link:
+                continue   # 원문 주소를 못 찾았으면 다음 수집 때 다시 시도
+            img = find_og_image(link)
+        except Exception as e:  # 한 기사가 실패해도 나머지는 계속 (다음 수집 때 다시 시도)
+            print(f"[이미지] 실패 {r['url'][:80]}: {e}", file=sys.stderr)
+            continue
+        finally:
+            time.sleep(0.5)
+        r["image_url"] = img   # 기사에 이미지가 없으면 빈 값을 남겨 같은 기사를 다시 찾지 않는다
+        found += bool(img)
+    print(f"[이미지] {tried}건 새로 찾아 {found}건 찾음, "
+          f"전체 {sum(1 for r in rows if r.get('image_url'))}/{len(rows)}건에 이미지", file=sys.stderr)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default="data/news.json")
@@ -279,6 +423,7 @@ def main():
     if len(rows) < args.min:
         print("모인 소식이 너무 적어 기존 파일을 그대로 둡니다.", file=sys.stderr)
         sys.exit(1)
+    attach_images(rows, load_previous_images(args.out))
     with open(args.out, "w", encoding="utf-8") as f:
         json.dump(rows, f, ensure_ascii=False, indent=1)
         f.write("\n")
