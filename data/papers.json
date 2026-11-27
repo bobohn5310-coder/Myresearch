@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-26T10:53+09:00",
+ "updated": "2026-11-27T10:51+09:00",
  "issues": {
   "Nature": {
    "url": "https://www.nature.com/nature/volumes/659/issues/8142",
@@ -11,11 +11,176 @@
   "Science": {
    "url": "https://www.science.org/toc/science/current",
    "volume": "394",
-   "issue": "6826",
-   "date": "2026-11-19"
+   "issue": "6827",
+   "date": "2026-11-26"
   }
  },
  "papers": [
+  {
+   "journal": "Science",
+   "field": "bio",
+   "tag": "생명/의학",
+   "title": "Priming of AGO2 by type I interferons balances inflammation and antiviral immunity",
+   "summary": "",
+   "url": "https://www.science.org/doi/10.1126/science.adx9551",
+   "doi": "10.1126/science.adx9551",
+   "date": "2026-11-26",
+   "external_id": "paper:dcf0be27c6c4246cb25b"
+  },
+  {
+   "journal": "Science",
+   "field": "bio",
+   "tag": "생명/의학",
+   "title": "Mitochondrial profiling links tumor genotype to metabolic and immune vulnerabilities in liver cancer",
+   "summary": "",
+   "url": "https://www.science.org/doi/10.1126/science.aeb7608",
+   "doi": "10.1126/science.aeb7608",
+   "date": "2026-11-26",
+   "external_id": "paper:da25066568738acba241"
+  },
+  {
+   "journal": "Science",
+   "field": "bio",
+   "tag": "생명/의학",
+   "title": "Shared patterns of human milk composition link mammary gland function to infant growth",
+   "summary": "",
+   "url": "https://www.science.org/doi/10.1126/science.aee7240",
+   "doi": "10.1126/science.aee7240",
+   "date": "2026-11-26",
+   "external_id": "paper:63df2820f35c416f8d24"
+  },
+  {
+   "journal": "Science",
+   "field": "bio",
+   "tag": "생명/의학",
+   "title": "Nutritional interventions’ impacts on human milk: Three trials in low-resource settings",
+   "summary": "",
+   "url": "https://www.science.org/doi/10.1126/science.aee9284",
+   "doi": "10.1126/science.aee9284",
+   "date": "2026-11-26",
+   "external_id": "paper:0aabfdbcc4d3db6d08d9"
+  },
+  {
+   "journal": "Science",
+   "field": "etc",
+   "tag": "기초과학",
+   "title": "Counter-ion confinement reverses ion selectivity in subnanometer channels",
+   "summary": "",
+   "url": "https://www.science.org/doi/10.1126/science.aef1323",
+   "doi": "10.1126/science.aef1323",
+   "date": "2026-11-26",
+   "external_id": "paper:05c7c53ab668a9ae824b"
+  },
+  {
+   "journal": "Science",
+   "field": "earth",
+   "tag": "지구/환경",
+   "title": "Rough fracture zone as a gateway to the 2025 Mw 8.8 Kamchatka earthquake",
+   "summary": "",
+   "url": "https://www.science.org/doi/10.1126/science.aef2089",
+   "doi": "10.1126/science.aef2089",
+   "date": "2026-11-26",
+   "external_id": "paper:6b315dc865d661e37ad6"
+  },
+  {
+   "journal": "Science",
+   "field": "etc",
+   "tag": "기초과학",
+   "title": "An engineered cohesion system reduces errors in aged mammalian eggs",
+   "summary": "",
+   "url": "https://www.science.org/doi/10.1126/science.aei5852",
+   "doi": "10.1126/science.aei5852",
+   "date": "2026-11-26",
+   "external_id": "paper:e3f400ffa6b16400dd0b"
+  },
+  {
+   "journal": "Science",
+   "field": "eng",
+   "tag": "소재/화학",
+   "title": "A tryptophan cation radical determines radical transfer kinetics and catalytic rate in a ribonucleotide reductase",
+   "summary": "",
+   "url": "https://www.science.org/doi/10.1126/science.aei8950",
+   "doi": "10.1126/science.aei8950",
+   "date": "2026-11-26",
+   "external_id": "paper:db7706dafd5a478c89db"
+  },
+  {
+   "journal": "Science",
+   "field": "quantum",
+   "tag": "양자/물리",
+   "title": "Millisecond-scale imaging of fragmented earthquake rupture by near-source fiber-optic sensing",
+   "summary": "",
+   "url": "https://www.science.org/doi/10.1126/science.aei0507",
+   "doi": "10.1126/science.aei0507",
+   "date": "2026-11-26",
+   "external_id": "paper:351e4861ef3de56bf689"
+  },
+  {
+   "journal": "Science",
+   "field": "earth",
+   "tag": "지구/환경",
+   "title": "Abrupt surface water decline during 2023–2024 record warming",
+   "summary": "",
+   "url": "https://www.science.org/doi/10.1126/science.aei2575",
+   "doi": "10.1126/science.aei2575",
+   "date": "2026-11-26",
+   "external_id": "paper:8f6bb4722a3147f71906"
+  },
+  {
+   "journal": "Science",
+   "field": "bio",
+   "tag": "생명/의학",
+   "title": "Atomic functional site scaffolding in biopolymers with RFdiffusion3",
+   "summary": "",
+   "url": "https://www.science.org/doi/10.1126/science.aeh2982",
+   "doi": "10.1126/science.aeh2982",
+   "date": "2026-11-26",
+   "external_id": "paper:81c8f46fd969d04861a4"
+  },
+  {
+   "journal": "Science",
+   "field": "etc",
+   "tag": "기초과학",
+   "title": "Integrating established and emerging tools to assess wildlife condition from the ground, up",
+   "summary": "",
+   "url": "https://www.science.org/doi/10.1126/science.aed3374",
+   "doi": "10.1126/science.aed3374",
+   "date": "2026-11-26",
+   "external_id": "paper:6a814e72f83a5df82ea1"
+  },
+  {
+   "journal": "Science",
+   "field": "bio",
+   "tag": "생명/의학",
+   "title": "Binding kinetics enable tumor-selective MAPK and growth suppression by a Type 1 RAF inhibitor",
+   "summary": "",
+   "url": "https://www.science.org/doi/10.1126/science.aed6493",
+   "doi": "10.1126/science.aed6493",
+   "date": "2026-11-26",
+   "external_id": "paper:0a0bcf544691e0234e74"
+  },
+  {
+   "journal": "Science",
+   "field": "cs",
+   "tag": "AI/컴퓨터",
+   "title": "AI-based digital pathology defines spatial border ecosystems in triple-negative breast cancer",
+   "summary": "",
+   "url": "https://www.science.org/doi/10.1126/science.aei6252",
+   "doi": "10.1126/science.aei6252",
+   "date": "2026-11-26",
+   "external_id": "paper:06a6d0aae67e98dcef36"
+  },
+  {
+   "journal": "Science",
+   "field": "etc",
+   "tag": "기초과학",
+   "title": "Mechanisms of nucleosome disruption shape epigenetic inheritance pathway choice",
+   "summary": "",
+   "url": "https://www.science.org/doi/10.1126/science.aek0813",
+   "doi": "10.1126/science.aek0813",
+   "date": "2026-11-26",
+   "external_id": "paper:6eb0baeadce55e874064"
+  },
   {
    "journal": "Nature",
    "field": "energy",
@@ -293,207 +458,6 @@
    "image": "https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41586-026-11279-9/MediaObjects/41586_2026_11279_Fig1_HTML.png"
   },
   {
-   "journal": "Nature",
-   "field": "eng",
-   "tag": "소재/화학",
-   "title": "Hexa-substituted benzene synthesis with non-classical carbocations",
-   "summary": "",
-   "url": "https://www.nature.com/articles/s41586-026-11449-9",
-   "doi": "10.1038/s41586-026-11449-9",
-   "date": "2026-11-23",
-   "external_id": "paper:13b358f92751b29820ab",
-   "image": ""
-  },
-  {
-   "journal": "Nature",
-   "field": "eng",
-   "tag": "소재/화학",
-   "title": "Continuous N-to-C Peptide Synthesis",
-   "summary": "",
-   "url": "https://www.nature.com/articles/s41586-026-11448-w",
-   "doi": "10.1038/s41586-026-11448-w",
-   "date": "2026-11-23",
-   "external_id": "paper:f8101048cd5b8b2fba33",
-   "image": ""
-  },
-  {
-   "journal": "Nature",
-   "field": "etc",
-   "tag": "기초과학",
-   "title": "Architecture of the poxvirus early-transcription machinery and portal complex",
-   "summary": "",
-   "url": "https://www.nature.com/articles/s41586-026-11458-8",
-   "doi": "10.1038/s41586-026-11458-8",
-   "date": "2026-11-23",
-   "external_id": "paper:014bc6083ac9f68c3201",
-   "image": ""
-  },
-  {
-   "journal": "Science",
-   "field": "etc",
-   "tag": "기초과학",
-   "title": "A thalamo-amygdalar circuit drives female vulnerability to chronic pain after early-life stress",
-   "summary": "",
-   "url": "https://www.science.org/doi/10.1126/science.adx5757",
-   "doi": "10.1126/science.adx5757",
-   "date": "2026-11-19",
-   "external_id": "paper:258ad4e9900c3a3517e8"
-  },
-  {
-   "journal": "Science",
-   "field": "bio",
-   "tag": "생명/의학",
-   "title": "The fate of poised pre-mRNAs shapes mitochondrial activity and cellular differentiation",
-   "summary": "",
-   "url": "https://www.science.org/doi/10.1126/science.aee8018",
-   "doi": "10.1126/science.aee8018",
-   "date": "2026-11-19",
-   "external_id": "paper:9f8960c096baca70fe67"
-  },
-  {
-   "journal": "Science",
-   "field": "quantum",
-   "tag": "양자/물리",
-   "title": "Quiet within, chaos without: Turbulence shelters drive selective particle capture and release",
-   "summary": "",
-   "url": "https://www.science.org/doi/10.1126/science.aee9889",
-   "doi": "10.1126/science.aee9889",
-   "date": "2026-11-19",
-   "external_id": "paper:60eb15a40551bad36e02"
-  },
-  {
-   "journal": "Science",
-   "field": "bio",
-   "tag": "생명/의학",
-   "title": "A neural code for generative speech production in human Wernicke’s area",
-   "summary": "",
-   "url": "https://www.science.org/doi/10.1126/science.aef8963",
-   "doi": "10.1126/science.aef8963",
-   "date": "2026-11-19",
-   "external_id": "paper:cef93e151ad4dd5d469e"
-  },
-  {
-   "journal": "Science",
-   "field": "etc",
-   "tag": "기초과학",
-   "title": "Interpenetrating bottlebrush elastomer for low-loss soft ultrasonic interfaces",
-   "summary": "",
-   "url": "https://www.science.org/doi/10.1126/science.aef9553",
-   "doi": "10.1126/science.aef9553",
-   "date": "2026-11-19",
-   "external_id": "paper:d0f2e78b67b1812794dd"
-  },
-  {
-   "journal": "Science",
-   "field": "quantum",
-   "tag": "양자/물리",
-   "title": "Angular momentum transfer from an optical vortex to an atomic rotor",
-   "summary": "",
-   "url": "https://www.science.org/doi/10.1126/science.aeh0182",
-   "doi": "10.1126/science.aeh0182",
-   "date": "2026-11-19",
-   "external_id": "paper:de84e8ed7aee25ede605"
-  },
-  {
-   "journal": "Science",
-   "field": "energy",
-   "tag": "에너지",
-   "title": "Elastic-field reorganization stabilizes soft-lattice perovskites for durable solar cells",
-   "summary": "",
-   "url": "https://www.science.org/doi/10.1126/science.aeh3114",
-   "doi": "10.1126/science.aeh3114",
-   "date": "2026-11-19",
-   "external_id": "paper:078fda128663fced2b2c"
-  },
-  {
-   "journal": "Science",
-   "field": "bio",
-   "tag": "생명/의학",
-   "title": "Divergent activation of the RXFP1 relaxin receptor by protein and small-molecule agonists",
-   "summary": "",
-   "url": "https://www.science.org/doi/10.1126/science.aei0135",
-   "doi": "10.1126/science.aei0135",
-   "date": "2026-11-19",
-   "external_id": "paper:1258fa6c26ad9abeb3df"
-  },
-  {
-   "journal": "Science",
-   "field": "eng",
-   "tag": "소재/화학",
-   "title": "Meso–microporous zeolitic materials with thin walls containing ordered 10-ring channels",
-   "summary": "",
-   "url": "https://www.science.org/doi/10.1126/science.aei6161",
-   "doi": "10.1126/science.aei6161",
-   "date": "2026-11-19",
-   "external_id": "paper:64267063f1f060dd4bed"
-  },
-  {
-   "journal": "Science",
-   "field": "energy",
-   "tag": "에너지",
-   "title": "Molecular adhesion for durable metal halide perovskite modules",
-   "summary": "",
-   "url": "https://www.science.org/doi/10.1126/science.aej5001",
-   "doi": "10.1126/science.aej5001",
-   "date": "2026-11-19",
-   "external_id": "paper:af9781071a426c5c4b60"
-  },
-  {
-   "journal": "Science",
-   "field": "quantum",
-   "tag": "양자/물리",
-   "title": "Quantum-classical separation in bounded-resource tasks arising from measurement contextuality",
-   "summary": "",
-   "url": "https://www.science.org/doi/10.1126/science.aec3042",
-   "doi": "10.1126/science.aec3042",
-   "date": "2026-11-19",
-   "external_id": "paper:ec1f7cceb4a890d44f90"
-  },
-  {
-   "journal": "Science",
-   "field": "eng",
-   "tag": "소재/화학",
-   "title": "Balancing redox-mediated cytotoxicity and catalysis in natural product biosynthesis",
-   "summary": "",
-   "url": "https://www.science.org/doi/10.1126/science.aee2641",
-   "doi": "10.1126/science.aee2641",
-   "date": "2026-11-19",
-   "external_id": "paper:1c0f4da7e0bd7c723186"
-  },
-  {
-   "journal": "Science",
-   "field": "eng",
-   "tag": "소재/화학",
-   "title": "Telemetric calorimetry for wireless continuous reaction profiling",
-   "summary": "",
-   "url": "https://www.science.org/doi/10.1126/science.aei7840",
-   "doi": "10.1126/science.aei7840",
-   "date": "2026-11-19",
-   "external_id": "paper:503662dd5076e6f341e1"
-  },
-  {
-   "journal": "Science",
-   "field": "bio",
-   "tag": "생명/의학",
-   "title": "Atmospheric organic nitrogen is a major nutrient source to global oceans",
-   "summary": "",
-   "url": "https://www.science.org/doi/10.1126/science.aeg4265",
-   "doi": "10.1126/science.aeg4265",
-   "date": "2026-11-19",
-   "external_id": "paper:f1b8cbb6ea0d78d13b1b"
-  },
-  {
-   "journal": "Science",
-   "field": "bio",
-   "tag": "생명/의학",
-   "title": "A DNA Typewriter records the cell lineage history of a mouse, from zygote to late organogenesis",
-   "summary": "",
-   "url": "https://www.science.org/doi/10.1126/science.ael0508",
-   "doi": "10.1126/science.ael0508",
-   "date": "2026-11-19",
-   "external_id": "paper:90ae413dab030da1ca20"
-  },
-  {
    "journal": "Science",
    "field": "etc",
    "tag": "기초과학",
@@ -635,17 +599,6 @@
    "doi": "10.1126/science.aee7961",
    "date": "2026-10-15",
    "external_id": "paper:cf634d78226c10f1c591"
-  },
-  {
-   "journal": "Science",
-   "field": "bio",
-   "tag": "생명/의학",
-   "title": "Atomic functional site scaffolding in biopolymers with RFdiffusion3",
-   "summary": "",
-   "url": "https://www.science.org/doi/10.1126/science.aeh2982",
-   "doi": "10.1126/science.aeh2982",
-   "date": "2026-10-15",
-   "external_id": "paper:81c8f46fd969d04861a4"
   }
  ]
 }
